@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  background-image: url(../img/fonChoose.jpg);
+  background-image: url(../../img/createHero/fonChoose.jpg);
   background-size: cover;
   color: #ebdb83;
 }
@@ -50,7 +50,7 @@ h2 {
   font-size: 30px;
   margin-top: 1%;
 }
-.wrapper {
+.wrapperElement {
   font-style: italic;
   width: 230px;
   height: 230px;
@@ -70,49 +70,49 @@ h2 {
   background-position: bottom;
 }
 #fire {
-  background-image: url(../img/fire.png);
+  background-image: url(../../img/createHero//fire.png);
 }
 #water {
-  background-image: url(../img/water.png);
+  background-image: url(../../img/createHero/water.png);
 }
 #air {
-  background-image: url(../img/air.png);
+  background-image: url(../../img/createHero/air.png);
 }
 #earth {
-  background-image: url(../img/earth.png);
+  background-image: url(../../img/createHero/earth.png);
 }
 #life {
-  background-image: url(../img/life.png);
+  background-image: url(../../img/createHero/life.png);
 }
 #death {
-  background-image: url(../img/skull.png);
+  background-image: url(../../img/createHero/skull.png);
 }
 #spear {
-  background-image: url(../img/spear.png);
+  background-image: url(../../img/createHero/spear.png);
 }
 #shild {
-  background-image: url(../img/shild.png);
+  background-image: url(../../img/createHero/shild.png);
 }
 #crown {
-  background-image: url(../img/crown.png);
+  background-image: url(../../img/createHero/crown.png);
 }
 #source {
-  background-image: url(../img/source.png);
+  background-image: url(../../img/createHero/source.png);
 }
 #sphere {
-  background-image: url(../img/sphere.png);
+  background-image: url(../../img/createHero/sphere.png);
 }
 #stamp {
-  background-image: url(../img/stamp.png);
+  background-image: url(../../img/createHero/stamp.png);
 }
 #key {
-  background-image: url(../img/key.png);
+  background-image: url(../../img/createHero/key.png);
 }
 #flow {
-  background-image: url(../img/flow.png);
+  background-image: url(../../img/createHero/flow.png);
 }
 #power {
-  background-image: url(../img/power.png);
+  background-image: url(../../img/createHero/power.png);
 }
 #forms {
   margin: 50px 0 50px 0;

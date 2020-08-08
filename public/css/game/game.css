@@ -1,12 +1,12 @@
 body {
   margin: 0px;
-  background-image: url(../img/fon2.jpg);
+  background-image: url(../../img/game/fon2.jpg);
   background-size: cover;
 }
 #enemy {
   height: 170px;
   box-shadow: 0px -6px 0px -4px #7a7a7a inset;
-  background-image: url(../img/fonGame.jpg);
+  background-image: url(../../img/game/fonGame.jpg);
   background-size: cover;
 }
 .healthContainer {

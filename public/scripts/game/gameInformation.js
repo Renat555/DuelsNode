@@ -74,5 +74,3 @@ let gameInformation = {
     deathpower: "Власть смерти"
   }
 };
-
-export default gameInformation;

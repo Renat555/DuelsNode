@@ -21,75 +21,58 @@ let forms = {
 let divWait = document.getElementById("fixed");
 divWait.hidden = true;
 
-function chooseElement (event) {
-  let target = event.currentTarget;
+function selectDiv(element, obj) {
+  for (let key in obj) {
+    if (obj[key] == "undefined") {
+      element.setAttribute("data-status", "selected");
+      element.classList.add("highlight");
+      obj[key] = element.dataset.value;
+      return;
+    }
+  }
+}
 
-  if (target.dataset.status == "notSelected") {
+function clearDiv(element, obj) {
+  for (let key in obj) {
+    if (obj[key] == element.dataset.value) {
+      obj[key] = "undefined";
+      element.classList.remove("highlight");
+      element.setAttribute("data-status", "notSelected");
+      return;
+    }
+  }
+}
 
-    for (let key in elements) {
-      if (elements[key] == "undefined") {
-        target.setAttribute("data-status", "selected");
-        target.classList.add("highlight");
-        elements[key] = target.dataset.element;
-        return;
-      }
+function choose(event) {
+  let element = event.currentTarget;
+  let classElement = element.classList[0];
+
+  if (element.dataset.status == "notSelected") {
+
+    switch (classElement) {
+      case "wrapperElement":
+        selectDiv(element, elements);
+        break;
+      case "wrapperForm":
+        selectDiv(element, forms);
     }
 
-  } else if (target.dataset.status == "selected") {
+  } else if (element.dataset.status == "selected") {
 
-    for (let key in elements) {
-      if (elements[key] == target.dataset.element) {
-        elements[key] = "undefined";
-        target.classList.remove("highlight");
-        target.setAttribute("data-status", "notSelected");
-        return;
-      }
+    switch (classElement) {
+      case "wrapperElement":
+        clearDiv(element, elements);
+        break;
+      case "wrapperForm":
+        clearDiv(element, forms);
     }
 
   }
-
 }
 
-let divElements = document.querySelectorAll('.wrapper');
-for (let elem of divElements) {
-  elem.addEventListener("click", chooseElement);
-}
-
-
-let formCounter = 0;
-
-function chooseForm (event) {
-  let target = event.currentTarget;
-
-  if (target.dataset.status == "notSelected") {
-
-    for (let key in forms) {
-      if (forms[key] == "undefined") {
-        target.setAttribute("data-status", "selected");
-        target.classList.add("highlight");
-        forms[key] = target.dataset.form;
-        return;
-      }
-    }
-
-  } else if (target.dataset.status == "selected") {
-
-    for (let key in forms) {
-      if (forms[key] == target.dataset.form) {
-        forms[key] = "undefined";
-        target.classList.remove("highlight");
-        target.setAttribute("data-status", "notSelected");
-        return;
-      }
-    }
-
-  }
-
-}
-
-let divForms = document.querySelectorAll('.wrapperForm');
-for (let elem of divForms) {
-  elem.addEventListener("click", chooseForm);
+let selectedDivs = document.querySelectorAll('[data-status]');
+for (let div of selectedDivs) {
+  div.addEventListener("click", choose);
 }
 
 let buttonStartGame = document.getElementsByName("startGame")[0];
@@ -113,21 +96,9 @@ buttonStartGame.onclick = async () => {
   }
 
   Object.assign(hero, elements, forms);
+  hero['header'] = 'createPlayer';
 
-  divWait.hidden = false;
+  localStorage.setItem('hero', JSON.stringify(hero));
 
-  let formData = new FormData();
-  let parameters = JSON.stringify(hero);
-  formData.append("parameters", parameters);
-
-    let response = await fetch("createHero.php", {
-    method: 'POST',
-    body: formData
-  })
-    .then(response => response.text())
-    .then(result => {
-      console.log(result);
-    })
-
-  window.location.href = '../game/game.html';
+  window.location.href = '../game';
 };

@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" type="text/css" href="game.css">
-  <link rel="stylesheet" type="text/css" href="gameOtherScreens.css">
-  <link rel="stylesheet" type="text/css" href="searchEnemy/searchEnemy.css">
-  <link rel="stylesheet" type="text/css" href="fillInterface/showHints.css">
+  <link rel="stylesheet" type="text/css" href="../css/game/game.css">
+  <link rel="stylesheet" type="text/css" href="../css/game/gameOtherScreens.css">
+  <link rel="stylesheet" type="text/css" href="../css/game/searchEnemy.css">
+  <link rel="stylesheet" type="text/css" href="../css/game/showHints.css">
   <title>Игра</title>
 </head>
 <body>
@@ -91,9 +91,10 @@
         </div>
     </div>
   </div>
-  <script type="module" src="searchEnemy/searchEnemy.js"></script>
-  <script type="module" src="processingSpells/createSpells.js"></script>
-  <script type="module" src="fillInterface/showHints.js"></script>
-  <script type="module" src="checkEnemy/checkEnemy.js"></script>
+  <script src="../scripts/game/gameInformation.js"></script>
+  <script src="../scripts/game/webSocket.js"></script>
+  <script src="processingSpells/createSpells.js"></script>
+  <script src="fillInterface/showHints.js"></script>
+  <script src="checkEnemy/checkEnemy.js"></script>
 </body>
 </html>
