@@ -1,0 +1,112 @@
+@media screen and (max-width: 2300px) {
+  #enemy {
+    height: 150px;
+  }
+  .spell {
+    width: 270px;
+    font-size: 25px;
+    height: 30px;
+  }
+  .effect {
+    margin: 0 0.5% 0 0.5%;
+  }
+  .choose {
+    font-size: 25px;
+  }
+  .element {
+    height: 30px;
+  }
+  .form {
+    height: 30px;
+  }
+  #buttonMuve {
+    font-size: 20px;
+    font-weight: 400;
+    width: 150px;
+    height: 130px;
+  }
+}
+
+@media screen and (max-width: 1775px) {
+  html {
+    margin: 0;
+    padding: 0;
+  }
+  #enemyName {
+    width: 400px;
+    font-size: 25px;
+  }
+  .description {
+    font-size: 23px;
+    width: 350px;
+    height: 360px;
+    overflow: scroll;
+  }
+  .muve {
+    height: 30px;
+    font-size: 25px;
+    font-weight: 600;
+  }
+  #user {
+    height: 300px;
+  }
+  .choose {
+    width: 87%;
+  }
+  .spell {
+    width: 210px;
+    font-size: 20px;
+    height: 25px;
+  }
+  .effect {
+    margin: 0;
+  }
+  .element {
+    margin: 0 1% 0 1%;
+    font-size: 20px;
+    height: 25px;
+  }
+  .form {
+    margin: 0 1% 0 1%;
+    font-size: 20px;
+    height: 25px;
+  }
+  #buttonMuve {
+    font-size: 18px;
+    font-weight: 400;
+    width: 140px;
+    height: 120px;
+  }
+}
+@media screen and (max-width: 1300px) and (max-height: 800px) {
+  #enemy {
+    width: 1315px;
+  }
+  .effects {
+    width: 1315px;
+  }
+  #battlefield {
+    width: 1315px;
+  }
+  .muve {
+    width: 1315px;
+  }
+  #user {
+    width: 1315px;
+  }
+}
+
+@media screen and (max-height: 800px) {
+  .description {
+    height: 100px;
+  }
+  #firstSpellEnemy {
+    margin-top: 1%;
+  }
+  #secondSpellEnemy {
+    margin-top: 4%;
+  }
+  #thirdSpellEnemy {
+    margin-top: 7%;
+  }
+}
