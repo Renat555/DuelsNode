@@ -10,31 +10,88 @@ function randomString() {
 	return result;
 }
 
-async function savePlayer(playerInformation, mongoCollection, session) {
-    playerInformation['state'] = 'pending';
-    playerInformation['id'] = randomString();
-    session.userId = playerInformation['id'];
+function checkPlayer(player, mongoCollection) {
 
-    mongoCollection.insertOne(playerInformation, function(err, result) {
-			session.userId = result.insertedId;
+	mongoCollection.findOne({'id': player['id']}
+		).then((user) => {
+			if (user === null) return;
+			if (user['idGame'] === '') {
+				mongoCollection.deleteOne({'id': player['id']});
+		});
+
+}
+
+function savePlayer(player, mongoCollection, ws) {
+    player['idGame'] = '';
+		ws['idPlayer'] = player['id'];
+    mongoCollection.insertOne(player);
+}
+
+function sendGameInformation(player, mongoCollection, ws, response) {
+		mongoCollection.findOne({'id': player['id']}, function (err, doc) {
+		    response['user'] = doc;
+		    mongoCollection.findOne({$and: [{'id': {$not: {$eq: player['id']} } }, {'idGame': doc['idGame']}] }, function (err, doc) {
+		      response['enemy'] = doc;
+		      ws.send(JSON.stringify(response));
+		    });
 		});
 }
 
+function setMuve(player, mongoCollection) {
 
-async function searchEnemy(mongoCollection, session) {
+	let userHealth, enemyHealth, userMuve, enemyMuve;
+	if (Math.random() < 0.5) {
+		userHealth = 250;
+		enemyHealth = 200;
+		userMuve = 0;
+		enemyMuve = 1;
+	} else {
+		userHealth = 200;
+		enemyHealth = 250;
+		userMuve = 1;
+		enemyMuve = 0;
+	}
 
-    const findResult = await mongoCollection.findOne({$and: [{'id': {$not: {$eq: session.userId} } }, {'state': 'pending'}] }
-      )
-      .then(res => {
-				session.enemyId = res['id'];
-				console.log(res['id']);
-			});
+	mongoCollection.findOneAndUpdate({'id': player['id']}, {$set: {'health': userHealth, 'maxHealth': userHealth, 'muve': userMuve}}
+		).then((res) => {
+			mongoCollection.updateOne(
+				{$and: [{'id': {$not: {$eq: res['value']['id']} } }, {'idGame': res['value']['idGame']}] },
+				{$set: {'health': enemyHealth, 'maxHealth': enemyHealth, 'muve': enemyMuve}}
+			);
+		});
+
 }
 
-function createGame(playerInformation, mongoCollection, session, ws) {
-	savePlayer(playerInformation, mongoCollection, session);
-	searchEnemy(mongoCollection, session);
-	ws.send(JSON.stringify(session['test']));
+function searchEnemy(player, mongoCollection, ws) {
+		let response = {'header': 'createGame'};
+
+	mongoCollection.findOne({'id': player['id']}, function (err, doc) {
+      if (doc['idGame'] !== '') {
+        sendGameInformation(player, mongoCollection, ws, response);
+      } else {
+        mongoCollection.findOneAndUpdate(
+          {$and: [{'id': {$not: {$eq: player['id']} } }, {'idGame': ''}] }, {$set: {'idGame': randomString()}}, {returnOriginal: false}
+          ).then(res => {
+            if (res['value'] === null) {
+    					setTimeout(searchEnemy, 5000, player, mongoCollection, ws);
+            } else {
+	            mongoCollection.findOneAndUpdate({'id': player['id']}, {$set: {'idGame': res['value']['idGame']}}, {returnOriginal: false}
+								).then((res) => {
+									setMuve(player, mongoCollection);
+									sendGameInformation(player, mongoCollection, ws, response);
+								});
+						}
+          });
+
+      }
+    });
+
+}
+
+function createGame(player, mongoCollection, ws) {
+	checkPlayer(player, mongoCollection);
+	savePlayer(player, mongoCollection, ws);
+	searchEnemy(player, mongoCollection, ws);
 }
 
 module.exports = createGame;

@@ -1,70 +1,91 @@
 "use strict";
 
 let hero = {
-  name: "undefined"
+  name: "undefined",
+  maxHealth: '',
+  health: '',
+  muve: '',
+  elements: [],
+  forms: [],
+  buffs: [],
+  debuffs: []
 }
 
-let elements = {
-  element1: "undefined",
-  element2: "undefined",
-  element3: "undefined"
+hero['id'] = randomString();
+
+function randomString() {
+	let string = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789";
+	let result = "";
+
+	for (let i = 0; i < 10; i++) {
+		result += string[Math.floor(Math.random()*Math.floor(62))];
+	}
+
+	return result;
 }
 
-let forms = {
-  form1: "undefined",
-  form2: "undefined",
-  form3: "undefined",
-  form4: "undefined",
-  form5: "undefined"
+function selectElement(div, elements) {
+    if (elements.length < 3) {
+      div.setAttribute("data-status", "selected");
+      div.classList.add("highlight");
+      elements.push(div.dataset.value);
+      return;
+    }
 }
 
-let divWait = document.getElementById("fixed");
-divWait.hidden = true;
+function selectForm(div, forms) {
+    if (forms.length < 5) {
+      div.setAttribute("data-status", "selected");
+      div.classList.add("highlight");
+      forms.push(div.dataset.value);
+      return;
+    }
+}
 
-function selectDiv(element, obj) {
-  for (let key in obj) {
-    if (obj[key] == "undefined") {
-      element.setAttribute("data-status", "selected");
-      element.classList.add("highlight");
-      obj[key] = element.dataset.value;
+function clearElement(div, elements) {
+  for (let i = 0; i < 3; i++) {
+    if (elements[i] == div.dataset.value) {
+      elements.splice(i, 1);
+      div.classList.remove("highlight");
+      div.setAttribute("data-status", "notSelected");
       return;
     }
   }
 }
 
-function clearDiv(element, obj) {
-  for (let key in obj) {
-    if (obj[key] == element.dataset.value) {
-      obj[key] = "undefined";
-      element.classList.remove("highlight");
-      element.setAttribute("data-status", "notSelected");
+function clearForm(div, forms) {
+  for (let i = 0; i < 5; i++) {
+    if (forms[i] == div.dataset.value) {
+      forms.splice(i, 1);
+      div.classList.remove("highlight");
+      div.setAttribute("data-status", "notSelected");
       return;
     }
   }
 }
 
 function choose(event) {
-  let element = event.currentTarget;
-  let classElement = element.classList[0];
+  let div = event.currentTarget;
+  let classElement = div.classList[0];
 
-  if (element.dataset.status == "notSelected") {
+  if (div.dataset.status == "notSelected") {
 
     switch (classElement) {
       case "wrapperElement":
-        selectDiv(element, elements);
+        selectElement(div, hero['elements']);
         break;
       case "wrapperForm":
-        selectDiv(element, forms);
+        selectForm(div, hero['forms']);
     }
 
-  } else if (element.dataset.status == "selected") {
+  } else if (div.dataset.status == "selected") {
 
     switch (classElement) {
       case "wrapperElement":
-        clearDiv(element, elements);
+        clearElement(div, hero['elements']);
         break;
       case "wrapperForm":
-        clearDiv(element, forms);
+        clearForm(div, hero['forms']);
     }
 
   }
@@ -81,21 +102,16 @@ buttonStartGame.onclick = async () => {
 
   hero.name = document.getElementsByName("userName")[0].value;
 
-  for (let item in elements) {
-    if (elements[item] == "undefined") {
+    if (hero['elements'].length < 3) {
       alert("Выберите три стихии.");
       return;
     }
-  }
 
-  for (let item in forms) {
-    if (forms[item] == "undefined") {
+  if (hero['forms'].length < 5) {
       alert("Выберите пять форм.");
       return;
     }
-  }
 
-  Object.assign(hero, elements, forms);
   hero['header'] = 'createPlayer';
 
   localStorage.setItem('hero', JSON.stringify(hero));

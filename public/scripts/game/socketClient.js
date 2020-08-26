@@ -8,5 +8,13 @@ ws.onopen = () => {
 }
 
 ws.onmessage = (message) => {
-  console.log(message.data);
+  let users = JSON.parse(message.data);
+
+  switch (users.header) {
+    case 'createGame':
+      fillInterface(users);
+      break;
+  }
+  console.log(JSON.parse(message.data));
+
 };

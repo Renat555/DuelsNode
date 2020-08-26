@@ -1,23 +1,4 @@
 "use strict";
-import gameInformation from './../gameInformation.js';
-
-let dictionary = {
-  fire: "Огонь",
-  water: "Вода",
-  earth: "Земля",
-  air: "Воздух",
-  life: "Жизнь",
-  death: "Смерть",
-  spear: "Копье",
-  shild: "Щит",
-  crown: "Корона",
-  source: "Источник",
-  sphere: "Сфера",
-  stamp: "Печать",
-  key: "Ключ",
-  flow: "Поток",
-  power: "Власть"
-}
 
 function deleteBr(string) {
   if (string == null) return "";
@@ -43,63 +24,11 @@ function fillDescription() {
   divDescription.innerHTML = "Активность за ход: <br>" + deleteBr(gameInformation['muveInformation']['description']);
 }
 
-export default function fillInterface() {
+function fillInterface1() {
   console.log(gameInformation['muveInformation']);
 
   let enemyName = document.getElementById('enemyName');
   enemyName.innerHTML = "Противник: " + gameInformation['muveInformation']['enemyName'];
-
-  let divDebuffsEnemy = document.querySelectorAll("[data-debuffEnemyElement]");
-  for (let i = 0; i < divDebuffsEnemy.length; i++) {
-    let debuffEnemyElement = gameInformation['muveInformation']['debuffsEnemy'][i]['debuffElement'];
-    let debuffEnemyForm = gameInformation['muveInformation']['debuffsEnemy'][i]['debuffForm'];
-    divDebuffsEnemy[i].setAttribute("data-debuffEnemyElement", debuffEnemyElement);
-    divDebuffsEnemy[i].setAttribute("data-debuffEnemyForm", debuffEnemyForm);
-    divDebuffsEnemy[i].setAttribute("data-duration", gameInformation['muveInformation']['debuffsEnemy'][i]['duration']);
-    divDebuffsEnemy[i].innerHTML = gameInformation['dictionary'][debuffEnemyElement + debuffEnemyForm];
-    if (gameInformation['dictionary'][debuffEnemyElement + debuffEnemyForm] === undefined) {
-      divDebuffsEnemy[i].innerHTML = "";
-    }
-  }
-
-  let divBuffsEnemy = document.querySelectorAll("[data-buffEnemyElement]");
-  for (let i = 0; i < divBuffsEnemy.length; i++) {
-    let buffEnemyElement = gameInformation['muveInformation']['buffsEnemy'][i]['buffElement'];
-    let buffEnemyForm = gameInformation['muveInformation']['buffsEnemy'][i]['buffForm'];
-    divBuffsEnemy[i].setAttribute("data-buffEnemyElement", buffEnemyElement);
-    divBuffsEnemy[i].setAttribute("data-buffEnemyForm", buffEnemyForm);
-    divBuffsEnemy[i].setAttribute("data-duration", gameInformation['muveInformation']['buffsEnemy'][i]['duration']);
-    divBuffsEnemy[i].innerHTML = gameInformation['dictionary'][buffEnemyElement + buffEnemyForm];
-    if (gameInformation['dictionary'][buffEnemyElement + buffEnemyForm] === undefined) {
-      divBuffsEnemy[i].innerHTML = "";
-    }
-  }
-
-  let divBuffs = document.querySelectorAll("[data-buffElement]");
-  for (let i = 0; i < divBuffs.length; i++) {
-    let buffElement = gameInformation['muveInformation']['buffs'][i]['buffElement'];
-    let buffForm = gameInformation['muveInformation']['buffs'][i]['buffForm'];
-    divBuffs[i].setAttribute("data-buffElement", buffElement);
-    divBuffs[i].setAttribute("data-buffForm", buffForm);
-    divBuffs[i].setAttribute("data-duration", gameInformation['muveInformation']['buffs'][i]['duration']);
-    divBuffs[i].innerHTML = gameInformation['dictionary'][buffElement + buffForm];
-    if (gameInformation['dictionary'][buffElement + buffForm] === undefined) {
-      divBuffs[i].innerHTML = "";
-    }
-  }
-
-  let divDebuffs = document.querySelectorAll("[data-debuffElement]");
-  for (let i = 0; i < divDebuffs.length; i++) {
-    let debuffElement = gameInformation['muveInformation']['debuffs'][i]['debuffElement'];
-    let debuffForm = gameInformation['muveInformation']['debuffs'][i]['debuffForm'];
-    divDebuffs[i].setAttribute("data-debuffElement", debuffElement);
-    divDebuffs[i].setAttribute("data-debuffForm", debuffForm);
-    divDebuffs[i].setAttribute("data-duration", gameInformation['muveInformation']['debuffs'][i]['duration']);
-    divDebuffs[i].innerHTML = gameInformation['dictionary'][debuffElement + debuffForm];
-    if (gameInformation['dictionary'][debuffElement + debuffForm] === undefined) {
-      divDebuffs[i].innerHTML = "";
-    }
-  }
 
   let divEnemySpells = document.querySelectorAll("[data-spell]");
   for (let i = 0; i < gameInformation['muveInformation']['spells'].length; i++) {
@@ -107,30 +36,6 @@ export default function fillInterface() {
     let spellForm = gameInformation['muveInformation']['spells'][i]['spellForm'];
     divEnemySpells[i].innerHTML = gameInformation['dictionary'][spellElement + spellForm];
   }
-
-  let elements = document.querySelectorAll("[data-element]");
-  for (let i = 0; i < gameInformation['muveInformation']['elements'].length; i++) {
-    elements[i].innerHTML = dictionary[gameInformation['muveInformation']['elements'][i]['element']];
-    elements[i].setAttribute("data-element", gameInformation['muveInformation']['elements'][i]['element']);
-  }
-
-  let forms = document.querySelectorAll("[data-form]");
-  for (let i = 0; i < gameInformation['muveInformation']['forms'].length; i++) {
-    forms[i].innerHTML = dictionary[gameInformation['muveInformation']['forms'][i]['form']];
-    forms[i].setAttribute("data-form", gameInformation['muveInformation']['forms'][i]['form']);
-  }
-
-  let healthEnemy = document.getElementById('healthEnemy');
-  let percentHealthEnemy = Math.round(gameInformation['muveInformation']['currentHealthEnemy']*100/gameInformation['muveInformation']['maxHealthEnemy']);
-  healthEnemy.style.width = percentHealthEnemy + "%";
-  healthEnemy.style.marginLeft = 100 - percentHealthEnemy + "%";
-  healthEnemy.innerHTML = gameInformation['muveInformation']['currentHealthEnemy'];
-
-  let healthUser = document.getElementById('health');
-  let percentHealth = Math.round(gameInformation['muveInformation']['currentHealth']*100/gameInformation['muveInformation']['maxHealth']);
-  healthUser.style.width = percentHealth + "%";
-  healthUser.style.marginLeft = 100 - percentHealth + "%";
-  healthUser.innerHTML = gameInformation['muveInformation']['currentHealth'];
 
   fillDescription();
 
@@ -145,4 +50,131 @@ export default function fillInterface() {
     window.location.href = '../createHero/createHero.html';
   }
 
+}
+
+
+
+
+
+
+
+function createBattleField() {
+  let battleField = document.getElementById('battleField');
+
+  for (let i = 0; i < 80; i++) {
+    let div = document.createElement('div');
+    div.classList.add('battleSquare');
+    battleField.append(div);
+  }
+}
+
+function fillForms(forms) {
+  let divForms = document.querySelectorAll("[data-form]");
+  for (let i = 0; i < 5; i++) {
+    divForms[i].innerHTML = dictionaryForms[forms[i]];
+    divForms[i].setAttribute("data-form", forms[i]);
+  }
+}
+
+function fillElements(elements) {
+  let divElements = document.querySelectorAll("[data-element]");
+  for (let i = 0; i < 3; i++) {
+    divElements[i].innerHTML = dictionaryElements[elements[i]];
+    divElements[i].setAttribute("data-element", elements[i]);
+  }
+}
+
+function fillHealth(users) {
+  let healthEnemy = document.getElementById('healthEnemy');
+  let percentHealthEnemy = Math.round(users['enemy']['health']*100/users['enemy']['maxHealth']);
+  healthEnemy.style.width = percentHealthEnemy + "%";
+  healthEnemy.style.marginLeft = 100 - percentHealthEnemy + "%";
+  healthEnemy.innerHTML = users['enemy']['health'];
+
+  let healthUser = document.getElementById('health');
+  let percentHealth = Math.round(users['user']['health']*100/users['user']['maxHealth']);
+  healthUser.style.width = percentHealth + "%";
+  healthUser.style.marginLeft = 100 - percentHealth + "%";
+  healthUser.innerHTML = users['user']['health'];
+}
+
+function fillEffects(userBuffs, userDebuffs, enemyBuffs, enemyDebuffs) {
+  let divUserEffects = document.getElementById("userEffects");
+  let divEnemyEffect = document.getElementById("enemyEffects");
+
+  for (let i = 0; i < userBuffs.length; i++) {
+    let divBuff = document.createElement('div');
+    divBuff.setAttribute('data-buffElement', userBuffs[i][0]);
+    divBuff.setAttribute('data-buffForm', userBuffs[i][1]);
+    divBuff.setAttribute('data-duration', userBuffs[i][2]);
+    divBuff.setAttribute('data-status', 'notSelected');
+    divBuff.classList.add('spell');
+    divBuff.classList.add('effect');
+    divBuff.innerHTML = dictionarySpells[userBuffs[i][0] + userBuffs[i][1]];
+    divUserEffects.append(divBuff);
+  }
+
+  for (let i = 0; i < userDebuffs.length; i++) {
+    let divDebuff = document.createElement('div');
+    divDebuff.setAttribute('data-debuffElement', userDebuffs[i][0]);
+    divDebuff.setAttribute('data-debuffForm', userDebuffs[i][1]);
+    divDebuff.setAttribute('data-duration', userDebuffs[i][2]);
+    divDebuff.setAttribute('data-status', 'notSelected');
+    divDebuff.classList.add('spell');
+    divDebuff.classList.add('effect');
+    divDebuff.innerHTML = dictionarySpells[userDebuffs[i][0] + userDebuffs[i][1]];
+    divUserEffects.append(divDebuff);
+  }
+
+  for (let i = 0; i < enemyBuffs.length; i++) {
+    let divBuff = document.createElement('div');
+    divBuff.setAttribute('data-buffElement', enemyBuffs[i][0]);
+    divBuff.setAttribute('data-buffForm', enemyBuffs[i][1]);
+    divBuff.setAttribute('data-duration', enemyBuffs[i][2]);
+    divBuff.setAttribute('data-status', 'notSelected');
+    divBuff.classList.add('spell');
+    divBuff.classList.add('effect');
+    divBuff.innerHTML = dictionarySpells[enemyBuffs[i][0] + enemyBuffs[i][1]];
+    divEnemyEffect.append(divBuff);
+  }
+
+  for (let i = 0; i < enemyDebuffs.length; i++) {
+    let divDebuff = document.createElement('div');
+    divDebuff.setAttribute('data-debuffElement', enemyDebuffs[i][0]);
+    divDebuff.setAttribute('data-debuffForm', enemyDebuffs[i][1]);
+    divDebuff.setAttribute('data-duration', enemyDebuffs[i][2]);
+    divDebuff.setAttribute('data-status', 'notSelected');
+    divDebuff.classList.add('spell');
+    divDebuff.classList.add('effect');
+    divDebuff.innerHTML = dictionarySpells[enemyDebuffs[i][0] + enemyDebuffs[i][1]];
+    divEnemyEffect.append(divDebuff);
+  }
+
+}
+
+function hideMuveText(muveUser) {
+  let divUserMuve = document.getElementById('userMuve');
+  let divEnemyMuve = document.getElementById('enemyMuve');
+  if (muveUser === 1) {
+    divUserMuve.hidden = false;
+    divEnemyMuve.hidden = true;
+  } else {
+    divUserMuve.hidden = true;
+    divEnemyMuve.hidden = false;
+  }
+}
+
+function hideWaitingScreen() {
+  let divWaitingScreen = document.getElementById('fixed');
+  divWaitingScreen.hidden = true;
+}
+
+function fillInterface(users) {
+  createBattleField();
+  fillForms(users['user']['forms']);
+  fillElements(users['user']['elements']);
+  fillHealth(users);
+  fillEffects(users['user']['buffs'], users['user']['debuffs'], users['enemy']['buffs'], users['enemy']['debuffs']);
+  hideMuveText(users['user']['muve'], users['enemy']['muve'])
+  hideWaitingScreen();
 }

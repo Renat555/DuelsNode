@@ -1,39 +1,90 @@
 "use strict";
-import gameInformation from './../gameInformation.js';
 
-let divSpells = document.querySelectorAll("[data-spellform]");
+let divSpell = document.querySelector(".userSpell");
 let divForms = document.querySelectorAll("[data-form]");
 let divElements = document.querySelectorAll("[data-element]");
 let divDebuffs = document.querySelectorAll("[data-debuffForm]");
 let divEnemyBuffs = document.querySelectorAll("[data-buffEnemyForm]");
 
-function clearAllForms () {
+function fillSpell() {
+  if (divSpell.dataset.spellelement != "undefind" && divSpell.dataset.spellform != "undefind") {
+    divSpell.innerHTML = dictionarySpells[divSpell.dataset.spellelement + divSpell.dataset.spellform];
+  }
+}
+
+function chooseForm(event) {
+  let target = event.target;
+  if (!target.dataset.form) return;
+
+  clearForms();
+
+  target.dataset.status = "selected";
+  target.classList.add("selected");
+
+  divSpell.dataset.spellform = target.dataset.form;
+
+  fillSpell();
+}
+
+function clearForms() {
   for (let item of divForms) {
-    item.dataset.status = (item.dataset.status == "forbidden") ? "forbidden" : "notSelected";
+    item.dataset.status = "notSelected";
     item.classList.remove("selected");
   }
 }
 
-function clearRedForms() {
-  for (let item of divForms) {
-    item.dataset.status = (item.dataset.status == "selected") ? "selected" : "notSelected";
-    item.classList.remove("red");
-  }
+function chooseElement(event) {
+  let target = event.target;
+  if (!target.dataset.element) return;
+
+  clearElements();
+
+  target.dataset.status = "selected";
+  target.classList.add("selected");
+
+  divSpell.dataset.spellelement = target.dataset.element;
+
+  fillSpell();
 }
 
-function clearAllElements () {
+function clearElements() {
   for (let item of divElements) {
-    item.dataset.status = (item.dataset.status == "forbidden") ? "forbidden" : "notSelected";
+    item.dataset.status = "notSelected";
     item.classList.remove("selected");
   }
 }
 
-function clearRedElements() {
-  for (let item of divElements) {
-    item.dataset.status = (item.dataset.status == "selected") ? "selected" : "notSelected";
-    item.classList.remove("red");
+function sendSpell() {
+
+  if (divSpell.dataset.spellelement != 'undefind' && divSpell.dataset.spellform != 'undefind') {
+    let spellInformation = {
+      header: 'spell',
+      element: divSpell.dataset.spellelement,
+      form: divSpell.dataset.spellform
+    }
+    ws.send(JSON.stringify(spellInformation));
   }
+
 }
+
+document.addEventListener("click", chooseForm);
+document.addEventListener("click", chooseElement);
+
+let buttonSend = document.getElementsByName('buttonActiveSpell')[0];
+buttonSend.addEventListener("click", sendSpell);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function clearAllDebuffs () {
   for (let item of divDebuffs) {
@@ -63,81 +114,6 @@ function clearAll () {
   }
 }
 
-function fillSpell () {
-  for (let item of divSpells) {
-    if (item.dataset.status == "selected" && item.dataset.spellelement != "undefind" && item.dataset.spellform != "undefind") {
-      item.innerHTML = gameInformation['dictionary'][item.dataset.spellelement + item.dataset.spellform];
-    }
-  }
-}
-
-function forbidForm(element) {
-  clearRedForms();
-  for (let item of divSpells) {
-    if (item.dataset.status == "notSelected" && item.dataset.spellelement == element) {
-      let forbiddenForm = item.dataset.spellform;
-      for (let form of divForms) {
-        if (form.dataset.form == forbiddenForm) {
-          form.classList.add("red");
-          form.dataset.status = "forbidden";
-        }
-      }
-    }
-  }
-}
-
-function forbidElement(form) {
-  clearRedElements();
-  for (let item of divSpells) {
-    if (item.dataset.status == "notSelected" && item.dataset.spellform == form) {
-      let forbiddenElement = item.dataset.spellelement;
-      for (let element of divElements) {
-        if (element.dataset.element == forbiddenElement) {
-          element.classList.add("red");
-          element.dataset.status = "forbidden";
-        }
-      }
-    }
-  }
-}
-
-function addForm (event) {
-  let target = event.target;
-
-  if (!target.dataset.form || target.dataset.status == "forbidden") return;
-  forbidElement(target.dataset.form);
-  clearAllForms();
-
-  target.dataset.status = "selected";
-  target.classList.add("selected");
-
-  for (let item of divSpells) {
-    if (item.dataset.status == "selected") {
-      item.dataset.spellform = target.dataset.form;
-      gameInformation['spells'][item.dataset.spell+"Form"] = target.dataset.form;
-    }
-  }
-  fillSpell();
-}
-
-function addElement (event) {
-  let target = event.target;
-
-  if (!target.dataset.element || target.dataset.status == "forbidden") return;
-  forbidForm(target.dataset.element);
-  clearAllElements();
-
-  target.dataset.status = "selected";
-  target.classList.add("selected");
-
-  for (let item of divSpells) {
-    if (item.dataset.status == "selected") {
-      item.dataset.spellelement = target.dataset.element;
-      gameInformation['spells'][item.dataset.spell+"Element"] = target.dataset.element;
-    }
-  }
-  fillSpell();
-}
 
 function createSpell (event) {
   let target = event.target;
@@ -268,7 +244,3 @@ function addEnemyBuff(event) {
   }
 
 }
-
-document.addEventListener("click", addEnemyBuff);
-document.addEventListener("click", addDebuff);
-document.addEventListener("click", createSpell);
