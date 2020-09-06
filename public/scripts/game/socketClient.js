@@ -3,8 +3,8 @@
 const ws = new WebSocket('ws://localhost:8080');
 
 ws.onopen = () => {
-  let playerInformation = localStorage.getItem('hero');
-  ws.send(playerInformation);
+  let gameInformation = localStorage.getItem('gameInformation');
+  ws.send(gameInformation);
 }
 
 ws.onmessage = (message) => {

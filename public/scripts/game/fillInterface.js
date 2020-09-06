@@ -27,16 +27,6 @@ function fillDescription() {
 function fillInterface1() {
   console.log(gameInformation['muveInformation']);
 
-  let enemyName = document.getElementById('enemyName');
-  enemyName.innerHTML = "Противник: " + gameInformation['muveInformation']['enemyName'];
-
-  let divEnemySpells = document.querySelectorAll("[data-spell]");
-  for (let i = 0; i < gameInformation['muveInformation']['spells'].length; i++) {
-    let spellElement = gameInformation['muveInformation']['spells'][i]['spellElement'];
-    let spellForm = gameInformation['muveInformation']['spells'][i]['spellForm'];
-    divEnemySpells[i].innerHTML = gameInformation['dictionary'][spellElement + spellForm];
-  }
-
   fillDescription();
 
   if (gameInformation['muveInformation']['currentHealth'] <= 0) {
@@ -57,6 +47,10 @@ function fillInterface1() {
 
 
 
+function fillEnemyName(enemy) {
+  let enemyName = document.getElementById('enemyName');
+  enemyName.innerHTML = "Противник: " + enemy['name'];
+}
 
 function createBattleField() {
   let battleField = document.getElementById('battleField');
@@ -70,6 +64,7 @@ function createBattleField() {
 
 function fillForms(forms) {
   let divForms = document.querySelectorAll("[data-form]");
+
   for (let i = 0; i < 5; i++) {
     divForms[i].innerHTML = dictionaryForms[forms[i]];
     divForms[i].setAttribute("data-form", forms[i]);
@@ -78,6 +73,7 @@ function fillForms(forms) {
 
 function fillElements(elements) {
   let divElements = document.querySelectorAll("[data-element]");
+
   for (let i = 0; i < 3; i++) {
     divElements[i].innerHTML = dictionaryElements[elements[i]];
     divElements[i].setAttribute("data-element", elements[i]);
@@ -110,7 +106,7 @@ function fillEffects(userBuffs, userDebuffs, enemyBuffs, enemyDebuffs) {
     divBuff.setAttribute('data-status', 'notSelected');
     divBuff.classList.add('spell');
     divBuff.classList.add('effect');
-    divBuff.innerHTML = dictionarySpells[userBuffs[i][0] + userBuffs[i][1]];
+    divBuff.innerHTML = spellbook[userBuffs[i][0] + userBuffs[i][1]];
     divUserEffects.append(divBuff);
   }
 
@@ -122,7 +118,7 @@ function fillEffects(userBuffs, userDebuffs, enemyBuffs, enemyDebuffs) {
     divDebuff.setAttribute('data-status', 'notSelected');
     divDebuff.classList.add('spell');
     divDebuff.classList.add('effect');
-    divDebuff.innerHTML = dictionarySpells[userDebuffs[i][0] + userDebuffs[i][1]];
+    divDebuff.innerHTML = spellbook[userDebuffs[i][0] + userDebuffs[i][1]];
     divUserEffects.append(divDebuff);
   }
 
@@ -134,7 +130,7 @@ function fillEffects(userBuffs, userDebuffs, enemyBuffs, enemyDebuffs) {
     divBuff.setAttribute('data-status', 'notSelected');
     divBuff.classList.add('spell');
     divBuff.classList.add('effect');
-    divBuff.innerHTML = dictionarySpells[enemyBuffs[i][0] + enemyBuffs[i][1]];
+    divBuff.innerHTML = spellbook[enemyBuffs[i][0] + enemyBuffs[i][1]];
     divEnemyEffect.append(divBuff);
   }
 
@@ -146,10 +142,18 @@ function fillEffects(userBuffs, userDebuffs, enemyBuffs, enemyDebuffs) {
     divDebuff.setAttribute('data-status', 'notSelected');
     divDebuff.classList.add('spell');
     divDebuff.classList.add('effect');
-    divDebuff.innerHTML = dictionarySpells[enemyDebuffs[i][0] + enemyDebuffs[i][1]];
+    divDebuff.innerHTML = spellbook[enemyDebuffs[i][0] + enemyDebuffs[i][1]];
     divEnemyEffect.append(divDebuff);
   }
 
+}
+
+function fillPoints(user) {
+  let divActionPoints = document.getElementById('actionPoints');
+  let divEnergyPoints = document.getElementById('energyPoints');
+
+  divActionPoints.innerHTML = user['actionPoints'];
+  divEnergyPoints.innerHTML = user['energyPoints'];
 }
 
 function hideMuveText(muveUser) {
@@ -171,10 +175,17 @@ function hideWaitingScreen() {
 
 function fillInterface(users) {
   createBattleField();
+  fillEnemyName(users['enemy']);
   fillForms(users['user']['forms']);
   fillElements(users['user']['elements']);
   fillHealth(users);
   fillEffects(users['user']['buffs'], users['user']['debuffs'], users['enemy']['buffs'], users['enemy']['debuffs']);
-  hideMuveText(users['user']['muve'], users['enemy']['muve'])
+  fillPoints(users['user']);
+  hideMuveText(users['user']['muve'], users['enemy']['muve']);
+
+  let gameInformation = users;
+  gameInformation['header'] = 'restoreGame';
+  localStorage.setItem('gameInformation', JSON.stringify(gameInformation));
+
   hideWaitingScreen();
 }

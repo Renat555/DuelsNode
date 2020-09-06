@@ -17,14 +17,16 @@ function checkPlayer(player, mongoCollection) {
 			if (user === null) return;
 			if (user['idGame'] === '') {
 				mongoCollection.deleteOne({'id': player['id']});
-		});
+		}
+	});
 
 }
 
-function savePlayer(player, mongoCollection, ws) {
-    player['idGame'] = '';
-		ws['idPlayer'] = player['id'];
-    mongoCollection.insertOne(player);
+function savePlayer(player, mongoCollection) {
+		console.log('savePlayer');
+    mongoCollection.insertOne(player, function (err, result){
+			console.log(err);
+		});
 }
 
 function sendGameInformation(player, mongoCollection, ws, response) {
@@ -63,6 +65,7 @@ function setMuve(player, mongoCollection) {
 }
 
 function searchEnemy(player, mongoCollection, ws) {
+		console.log('searchEnemy');
 		let response = {'header': 'createGame'};
 
 	mongoCollection.findOne({'id': player['id']}, function (err, doc) {

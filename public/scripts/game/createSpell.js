@@ -1,14 +1,15 @@
 "use strict";
 
-let divSpell = document.querySelector(".userSpell");
-let divForms = document.querySelectorAll("[data-form]");
-let divElements = document.querySelectorAll("[data-element]");
-let divDebuffs = document.querySelectorAll("[data-debuffForm]");
-let divEnemyBuffs = document.querySelectorAll("[data-buffEnemyForm]");
-
 function fillSpell() {
+  let divSpell = document.querySelector(".userSpell");
+  let divActionPointsNeed = document.getElementById('actionPointsNeed');
+  let divEnergyPointsNeed = document.getElementById('energyPointsNeed');
+
   if (divSpell.dataset.spellelement != "undefind" && divSpell.dataset.spellform != "undefind") {
-    divSpell.innerHTML = dictionarySpells[divSpell.dataset.spellelement + divSpell.dataset.spellform];
+    divSpell.innerHTML = spellbook[divSpell.dataset.spellelement + divSpell.dataset.spellform][0];
+
+    divActionPointsNeed.innerHTML = spellbook[divSpell.dataset.spellelement + divSpell.dataset.spellform][1];
+    divEnergyPointsNeed.innerHTML = spellbook[divSpell.dataset.spellelement + divSpell.dataset.spellform][2];
   }
 }
 
@@ -21,12 +22,15 @@ function chooseForm(event) {
   target.dataset.status = "selected";
   target.classList.add("selected");
 
+  let divSpell = document.querySelector(".userSpell");
   divSpell.dataset.spellform = target.dataset.form;
 
   fillSpell();
 }
 
 function clearForms() {
+  let divForms = document.querySelectorAll("[data-form]");
+
   for (let item of divForms) {
     item.dataset.status = "notSelected";
     item.classList.remove("selected");
@@ -42,12 +46,15 @@ function chooseElement(event) {
   target.dataset.status = "selected";
   target.classList.add("selected");
 
+  let divSpell = document.querySelector(".userSpell");
   divSpell.dataset.spellelement = target.dataset.element;
 
   fillSpell();
 }
 
 function clearElements() {
+  let divElements = document.querySelectorAll("[data-element]");
+
   for (let item of divElements) {
     item.dataset.status = "notSelected";
     item.classList.remove("selected");
@@ -55,6 +62,7 @@ function clearElements() {
 }
 
 function sendSpell() {
+  let divSpell = document.querySelector(".userSpell");
 
   if (divSpell.dataset.spellelement != 'undefind' && divSpell.dataset.spellform != 'undefind') {
     let spellInformation = {

@@ -2,6 +2,7 @@
   "scripts": {
     "server": "nodemon server.js",
     "socket": "nodemon socketServer.js",
+    "test": "mocha tests/gameEngine.js",
     "start": "concurrently \"nodemon server.js\" \"nodemon socketServer.js\""
   },
   "dependencies": {
@@ -16,6 +17,8 @@
     "ws": "^7.3.1"
   },
   "devDependencies": {
-    "concurrently": "^5.0.2"
+    "chai": "^4.2.0",
+    "concurrently": "^5.0.2",
+    "mocha": "^8.1.2"
   }
 }

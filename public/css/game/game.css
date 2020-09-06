@@ -75,7 +75,7 @@ body {
   height: 62%;
 }
 #battleField {
-  margin: 7% 0 0 0;
+  margin: 5% 0 0 0;
   width: 90%;
   height: 85%;
   display: inline-block;
@@ -95,7 +95,7 @@ body {
   position: relative;
 }
 .userSpell {
-  margin: 15% 0 0 0;
+  margin: 5% 0 1% 0;
   background-color: #208217;
 }
 .containerForPoints {
@@ -104,13 +104,18 @@ body {
   width: 100%;
   text-align: center;
 }
+.needPoints {
+  padding: 10px;
+}
 .points {
-  margin: 0 1% 1% 1%;
   display: inline-block;
-  width: 30%;
   background-color: black;
   border-radius: 10px;
-  border: 3px solid #ffbc12;
+  border: 3px solid #ffbf1c;
+}
+.havePoints {
+  width: 30%;
+  margin: 0 1% 1% 1%;
 }
 .smallText {
   display: inline-block;
@@ -141,6 +146,7 @@ body {
   border-radius: 20px;
   text-align: center;
   font-size: 30px;
+  display: inline-block;
 }
 
 

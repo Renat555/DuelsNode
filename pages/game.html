@@ -23,6 +23,7 @@
   </div>
   <div id="gameTable">
     <div class='container'>
+      <div id='enemyName'></div>
       <div id="battleField">
         <div class="battleSquare"></div>
       </div>
@@ -30,21 +31,25 @@
     <div class='container'><br>
       <button type="button" name="buttonActiveSpell" class="button">Активировать заклинание</button><br><br>
       <div class="spell userSpell" data-status="notSelected" data-spellElement="undefind" data-spellForm="undefind"></div><br>
+      <div class='points needPoints'>
+        <div class='smallText'>Необходимо для активации:</div><br><br>
+        <div class='smallText'>Очки действия: <div class='smallText' id='actionPointsNeed'>0</div></div><br>
+        <div class='smallText'>Энергия: <div class='smallText' id='energyPointsNeed'>0</div></div>
+      </div>
       <div class='containerForPoints'>
-        <div class='points'>
+        <div class='points havePoints'>
           <div class='smallText'>Очки действия</div>
-          <div class='bigText'>3</div>
+          <div class='bigText' id='actionPoints'></div>
         </div>
-        <div class='points'>
+        <div class='points havePoints'>
           <div class='smallText'>Энергия</div>
-          <div class='bigText'>3</div>
+          <div class='bigText' id='energyPoints'></div>
         </div>
       </div>
     </div>
     <div class='container'><br>
       <button type="button" name="buttonMuve" class="button">Завершить ход</button><br><br>
       <div class="description"></div>
-      <div id='enemyName'></div>
     </div>
   </div>
   <div id="user">
@@ -80,6 +85,7 @@
   </div>
   <script src="../scripts/game/dictionaries.js"></script>
   <script src="../scripts/game/fillInterface.js"></script>
+  <script src="../scripts/game/showHints.js"></script>
   <script src="../scripts/game/createSpell.js"></script>
   <script src="../scripts/game/socketClient.js"></script>
 </body>

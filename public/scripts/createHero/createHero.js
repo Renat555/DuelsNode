@@ -1,7 +1,11 @@
 "use strict";
 
-let hero = {
+let gameInformation = {
+  header: 'createGame',
   name: "undefined",
+  idGame: '',
+  actionPoints: 3,
+  energyPoints: 3,
   maxHealth: '',
   health: '',
   muve: '',
@@ -11,7 +15,7 @@ let hero = {
   debuffs: []
 }
 
-hero['id'] = randomString();
+gameInformation['id'] = randomString();
 
 function randomString() {
 	let string = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789";
@@ -72,20 +76,20 @@ function choose(event) {
 
     switch (classElement) {
       case "wrapperElement":
-        selectElement(div, hero['elements']);
+        selectElement(div, gameInformation['elements']);
         break;
       case "wrapperForm":
-        selectForm(div, hero['forms']);
+        selectForm(div, gameInformation['forms']);
     }
 
   } else if (div.dataset.status == "selected") {
 
     switch (classElement) {
       case "wrapperElement":
-        clearElement(div, hero['elements']);
+        clearElement(div, gameInformation['elements']);
         break;
       case "wrapperForm":
-        clearForm(div, hero['forms']);
+        clearForm(div, gameInformation['forms']);
     }
 
   }
@@ -100,21 +104,19 @@ let buttonStartGame = document.getElementsByName("startGame")[0];
 
 buttonStartGame.onclick = async () => {
 
-  hero.name = document.getElementsByName("userName")[0].value;
+  gameInformation.name = document.getElementsByName("userName")[0].value;
 
-    if (hero['elements'].length < 3) {
+    if (gameInformation['elements'].length < 3) {
       alert("Выберите три стихии.");
       return;
     }
 
-  if (hero['forms'].length < 5) {
+  if (gameInformation['forms'].length < 5) {
       alert("Выберите пять форм.");
       return;
     }
 
-  hero['header'] = 'createPlayer';
-
-  localStorage.setItem('hero', JSON.stringify(hero));
+  localStorage.setItem('gameInformation', JSON.stringify(gameInformation));
 
   window.location.href = '../game';
 };

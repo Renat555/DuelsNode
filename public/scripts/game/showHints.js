@@ -1,35 +1,33 @@
 "use strict";
 
-let divSpells = document.querySelectorAll("[data-spellElement]");
-let divEnemySpells = document.querySelectorAll("[data-spell]");
-let divEnemyDebuffs = document.querySelectorAll("[data-debuffEnemyElement]");
-let divEnemyBuffs = document.querySelectorAll("[data-buffEnemyElement]");
-let divBuffs = document.querySelectorAll("[data-buffElement]");
-let divDebuffs = document.querySelectorAll("[data-debuffElement]");
+function addEvent() {
+  let divSpell = document.querySelector(".userSpell");
+  let divEnemyDebuffs = document.querySelectorAll("[data-debuffEnemyElement]");
+  let divEnemyBuffs = document.querySelectorAll("[data-buffEnemyElement]");
+  let divBuffs = document.querySelectorAll("[data-buffElement]");
+  let divDebuffs = document.querySelectorAll("[data-debuffElement]");
 
-for (let i = 0; i < divEnemySpells.length; i++) {
-  divEnemySpells[i].addEventListener("mouseenter", showHint);
+  for (let i = 0; i < divEnemyDebuffs.length; i++) {
+    divEnemyDebuffs[i].addEventListener("mouseenter", showHint);
+  }
+
+  for (let i = 0; i < divEnemyBuffs.length; i++) {
+    divEnemyBuffs[i].addEventListener("mouseenter", showHint);
+  }
+
+  divSpell.addEventListener("mouseenter", showHint);
+
+  for (let i = 0; i < divBuffs.length; i++) {
+    divBuffs[i].addEventListener("mouseenter", showHint);
+  }
+
+  for (let i = 0; i < divDebuffs.length; i++) {
+    divDebuffs[i].addEventListener("mouseenter", showHint);
+  }
+
 }
 
-for (let i = 0; i < divEnemyDebuffs.length; i++) {
-  divEnemyDebuffs[i].addEventListener("mouseenter", showHint);
-}
-
-for (let i = 0; i < divEnemyBuffs.length; i++) {
-  divEnemyBuffs[i].addEventListener("mouseenter", showHint);
-}
-
-for (let i = 0; i < divSpells.length; i++) {
-  divSpells[i].addEventListener("mouseenter", showHint);
-}
-
-for (let i = 0; i < divBuffs.length; i++) {
-  divBuffs[i].addEventListener("mouseenter", showHint);
-}
-
-for (let i = 0; i < divDebuffs.length; i++) {
-  divDebuffs[i].addEventListener("mouseenter", showHint);
-}
+addEvent();
 
 function showHint(event) {
   let target = event.target;
@@ -41,175 +39,10 @@ function showHint(event) {
   divHint.classList.add('hint');
   document.body.append(divHint);
 
-  if (target.dataset.spellelement || target.dataset.spell) {
+  if (target.dataset.spellelement) {
 
-    switch (text) {
-      case "Метеор":
-        divHint.innerHTML = "(огонь, прямой урон) Наносит урон противнику от 20 до 30 единиц.";
-        break;
-      case "Огненный щит":
-        divHint.innerHTML = "(огонь, баф) В течении четырех ходов снижает на 40% урон от дебафов.";
-        break;
-      case "Огненный венец":
-        divHint.innerHTML = "(огонь, баф) В течении четырех ходов усиливает ваши атакующие заклинания на 25%.";
-        break;
-      case "Вулкан":
-        divHint.innerHTML = "(огонь, дебаф) В течении трех ходов, каждый ход наносит от 5 до 12 единиц урона.";
-        break;
-      case "Огненная клетка":
-        divHint.innerHTML = "(огонь, дебаф) При получении прямого урона наносит 5-10 единиц урона от клетки, действует постоянно.";
-        break;
-      case "Клеймо огня":
-        divHint.innerHTML = "(огонь, другое) Увеличивает продолжительность всех наложенных на врага дебафов на два хода.";
-        break;
-      case "Ключ огня":
-        divHint.innerHTML = "(огонь, диспел) Снимает с противника баф воды или земли. Не забудьте выбрать цель.";
-        break;
-      case "Струя пламени":
-        divHint.innerHTML = "(огонь, прямой урон) Наносит противнику урон от 25 до 35 единиц, попадает в цель с вероятностью 66%.";
-        break;
-      case "Власть огня":
-        divHint.innerHTML = "(огонь, баф) Постоянно увеличивает урон от атакующих огненных заклинаний на 5 единиц.";
-        break;
-      case "Ледяной осколок":
-        divHint.innerHTML = "(вода, прямой урон) Наносит противнику от 5 до 15 единиц урона, за каждый дебаф, наложенный на противника, наносимый урон дополнительно увеличивается на 5.";
-        break;
-      case "Ледяная стена":
-        divHint.innerHTML = "(вода, баф) В течении шести ходов снижает урон от атакующих заклинаний на 40%.";
-        break;
-      case "Корона воды":
-        divHint.innerHTML = "(вода, баф) Снижает урон от дебафов на 50%, действует шесть ходов.";
-        break;
-      case "Родник":
-        divHint.innerHTML = "(вода, диспел) Позволяет снять дебаф огня, воды, земли или воздуха с вероятностью 66%. Не забудьте выбрать цель.";
-        break;
-      case "Ледяная сфера":
-        divHint.innerHTML = "(вода, баф) Полностью блокирует урон от атакующих заклинаний в течении двух ходов.";
-        break;
-      case "Печать воды":
-        divHint.innerHTML = "(вода, баф) В течении шести ходов блокирует треть урона от атакующих заклинаний.";
-        break;
-      case "Ключ воды":
-        divHint.innerHTML = "(вода, диспел) Позволяет снять дебаф огня или воздуха. Не забудьте выбрать цель.";
-        break;
-      case "Водный поток":
-        divHint.innerHTML = "(вода, прямой урон) Наносит 20 единиц урона.";
-        break;
-      case "Власть воды":
-        divHint.innerHTML = "(вода, баф) Постоянно увеличивает срок действия водных бафов на два хода.";
-        break;
-      case "Глыба":
-        divHint.innerHTML = "(земля, прямой урон) Наносит урон противнику от 50 до 70 единиц. Попадает в цель с вероятностью 33%";
-        break;
-      case "Скала":
-        divHint.innerHTML = "(земля, баф) В течении восьми ходов снижает урон от дебафов и атакующих заклинаний на 10 единиц.";
-        break;
-      case "Корона земли":
-        divHint.innerHTML = "(земля, баф) На шесть ходов увеличивает вероятность попаданя по противнику атакующими заклинаниями на 15%.";
-        break;
-      case "Земные недра":
-        divHint.innerHTML = "(земля, баф) Увеличивает урон от атакующих земных заклинаний на 15 единиц, увеличивает длительность дебафов земли на один ход, действует четыре хода.";
-        break;
-      case "Склеп":
-        divHint.innerHTML = "(земля, дебаф) Увеличивает вероятность попадания по противнику дебафами и заклинаниями урона на 5%, на десять ходов.";
-        break;
-      case "Печать земли":
-        divHint.innerHTML = "(земля, баф) В течении четырех ходов блокирует половину урона от атакующих заклинаний.";
-        break;
-      case "Ключ земли":
-        divHint.innerHTML = "(земля, диспел) Позволяет снять дебаф огня или воздуха. Не забудьте выбрать цель.";
-        break;
-      case "Сель":
-        divHint.innerHTML = "(земля, прямой урон) Наносит 80 единиц урона, попадает в цель с вероятностью 25%.";
-        break;
-      case "Власть земли":
-        divHint.innerHTML = "(земля, баф) Постоянно увелчивает срок действия бафов земли на четыре хода, срабатывает на каждом бафе с вероятностью 50%, действует четыре хода.";
-        break;
-      case "Копье воздуха":
-        divHint.innerHTML = "(воздух, прямой урон) Наносит противнику 25 единиц урона, попадает в цель с вероятностью 75% .";
-        break;
-      case "Вихрь":
-        divHint.innerHTML = "(воздух, дебаф) В течении четырех ходов снижает вероятность пападания по противнику заклинаниями урона на 33%.";
-        break;
-      case "Корона воздуха":
-        divHint.innerHTML = "(воздух, дебаф) В течении четырех ходов снижает вероятность успешного наложения бафа на 33%.";
-        break;
-      case "Врата воздуха":
-        divHint.innerHTML = "(воздух, баф) В течении шести ходов увеличивает вероятность попадания по противнику дебафами и заклинаниями прямого урона на 10%.";
-        break;
-      case "Воздушный кокон":
-        divHint.innerHTML = "(воздух, дебаф) В течении четырех ходов снижает вероятность попадания дебафом на 33%.";
-        break;
-      case "Печать воздуха":
-        divHint.innerHTML = "(воздух, дебаф) В течении десяти ходов снижает вероятность успешного наложения бафа, на 10%.";
-        break;
-      case "Ключ воздуха":
-        divHint.innerHTML = "(воздух, диспел) Позволяет снять с противника баф земли или воды. Не забудьте выбрать цель.";
-        break;
-      case "Ударная волна":
-        divHint.innerHTML = "(воздух, прямой урон) наносит урон противнику 40 единиц. Попадает в цель с вероятностью 50%";
-        break;
-      case "Власть воздуха":
-        divHint.innerHTML = "(воздух, баф) Постоянно уменьшает вероятность попадания по вам заклинаниями урона, на 20%.";
-        break;
-      case "Касание жизни":
-        divHint.innerHTML = "(жизнь, диспел) Позволяет снять дебаф смерти. Не забудьте выбрать цель.";
-        break;
-      case "Щит жизни":
-        divHint.innerHTML = "(жизнь, баф) Не позволяет уменьшать максимальный запас здоровья.";
-        break;
-      case "Корона жизни":
-        divHint.innerHTML = "(жизнь, другое) Увеличивает максимальный запас здоровья на 15 единиц.";
-        break;
-      case "Источник жизни":
-        divHint.innerHTML = "(жизнь, другое) Восстанавливает тридцать единиц здоровья.";
-        break;
-      case "Сфера восстановления":
-        divHint.innerHTML = "(жизнь, баф) В течении пяти ходов восстанавливает по 10 единиц здоровья.";
-        break;
-      case "Печать жизни":
-        divHint.innerHTML = "(жизнь, баф) Не позволяет наклдывать дебафы смерти в течении восьми ходов.";
-        break;
-      case "Ключ жизни":
-        divHint.innerHTML = "(жизнь, диспел) Позволяет снять любой дебаф, срабатывает с вероятностью 66%. Не забудьте выбрать цель.";
-        break;
-      case "Поток жизни":
-        divHint.innerHTML = "(жизнь, баф) Восстанавливает по 25 единиц здоровья за ход, действует два хода.";
-        break;
-      case "Власть жизни":
-        divHint.innerHTML = "(жизнь, баф) Не позволяет противнику снимать с вас бафы жизни, до тех пока не будтет снят этот баф.";
-        break;
-      case "Касание смерти":
-        divHint.innerHTML = "(смерть, диспел) Позволяет снять любой баф с противника, срабатывает с вероятностью 66%. Не забудьте выбрать цель.";
-        break;
-      case "Пелена смерти":
-        divHint.innerHTML = "(смерть, дебаф) Снижает вероятность успешного наложения бафов на 50%, на четыре хода.";
-        break;
-      case "Корона мертвеца":
-        divHint.innerHTML = "(смерть, другое) Уменьшает максимальный запас здоровья противника на 15 единиц.";
-        break;
-      case "Смерть":
-        divHint.innerHTML = "(смерть, другое) Убивает противника с вероятностью 5%.";
-        break;
-      case "Круг смерти":
-        divHint.innerHTML = "(смерть, дебаф) Увеличивает урон от накладываемых дебафов на 15 единиц за ход, действует два хода.";
-        break;
-      case "Печать смерти":
-        divHint.innerHTML = "(смерть, дебаф) Не позволяет накладывать бафы, действует два хода.";
-        break;
-      case "Ключ от смерти":
-        divHint.innerHTML = "(смерть, баф) Если у вас закончится запас здоровья, с вероятностью 50% оно восстановится до единицы. Действует четыре хода.";
-        break;
-      case "Поток смерти":
-        divHint.innerHTML = "(смерть, дебаф) В течении пяти ходов наносит противнику пять единиц урона и восстанавливает вам пять единиц здоровья.";
-        break;
-      case "Власть смерти":
-        divHint.innerHTML = "(смерть, диспел) Позволяет снять с противника баф жизни. Не забудьте выбрать цель.";
-        break;
-      default:
-        deleteHint();
-    }
-
+    divHint.innerHTML = spellbook[target.dataset.spellelement + target.dataset.spellform][3];
+    
   } else {
     switch (text) {
       case "Огненный щит":
