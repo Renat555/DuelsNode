@@ -15,9 +15,16 @@ module.exports.Player = class Player {
 
 }
 
-module.exports.SingleDamage = class SingleDamage {
+module.exports.ImmediateDamage = class ImmediateDamage {
 
   constructor(specifications) {
+    this.actionPoints = specifications[0];
+
+
+
+
+
+
     this.type = specifications[0];
     this.element = specifications[1];
     this.actionPoints = specifications[4];

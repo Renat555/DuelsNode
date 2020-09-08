@@ -1,39 +1,3 @@
-buff
-DecreaseDamageNegativeEffect
-IncreaseDamageOutputImmediateDamage
-DecreaseDamageInputImmediateDamage
-DamageByContactInputImmediateDamage
-BlockInputImmediateDamage
-IncreaseDurationInputBuff
-IncreaseHitChanceOutputImmediateDamage
-BlockDecreaseMaxHealth
-IncreaseHealthPerMuve
-BlockInputNegativeEffect
-
-
-
-debuff
-DamagePerMuve
-DamageByContactInputImmediateDamage
-IncreaseHitChanceInputImmediateDamage
-IncreaseHitChanceInputNegativeEffect
-IncreaseHitChanceOutputNegativeEffect
-DecreaseHitChanceOutputImmediateDamage
-DecreaseHitChanceOutputNegativeEffect
-DecreaseHitChanceInputPositiveEffect
-
-
-dispel
-
-battleSpell
-
-other
-
-
-
-
-
-
 
 const chai = require('chai');
 const expect = chai.expect;
@@ -42,7 +6,7 @@ const spellModels = require('./../modules/gameEngine/spellModels');
 
 const effectsList = require('./../modules/gameEngine/effectsList');
 const Player = effectsList.Player;
-const SingleDamage = effectsList.SingleDamage;
+const ImmediateDamage = effectsList.ImmediateDamage;
 
 const processingSpell = require('./../modules/gameEngine/processingSpell');
 const processingSpellByEnemyEffects = processingSpell.processingSpellByEnemyEffects;
@@ -51,24 +15,9 @@ const createUser = processingSpell.createUser;
 
 describe('game engine', function () {
 
-
-
-  describe('processing spell', function () {
-
-    it('create spell', function () {
-      let expectSpell = [ new SingleDamage(['SingleDamage', 'water', 20, 20, 1, 1, 'Водный поток поражает противника и наносит урон ']) ];
-      let resultSpell = createSpell(spellModels, 'waterflow');
-
-      expect(expectSpell).to.deep.equal(resultSpell);
-    });
-
-  });
-
-
-
   describe('spell effects', function () {
 
-    it('SingleDamage decrease enemy health', function() {
+    it('ImmediateDamage decrease enemy health', function() {
       let firespear = createSpell(spellModels, 'firespear');
 
       let enemyResult = new Player(250, 250, [], []);
@@ -82,7 +31,7 @@ describe('game engine', function () {
       expect(enemyResult).to.deep.equal(enemyExpect);
     });
 
-    it('IncreaseDamageOutputSpell adds damage for spell', function() {
+    /*it('IncreaseDamageOutputSpell adds damage for spell', function() {
       let firecrown = createSpell(spellModels, 'firecrown');
 
       let spellResult = new SingleDamage(['SingleDamage', 'water', 20, 20, 1, 1, 'Водный поток поражает противника и наносит урон ']);
@@ -107,7 +56,7 @@ describe('game engine', function () {
 
       waterflowExpect[0].description = waterflowResult[0].description;
       expect(waterflowExpect).to.deep.equal(waterflowResult);
-    });
+    });*/
 
   });
 

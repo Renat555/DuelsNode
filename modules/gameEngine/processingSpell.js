@@ -19,13 +19,13 @@ function createPlayers(mongoCollection, userId) {
 function createSpell(spellModels, spell) {
   let spellArr = [];
 
-  for (let i = 0; i < spellModels[spell].length; i++) {
+  for (let i = 1; i < spellModels[spell].length; i++) {
 
-    let constructor = spellModels[spell][i][0];
+    let constructor = spellModels[spell][i][1];
 
     switch (constructor) {
-      case 'SingleDamage':
-        spellArr[i] = new SingleDamage(spellModels[spell][i]);
+      case 'ImmediateDamage':
+        spellArr[i] = new ImmediateDamage(spellModels[spell][0], spellModels[spell][i]);
         break;
       case 'IncreaseDamageOutputSpell':
         spellArr[i] = new IncreaseDamageOutputSpell(spellModels[spell][i]);
@@ -43,7 +43,7 @@ function createSpell(spellModels, spell) {
 function isHaveNotDependences(effect, spell) {
 
   effect.dependencesType.forEach((item) => {
-    if ()
+
   });
 
 }
