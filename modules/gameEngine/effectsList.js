@@ -18,7 +18,7 @@ module.exports.Player = class Player {
 module.exports.ImmediateDamage = class ImmediateDamage {
 
   constructor(specifications) {
-    this.actionPoints = specifications[0];
+    this.actionPoints = specifications[0][0];
     this.energyPoints = specifications[5];
 
 
