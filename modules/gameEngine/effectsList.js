@@ -19,7 +19,7 @@ module.exports.ImmediateDamage = class ImmediateDamage {
 
   constructor(specifications) {
     this.actionPoints = specifications[0];
-
+    this.energyPoints = specifications[5];
 
 
 
@@ -28,7 +28,7 @@ module.exports.ImmediateDamage = class ImmediateDamage {
     this.type = specifications[0];
     this.element = specifications[1];
     this.actionPoints = specifications[4];
-    this.energyPoints = specifications[5];
+
     this.damage = Math.floor(Math.random() * (specifications[3] - specifications[2])) + specifications[2];
     this.descriptionStart = specifications[6];
     this.description = '';
