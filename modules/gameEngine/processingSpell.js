@@ -1,10 +1,9 @@
 
-const effectsList = require('./effectsList');
+const spellTypes = require('./spellTypes');
 const spellModels = require('./spellModels');
 
-const SingleDamage = effectsList.SingleDamage;
-const IncreaseDamageOutputSpell = effectsList.IncreaseDamageOutputSpell;
-const DecreaseDamageInputSpell = effectsList.DecreaseDamageInputSpell;
+const ImmediateDamage = spellTypes.ImmediateDamage;
+const DamagePerMuve = spellTypes.DamagePerMuve;
 
 function createPlayers(mongoCollection, userId) {
   let user;
@@ -17,27 +16,22 @@ function createPlayers(mongoCollection, userId) {
 }
 
 function createSpell(spellModels, spell) {
-  let spellArr = [];
+    let createdSpell;
 
-  for (let i = 1; i < spellModels[spell].length; i++) {
-
-    let constructor = spellModels[spell][i][1];
-
+    let constructor = spellModels[spell][1];
     switch (constructor) {
       case 'ImmediateDamage':
-        spellArr[i] = new ImmediateDamage(spellModels[spell][0], spellModels[spell][i]);
+        createdSpell = new ImmediateDamage(spellModels[spell]);
         break;
-      case 'IncreaseDamageOutputSpell':
-        spellArr[i] = new IncreaseDamageOutputSpell(spellModels[spell][i]);
+      case 'DamagePerMuve':
+        createdSpell = new DamagePerMuve(spellModels[spell]);
         break;
       case 'DecreaseDamageInputSpell':
-        spellArr[i] = new DecreaseDamageInputSpell(spellModels[spell][i]);
         break;
     }
 
-  }
 
-  return spellArr;
+  return createdSpell;
 }
 
 function isHaveNotDependences(effect, spell) {
@@ -80,8 +74,14 @@ function processingEnemyBySpell(enemy, spell) {
   }
 }
 
-function processingUserBySpell(user, spell) {
+function processingPlayerBySpell(player, spell) {
+  switch (spell['type']) {
+    case expression:
 
+      break;
+    default:
+
+  }
 }
 
 function savePlayers(user, enemy) {

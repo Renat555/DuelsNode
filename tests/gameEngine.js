@@ -4,9 +4,9 @@ const expect = chai.expect;
 
 const spellModels = require('./../modules/gameEngine/spellModels');
 
-const effectsList = require('./../modules/gameEngine/effectsList');
-const Player = effectsList.Player;
-const ImmediateDamage = effectsList.ImmediateDamage;
+const effectsTypes = require('./../modules/gameEngine/spellTypes');
+const Player = effectsTypes.Player;
+const ImmediateDamage = effectsTypes.ImmediateDamage;
 
 const processingSpell = require('./../modules/gameEngine/processingSpell');
 const processingSpellByEnemyEffects = processingSpell.processingSpellByEnemyEffects;
@@ -17,46 +17,34 @@ describe('game engine', function () {
 
   describe('spell effects', function () {
 
+    before(function(){
+      let firespear = createSpell(spellModels, 'firespear');
+      console.log(firespear);
+    });
+
     it('ImmediateDamage decrease enemy health', function() {
       let firespear = createSpell(spellModels, 'firespear');
 
       let enemyResult = new Player(250, 250, [], []);
       let enemyExpect = new Player(250, 250, [], []);
-      enemyExpect.health = enemyExpect.health - firespear[0].damage;
+      enemyExpect.health = enemyExpect.health - firespear.damage;
 
-      for (let i = 0; i < firespear.length; i++) {
-        firespear[i].effect(enemyResult);
-      }
+      firespear.effect(enemyResult);
 
       expect(enemyResult).to.deep.equal(enemyExpect);
     });
 
-    /*it('IncreaseDamageOutputSpell adds damage for spell', function() {
-      let firecrown = createSpell(spellModels, 'firecrown');
+    it('ImmediateDamage decrease enemy health', function() {
+      let firespear = createSpell(spellModels, 'firespear');
 
-      let spellResult = new SingleDamage(['SingleDamage', 'water', 20, 20, 1, 1, 'Водный поток поражает противника и наносит урон ']);
-      let spellExpect = new SingleDamage(['SingleDamage', 'water', 20, 20, 1, 1, 'Водный поток поражает противника и наносит урон ']);
-      spellExpect.damage = spellExpect.damage + Math.round(spellExpect.damage*25/100);
+      let enemyResult = new Player(250, 250, [], []);
+      let enemyExpect = new Player(250, 250, [], []);
+      enemyExpect.health = enemyExpect.health - firespear.damage;
 
-      firecrown[0].effect(spellResult);
+      firespear.effect(enemyResult);
 
-      spellExpect.description = spellResult.description;
-      expect(spellResult).to.deep.equal(spellExpect);
+      expect(enemyResult).to.deep.equal(enemyExpect);
     });
-
-    it('DecreaseDamageInputSpell reduces damage for spell', function() {
-      let enemy = new Player(250, 250, [], []);
-      enemy['buffs'][0] = createSpell(spellModels, 'watershild');
-
-      let waterflowExpect = createSpell(spellModels, 'waterflow');
-      waterflowExpect[0].damage = waterflowExpect[0].damage - Math.round(waterflowExpect[0].damage*40/100);
-
-      let waterflowResult = createSpell(spellModels, 'waterflow');
-      processingSpellByEnemyEffects(enemy,  waterflowResult);
-
-      waterflowExpect[0].description = waterflowResult[0].description;
-      expect(waterflowExpect).to.deep.equal(waterflowResult);
-    });*/
 
   });
 

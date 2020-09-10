@@ -16,17 +16,12 @@ other
 */
 
 let spellModels = {
-  firespear: [
-    [1, 1, 1],
-    ['ImmediateDamage', 'fire', 20, 30,
-    'Метеор поражает противника и наносит ',
-    'Метеор поражает вас и наносит ',
-    'Метеор не попадает в противника. ',
-    'Метеор не попадает в вас. ']
-  ],
+
+  firespear: ['BattleSpell', 'ImmediateDamage', 'fire', 'spear', 1, 1, 'Метеор', [], 1, 20, 30],
+
   fireshild: [
-    [1, 1, 4],
-    ['DecreaseDamageNegativeEffect', 'fire', 40, 0, 1, 1,
+    [1, 1, 1, 4],
+    ['DecreaseDamageNegativeEffect', 'fire', 40, 0, 1,
     ['DamagePerMuve', 'DamageByContactInputImmediateDamage', 'Vampirism'], ['All'],
     'Вы успешно наложили на себя огненный щит. ',
     'Противник успешно наложил на себя огненный щит. ',
@@ -44,9 +39,12 @@ let spellModels = {
     'Противнику не удалось наложить на себя огненный венец. ',
     ' Огненный венец увеличил урон от заклинания на ']
   ],
-  firesource: [
+
+  firesource: ['Buff', 'DamagePerMuve', 'fire', 'source', 1, 1, 'Вулкан', [], 1, 5, 12, 3],
+
+  [
     [1, 1, 3],
-    ['DamagePerMuve', 'fire', 5, 12,
+    ['DamagePerMuve', 'fire', 5, 12, 'Вулкан',
     'Вы успешно наложили на противника вулкан. ',
     'Противник успешно наложил на вас вулкан. ',
     'Вам не удалось наложить на противника вулкан. ',
@@ -79,14 +77,9 @@ let spellModels = {
     'Ключ огня снял с вас ',
     'Не удалось применить ключ огня. ']
   ],
-  fireflow: [
-    [1, 1],
-    ['ImmediateDamage', 'fire', 25, 35, 0.66,
-    'Струя пламени поражает противника и наносит ',
-    'Струя пламени поражает вас и наносит ',
-    'Струя пламени не попадает в противника. ',
-    'Струя пламени не попадает в вас. ']
-  ],
+
+  fireflow: ['BattleSpell', 'ImmediateDamage', 'fire', 'flow', 1, 1, 'Струя пламени', [], 0.66, 20, 30],
+
   firepower: [
     [1, 1, -1],
     ['IncreaseDamageOutputImmediateDamage', 'fire', 0, 5,
@@ -98,14 +91,9 @@ let spellModels = {
     ' Власть огня увеличила урон от заклинания на ']
   ],
   waterspear: [
-    [1, 1],
-    ['ImmediateDamage', 'water', 5, 15, 1,
-    'Ледяной осколок поражает противника и наносит ',
-    'Ледяной осколок поражает вас и наносит ',
-    'Ледяной осколок не попадает в противника. ',
-    'Ледяной осколок не попадает в вас. '],
-    ['SingleImmediateDamagePerEachNegativeEffect', 'water', 5, 5, 1,
-    ['DamagePerMuve', 'DamageCausedByContactWithBattleSpell'], ['All']]
+    [1, 1, 1],
+    ['ImmediateDamagePerEachNegativeEffect', 'water', 5, 15, 'Ледяной осколок',
+    ['DamagePerMuve', 'DamageByContactInputImmediateDamage', 'IncreaseHitChanceInputImmediateDamage', 'IncreaseHitChanceInputNegativeEffect', 'IncreaseHitChanceOutputNegativeEffect', 'DecreaseHitChanceOutputImmediateDamage', 'DecreaseHitChanceOutputNegativeEffect', 'DecreaseHitChanceInputPositiveEffect', 'IncreaseDamageInputNegativeEffect', 'BlockInputPositiveEffect', 'Vampirism'], ['All']]
   ],
   watershild: [
     [1, 1, 6],
@@ -163,14 +151,9 @@ let spellModels = {
     'Ключ воды снял с вас ',
     'Не удалось применить ключ воды. ']
   ],
-  waterflow: [
-    [1, 1],
-    ['ImmediateDamage', 'water', 20, 20, 1,
-    'Водный поток поражает противника и наносит ',
-    'Водный поток поражает вас и наносит ',
-    'Водный поток не попадает в противника. ',
-    'Водный поток не попадает в вас. ']
-  ],
+
+  waterflow: ['BattleSpell', 'ImmediateDamage', 'water', 'flow', 1, 1, 'Водный поток', [], 1, 20, 30],
+
   waterpower: [
     [1, 1, -1],
     ['IncreaseDurationInputBuff', 'water', 2,
@@ -181,14 +164,9 @@ let spellModels = {
     'Противнику не удалось наложить на себя власть воды. ',
     'Власть воды увеличила продолжительность действия заклинания на два хода. ']
   ],
-  earthspear: [
-    [1, 1],
-    ['ImmediateDamage', 'earth', 50, 70, 0.33,
-    'Глыба поражает противника и наносит ',
-    'Глыба поражает вас и наносит ',
-    'Глыба не попадает в противника. ',
-    'Глыба не попадает в вас. ']
-  ],
+
+  earthspear: ['BattleSpell', 'ImmediateDamage', 'earth', 'spear', 1, 1, 'Глыба', [], 0.33, 50, 70],
+
   earthshild: [
     [1, 1, 8],
     ['DecreaseDamageNegativeEffect', 'earth', 0, 10,
@@ -256,14 +234,9 @@ let spellModels = {
     'Ключ земли снял с вас ',
     'Не удалось применить ключ земли. ']
   ],
-  earthflow: [
-    [1, 1],
-    ['ImmediateDamage', 'earth', 80, 80, 0.25,
-    'Сель поражает противника и наносит ',
-    'Сель поражает вас и наносит ',
-    'Сель не попадает в противника. ',
-    'Сель не попадает в вас. ']
-  ],
+
+  earthflow: ['BattleSpell', 'ImmediateDamage', 'earth', 'flow', 1, 1, 'Сель', [], 0.25, 80, 80],
+
   earthpower: [
     [1, 1, 4],
     ['IncreaseDurationInputBuff', 'earth', 4, 0.5,
@@ -274,14 +247,9 @@ let spellModels = {
     'Противнику не удалось наложить на себя власть земли. ',
     'Власть земли увеличила продолжительность действия заклинания на четыре хода. ']
   ],
-  airspear: [
-    [1, 1],
-    ['ImmediateDamage', 'air', 25, 25, 0.75,
-    'Копье воздуха поражает противника и наносит ',
-    'Копье воздуха поражает вас и наносит ',
-    'Копье воздуха не попадает в противника. ',
-    'Копье воздуха не попадает в вас. ']
-  ],
+
+  airspear: ['BattleSpell', 'ImmediateDamage', 'air', 'spear', 1, 1, 'Копье воздуха', [], 0.75, 25, 25],
+
   airshild: [
     [1, 1, 4],
     ['DecreaseHitChanceOutputImmediateDamage', 'air', 0.33,
@@ -343,14 +311,9 @@ let spellModels = {
     'Ключ воздуха снял с вас ',
     'Не удалось применить ключ воздуха. ']
   ],
-  airflow: [
-    [1, 1],
-    ['ImmediateDamage', 'air', 40, 40, 0.5,
-    'Ударная волна поражает противника и наносит ',
-    'Ударная волна поражает вас и наносит ',
-    'Ударная волна не попадает в противника. ',
-    'Ударная волна не попадает в вас. ']
-  ],
+
+  airflow: ['BattleSpell', 'ImmediateDamage', 'air', 'flow', 1, 1, 'Ударная волна', [], 0.5, 40, 40],
+
   airpower: [
     [1, 1, -1],
     ['DecreaseHitChanceInputImmediateDamage', 'air', 20,
