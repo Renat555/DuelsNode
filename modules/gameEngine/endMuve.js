@@ -1,11 +1,15 @@
 
-function activationEffects(player) {
+function activationEffects(user, enemy, battleField) {
   let buffs = player['buffs'];
 
   for (let i = 0; i < buffs.length; i++) {
-    if (buffs[i]['category'] == 'DamagePerMuve') {
-      buffs[i].effect(player);
-    }
+    buffs[i].effectPerMuve(user, enemy, battleField);
+  }
+
+  let debuffs = player['debuffs'];
+
+  for (let i = 0; i < debuffs.length; i++) {
+    debuffs[i].effectPerMuve(user, enemy, battleField);
   }
 
 }

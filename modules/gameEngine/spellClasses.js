@@ -1,95 +1,302 @@
-/*
-buff
-'DecreaseDamageNegativeEffect', 'IncreaseDamageOutputImmediateDamage', 'DecreaseDamageInputImmediateDamage', 'BlockInputImmediateDamage', 'IncreaseDurationInputBuff', 'IncreaseHitChanceOutputImmediateDamage', 'BlockDecreaseMaxHealth', 'IncreaseHealthPerMuve', 'BlockInputNegativeEffect', 'DecreaseHitChanceInputImmediateDamage', 'BlockCancelPositiveEffect', 'BlockDeath'
 
-debuff
-'DamagePerMuve', 'DamageByContactInputImmediateDamage', 'IncreaseHitChanceInputImmediateDamage', 'IncreaseHitChanceInputNegativeEffect', 'IncreaseHitChanceOutputNegativeEffect', 'DecreaseHitChanceOutputImmediateDamage', 'DecreaseHitChanceOutputNegativeEffect', 'DecreaseHitChanceInputPositiveEffect', 'IncreaseDamageInputNegativeEffect', 'BlockInputPositiveEffect', 'Vampirism'
+module.exports.Player = class Player {
 
-dispel
-'СancelPositiveEffect', 'СancelNegativeEffect'
+  constructor(health, maxHealth, buffs, debuffs) {
+    this.health = health;
+    this.maxHealth = maxHealth;
+    this.buffs = buffs;
+    this.debuffs = debuffs;
+    this.descriptionForUser = '';
+    this.descriptionForEnemy = '';
+  }
 
-battleSpell
-'ImmediateDamage'
+  decreaseHealth(damage, spellName, descriptionForUser, descriptionForEnemy) {
+    this.health = this.health - damage;
+    if (this.health < 0) this.health = 0;
+    this.descriptionForUser += spellName + ' поражает противника и наносит ' + damage + ' единиц урона. ' + descriptionForUser;
+    this.descriptionForEnemy = spellName + ' поражает вас и наносит ' + damage + ' единиц урона. ' + descriptionForEnemy;
+  }
 
-other
-'IncreaseDurationAllDebuff', 'IncreaseMaxHealth', 'IncreaseHealth', 'DecreaseMaxHealth', 'Death'
-*/
+  savePositiveEffect(effect) {
+    this.buffs.push(effect);
+    this.descriptionForUser += 'Вы успешно наложили на себя ' + effect.name + '. ';
+    this.descriptionForEnemy += 'Противник успешно наложил на себя ' + effect.name + '. ';
+  }
+
+  saveNegativeEffect(effect) {
+    this.debuffs.push(effect);
+    this.descriptionForUser += 'Противник успешно наложил на вас ' + effect.name + '. ';
+    this.descriptionForEnemy += 'Вы успешно наложили на противника ' + effect.name + '. ';
+  }
+
+  deletePositiveEffect(spellForDelete, spellName, descriptionForUser, descriptionForEnemy) {
+    let index = this.buffs.findIndex(item => item.spell == spellForDelete);
+    this.buffs.splice(index, 1);
+    this.descriptionForUser += 'Вы успешно сняли с противника ' + spellName + '. ' + descriptionForUser;
+    this.descriptionForEnemy += 'Противник успешно снял с вас ' + spellName + '. ' + descriptionForEnemy;
+  }
+
+  deleteNegativeEffect(spellForDelete, spellName, descriptionForUser, descriptionForEnemy) {
+    let index = this.debuffs.findIndex(item => item.spell == spellForDelete);
+    this.debuffs.splice(index, 1);
+    this.descriptionForUser += 'Вы успешно сняли с себя ' + spellName + '. ' + descriptionForUser;
+    this.descriptionForEnemy += 'Противник успешно снял с себя ' + spellName + '. ' + descriptionForEnemy;
+  }
+
+}
+
+module.exports.Firespear = class Firespear {
+  actionPoints = 1;
+  energyPoints = 1;
+  hitProbability = 1;
+  spell = 'firespear'
+  name = 'Метеор';
+  descriptionForUser = '';
+  descriptionForEnemy = '';
+  damage = Math.round(Math.random()*(30 - 20)) + 20;
+
+  decreaseDamage(percent, points, spellName, descriptionForUser, descriptionForEnemy) {
+    points += Math.round(this.damage*percent/100);
+    this.damage -= points;
+    this.descriptionForUser += spellName + ' снижает урон от заклинания на ' + points + ' единиц.' + descriptionForUser;
+    this.descriptionForEnemy += spellName + ' снижает урон от заклинания на ' + points + ' единиц.' + descriptionForEnemy;
+  }
+
+  increaseDamage(percent, points, spellName, descriptionForUser, descriptionForEnemy) {
+    points += Math.round(this.damage*percent/100);
+    this.damage += points;
+    this.descriptionForUser += spellName + ' увеличивает урон от заклинания на ' + points + ' единиц.' + descriptionForUser;
+    this.descriptionForEnemy += spellName + ' увеличивает урон от заклинания на ' + points + ' единиц.' + descriptionForEnemy;
+  }
+
+  damagePlayer(player) {
+    if (this.hitProbability < Math.random()) return;
+    player.decreaseHealth(this.damage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+  }
+
+}
+
+module.exports.Fireshild = class Fireshild {
+  actionPoints = 1;
+  energyPoints = 1;
+  hitProbability = 1;
+  spell = 'fireshild';
+  name = 'Огненный щит';
+  descriptionForUser = '';
+  descriptionForEnemy = '';
+  dependences = ['firesource', 'firesphere', 'deathflow'];
+  activationProbability = 1;
+  duration = 4;
+  percentDecreaseDamage = 40;
+  pointsDecreaseDamage = 0;
+
+  saveEffect(player) {
+    player.savePositiveEffect(this);
+  }
+
+  increaseDuration(duration) {
+    this.duration += duration;
+  }
+
+  decreaseSpellDamage(spell) {
+    if (this.activationProbability < Math.random()) return;
+    spell.decreaseDamage(this.percentDecreaseDamage, this.pointsDecreaseDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+  }
+
+}
+
+module.exports.Firecrown = class Firecrown {
+  actionPoints = 1;
+  energyPoints = 1;
+  hitProbability = 1;
+  spell = 'firecrown';
+  name = 'Огненный венец';
+  descriptionForUser = '';
+  descriptionForEnemy = '';
+  dependences = ['firespear', 'fireflow', 'waterspear', 'waterflow', 'earthspear', 'earthflow', 'airspear', 'airflow'];
+  activationProbability = 1;
+  duration = 4;
+  percentIncreaseDamage = 25;
+  pointsIncreaseDamage = 0;
+
+  saveEffect(player) {
+    player.savePositiveEffect(this);
+  }
+
+  increaseDuration(duration) {
+    this.duration += duration;
+  }
+
+  increaseSpellDamage(spell) {
+      if (this.activationProbability < Math.random()) return;
+      spell.increaseDamage(this.percentIncreaseDamage, this.pointsIncreaseDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+  }
+
+}
+
+module.exports.Firesource = class Firesource {
+  actionPoints = 1;
+  energyPoints = 1;
+  hitProbability = 1;
+  spell = 'firesource';
+  name = 'Вулкан';
+  descriptionForUser = '';
+  descriptionForEnemy = '';
+  dependences = [];
+  activationProbability = 1;
+  duration = 3;
+  damage = Math.round(Math.random()*(12 - 5)) + 5;
+
+  saveEffect(player) {
+    player.saveNegativeEffect(this);
+  }
+
+  increaseDuration(duration) {
+    this.duration += duration;
+  }
+
+  decreaseDamage(percent, points, spellName, descriptionForUser, descriptionForEnemy) {
+    points += Math.round(this.damage*percent/100);
+    this.damage -= points;
+    this.descriptionForUser += spellName + ' снижает урон от заклинания на ' + points + ' единиц.' + descriptionForUser;
+    this.descriptionForEnemy += spellName + ' снижает урон от заклинания на ' + points + ' единиц.' + descriptionForEnemy;
+  }
+
+  damagePlayer(player) {
+    if (this.activationProbability < Math.random()) return;
+    player.decreaseHealth(this.damage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+  }
+
+}
+
+module.exports.Firesphere = class Firesphere {
+  actionPoints = 1;
+  energyPoints = 1;
+  hitProbability = 1;
+  spell = 'firesphere';
+  name = 'Огненная клетка';
+  descriptionForUser = '';
+  descriptionForEnemy = '';
+  dependences = ['firespear', 'fireflow', 'waterspear', 'waterflow', 'earthspear', 'earthflow', 'airspear', 'airflow'];
+  activationProbability = 1;
+  duration = -1;
+  damage = Math.round(Math.random()*(10 - 5)) + 5;
+
+  saveEffect(player) {
+    player.saveNegativeEffect(this);
+  }
+
+  increaseDuration(duration) {
+    this.duration += duration;
+  }
+
+  decreaseDamage(percent, points, spellName, descriptionForUser, descriptionForEnemy) {
+    points += Math.round(this.damage*percent/100);
+    this.damage -= points;
+    this.descriptionForUser += spellName + ' снижает урон от заклинания на ' + points + ' единиц.' + descriptionForUser;
+    this.descriptionForEnemy += spellName + ' снижает урон от заклинания на ' + points + ' единиц.' + descriptionForEnemy;
+  }
+
+  damagePlayer(player) {
+    if (this.activationProbability < Math.random()) return;
+    player.decreaseHealth(this.damage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+  }
+
+}
+
+module.exports.Firestamp = class Firestamp {
+  actionPoints = 1;
+  energyPoints = 1;
+  hitProbability = 1;
+  spell = 'firestamp'
+  name = 'Клеймо огня';
+  descriptionForUser = '';
+  descriptionForEnemy = '';
+  dependences = ['firesource', 'firesphere', 'earthsphere', 'airshild', 'aircrown', 'airsphere', 'airstamp', 'deathshild', 'deathsphere', 'deathstamp', 'deathflow'];
+  pointsIncreaseDuration = 2;
+
+  increaseSpellDuration(spell) {
+    spell.increaseDuration(this.pointsIncreaseDuration, this.name, this.descriptionForUser, this.descriptionForEnemy);
+  }
+
+}
+
+module.exports.Firekey = class Firekey {
+  actionPoints = 1;
+  energyPoints = 1;
+  hitProbability = 1;
+  spell = 'firekey'
+  name = 'Ключ огня';
+  descriptionForUser = '';
+  descriptionForEnemy = '';
+
+  constructor(spellForDelete) {
+    this.spellForDelete = spellForDelete;
+  }
+
+  deleteEffect(player) {
+    player.deletePositiveEffect(this.spellForDelete, this.name, this.descriptionForUser, this.descriptionForEnemy);
+  }
+}
+
+module.exports.Fireflow = class Fireflow {
+  actionPoints = 1;
+  energyPoints = 1;
+  hitProbability = 0.66;
+  spell = 'fireflow'
+  name = 'Струя пламени';
+  descriptionForUser = '';
+  descriptionForEnemy = '';
+  damage = Math.round(Math.random()*(35 - 25)) + 25;
+
+  decreaseDamage(percent, points, spellName, descriptionForUser, descriptionForEnemy) {
+    points += Math.round(this.damage*percent/100);
+    this.damage -= points;
+    this.descriptionForUser += spellName + ' снижает урон от заклинания на ' + points + ' единиц.' + descriptionForUser;
+    this.descriptionForEnemy += spellName + ' снижает урон от заклинания на ' + points + ' единиц.' + descriptionForEnemy;
+  }
+
+  increaseDamage(percent, points, spellName, descriptionForUser, descriptionForEnemy) {
+    points += Math.round(this.damage*percent/100);
+    this.damage += points;
+    this.descriptionForUser += spellName + ' увеличивает урон от заклинания на ' + points + ' единиц.' + descriptionForUser;
+    this.descriptionForEnemy += spellName + ' увеличивает урон от заклинания на ' + points + ' единиц.' + descriptionForEnemy;
+  }
+
+  damagePlayer(player) {
+    if (this.hitProbability < Math.random()) return;
+    player.decreaseHealth(this.damage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+  }
+
+}
+
+module.exports.Firepower = class Firepower {
+  actionPoints = 1;
+  energyPoints = 1;
+  hitProbability = 1;
+  spell = 'firepower';
+  name = 'Власть огня';
+  descriptionForUser = '';
+  descriptionForEnemy = '';
+  dependences = ['firespear', 'fireflow', 'waterspear', 'waterflow', 'earthspear', 'earthflow', 'airspear', 'airflow'];
+  activationProbability = 1;
+  duration = -1;
+  percentIncreaseDamage = 0;
+  pointsIncreaseDamage = 5;
+
+  saveEffect(player) {
+    player.savePositiveEffect(this);
+  }
+
+  increaseSpellDamage(spell) {
+      if (this.activationProbability < Math.random()) return;
+      spell.increaseDamage(this.percentIncreaseDamage, this.pointsIncreaseDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+  }
+
+}
 
 let spellModels = {
 
-  firespear: ['BattleSpell', 'ImmediateDamage', 'fire', 'spear', 1, 1, 'Метеор', [], 1, 20, 30],
-
-  fireshild: [
-    [1, 1, 1, 4],
-    ['DecreaseDamageNegativeEffect', 'fire', 40, 0, 1,
-    ['DamagePerMuve', 'DamageByContactInputImmediateDamage', 'Vampirism'], ['All'],
-    'Вы успешно наложили на себя огненный щит. ',
-    'Противник успешно наложил на себя огненный щит. ',
-    'Вам не удалось наложить на себя огненный щит. ',
-    'Противнику не удалось наложить на себя огненный щит. ',
-    ' Огненный щит снижает урон от заклинания на ']
-  ],
-  firecrown: [
-    [1, 1, 4],
-    ['IncreaseDamageOutputImmediateDamage', 'fire', 25, 0,
-    ['ImmediateDamage'], ['All'],
-    'Вы успешно наложили на себя огненный венец. ',
-    'Противник успешно наложил на себя огненный венец. ',
-    'Вам не удалось наложить на себя огненный венец. ',
-    'Противнику не удалось наложить на себя огненный венец. ',
-    ' Огненный венец увеличил урон от заклинания на ']
-  ],
-
-  firesource: ['Buff', 'DamagePerMuve', 'fire', 'source', 1, 1, 'Вулкан', [], 1, 5, 12, 3],
-
-  [
-    [1, 1, 3],
-    ['DamagePerMuve', 'fire', 5, 12, 'Вулкан',
-    'Вы успешно наложили на противника вулкан. ',
-    'Противник успешно наложил на вас вулкан. ',
-    'Вам не удалось наложить на противника вулкан. ',
-    'Противнику не удалось наложить на вас вулкан. ',
-    'Вулкан наносит противнику ',
-    'Вулкан наносит вам ']
-  ],
-  firesphere: [
-    [1, 1, -1],
-    ['DamageByContactInputImmediateDamage', 'fire', 5, 10,
-    ['ImmediateDamage'], ['All'],
-    'Вы успешно наложили на противника огненную клетку. ',
-    'Противник успешно наложил на вас огненную клетку. ',
-    'Вам не удалось наложить на противника огненную клетку. ',
-    'Противнику не удалось наложить на вас огненную клетку. ',
-    ' Огненная клетка наносит противнику ',
-    ' Огненная клетка наносит вам ']
-  ],
-  firestamp: [
-    [1, 1],
-    ['IncreaseDurationAllDebuff', 'fire', 2,
-    'Клеймо огня увеличило длительность всех наложенных на вас дебафов на ',
-    'Клеймо огня увеличило длительность всех наложенных на противника дебафов на ']
-  ],
-  firekey: [
-    [1, 1],
-    ['СancelPositiveEffect', 'fire',
-    ['DecreaseDamageNegativeEffect', 'IncreaseDamageOutputImmediateDamage', 'DecreaseDamageInputImmediateDamage', 'BlockInputImmediateDamage', 'IncreaseDurationInputBuff', 'IncreaseHitChanceOutputImmediateDamage', 'BlockDecreaseMaxHealth', 'IncreaseHealthPerMuve', 'BlockInputNegativeEffect', 'DecreaseHitChanceInputImmediateDamage', 'BlockCancelPositiveEffect', 'BlockDeath'], ['water', 'earth'],
-    'Ключ огня снял с противника ',
-    'Ключ огня снял с вас ',
-    'Не удалось применить ключ огня. ']
-  ],
-
-  fireflow: ['BattleSpell', 'ImmediateDamage', 'fire', 'flow', 1, 1, 'Струя пламени', [], 0.66, 20, 30],
-
-  firepower: [
-    [1, 1, -1],
-    ['IncreaseDamageOutputImmediateDamage', 'fire', 0, 5,
-    ['ImmediateDamage'], ['fire'],
-    'Вы успешно наложили на себя власть огня. ',
-    'Противник успешно наложил на себя власть огня. ',
-    'Вам не удалось наложить на себя власть огня. ',
-    'Противнику не удалось наложить на себя власть огня. ',
-    ' Власть огня увеличила урон от заклинания на ']
-  ],
   waterspear: [
     [1, 1, 1],
     ['ImmediateDamagePerEachNegativeEffect', 'water', 5, 15, 'Ледяной осколок',
@@ -212,6 +419,9 @@ let spellModels = {
     'Вам не удалось заключить противника в склеп. ',
     'Противнику не удалось заключить вас в склеп. ',
     ' Склеп увеличил вероятность попадания заклинанием на 5%. '],
+
+
+
     ['IncreaseHitChanceInputNegativeEffect', 'earth', 5, 0,
     ['DamagePerMuve', 'DamageByContactInputImmediateDamage', 'IncreaseHitChanceInputImmediateDamage', 'IncreaseHitChanceInputNegativeEffect', 'IncreaseHitChanceOutputNegativeEffect', 'DecreaseHitChanceOutputImmediateDamage', 'DecreaseHitChanceOutputNegativeEffect', 'DecreaseHitChanceInputPositiveEffect', 'IncreaseDamageInputNegativeEffect', 'BlockInputPositiveEffect', 'Vampirism'], ['All'],
     ' Склеп увеличил вероятность попадания заклинанием на 5%. ']
@@ -488,5 +698,3 @@ let spellModels = {
     'Не удалось применить власть смерти. ']
   ]
 }
-
-module.exports = spellModels;

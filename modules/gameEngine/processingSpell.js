@@ -1,9 +1,7 @@
 
-const spellTypes = require('./spellTypes');
-const spellModels = require('./spellModels');
+const spellClasses = require('./spellClasses');
 
-const ImmediateDamage = spellTypes.ImmediateDamage;
-const DamagePerMuve = spellTypes.DamagePerMuve;
+const Firespear = spellClasses.Firespear;
 
 function createPlayers(mongoCollection, userId) {
   let user;
@@ -15,93 +13,62 @@ function createPlayers(mongoCollection, userId) {
   return user;
 }
 
-function createSpell(spellModels, spell) {
-    let createdSpell;
+function isHaveDependences(effect, spell) {
+  for (let i = 0; i < effect['dependences'].length; i++) {
+    if (effect['dependences'][i] == spell['spell']) return true;
+  }
+  return false;
+}
 
-    let constructor = spellModels[spell][1];
-    switch (constructor) {
-      case 'ImmediateDamage':
-        createdSpell = new ImmediateDamage(spellModels[spell]);
-        break;
-      case 'DamagePerMuve':
-        createdSpell = new DamagePerMuve(spellModels[spell]);
-        break;
-      case 'DecreaseDamageInputSpell':
+function processingSpellByPlayerEffects(player, spell) {
+
+  for (let i = 0; i < player['buffs'].length; i++) {
+    if (!isHaveDependences(player['buffs'][i], spell)) continue;
+
+    switch (player['buffs'][i]['spell']) {
+      case 'fireshild':
+        player['buffs'][i].decreaseSpellDamager(spell);
         break;
     }
 
 
-  return createdSpell;
-}
+  }
 
-function isHaveNotDependences(effect, spell) {
+  for (let i = 0; i < player['debuffs'].length; i++) {
+    if (!isHaveDependences(player['debuffs'][i], spell)) continue;
 
-  effect.dependencesType.forEach((item) => {
-
-  });
-
-}
-
-function processingSpellByEnemyEffects(enemy, spell) {
-
-  for (let i = 0; i < enemy['buffs'].length; i++) {
-    for (let j = 0; j < enemy['buffs'][i].length; j++) {
-      for (let k = 0; k < spell.length; k++) {
-        if (isHaveNotDependences(enemy['buffs'][i][j], spell[k])) continue;
-        enemy['buffs'][i][j].effect(spell[k]);
-      }
+    switch (player['debuffs'][i]['spell']) {
+      case 'firesphere':
+        player['debuffs'][i].damagePlayer(player);
+        break;
     }
-  }
-
-  for (let i = 0; i < enemy['debuffs'].length; i++) {
-    for (let j = 0; j < enemy['debuffs'][i].length; j++) {
-      for (let k = 0; k < spell.length; k++) {
-        if (isHaveNotDependences(enemy['debuffs'][i][j], spell[k])) continue;
-        enemy['debuffs'][i][j].effect(spell[k]);
-      }
-    }
-  }
-
-}
-
-function processingSpellByUserEffects(user, spell) {
-
-}
-
-function processingEnemyBySpell(enemy, spell) {
-  for (let i = 0; i < spell.length; i++) {
 
   }
-}
 
-function processingPlayerBySpell(player, spell) {
-  switch (spell['type']) {
-    case expression:
-
-      break;
-    default:
-
-  }
 }
 
 function savePlayers(user, enemy) {
 
 }
 
-function processingSpell(spell, collection, ws) {
+function processingSpell(spellName, collection, ws) {
+  let spell;
+
+  switch (spellName) {
+    case 'firespear':
+      spell = new Firespear();
+      break;
+    case 'firekey':
+      spell = new Firekey();
+      break;
+  }
+
   createPlayers(mongoCollection, userId);
-  createSpell(spell);
-  processingSpellByEnemyEffects(user, enemy, spell);
-  processingSpellByUserEffects(user, enemy, spell);
-  processingEnemyBySpell(enemy, spell);
-  processingUserBySpell(user, spell);
+  processingSpellByPlayerEffects(enemy, spell);
+  processingSpellByPlayerEffects(user, spell);
   savePlayers(user, enemy);
 }
 
 module.exports.createPlayers = createPlayers;
-module.exports.createSpell = createSpell;
-module.exports.processingSpellByEnemyEffects = processingSpellByEnemyEffects;
-module.exports.processingSpellByUserEffects = processingSpellByUserEffects;
-module.exports.processingEnemyBySpell = processingEnemyBySpell;
-module.exports.processingUserBySpell = processingUserBySpell;
+module.exports.processingSpellByPlayerEffects = processingSpellByPlayerEffects;
 module.exports.savePlayers = savePlayers;
