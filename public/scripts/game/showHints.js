@@ -42,7 +42,7 @@ function showHint(event) {
   if (target.dataset.spellelement) {
 
     divHint.innerHTML = spellbook[target.dataset.spellelement + target.dataset.spellform][3];
-    
+
   } else {
     switch (text) {
       case "Огненный щит":
@@ -226,7 +226,7 @@ function showHint(event) {
         divHint.innerHTML = hint;
         break;
       case "Ключ от смерти":
-        hint = "(смерть, баф) Если у вас закончится запас здоровья, с вероятностью 50% оно восстановится до единицы.";
+        hint = "(смерть, баф) С вероятностью 50%, при получении смертельного урона от атакующего заклинания, ваше здоровье восстановиться до единицы.";
         if (duration > 100) duration = "действует постоянно.";
         hint += " Осталось ходов: " + duration;
         divHint.innerHTML = hint;

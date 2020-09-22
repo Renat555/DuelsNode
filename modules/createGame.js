@@ -22,8 +22,8 @@ function checkPlayer(player, mongoCollection) {
 
 }
 
-function savePlayer(player, mongoCollection) {
-		console.log('savePlayer');
+function savePlayer(player, mongoCollection, ws) {
+		ws['id'] = player['id'];
     mongoCollection.insertOne(player, function (err, result){
 			console.log(err);
 		});

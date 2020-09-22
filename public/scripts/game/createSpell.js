@@ -5,7 +5,7 @@ function fillSpell() {
   let divActionPointsNeed = document.getElementById('actionPointsNeed');
   let divEnergyPointsNeed = document.getElementById('energyPointsNeed');
 
-  if (divSpell.dataset.spellelement != "undefind" && divSpell.dataset.spellform != "undefind") {
+  if (divSpell.dataset.spellelement != "" && divSpell.dataset.spellform != "") {
     divSpell.innerHTML = spellbook[divSpell.dataset.spellelement + divSpell.dataset.spellform][0];
 
     divActionPointsNeed.innerHTML = spellbook[divSpell.dataset.spellelement + divSpell.dataset.spellform][1];

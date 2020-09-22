@@ -5,7 +5,7 @@ const MongoClient = require("mongodb").MongoClient;
 const config = require('config');
 
 const createGame = require('./modules/createGame');
-const processingSpell = require('./modules/gameEngine/processingSpell');
+const processingSpell = require('./modules/gameEngine/processingSpell').processingSpell;
 
 
 const url = config.get('mongo')['url'];
