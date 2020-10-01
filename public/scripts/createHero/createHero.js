@@ -2,20 +2,22 @@
 
 let gameInformation = {
   header: 'createGame',
-  name: "undefined",
-  idGame: '',
-  actionPoints: 3,
-  energyPoints: 3,
-  maxHealth: '',
-  health: '',
-  muve: '',
-  elements: [],
-  forms: [],
-  buffs: [],
-  debuffs: []
+  user: {
+    name: "undefined",
+    idGame: '',
+    actionPoints: 3,
+    energyPoints: 3,
+    maxHealth: '',
+    health: '',
+    muve: '',
+    elements: [],
+    forms: [],
+    buffs: [],
+    debuffs: []
+  }
 }
 
-gameInformation['id'] = randomString();
+gameInformation['user']['id'] = randomString();
 
 function randomString() {
 	let string = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789";
@@ -76,20 +78,20 @@ function choose(event) {
 
     switch (classElement) {
       case "wrapperElement":
-        selectElement(div, gameInformation['elements']);
+        selectElement(div, gameInformation['user']['elements']);
         break;
       case "wrapperForm":
-        selectForm(div, gameInformation['forms']);
+        selectForm(div, gameInformation['user']['forms']);
     }
 
   } else if (div.dataset.status == "selected") {
 
     switch (classElement) {
       case "wrapperElement":
-        clearElement(div, gameInformation['elements']);
+        clearElement(div, gameInformation['user']['elements']);
         break;
       case "wrapperForm":
-        clearForm(div, gameInformation['forms']);
+        clearForm(div, gameInformation['user']['forms']);
     }
 
   }
@@ -104,14 +106,14 @@ let buttonStartGame = document.getElementsByName("startGame")[0];
 
 buttonStartGame.onclick = async () => {
 
-  gameInformation.name = document.getElementsByName("userName")[0].value;
+  gameInformation['user'].name = document.getElementsByName("userName")[0].value;
 
-    if (gameInformation['elements'].length < 3) {
+    if (gameInformation['user']['elements'].length < 3) {
       alert("Выберите три стихии.");
       return;
     }
 
-  if (gameInformation['forms'].length < 5) {
+  if (gameInformation['user']['forms'].length < 5) {
       alert("Выберите пять форм.");
       return;
     }

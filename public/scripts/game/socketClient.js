@@ -14,8 +14,8 @@ ws.onmessage = (message) => {
     case 'createGame':
       fillInterface(users);
       break;
-    case 'processedSpell':
-      //changeInterface(users);
+    case 'processingSpell':
+      changeInterface(users);
       break;
   }
   console.log(JSON.parse(message.data));

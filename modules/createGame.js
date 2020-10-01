@@ -10,31 +10,32 @@ function randomString() {
 	return result;
 }
 
-function checkPlayer(player, mongoCollection) {
-
-	mongoCollection.findOne({'id': player['id']}
-		).then((user) => {
-			if (user === null) return;
-			if (user['idGame'] === '') {
-				mongoCollection.deleteOne({'id': player['id']});
-		}
-	});
-
-}
-
 function savePlayer(player, mongoCollection, ws) {
+	return new Promise((resolve, reject) => {
 		ws['id'] = player['id'];
-    mongoCollection.insertOne(player, function (err, result){
-			console.log(err);
+    mongoCollection.insertOne(player, function (err, doc) {
+			resolve();
 		});
+	});
 }
 
-function sendGameInformation(player, mongoCollection, ws, response) {
-		mongoCollection.findOne({'id': player['id']}, function (err, doc) {
+function sendGameInformation(user, mongoCollection, ws, wss) {
+		let response = {'header': 'createGame'};
+		mongoCollection.findOne({'id': user['id']}, function (err, doc) {
 		    response['user'] = doc;
-		    mongoCollection.findOne({$and: [{'id': {$not: {$eq: player['id']} } }, {'idGame': doc['idGame']}] }, function (err, doc) {
+		    mongoCollection.findOne({$and: [{'id': {$not: {$eq: user['id']} } }, {'idGame': doc['idGame']}] }, function (err, doc) {
 		      response['enemy'] = doc;
 		      ws.send(JSON.stringify(response));
+					wss.clients.forEach(function each(client) {
+    				if (client.readyState == 1 && client['id'] == doc['id']) {
+							let responseForEnemy = {'header': 'createGame'};
+							responseForEnemy['user'] = response['enemy'];
+							responseForEnemy['enemy'] = response['user'];
+							client['idGame'] = response['enemy']['idGame'];
+							client['idEnemy'] = response['user']['id'];
+      				client.send(JSON.stringify(responseForEnemy));
+    				}
+  				});
 		    });
 		});
 }
@@ -64,37 +65,27 @@ function setMuve(player, mongoCollection) {
 
 }
 
-function searchEnemy(player, mongoCollection, ws) {
-		console.log('searchEnemy');
-		let response = {'header': 'createGame'};
-
-	mongoCollection.findOne({'id': player['id']}, function (err, doc) {
-      if (doc['idGame'] !== '') {
-        sendGameInformation(player, mongoCollection, ws, response);
-      } else {
-        mongoCollection.findOneAndUpdate(
-          {$and: [{'id': {$not: {$eq: player['id']} } }, {'idGame': ''}] }, {$set: {'idGame': randomString()}}, {returnOriginal: false}
-          ).then(res => {
-            if (res['value'] === null) {
-    					setTimeout(searchEnemy, 5000, player, mongoCollection, ws);
-            } else {
-	            mongoCollection.findOneAndUpdate({'id': player['id']}, {$set: {'idGame': res['value']['idGame']}}, {returnOriginal: false}
-								).then((res) => {
-									setMuve(player, mongoCollection);
-									sendGameInformation(player, mongoCollection, ws, response);
-								});
-						}
-          });
-
-      }
-    });
-
+function searchEnemy(user, mongoCollection, ws, wss) {
+		mongoCollection.findOneAndUpdate(
+      {$and: [{'id': {$not: {$eq: user['id']} } }, {'idGame': ''}] }, {$set: {'idGame': randomString()}}, {returnOriginal: false}
+        ).then(res => {
+          if (res['value'] === null) return;
+					ws['idGame'] = res['value']['idGame'];
+					ws['idEnemy'] = res['value']['id'];
+					console.log('idEnemy' + ws['idEnemy']);
+	        mongoCollection.findOneAndUpdate({'id': user['id']}, {$set: {'idGame': res['value']['idGame']}}, {returnOriginal: false}
+						).then((res) => {
+							setMuve(user, mongoCollection);
+							sendGameInformation(user, mongoCollection, ws, wss);
+						});
+	});
 }
 
-function createGame(player, mongoCollection, ws) {
-	checkPlayer(player, mongoCollection);
-	savePlayer(player, mongoCollection, ws);
-	searchEnemy(player, mongoCollection, ws);
+function createGame(player, mongoCollection, ws, wss) {
+	savePlayer(player, mongoCollection, ws)
+		.then(result => {
+			searchEnemy(player, mongoCollection, ws, wss);
+	});
 }
 
 module.exports = createGame;

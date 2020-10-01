@@ -1,6 +1,8 @@
 
 module.exports.Player = class Player {
-  constructor(health, maxHealth, buffs, debuffs) {
+  constructor(actionPoints, energyPoints, health, maxHealth, buffs, debuffs) {
+    this.actionPoints = actionPoints;
+    this.energyPoints = energyPoints;
     this.health = health;
     this.maxHealth = maxHealth;
     this.buffs = buffs;
@@ -67,7 +69,8 @@ module.exports.Firespear = class Firespear {
   name = 'Метеор';
   descriptionForUser = '';
   descriptionForEnemy = '';
-  damage = Math.round(Math.random()*(30 - 20)) + 20;
+  maxDamage = Math.round(Math.random()*(30 - 20)) + 20;
+  currentDamage = this.maxDamage;
 
   decreaseHitProbability(percent, spellName, descriptionForUser, descriptionForEnemy) {
     this.hitProbability = this.hitProbability - percent;
@@ -78,22 +81,22 @@ module.exports.Firespear = class Firespear {
   }
 
   decreaseDamage(percent, points, spellName, descriptionForUser, descriptionForEnemy) {
-    points += Math.round(this.damage*percent/100);
-    this.damage -= points;
+    points += Math.round(this.currentDamage*percent/100);
+    this.currentDamage -= points;
     this.descriptionForUser += spellName + ' снижает урон от заклинания на ' + points + ' единиц.' + descriptionForUser;
     this.descriptionForEnemy += spellName + ' снижает урон от заклинания на ' + points + ' единиц.' + descriptionForEnemy;
   }
 
   increaseDamage(percent, points, spellName, descriptionForUser, descriptionForEnemy) {
-    points += Math.round(this.damage*percent/100);
-    this.damage += points;
+    points += Math.round(this.maxDamage*percent/100);
+    this.currentDamage += points;
     this.descriptionForUser += spellName + ' увеличивает урон от заклинания на ' + points + ' единиц.' + descriptionForUser;
     this.descriptionForEnemy += spellName + ' увеличивает урон от заклинания на ' + points + ' единиц.' + descriptionForEnemy;
   }
 
   decreasePlayerHealth(player) {
     if (this.hitProbability < Math.random()) return;
-    player.decreaseHealth(this.damage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    player.decreaseHealth(this.currentDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
   }
 }
 
@@ -206,7 +209,8 @@ module.exports.Firesource = class Firesource {
   dependences = [];
   activationProbability = 1;
   duration = 3;
-  damage = Math.round(Math.random()*(12 - 5)) + 5;
+  maxDamage = Math.round(Math.random()*(12 - 5)) + 5;
+  currentDamage = this.maxDamage;
 
   decreaseHitProbability(percent, spellName, descriptionForUser, descriptionForEnemy) {
     this.hitProbability = this.hitProbability - percent;
@@ -233,22 +237,22 @@ module.exports.Firesource = class Firesource {
   }
 
   decreaseDamage(percent, points, spellName, descriptionForUser, descriptionForEnemy) {
-    points += Math.round(this.damage*percent/100);
-    this.damage -= points;
+    points += Math.round(this.maxDamage*percent/100);
+    this.currentDamage -= points;
     this.descriptionForUser += spellName + ' снижает урон от заклинания на ' + points + ' единиц.' + descriptionForUser;
     this.descriptionForEnemy += spellName + ' снижает урон от заклинания на ' + points + ' единиц.' + descriptionForEnemy;
   }
 
   increaseDamage(percent, points, spellName, descriptionForUser, descriptionForEnemy) {
-    points += Math.round(this.damage*percent/100);
-    this.damage += points;
+    points += Math.round(this.maxDamage*percent/100);
+    this.currentDamage += points;
     this.descriptionForUser += spellName + ' увеличивает урон от заклинания на ' + points + ' единиц.' + descriptionForUser;
     this.descriptionForEnemy += spellName + ' увеличивает урон от заклинания на ' + points + ' единиц.' + descriptionForEnemy;
   }
 
   decreasePlayerHealth(player) {
     if (this.activationProbability < Math.random()) return;
-    player.decreaseHealth(this.damage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    player.decreaseHealth(this.currentDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
   }
 
   saveEffect(player) {
@@ -268,7 +272,8 @@ module.exports.Firesphere = class Firesphere {
   dependences = ['firespear', 'fireflow', 'waterspear', 'waterflow', 'earthspear', 'earthflow', 'airspear', 'airflow'];
   activationProbability = 1;
   duration = -1;
-  damage = Math.round(Math.random()*(10 - 5)) + 5;
+  maxDamage = Math.round(Math.random()*(10 - 5)) + 5;
+  currentDamage = this.maxDamage;
 
   decreaseHitProbability(percent, spellName, descriptionForUser, descriptionForEnemy) {
     this.hitProbability = this.hitProbability - percent;
@@ -295,22 +300,22 @@ module.exports.Firesphere = class Firesphere {
   }
 
   decreaseDamage(percent, points, spellName, descriptionForUser, descriptionForEnemy) {
-    points += Math.round(this.damage*percent/100);
-    this.damage -= points;
+    points += Math.round(this.maxDamage*percent/100);
+    this.currentDamage -= points;
     this.descriptionForUser += spellName + ' снижает урон от заклинания на ' + points + ' единиц.' + descriptionForUser;
     this.descriptionForEnemy += spellName + ' снижает урон от заклинания на ' + points + ' единиц.' + descriptionForEnemy;
   }
 
   increaseDamage(percent, points, spellName, descriptionForUser, descriptionForEnemy) {
-    points += Math.round(this.damage*percent/100);
-    this.damage += points;
+    points += Math.round(this.maxDamage*percent/100);
+    this.currentDamage += points;
     this.descriptionForUser += spellName + ' увеличивает урон от заклинания на ' + points + ' единиц.' + descriptionForUser;
     this.descriptionForEnemy += spellName + ' увеличивает урон от заклинания на ' + points + ' единиц.' + descriptionForEnemy;
   }
 
   decreasePlayerHealth(player) {
     if (this.activationProbability < Math.random()) return;
-    player.decreaseHealth(this.damage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    player.decreaseHealth(this.currentDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
   }
 
   saveEffect(player) {
@@ -338,9 +343,11 @@ module.exports.Firestamp = class Firestamp {
     this.hitProbability = this.hitProbability + percent;
   }
 
-  increaseSpellDuration(spell) {
+  increaseSpellDuration(player) {
     if (this.hitProbability < Math.random()) return;
-    spell.increaseDuration(this.pointsIncreaseDuration, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    for (let i = 0; i < player.debuffs.length; i++) {
+      splayer.debuff[i].increaseDuration(this.pointsIncreaseDuration, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    }
   }
 }
 
@@ -379,7 +386,8 @@ module.exports.Fireflow = class Fireflow {
   name = 'Струя пламени';
   descriptionForUser = '';
   descriptionForEnemy = '';
-  damage = Math.round(Math.random()*(35 - 25)) + 25;
+  maxDamage = Math.round(Math.random()*(35 - 25)) + 25;
+  currentDamage = this.maxDamage;
 
   decreaseHitProbability(percent, spellName, descriptionForUser, descriptionForEnemy) {
     this.hitProbability = this.hitProbability - percent;
@@ -390,24 +398,23 @@ module.exports.Fireflow = class Fireflow {
   }
 
   decreaseDamage(percent, points, spellName, descriptionForUser, descriptionForEnemy) {
-    points += Math.round(this.damage*percent/100);
-    this.damage -= points;
+    points += Math.round(this.maxDamage*percent/100);
+    this.currentDamage -= points;
     this.descriptionForUser += spellName + ' снижает урон от заклинания на ' + points + ' единиц.' + descriptionForUser;
     this.descriptionForEnemy += spellName + ' снижает урон от заклинания на ' + points + ' единиц.' + descriptionForEnemy;
   }
 
   increaseDamage(percent, points, spellName, descriptionForUser, descriptionForEnemy) {
-    points += Math.round(this.damage*percent/100);
-    this.damage += points;
+    points += Math.round(this.maxDamage*percent/100);
+    this.currentDamage += points;
     this.descriptionForUser += spellName + ' увеличивает урон от заклинания на ' + points + ' единиц.' + descriptionForUser;
     this.descriptionForEnemy += spellName + ' увеличивает урон от заклинания на ' + points + ' единиц.' + descriptionForEnemy;
   }
 
   decreasePlayerHealth(player) {
     if (this.hitProbability < Math.random()) return;
-    player.decreaseHealth(this.damage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    player.decreaseHealth(this.currentDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
   }
-
 }
 
 module.exports.Firepower = class Firepower {
@@ -459,7 +466,8 @@ module.exports.Waterspear = class Waterspear {
   name = 'Ледяной осколок';
   descriptionForUser = '';
   descriptionForEnemy = '';
-  damage = Math.round(Math.random()*(15 - 5)) + 5;
+  maxDamage = Math.round(Math.random()*(15 - 5)) + 5;
+  currentDamage = this.maxDamage;
 
   decreaseHitProbability(percent, spellName, descriptionForUser, descriptionForEnemy) {
     this.hitProbability = this.hitProbability - percent;
@@ -470,22 +478,22 @@ module.exports.Waterspear = class Waterspear {
   }
 
   decreaseDamage(percent, points, spellName, descriptionForUser, descriptionForEnemy) {
-    points += Math.round(this.damage*percent/100);
-    this.damage -= points;
+    points += Math.round(this.maxDamage*percent/100);
+    this.currentDamage -= points;
     this.descriptionForUser += spellName + ' снижает урон от заклинания на ' + points + ' единиц.' + descriptionForUser;
     this.descriptionForEnemy += spellName + ' снижает урон от заклинания на ' + points + ' единиц.' + descriptionForEnemy;
   }
 
   increaseDamage(percent, points, spellName, descriptionForUser, descriptionForEnemy) {
-    points += Math.round(this.damage*percent/100);
-    this.damage += points;
+    points += Math.round(this.maxDamage*percent/100);
+    this.currentDamage += points;
     this.descriptionForUser += spellName + ' увеличивает урон от заклинания на ' + points + ' единиц.' + descriptionForUser;
     this.descriptionForEnemy += spellName + ' увеличивает урон от заклинания на ' + points + ' единиц.' + descriptionForEnemy;
   }
 
   decreasePlayerHealth(player) {
     if (this.hitProbability < Math.random()) return;
-    let totalDamage = this.damage + player['debuffs'].length*5;
+    let totalDamage = this.currentDamage + player['debuffs'].length*5;
     player.decreaseHealth(totalDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
   }
 }
@@ -591,7 +599,7 @@ module.exports.Watercrown = class Watercrown {
 module.exports.Watersource = class Watersource {
   actionPoints = 1;
   energyPoints = 1;
-  hitProbability = 1;
+  hitProbability = 0.66;
   spell = 'watersource'
   name = 'Родник';
   descriptionForUser = '';
@@ -748,7 +756,8 @@ module.exports.Waterflow = class Waterflow {
   name = 'Водный поток';
   descriptionForUser = '';
   descriptionForEnemy = '';
-  damage = 20;
+  maxDamage = 20;
+  currentDamage = this.maxDamage;
 
   decreaseHitProbability(percent, spellName, descriptionForUser, descriptionForEnemy) {
     this.hitProbability = this.hitProbability - percent;
@@ -759,22 +768,22 @@ module.exports.Waterflow = class Waterflow {
   }
 
   decreaseDamage(percent, points, spellName, descriptionForUser, descriptionForEnemy) {
-    points += Math.round(this.damage*percent/100);
-    this.damage -= points;
+    points += Math.round(this.maxDamage*percent/100);
+    this.currentDamage -= points;
     this.descriptionForUser += spellName + ' снижает урон от заклинания на ' + points + ' единиц.' + descriptionForUser;
     this.descriptionForEnemy += spellName + ' снижает урон от заклинания на ' + points + ' единиц.' + descriptionForEnemy;
   }
 
   increaseDamage(percent, points, spellName, descriptionForUser, descriptionForEnemy) {
-    points += Math.round(this.damage*percent/100);
-    this.damage += points;
+    points += Math.round(this.maxDamage*percent/100);
+    this.currentDamage += points;
     this.descriptionForUser += spellName + ' увеличивает урон от заклинания на ' + points + ' единиц.' + descriptionForUser;
     this.descriptionForEnemy += spellName + ' увеличивает урон от заклинания на ' + points + ' единиц.' + descriptionForEnemy;
   }
 
   decreasePlayerHealth(player) {
     if (this.hitProbability < Math.random()) return;
-    let totalDamage = this.damage + player['debuffs'].length*5;
+    let totalDamage = this.currentDamage + player['debuffs'].length*5;
     player.decreaseHealth(totalDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
   }
 }
@@ -828,7 +837,8 @@ module.exports.Earthspear = class Earthspear {
   name = 'Глыба';
   descriptionForUser = '';
   descriptionForEnemy = '';
-  damage = Math.round(Math.random()*(70 - 50)) + 50;
+  maxDamage = Math.round(Math.random()*(70 - 50)) + 50;
+  currentDamage = this.maxDamage;
 
   decreaseHitProbability(percent, spellName, descriptionForUser, descriptionForEnemy) {
     this.hitProbability = this.hitProbability - percent;
@@ -839,22 +849,22 @@ module.exports.Earthspear = class Earthspear {
   }
 
   decreaseDamage(percent, points, spellName, descriptionForUser, descriptionForEnemy) {
-    points += Math.round(this.damage*percent/100);
-    this.damage -= points;
+    points += Math.round(this.maxDamage*percent/100);
+    this.currentDamage -= points;
     this.descriptionForUser += spellName + ' снижает урон от заклинания на ' + points + ' единиц.' + descriptionForUser;
     this.descriptionForEnemy += spellName + ' снижает урон от заклинания на ' + points + ' единиц.' + descriptionForEnemy;
   }
 
   increaseDamage(percent, points, spellName, descriptionForUser, descriptionForEnemy) {
-    points += Math.round(this.damage*percent/100);
-    this.damage += points;
+    points += Math.round(this.maxDamage*percent/100);
+    this.currentDamage += points;
     this.descriptionForUser += spellName + ' увеличивает урон от заклинания на ' + points + ' единиц.' + descriptionForUser;
     this.descriptionForEnemy += spellName + ' увеличивает урон от заклинания на ' + points + ' единиц.' + descriptionForEnemy;
   }
 
   decreasePlayerHealth(player) {
     if (this.hitProbability < Math.random()) return;
-    player.decreaseHealth(this.damage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    player.decreaseHealth(this.currentDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
   }
 }
 
@@ -1135,7 +1145,8 @@ module.exports.Earthflow = class Earthflow {
   name = 'Сель';
   descriptionForUser = '';
   descriptionForEnemy = '';
-  damage = 80;
+  maxDamage = 80;
+  currentDamage = this.maxDamage;
 
   decreaseHitProbability(percent, spellName, descriptionForUser, descriptionForEnemy) {
     this.hitProbability = this.hitProbability - percent;
@@ -1146,22 +1157,22 @@ module.exports.Earthflow = class Earthflow {
   }
 
   decreaseDamage(percent, points, spellName, descriptionForUser, descriptionForEnemy) {
-    points += Math.round(this.damage*percent/100);
-    this.damage -= points;
+    points += Math.round(this.maxDamage*percent/100);
+    this.currentDamage -= points;
     this.descriptionForUser += spellName + ' снижает урон от заклинания на ' + points + ' единиц.' + descriptionForUser;
     this.descriptionForEnemy += spellName + ' снижает урон от заклинания на ' + points + ' единиц.' + descriptionForEnemy;
   }
 
   increaseDamage(percent, points, spellName, descriptionForUser, descriptionForEnemy) {
-    points += Math.round(this.damage*percent/100);
-    this.damage += points;
+    points += Math.round(this.maxDamage*percent/100);
+    this.currentDamage += points;
     this.descriptionForUser += spellName + ' увеличивает урон от заклинания на ' + points + ' единиц.' + descriptionForUser;
     this.descriptionForEnemy += spellName + ' увеличивает урон от заклинания на ' + points + ' единиц.' + descriptionForEnemy;
   }
 
   decreasePlayerHealth(player) {
     if (this.hitProbability < Math.random()) return;
-    player.decreaseHealth(this.damage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    player.decreaseHealth(this.currentDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
   }
 }
 
@@ -1214,7 +1225,8 @@ module.exports.Airspear = class Airspear {
   name = 'Копье воздуха';
   descriptionForUser = '';
   descriptionForEnemy = '';
-  damage = 25;
+  maxDamage = 25;
+  currentDamage = this.maxDamage;
 
   decreaseHitProbability(percent, spellName, descriptionForUser, descriptionForEnemy) {
     this.hitProbability = this.hitProbability - percent;
@@ -1225,22 +1237,22 @@ module.exports.Airspear = class Airspear {
   }
 
   decreaseDamage(percent, points, spellName, descriptionForUser, descriptionForEnemy) {
-    points += Math.round(this.damage*percent/100);
-    this.damage -= points;
+    points += Math.round(this.maxDamage*percent/100);
+    this.currentDamage -= points;
     this.descriptionForUser += spellName + ' снижает урон от заклинания на ' + points + ' единиц.' + descriptionForUser;
     this.descriptionForEnemy += spellName + ' снижает урон от заклинания на ' + points + ' единиц.' + descriptionForEnemy;
   }
 
   increaseDamage(percent, points, spellName, descriptionForUser, descriptionForEnemy) {
-    points += Math.round(this.damage*percent/100);
-    this.damage += points;
+    points += Math.round(this.maxDamage*percent/100);
+    this.currentDamage += points;
     this.descriptionForUser += spellName + ' увеличивает урон от заклинания на ' + points + ' единиц.' + descriptionForUser;
     this.descriptionForEnemy += spellName + ' увеличивает урон от заклинания на ' + points + ' единиц.' + descriptionForEnemy;
   }
 
   decreasePlayerHealth(player) {
     if (this.hitProbability < Math.random()) return;
-    player.decreaseHealth(this.damage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    player.decreaseHealth(this.currentDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
   }
 }
 
@@ -1514,7 +1526,8 @@ module.exports.Airflow = class Airflow {
   name = 'Ударная волна';
   descriptionForUser = '';
   descriptionForEnemy = '';
-  damage = 40;
+  maxDamage = 40;
+  currentDamage = this.maxDamage;
 
   decreaseHitProbability(percent, spellName, descriptionForUser, descriptionForEnemy) {
     this.hitProbability = this.hitProbability - percent;
@@ -1525,22 +1538,22 @@ module.exports.Airflow = class Airflow {
   }
 
   decreaseDamage(percent, points, spellName, descriptionForUser, descriptionForEnemy) {
-    points += Math.round(this.damage*percent/100);
-    this.damage -= points;
+    points += Math.round(this.maxDamage*percent/100);
+    this.currentDamage -= points;
     this.descriptionForUser += spellName + ' снижает урон от заклинания на ' + points + ' единиц.' + descriptionForUser;
     this.descriptionForEnemy += spellName + ' снижает урон от заклинания на ' + points + ' единиц.' + descriptionForEnemy;
   }
 
   increaseDamage(percent, points, spellName, descriptionForUser, descriptionForEnemy) {
-    points += Math.round(this.damage*percent/100);
-    this.damage += points;
+    points += Math.round(this.maxDamage*percent/100);
+    this.currentDamage += points;
     this.descriptionForUser += spellName + ' увеличивает урон от заклинания на ' + points + ' единиц.' + descriptionForUser;
     this.descriptionForEnemy += spellName + ' увеличивает урон от заклинания на ' + points + ' единиц.' + descriptionForEnemy;
   }
 
   decreasePlayerHealth(player) {
     if (this.hitProbability < Math.random()) return;
-    player.decreaseHealth(this.damage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    player.decreaseHealth(this.currentDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
   }
 }
 
@@ -2052,56 +2065,8 @@ module.exports.Deathsphere = class Deathsphere {
   dependences = ['firesource', 'deathflow'];
   activationProbability = 1;
   duration = 2;
-  pointsIncreaseDamage = 15;
-
-  decreaseHitProbability(percent, spellName, descriptionForUser, descriptionForEnemy) {
-    this.hitProbability = this.hitProbability - percent;
-  }
-
-  increaseHitProbability(percent, spellName, descriptionForUser, descriptionForEnemy) {
-    this.hitProbability = this.hitProbability + percent;
-  }
-
-  decreaseActivationProbability(percent) {
-    this.activationProbability -= percent;
-  }
-
-  increaseActivationProbability(percent) {
-    this.activationProbability += percent;
-  }
-
-  decreaseDuration(duration) {
-    this.duration -= duration;
-  }
-
-  increaseDuration(duration) {
-    this.duration += duration;
-  }
-
-  increaseSpellDamage(spell) {
-    spell.increaseDamage(this.pointsIncreaseDamage);
-  }
-
-  saveEffect(player) {
-    if (this.hitProbability < Math.random()) return;
-    player.saveNegativeEffect(this);
-  }
-}
-
-module.exports.Deathsphere = class Deathsphere {
-  actionPoints = 1;
-  energyPoints = 1;
-  hitProbability = 1;
-  spell = 'deathsphere';
-  name = 'Круг смерти';
-  descriptionForUser = '';
-  descriptionForEnemy = '';
-  dependences = ['firesource', 'firesphere', 'earthsphere', 'airshild', 'aircrown', 'airsphere', 'airstamp', 'deathshild', 'deathsphere', 'deathstamp', 'deathflow'];
-  activationProbability = 1;
-  duration = 2;
   percentIncreaseDamage = 0;
   pointsIncreaseDamage = 15;
-
 
   decreaseHitProbability(percent, spellName, descriptionForUser, descriptionForEnemy) {
     this.hitProbability = this.hitProbability - percent;
@@ -2226,9 +2191,9 @@ module.exports.Deathkey = class Deathkey {
 
   increasePlayerHealth(player, spell) {
     if (this.activationProbability < Math.random()) return;
-    if (player.health <= spell.damage) {
+    if (player.health <= spell.currentDamage) {
       player.decreaseHealth(player.health);
-      player.increaseHealth(spell.damage + 1);
+      player.increaseHealth(spell.currentDamage + 1);
     }
   }
 
@@ -2249,7 +2214,8 @@ module.exports.Deathflow = class Deathflow {
   dependences = [];
   activationProbability = 1;
   duration = 5;
-  damage = 5;
+  maxDamage = 5;
+  currentDamage = this.maxDamage;
   pointsIncreaseHealth = 5;
 
 
@@ -2277,9 +2243,19 @@ module.exports.Deathflow = class Deathflow {
     this.duration += duration;
   }
 
+  decreaseDamage(percent, points) {
+    points += Math.round(this.maxDamage*percent/100);
+    this.currentDamage -= points;
+  }
+
+  increaseDamage(percent, points, spellName, descriptionForUser, descriptionForEnemy) {
+    points += Math.round(this.maxDamage*percent/100);
+    this.currentDamage += points;
+  }
+
   deathflowEffect(user, enemy) {
     if (this.activationProbability < Math.random()) return;
-    enemy.decreaseHealth(this.damage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    enemy.decreaseHealth(this.currentDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
     user.increaseHealth(this.pointsIncreaseHealth);
   }
 

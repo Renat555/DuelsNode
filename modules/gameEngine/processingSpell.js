@@ -1,52 +1,23 @@
 
 const spellClasses = require('./spellClasses');
+const Player = spellClasses.Player;
+const createSpell = require('./createSpell');
+const applySpell = require('./applySpell');
 
-function createPlayers(mongoCollection, userId) {
-  let arr = {user: "", enemy: ""};
-
-  mongoCollection.findOne({'id': userId}, function (err, result) {
-    arr['user'] = result;
-    mongoCollection.findOne({$and: [{'id': {$not: {$eq: result['id']} } }, {'idGame': result['idGame']}] }, function (err, result) {
-      arr['enemy'] = result;
-    });
-  });
-
-  return arr;
+function createEffectsFromSpellNames(arrNames) {
+  let arrEffects = [];
+  for (let i = 0; i < arrNames.length; i++) {
+    arrEffects[i] = createSpell(arrNames[i]);
+  }
+  return arrEffects;
 }
 
-function createSpell(spellName) {
-  let spell;
-
-  switch (spellName) {
-    case 'firespear':
-      spell = new Firespear();
-      break;
-    case 'firekey':
-      spell = new Fireshild();
-      break;
-    case 'firespear':
-      spell = new Firecrown();
-      break;
-    case 'firekey':
-      spell = new Firesource();
-      break;
-    case 'firespear':
-      spell = new Firesphere();
-      break;
-    case 'firekey':
-      spell = new Firestamp();
-      break;
-    case 'firespear':
-      spell = new Firekey();
-      break;
-    case 'firekey':
-      spell = new Fireflow();
-      break;
-    case 'firekey':
-      spell = new Firepower();
-      break;
+function createSpellNamesFromEffects(arrEffects) {
+  let arrNames = [];
+  for (let i = 0; i < arrEffects.length; i++) {
+    arrNames[i] = arrEffects[i]['spell'];
   }
-  return spell;
+  return arrNames;
 }
 
 function isHaveDependences(effect, spell) {
@@ -67,7 +38,6 @@ function processingSpellByPlayerEffects(player, spell) {
         break;
     }
 
-
   }
 
   for (let i = 0; i < player['debuffs'].length; i++) {
@@ -83,21 +53,73 @@ function processingSpellByPlayerEffects(player, spell) {
 
 }
 
-function savePlayers(user, enemy) {
+function createPlayers(mongoCollection, ws, wss) {
+  return new Promise((resolve, reject) => {
+    let arr = {user: "", enemy: ""};
 
+    mongoCollection.find({'idGame': ws['idGame']}).toArray(function(err, result) {
+
+      let userBuffs = createEffectsFromSpellNames(result[0]['buffs']);
+      let userDebuffs = createEffectsFromSpellNames(result[0]['debuffs']);
+      let user = new Player(result[0]['actionPoints'], result[0]['energyPoints'], result[0]['health'], result[0]['maxHealth'], userBuffs, userDebuffs);
+      arr['user'] = user;
+
+      let enemyBuffs = createEffectsFromSpellNames(result[1]['buffs']);
+      let enemyDebuffs = createEffectsFromSpellNames(result[1]['debuffs']);
+      let enemy = new Player(result[1]['actionPoints'], result[1]['energyPoints'], result[1]['health'], result[1]['maxHealth'], enemyBuffs, enemyDebuffs);
+      arr['enemy'] = enemy;
+
+      resolve(arr);
+      });
+    });
+  }
+
+function savePlayers(user, enemy, mongoCollection, ws, wss) {
+    let userBuffs = createSpellNamesFromEffects(user['buffs']);
+    let userDebuffs = createSpellNamesFromEffects(user['debuffs']);
+
+    mongoCollection.updateOne(
+      {'id': ws['id']},
+      {$set: {actionPoints: user['actionPoints'], energyPoints: user['energyPoints'], maxHealth: user['maxHealth'], health: user['health'], buffs: userBuffs, debuffs: userDebuffs}});
+
+    let enemyBuffs = createSpellNamesFromEffects(enemy['buffs']);
+    let enemyDebuffs = createSpellNamesFromEffects(enemy['debuffs']);
+    mongoCollection.updateOne(
+      {'id': ws['idEnemy']},
+      {$set: {actionPoints: enemy['actionPoints'], energyPoints: enemy['energyPoints'], maxHealth: enemy['maxHealth'], health: enemy['health'], buffs: enemyBuffs, debuffs: enemyDebuffs}});
 }
 
-function processingSpell(spellName, collection, ws) {
-  let {user, enemy} = createPlayers(collection, ws['id']);
-  let response = {header: 'processedSpell', user: user, enemy: enemy};
+function sendGameInformation(user, enemy, ws, wss) {
+  let response = {header: 'processingSpell', user: user, enemy: enemy};
   ws.send(JSON.stringify(response));
+
+  wss.clients.forEach(function each(client) {
+    if (client.readyState == 1 && client['id'] == ws['idEnemy']) {
+      let responseForEnemy = {'header': 'processingSpell'};
+			responseForEnemy['user'] = response['enemy'];
+			responseForEnemy['enemy'] = response['user'];
+			client.send(JSON.stringify(responseForEnemy));
+    }
+  });
+}
+
+function processingSpell(request, collection, ws, wss) {
+  createPlayers(collection, ws, wss)
+    .then(result => {
+      let {user, enemy} = result;
+      let spellName = request['element'] + request['form'];
+      let spell = createSpell(spellName);
+      applySpell(spell, user, enemy);
+      savePlayers(user, enemy, collection, ws, wss);
+      sendGameInformation(user, enemy, ws, wss);
   /*processingSpellByPlayerEffects(enemy, spell);
   processingSpellByPlayerEffects(user, spell);
   savePlayers(user, enemy);*/
+    });
 }
 
 module.exports.processingSpell = processingSpell;
-module.exports.createSpell = createSpell;
-module.exports.createPlayers = createPlayers;
+module.exports.createEffectsFromSpellNames = createEffectsFromSpellNames;
+module.exports.createSpellNamesFromEffects = createSpellNamesFromEffects;
 module.exports.processingSpellByPlayerEffects = processingSpellByPlayerEffects;
 module.exports.savePlayers = savePlayers;
