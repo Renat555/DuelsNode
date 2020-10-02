@@ -19,9 +19,9 @@ mongoClient.connect(function(err, client) {
       const collection = db.collection("duels");
 
   wss.on('connection', function connection(ws) {
-    ws.on('message', function incoming(message) {
+    ws.on('message', function (message) {
 
-      console.log("WebSocket run");
+        console.log("WebSocket run");
 
         let request = JSON.parse(message);
         switch (request['header']) {

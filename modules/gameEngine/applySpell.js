@@ -19,7 +19,23 @@ function applySpell(spell, user, enemy) {
         break;
       case 'firesphere':
         spell.saveEffect(enemy);
-        break; case 'firestamp': spell.increaseSpellDuration(enemy); break; case 'firekey': spell.deleteEffect(enemy); break; case 'fireflow': spell.decreasePlayerHealth(enemy); break; case 'firepower': spell.saveEffect(user); break; case 'waterspear': spell.decreasePlayerHealth(enemy); break; case 'watershild':
+        break; 
+      case 'firestamp': 
+        spell.increaseSpellDuration(enemy); 
+        break; 
+      case 'firekey': 
+        spell.deleteEffect(enemy); 
+        break; 
+      case 'fireflow': 
+        spell.decreasePlayerHealth(enemy); 
+        break; 
+      case 'firepower': 
+        spell.saveEffect(user); 
+        break; 
+      case 'waterspear': 
+        spell.decreasePlayerHealth(enemy); 
+        break; 
+      case 'watershild':
         spell.saveEffect(user);
         break;
       case 'watercrown':
@@ -151,7 +167,7 @@ function applySpell(spell, user, enemy) {
       case 'deathpower': 
         spell.deleteEffect(enemy); 
         break; 
-      } 
+      }
     } 
     
 module.exports = applySpell;

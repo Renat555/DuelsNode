@@ -42,7 +42,7 @@ describe('game engine', function () {
       effects[2] = new Airstamp;
 
       let resultNames = createSpellNamesFromEffects(effects);
-      let expectNames = ['fireshild', 'waterpower', 'airstamp'];
+      let expectNames = [['fireshild', 4], ['waterpower', -1], ['airstamp', 10]];
 
       expect(resultNames).to.deep.equal(expectNames);
     });

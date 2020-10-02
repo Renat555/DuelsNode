@@ -72,7 +72,6 @@ function searchEnemy(user, mongoCollection, ws, wss) {
           if (res['value'] === null) return;
 					ws['idGame'] = res['value']['idGame'];
 					ws['idEnemy'] = res['value']['id'];
-					console.log('idEnemy' + ws['idEnemy']);
 	        mongoCollection.findOneAndUpdate({'id': user['id']}, {$set: {'idGame': res['value']['idGame']}}, {returnOriginal: false}
 						).then((res) => {
 							setMuve(user, mongoCollection);
