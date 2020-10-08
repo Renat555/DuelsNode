@@ -64,36 +64,6 @@ function clearElements() {
   }
 }
 
-function addChooseEffectFunction() {
-  let divSpell = document.querySelector(".userSpell");
-  let divEffects = document.querySelectorAll("[data-duration]");
-
-  switch(divSpell.dataset.spell) {
-    case 'firekey':
-      let divEnemyEffect = document.getElementById('enemyEffects');
-      let divEffects = divEnemyEffect.querySelectorAll('[data-duration]');
-      for (let i = 0; i < divEffects.length; i++) {
-        divEffects[i].addEventListener("click", chooseEffect);
-      }
-      break;
-    case 'watersource':
-    case 'waterkey':
-    case 'earthkey':
-    case 'airkey':
-    case 'lifespear':
-    case 'lifekey':
-    case 'deathpower':
-      for (let i = 0; i < divEffects.length; i++) {
-        divEffects[i].addEventListener("click", chooseEffect);
-      }
-      break;
-    default:
-      for (let i = 0; i < divEffects.length; i++) {
-        divEffects[i].removeEventListener("click", chooseEffect);
-      }
-  }
-}
-
 function chooseEffect(event) {
   clearEffects();
 
@@ -114,6 +84,70 @@ function clearEffects() {
   }
 }
 
+function addChooseEffectFunction() {
+  let divSpell = document.querySelector(".userSpell");
+  let divEffects = document.querySelectorAll('[data-duration]');
+  let divEnemyEffect = document.getElementById('enemyEffects');
+  let divEnemyEffects = divEnemyEffect.querySelectorAll('[data-duration]');
+  let divUserEffect = document.getElementById('userEffects'); 
+  let divUserEffects = divUserEffect.querySelectorAll('[data-duration]');
+
+  switch(divSpell.dataset.spell) {
+    case 'firekey':
+      for (let i = 0; i < divEnemyEffects.length; i++) {
+        if (spellbook['firekey'][4].indexOf(divEnemyEffects[i].dataset.spell) == -1) continue;
+        divEnemyEffects[i].addEventListener("click", chooseEffect);
+      }
+      break;
+    case 'watersource':
+      for (let i = 0; i < divUserEffects.length; i++) {
+        if (spellbook['watersource'][4].indexOf(divUserEffects[i].dataset.spell) == -1) continue;
+        divUserEffects[i].addEventListener("click", chooseEffect);
+      }
+      break;
+    case 'waterkey':
+      for (let i = 0; i < divUserEffects.length; i++) {
+        if (spellbook['waterkey'][4].indexOf(divUserEffects[i].dataset.spell) == -1) continue;
+        divUserEffects[i].addEventListener("click", chooseEffect);
+      }
+      break;
+    case 'earthkey':
+      for (let i = 0; i < divUserEffects.length; i++) {
+        if (spellbook['earthkey'][4].indexOf(divUserEffects[i].dataset.spell) == -1) continue;
+        divUserEffects[i].addEventListener("click", chooseEffect);
+      }
+      break;
+    case 'airkey':
+      for (let i = 0; i < divEnemyEffects.length; i++) {
+        if (spellbook['airkey'][4].indexOf(divEnemyEffects[i].dataset.spell) == -1) continue;
+        divEnemyEffects[i].addEventListener("click", chooseEffect);
+      }
+      break;
+    case 'lifespear':
+      for (let i = 0; i < divUserEffects.length; i++) {
+        if (spellbook['lifespear'][4].indexOf(divUserEffects[i].dataset.spell) == -1) continue;
+        divUserEffects[i].addEventListener("click", chooseEffect);
+      }
+      break;
+    case 'lifekey':
+      for (let i = 0; i < divUserEffects.length; i++) {
+        if (spellbook['lifekey'][4].indexOf(divUserEffects[i].dataset.spell) == -1) continue;
+        divUserEffects[i].addEventListener("click", chooseEffect);
+      }
+      break;
+    case 'deathpower':
+      for (let i = 0; i < divEnemyEffects.length; i++) {
+        if (spellbook['lifekey'][4].indexOf(divEnemyEffects[i].dataset.spell) == -1) continue;
+        divEnemyEffects[i].addEventListener("click", chooseEffect);
+      }
+      break;
+    default:
+      for (let i = 0; i < divEffects.length; i++) {
+        divEffects[i].removeEventListener("click", chooseEffect);
+      }
+  }
+}
+
 function sendSpell() {
   let divSpell = document.querySelector(".userSpell");
 
@@ -121,9 +155,6 @@ function sendSpell() {
     alert('Создайте заклинание.');
     return;
   }
-
-
-  
 
   if (divSpell.dataset.spell != '') {
     let spellInformation = {
@@ -136,8 +167,16 @@ function sendSpell() {
 
 }
 
+function endMuve() {
+  let message = {header: 'endMuve'};
+  ws.send(JSON.stringify(message));
+}
+
 document.addEventListener("click", chooseForm);
 document.addEventListener("click", chooseElement);
 
 let buttonSend = document.getElementsByName('buttonActiveSpell')[0];
 buttonSend.addEventListener("click", sendSpell);
+
+let buttonMuve = document.getElementsByName('buttonMuve')[0];
+buttonMuve.addEventListener("click", endMuve);

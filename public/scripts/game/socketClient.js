@@ -15,6 +15,7 @@ ws.onmessage = (message) => {
       fillInterface(users);
       break;
     case 'processingSpell':
+    case 'changeMuve':
       changeInterface(users);
       break;
   }

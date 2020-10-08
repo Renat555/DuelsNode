@@ -6,6 +6,7 @@ const config = require('config');
 
 const createGame = require('./modules/createGame');
 const processingSpell = require('./modules/gameEngine/processingSpell').processingSpell;
+const endMuve = require('./modules/gameEngine/endMuve').endMuve;
 
 
 const url = config.get('mongo')['url'];
@@ -37,7 +38,7 @@ mongoClient.connect(function(err, client) {
             ws.send(JSON.stringify(request));
             break;
           case 'endMuve':
-            endMuve(request, collection, ws);
+            endMuve(request, collection, ws, wss);
             break;
         }
 

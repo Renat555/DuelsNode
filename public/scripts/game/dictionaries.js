@@ -34,7 +34,7 @@ let spellbook = {
   firestamp:
     ["Клеймо огня", 1, 1, "(огонь, другое) Увеличивает продолжительность всех наложенных на врага дебафов на два хода."],
   firekey:
-    ["Ключ огня", 1, 1, "(огонь, диспел) Снимает с противника баф воды или земли. Не забудьте выбрать цель.", ['watershild', 'watercorwn', 'watersphere', 'waterstamp', 'waterpower', 'earthshild', 'earthcrown', 'earthsource', 'earthstamp', 'earthpower']],
+    ["Ключ огня", 1, 1, "(огонь, диспел) Снимает с противника баф воды или земли. Не забудьте выбрать цель.", ['watershild', 'watercrown', 'watersphere', 'waterstamp', 'waterpower', 'earthshild', 'earthcrown', 'earthsource', 'earthstamp', 'earthpower']],
   fireflow:
     ["Струя пламени", 1, 1, "(огонь, прямой урон) Наносит противнику урон от 25 до 35 единиц, попадает в цель с вероятностью 66%."],
   firepower:
@@ -46,7 +46,7 @@ let spellbook = {
   watercrown:
     ["Корона воды", 1, 1, "(вода, баф) Снижает урон от дебафов на 50%, действует шесть ходов."],
   watersource:
-    ["Родник", 1, 1, "(вода, диспел) Позволяет снять дебаф огня, воды, земли или воздуха с вероятностью 66%. Не забудьте выбрать цель.", ['firesource', 'firesphere', 'earthsphere', 'airshild', 'aircrown', 'airsphere']],
+    ["Родник", 1, 1, "(вода, диспел) Позволяет снять дебаф огня, воды, земли или воздуха с вероятностью 66%. Не забудьте выбрать цель.", ['firesource', 'firesphere', 'earthsphere', 'airshild', 'aircrown', 'airsphere', 'airstamp']],
   watersphere:
     ["Ледяная сфера", 1, 1, "(вода, баф) Полностью блокирует урон от атакующих заклинаний в течении двух ходов."],
   waterstamp:
@@ -70,7 +70,7 @@ let spellbook = {
   earthstamp:
     ["Печать земли", 1, 1, "(земля, баф) В течении четырех ходов блокирует половину урона от атакующих заклинаний."],
   earthkey:
-    ["Ключ земли", 1, 1, "(земля, диспел) Позволяет снять дебаф огня или воздуха. Не забудьте выбрать цель.", ['firesource', 'firesphere', 'airshild', 'aircrown', 'airsphere']],
+    ["Ключ земли", 1, 1, "(земля, диспел) Позволяет снять дебаф огня или воздуха. Не забудьте выбрать цель.", ['firesource', 'firesphere', 'airshild', 'aircrown', 'airsphere', 'airstamp']],
   earthflow:
     ["Сель", 1, 1, "(земля, прямой урон) Наносит 80 единиц урона, попадает в цель с вероятностью 25%."],
   earthpower:
@@ -88,7 +88,7 @@ let spellbook = {
   airstamp:
     ["Печать воздуха", 1, 1, "(воздух, дебаф) В течении десяти ходов снижает вероятность успешного наложения бафа, на 10%."],
   airkey:
-    ["Ключ воздуха", 1, 1, "(воздух, диспел) Позволяет снять с противника баф земли или воды. Не забудьте выбрать цель.", ['watershild', 'watercorwn', 'watersphere', 'waterstamp', 'waterpower', 'earthshild', 'earthcrown', 'earthsource', 'earthstamp', 'earthpower']],
+    ["Ключ воздуха", 1, 1, "(воздух, диспел) Позволяет снять с противника баф земли или воды. Не забудьте выбрать цель.", ['watershild', 'watercrown', 'watersphere', 'waterstamp', 'waterpower', 'earthshild', 'earthcrown', 'earthsource', 'earthstamp', 'earthpower']],
   airflow:
     ["Ударная волна", 1, 1, "(воздух, прямой урон) наносит урон противнику 40 единиц. Попадает в цель с вероятностью 50%"],
   airpower:

@@ -4,38 +4,87 @@ const expect = chai.expect;
 
 const spellClasses = require('./../modules/gameEngine/spellClasses');
 const Player = spellClasses.Player;
+const Firespear = spellClasses.Firespear;
+const Fireshild = spellClasses.Fireshild;
+const Firecrown = spellClasses.Firecrown;
+const Firesource = spellClasses.Firesource;
+const Firesphere = spellClasses.Firesphere;
+const Firestamp = spellClasses.Firestamp;
+const Firekey = spellClasses.Firekey;
+const Fireflow = spellClasses.Fireflow;
+const Firepower = spellClasses.Firepower;
+const Waterspear = spellClasses.Waterspear;
+const Watershild = spellClasses.Watershild;
+const Watercrown = spellClasses.Watercrown;
+const Watersource = spellClasses.Watersource;
+const Watersphere = spellClasses.Watersphere;
+const Waterstamp = spellClasses.Waterstamp;
+const Waterkey = spellClasses.Waterkey;
+const Waterflow = spellClasses.Waterflow;
+const Waterpower = spellClasses.Waterpower;
+const Earthspear = spellClasses.Earthspear;
+const Earthshild = spellClasses.Earthshild;
+const Earthcrown = spellClasses.Earthcrown;
+const Earthsource = spellClasses.Earthsource;
+const Earthsphere = spellClasses.Earthsphere;
+const Earthstamp = spellClasses.Earthstamp;
+const Earthkey = spellClasses.Earthkey;
+const Earthflow = spellClasses.Earthflow;
+const Earthpower = spellClasses.Earthpower;
+const Airspear = spellClasses.Airspear;
+const Airshild = spellClasses.Airshild;
+const Aircrown = spellClasses.Aircrown;
+const Airsource = spellClasses.Airsource;
+const Airsphere = spellClasses.Airsphere;
+const Airstamp = spellClasses.Airstamp;
+const Airkey = spellClasses.Airkey;
+const Airflow = spellClasses.Airflow;
+const Airpower = spellClasses.Airpower;
+const Lifespear = spellClasses.Lifespear;
+const Lifeshild = spellClasses.Lifeshild;
+const Lifecrown = spellClasses.Lifecrown;
+const Lifesource = spellClasses.Lifesource;
+const Lifesphere = spellClasses.Lifesphere;
+const Lifestamp = spellClasses.Lifestamp;
+const Lifekey = spellClasses.Lifekey;
+const Lifeflow = spellClasses.Lifeflow;
+const Lifepower = spellClasses.Lifepower;
+const Deathspear = spellClasses.Deathspear;
+const Deathshild = spellClasses.Deathshild;
+const Deathcrown = spellClasses.Deathcrown;
+const Deathsource = spellClasses.Deathsource;
+const Deathsphere = spellClasses.Deathsphere;
+const Deathstamp = spellClasses.Deathstamp;
+const Deathkey = spellClasses.Deathkey;
+const Deathflow = spellClasses.Deathflow;
+const Deathpower = spellClasses.Deathpower;
 
 const processingSpell = require('./../modules/gameEngine/processingSpell');
-const processingSpellByPlayerEffects = processingSpell.processingSpellByPlayerEffects;
-const createEffectsFromSpellNames = processingSpell.createEffectsFromSpellNames;
-const createSpellNamesFromEffects = processingSpell.createSpellNamesFromEffects;
+const processingSpellByEnemyEffects = processingSpell.processingSpellByEnemyEffects;
 
+const createPlayers = require('./../modules/gameEngine/createPlayers');
+const createEffectsFromSpellNames = createPlayers.createEffectsFromSpellNames;
+const createSpellNamesFromEffects = require('./../modules/gameEngine/savePlayers').createSpellNamesFromEffects;
 const createSpell = require('./../modules/gameEngine/createSpell');
 
 const endMuve = require('./../modules/gameEngine/endMuve');
-const activationEffects = endMuve.activationEffects;
+const processingEffect = endMuve.processingEffect;
 
 describe('game engine', function () {
 
   describe('processing users and battlfield by spell', function () {
 
     it('create effects from spell names', function() {
-      const Fireshild = spellClasses.Fireshild;
-      const Waterpower = spellClasses.Waterpower;
-      const Airstamp = spellClasses.Airstamp;
       let expectEffects = [];
       expectEffects[0] = new Fireshild;
       expectEffects[1] = new Waterpower;
       expectEffects[2] = new Airstamp;
 
-      let resultEffects = createEffectsFromSpellNames(['fireshild', 'waterpower', 'airstamp']);
+      let resultEffects = createEffectsFromSpellNames([['fireshild', 4], ['waterpower', -1], ['airstamp', 10]]);
       expect(resultEffects).to.deep.equal(expectEffects);
     });
 
     it('create spell names from effects', function() {
-      const Fireshild = spellClasses.Fireshild;
-      const Waterpower = spellClasses.Waterpower;
-      const Airstamp = spellClasses.Airstamp;
       let effects = [];
       effects[0] = new Fireshild;
       effects[1] = new Waterpower;
@@ -48,12 +97,26 @@ describe('game engine', function () {
     });
 
     it('create spell from name', function() {
-      const Watersource = spellClasses.Watersource;
-      let expectSpell = new Watersource();
+      let spellExpect = new Watersource();
+      let spellResultl = createSpell('watersource');
 
-      let resultSpell = createSpell('watersource');
+      expect(spellResultl).to.deep.equal(spellExpect);
+    });
 
-      expect(resultSpell).to.deep.equal(expectSpell);
+    it('processing effect by others effects', function() {
+      let spellExpect = new Firesource();
+      let spellResult = new Firesource();
+      spellExpect.maxDamage = spellResult.maxDamage;
+      spellExpect.currentDamage = spellResult.currentDamage;
+
+      let player = new Player(3, 3, 250, 250, [], []);
+      player['buffs'][0] = new Fireshild();
+
+      processingEffect(spellResult, player);
+
+      spellExpect.decreaseDamage(40, 0, 'Огненный щит', player['buffs'][0].descriptionForUser, player['buffs'][0].descriptionForEnemy);
+
+      expect(spellResult).to.deep.equal(spellExpect);
     });
 
   });
@@ -61,7 +124,6 @@ describe('game engine', function () {
   describe('spells', function () {
 
     it('firespear', function() {
-      const Firespear = spellClasses.Firespear;
       let firespear = new Firespear();
 
       let enemyResult = new Player(3, 3, 250, 250, [], []);
@@ -76,9 +138,6 @@ describe('game engine', function () {
     });
 
     it('fireshild', function() {
-      const Fireshild = spellClasses.Fireshild;
-      const Firesource = spellClasses.Firesource;
-
       let fireshild = new Fireshild();
 
       let spellResult = new Firesource();
@@ -96,9 +155,6 @@ describe('game engine', function () {
     });
 
     it('firecrown', function() {
-      const Firecrown = spellClasses.Firecrown;
-      const Firespear = spellClasses.Firespear;
-
       let firecrown = new Firecrown();
 
       let spellExpect = new Firespear();
@@ -116,8 +172,6 @@ describe('game engine', function () {
     });
 
     it('firesource', function() {
-      const Firesource = spellClasses.Firesource;
-
       let firesource = new Firesource();
 
       let enemyResult = new Player(3, 3, 250, 250, [], []);
@@ -132,8 +186,6 @@ describe('game engine', function () {
     });
 
     it('firesphere', function() {
-      const Firesphere = spellClasses.Firesphere;
-      const Firespear = spellClasses.Firespear;
       let firesphere = new Firesphere();
       let firespear = new Firespear();
 
@@ -142,7 +194,7 @@ describe('game engine', function () {
 
       let enemyResult = new Player(3, 3, 250, 250, [], []);
       firesphere.saveEffect(enemyResult);
-      processingSpellByPlayerEffects(enemyResult, firespear);
+      processingSpellByEnemyEffects(enemyResult, firespear);
       firespear.decreasePlayerHealth(enemyResult);
 
       enemyResult['descriptionForUser'] = '';
@@ -153,8 +205,6 @@ describe('game engine', function () {
     });
 
     it('firestamp', function() {
-      const Firestamp = spellClasses.Firestamp;
-      const Firesource = spellClasses.Firesource;
       let firestamp = new Firestamp();
       let firesource = new Firesource();
 
@@ -164,7 +214,7 @@ describe('game engine', function () {
 
       let enemyResult = new Player(3, 3, 250, 250, [], []);
       firesource.saveEffect(enemyResult);
-      processingSpellByPlayerEffects(enemyResult, firestamp);
+      firestamp.increaseSpellDuration(enemyResult);
 
       enemyResult['descriptionForUser'] = '';
       enemyResult['descriptionForEnemy'] = '';
@@ -173,8 +223,6 @@ describe('game engine', function () {
     });
 
     it('firekey', function() {
-      const Firekey = spellClasses.Firekey;
-      const Fireshild = spellClasses.Fireshild;
       let firekey = new Firekey('fireshild');
       let fireshild = new Fireshild();
 
@@ -191,7 +239,6 @@ describe('game engine', function () {
     });
 
     it('fireflow', function() {
-      const Fireflow = spellClasses.Fireflow;
       let fireflow = new Fireflow();
       fireflow.hitProbability = 1;
 
@@ -207,9 +254,6 @@ describe('game engine', function () {
     });
 
     it('firepower', function() {
-      const Firepower = spellClasses.Firepower;
-      const Firespear = spellClasses.Firespear;
-
       let firepower = new Firepower();
 
       let spellExpect = new Firespear();
@@ -227,8 +271,6 @@ describe('game engine', function () {
     });
 
     it('waterspear', function() {
-      const Waterspear = spellClasses.Waterspear;
-      const Firesource = spellClasses.Firesource;
       let waterspear = new Waterspear();
       let firesource = new Firesource();
 
@@ -247,9 +289,6 @@ describe('game engine', function () {
     });
 
     it('watershild', function() {
-      const Watershild = spellClasses.Watershild;
-      const Firespear = spellClasses.Firespear;
-
       let watershild = new Watershild();
 
       let spellExpect = new Firespear();
@@ -268,9 +307,6 @@ describe('game engine', function () {
     });
 
     it('watercrown', function() {
-      const Watercrown = spellClasses.Watercrown;
-      const Firesource = spellClasses.Firesource;
-
       let watercrown = new Watercrown();
 
       let spellResult = new Firesource();
@@ -288,8 +324,6 @@ describe('game engine', function () {
     });
 
     it('watersource', function() {
-      const Watersource = spellClasses.Watersource;
-      const Firesource = spellClasses.Firesource;
       let watersource = new Watersource('firesource');
       watersource.hitProbability = 1;
       let firesource = new Firesource();
@@ -307,9 +341,6 @@ describe('game engine', function () {
     });
 
     it('watersphere', function() {
-      const Watersphere = spellClasses.Watersphere;
-      const Firespear = spellClasses.Firespear;
-
       let watersphere = new Watersphere();
 
       let spellExpect = new Firespear();
@@ -327,9 +358,6 @@ describe('game engine', function () {
     });
 
     it('waterstamp', function() {
-      const Waterstamp = spellClasses.Waterstamp;
-      const Firespear = spellClasses.Firespear;
-
       let waterstamp = new Waterstamp();
 
       let spellExpect = new Firespear();
@@ -348,8 +376,6 @@ describe('game engine', function () {
     });
 
     it('waterkey', function() {
-      const Waterkey = spellClasses.Waterkey;
-      const Firesource = spellClasses.Firesource;
       let waterkey = new Waterkey('firesource');
       let firesource = new Firesource();
 
@@ -366,7 +392,6 @@ describe('game engine', function () {
     });
 
     it('waterflow', function() {
-      const Waterflow = spellClasses.Waterflow;
       let waterflow = new Waterflow();
 
       let enemyResult = new Player(3, 3, 250, 250, [], []);
@@ -381,8 +406,6 @@ describe('game engine', function () {
     });
 
     it('waterpower', function() {
-      const Waterpower = spellClasses.Waterpower;
-      const Watershild = spellClasses.Watershild;
       let waterpower = new Waterpower();
 
       let spellExpect = new Watershild();
@@ -395,7 +418,6 @@ describe('game engine', function () {
     });
 
     it('earthspear', function() {
-      const Earthspear = spellClasses.Earthspear;
       let earthspear = new Earthspear();
       earthspear.hitProbability = 1;
 
@@ -411,9 +433,6 @@ describe('game engine', function () {
     });
 
     it('earthshild', function() {
-      const Earthshild = spellClasses.Earthshild;
-      const Firesource = spellClasses.Firesource;
-      const Firespear = spellClasses.Firespear;
       let earthshild = new Earthshild();
       let firesource = new Firesource();
       let firespear = new Firespear();
@@ -437,9 +456,6 @@ describe('game engine', function () {
     });
 
     it('earthcrown', function() {
-      const Earthcrown = spellClasses.Earthcrown;
-      const Earthspear = spellClasses.Earthspear;
-
       let earthcrown = new Earthcrown();
 
       let spellExpect = new Earthspear();
@@ -454,10 +470,6 @@ describe('game engine', function () {
     });
 
     it('earthsource', function() {
-      const Earthsource = spellClasses.Earthsource;
-      const Earthspear = spellClasses.Earthspear;
-      const Earthsphere = spellClasses.Earthsphere;
-
       let earthsource = new Earthsource();
       let earthspear = new Earthspear();
       let earthsphere = new Earthsphere();
@@ -468,18 +480,15 @@ describe('game engine', function () {
       arrExpect[0] = earthspear.currentDamage + 15;
       arrExpect[1] = earthsphere.duration + 1;
 
-      earthsource.increaseSpellDurationOrDamage(earthspear);
+      earthsource.increaseSpellDamage(earthspear);
       arrResult[0] = earthspear.currentDamage;
-      earthsource.increaseSpellDurationOrDamage(earthsphere);
+      earthsource.icreaseSpellDuration(earthsphere);
       arrResult[1] = earthsphere.duration;
 
       expect(arrResult).to.deep.equal(arrExpect);
     });
 
     it('earthsphere', function() {
-      const Earthsphere = spellClasses.Earthsphere;
-      const Earthspear = spellClasses.Earthspear;
-      const Firesource = spellClasses.Firesource;
       let earthsphere = new Earthsphere();
 
       let arrExpect = [];
@@ -501,9 +510,6 @@ describe('game engine', function () {
     });
 
     it('earthstamp', function() {
-      const Earthstamp = spellClasses.Earthstamp;
-      const Firespear = spellClasses.Firespear;
-
       let earthstamp = new Earthstamp();
 
       let spellExpect = new Firespear();
@@ -522,8 +528,6 @@ describe('game engine', function () {
     });
 
     it('earthkey', function() {
-      const Earthkey = spellClasses.Earthkey;
-      const Firesource = spellClasses.Firesource;
       let earthkey = new Earthkey('firesource');
       let firesource = new Firesource();
 
@@ -540,7 +544,6 @@ describe('game engine', function () {
     });
 
     it('earthflow', function() {
-      const Earthflow = spellClasses.Earthflow;
       let earthflow = new Earthflow();
       earthflow.hitProbability = 1;
 
@@ -556,8 +559,6 @@ describe('game engine', function () {
     });
 
     it('earthpower', function() {
-      const Earthpower = spellClasses.Earthpower;
-      const Earthstamp = spellClasses.Earthstamp;
       let earthpower = new Earthpower();
       earthpower.activationProbability = 1;
 
@@ -571,7 +572,6 @@ describe('game engine', function () {
     });
 
     it('airspear', function() {
-      const Airspear = spellClasses.Airspear;
       let airspear = new Airspear();
       airspear.hitProbability = 1;
 
@@ -587,8 +587,6 @@ describe('game engine', function () {
     });
 
     it('airshild', function() {
-      const Airshild = spellClasses.Airshild;
-      const Airspear = spellClasses.Airspear;
       let airshild = new Airshild();
 
       let spellExpect = new Airspear();
@@ -601,8 +599,6 @@ describe('game engine', function () {
     });
 
     it('aircrown', function() {
-      const Aircrown = spellClasses.Aircrown;
-      const Waterpower = spellClasses.Waterpower;
       let aircrown = new Aircrown();
       let waterpower = new Waterpower();
 
@@ -616,9 +612,6 @@ describe('game engine', function () {
     });
 
     it('airsource', function() {
-      const Airsource = spellClasses.Airsource;
-      const Earthspear = spellClasses.Earthspear;
-      const Firesource = spellClasses.Firesource;
       let airsource = new Airsource();
 
       let arrExpect = [];
@@ -640,8 +633,6 @@ describe('game engine', function () {
     });
 
     it('airsphere', function() {
-      const Airsphere = spellClasses.Airsphere;
-      const Firesource = spellClasses.Firesource;
       let airsphere = new Airsphere();
 
       let spellExpect = new Firesource();
@@ -656,8 +647,6 @@ describe('game engine', function () {
     });
 
     it('airstamp', function() {
-      const Airstamp = spellClasses.Airstamp;
-      const Earthpower = spellClasses.Earthpower;
       let airstamp = new Airstamp();
 
       let spellExpect = new Earthpower();
@@ -670,8 +659,6 @@ describe('game engine', function () {
     });
 
     it('airkey', function() {
-      const Airkey = spellClasses.Airkey;
-      const Waterpower = spellClasses.Waterpower;
       let airkey = new Airkey('waterpower');
       let waterpower = new Waterpower();
 
@@ -688,7 +675,6 @@ describe('game engine', function () {
     });
 
     it('airflow', function() {
-      const Airflow = spellClasses.Airflow;
       let airflow = new Airflow();
       airflow.hitProbability = 1;
 
@@ -704,8 +690,6 @@ describe('game engine', function () {
     });
 
     it('airpower', function() {
-      const Airpower = spellClasses.Airpower;
-      const Firespear = spellClasses.Firespear;
       let airspower = new Airpower();
 
       let spellExpect = new Firespear();
@@ -720,8 +704,6 @@ describe('game engine', function () {
     });
 
     it('lifespear', function() {
-      const Lifespear = spellClasses.Lifespear;
-      const Deathshild = spellClasses.Deathshild;
       let lifespear = new Lifespear('deathshild');
       let deathshild = new Deathshild();
 
@@ -738,8 +720,6 @@ describe('game engine', function () {
     });
 
     it('lifeshild', function() {
-      const Lifeshild = spellClasses.Lifeshild;
-      const Deathcrown = spellClasses.Deathcrown;
       let lifeshild = new Lifeshild();
       let deathcrown = new Deathcrown();
 
@@ -753,7 +733,6 @@ describe('game engine', function () {
     });
 
     it('lifecrown', function() {
-      const Lifecrown = spellClasses.Lifecrown;
       let lifecrown = new Lifecrown();
 
       let playerExpect = new Player(3, 3, 250, 250, [], []);
@@ -769,7 +748,6 @@ describe('game engine', function () {
     });
 
     it('lifesource', function() {
-      const Lifesource = spellClasses.Lifesource;
       let lifesource = new Lifesource();
 
       let playerExpect = new Player(3, 3, 200, 250, [], []);
@@ -785,7 +763,6 @@ describe('game engine', function () {
     });
 
     it('lifesphere', function() {
-      const Lifesphere = spellClasses.Lifesphere;
       let lifesphere = new Lifesphere();
 
       let playerExpect = new Player(3, 3, 200, 250, [], []);
@@ -801,8 +778,6 @@ describe('game engine', function () {
     });
 
     it('lifestamp', function() {
-      const Lifestamp = spellClasses.Lifestamp;
-      const Deathshild = spellClasses.Deathshild;
       let lifestamp = new Lifestamp();
 
       let spellExpect = new Deathshild();
@@ -818,8 +793,6 @@ describe('game engine', function () {
     });
 
     it('lifekey', function() {
-      const Lifekey = spellClasses.Lifekey;
-      const Airshild = spellClasses.Airshild;
       let lifekey = new Lifekey('airshild');
       lifekey.hitProbability = 1;
       let airshild = new Airshild();
@@ -837,7 +810,6 @@ describe('game engine', function () {
     });
 
     it('lifeflow', function() {
-      const Lifeflow = spellClasses.Lifeflow;
       let lifeflow = new Lifeflow();
 
       let playerExpect = new Player(3, 3, 200, 250, [], []);
@@ -853,8 +825,6 @@ describe('game engine', function () {
     });
 
     it('lifepower', function() {
-      const Lifepower = spellClasses.Lifepower;
-      const Deathspear = spellClasses.Deathspear;
       let lifepower = new Lifepower();
 
       let spellExpect = new Deathspear();
@@ -867,8 +837,6 @@ describe('game engine', function () {
     });
 
     it('deathspear', function() {
-      const Deathspear = spellClasses.Deathspear;
-      const Waterpower = spellClasses.Waterpower;
       let deathspear = new Deathspear('waterpower');
       deathspear.hitProbability = 1;
       let waterpower = new Waterpower();
@@ -886,8 +854,6 @@ describe('game engine', function () {
     });
 
     it('deathshild', function() {
-      const Deathshild = spellClasses.Deathshild;
-      const Firesource = spellClasses.Firesource;
       let deathshild = new Deathshild();
 
       let spellExpect = new Firesource();
@@ -902,7 +868,6 @@ describe('game engine', function () {
     });
 
     it('deathcrown', function() {
-      const Deathcrown = spellClasses.Deathcrown;
       let deathcrown = new Deathcrown();
 
       let enemyExpect = new Player(3, 3, 250, 250, [], []);
@@ -918,7 +883,6 @@ describe('game engine', function () {
     });
 
     it('deathsource', function() {
-      const Deathsource = spellClasses.Deathsource;
       let deathsource = new Deathsource();
 
       let enemyExpect = new Player(3, 3, 250, 250, [], []);
@@ -934,8 +898,6 @@ describe('game engine', function () {
     });
 
     it('deathsphere', function() {
-      const Deathsphere = spellClasses.Deathsphere;
-      const Firesource = spellClasses.Firesource;
       let deathsphere = new Deathsphere();
 
       let spellExpect = new Firesource();
@@ -954,8 +916,6 @@ describe('game engine', function () {
     });
 
     it('deathstamp', function() {
-      const Deathstamp = spellClasses.Deathstamp;
-      const Lifesphere = spellClasses.Lifesphere;
       let deathstamp = new Deathstamp();
 
       let spellExpect = new Lifesphere();
@@ -971,8 +931,6 @@ describe('game engine', function () {
     });
 
     it('deathkey', function() {
-      const Deathkey = spellClasses.Deathkey;
-      const Waterflow = spellClasses.Waterflow;
       let deathkey = new Deathkey();
       deathkey.activationProbability = 1;
       let waterflow = new Waterflow();
@@ -990,7 +948,6 @@ describe('game engine', function () {
     });
 
     it('deathflow', function() {
-      const Deathflow = spellClasses.Deathflow;
       let deathflow = new Deathflow();
 
       let arrExpect = [205, 205];
@@ -1007,8 +964,6 @@ describe('game engine', function () {
     });
 
     it('deathpower', function() {
-      const Deathpower = spellClasses.Deathpower;
-      const Lifepower = spellClasses.Lifepower;
       let deathpower = new Deathpower('lifepower');
       let lifepower = new Lifepower();
 

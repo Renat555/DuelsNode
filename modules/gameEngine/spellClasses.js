@@ -65,8 +65,8 @@ module.exports.Firespear = class Firespear {
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'firespear'
-  name = 'Метеор';
+  spellName = 'firespear'
+  russianName = 'Метеор';
   descriptionForUser = '';
   descriptionForEnemy = '';
   maxDamage = Math.round(Math.random()*(30 - 20)) + 20;
@@ -96,21 +96,24 @@ module.exports.Firespear = class Firespear {
 
   decreasePlayerHealth(player) {
     if (this.hitProbability < Math.random()) return;
-    player.decreaseHealth(this.currentDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    player.decreaseHealth(this.currentDamage, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
   }
 }
 
 module.exports.Fireshild = class Fireshild {
+  constructor(duration = 4) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'fireshild';
-  name = 'Огненный щит';
+  spellName = 'fireshild';
+  russianName = 'Огненный щит';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = ['firesource', 'firesphere', 'deathflow'];
   activationProbability = 1;
-  duration = 4;
   percentDecreaseDamage = 40;
   pointsDecreaseDamage = 0;
 
@@ -140,7 +143,7 @@ module.exports.Fireshild = class Fireshild {
 
   decreaseSpellDamage(spell) {
     if (this.activationProbability < Math.random()) return;
-    spell.decreaseDamage(this.percentDecreaseDamage, this.pointsDecreaseDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    spell.decreaseDamage(this.percentDecreaseDamage, this.pointsDecreaseDamage, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
   }
 
   saveEffect(player) {
@@ -150,16 +153,19 @@ module.exports.Fireshild = class Fireshild {
 }
 
 module.exports.Firecrown = class Firecrown {
+  constructor(duration = 4) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'firecrown';
-  name = 'Огненный венец';
+  spellName = 'firecrown';
+  russianName = 'Огненный венец';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = ['firespear', 'fireflow', 'waterspear', 'waterflow', 'earthspear', 'earthflow', 'airspear', 'airflow'];
   activationProbability = 1;
-  duration = 4;
   percentIncreaseDamage = 25;
   pointsIncreaseDamage = 0;
 
@@ -189,7 +195,7 @@ module.exports.Firecrown = class Firecrown {
 
   increaseSpellDamage(spell) {
       if (this.activationProbability < Math.random()) return;
-      spell.increaseDamage(this.percentIncreaseDamage, this.pointsIncreaseDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+      spell.increaseDamage(this.percentIncreaseDamage, this.pointsIncreaseDamage, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
   }
 
   saveEffect(player) {
@@ -199,16 +205,19 @@ module.exports.Firecrown = class Firecrown {
 }
 
 module.exports.Firesource = class Firesource {
+  constructor(duration = 3) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'firesource';
-  name = 'Вулкан';
+  spellName = 'firesource';
+  russianName = 'Вулкан';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = [];
   activationProbability = 1;
-  duration = 3;
   maxDamage = Math.round(Math.random()*(12 - 5)) + 5;
   currentDamage = this.maxDamage;
 
@@ -252,7 +261,7 @@ module.exports.Firesource = class Firesource {
 
   decreasePlayerHealth(player) {
     if (this.activationProbability < Math.random()) return;
-    player.decreaseHealth(this.currentDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    player.decreaseHealth(this.currentDamage, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
   }
 
   saveEffect(player) {
@@ -262,16 +271,19 @@ module.exports.Firesource = class Firesource {
 }
 
 module.exports.Firesphere = class Firesphere {
+  constructor(duration = -1) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'firesphere';
-  name = 'Огненная клетка';
+  spellName = 'firesphere';
+  russianName = 'Огненная клетка';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = ['firespear', 'fireflow', 'waterspear', 'waterflow', 'earthspear', 'earthflow', 'airspear', 'airflow'];
   activationProbability = 1;
-  duration = -1;
   maxDamage = Math.round(Math.random()*(10 - 5)) + 5;
   currentDamage = this.maxDamage;
 
@@ -315,7 +327,7 @@ module.exports.Firesphere = class Firesphere {
 
   decreasePlayerHealth(player) {
     if (this.activationProbability < Math.random()) return;
-    player.decreaseHealth(this.currentDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    player.decreaseHealth(this.currentDamage, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
   }
 
   saveEffect(player) {
@@ -328,8 +340,8 @@ module.exports.Firestamp = class Firestamp {
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'firestamp'
-  name = 'Клеймо огня';
+  spellName = 'firestamp'
+  russianName = 'Клеймо огня';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = ['firesource', 'firesphere', 'earthsphere', 'airshild', 'aircrown', 'airsphere', 'airstamp', 'deathshild', 'deathsphere', 'deathstamp', 'deathflow'];
@@ -346,7 +358,7 @@ module.exports.Firestamp = class Firestamp {
   increaseSpellDuration(player) {
     if (this.hitProbability < Math.random()) return;
     for (let i = 0; i < player.debuffs.length; i++) {
-      splayer.debuff[i].increaseDuration(this.pointsIncreaseDuration, this.name, this.descriptionForUser, this.descriptionForEnemy);
+      player.debuffs[i].increaseDuration(this.pointsIncreaseDuration, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
     }
   }
 }
@@ -355,8 +367,8 @@ module.exports.Firekey = class Firekey {
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'firekey'
-  name = 'Ключ огня';
+  spellName = 'firekey'
+  russianName = 'Ключ огня';
   descriptionForUser = '';
   descriptionForEnemy = '';
 
@@ -374,7 +386,7 @@ module.exports.Firekey = class Firekey {
 
   deleteEffect(player) {
     if (this.hitProbability < Math.random()) return;
-    player.deletePositiveEffect(this.spellForDelete, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    player.deletePositiveEffect(this.spellForDelete, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
   }
 }
 
@@ -382,8 +394,8 @@ module.exports.Fireflow = class Fireflow {
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 0.66;
-  spell = 'fireflow'
-  name = 'Струя пламени';
+  spellName = 'fireflow'
+  russianName = 'Струя пламени';
   descriptionForUser = '';
   descriptionForEnemy = '';
   maxDamage = Math.round(Math.random()*(35 - 25)) + 25;
@@ -413,21 +425,24 @@ module.exports.Fireflow = class Fireflow {
 
   decreasePlayerHealth(player) {
     if (this.hitProbability < Math.random()) return;
-    player.decreaseHealth(this.currentDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    player.decreaseHealth(this.currentDamage, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
   }
 }
 
 module.exports.Firepower = class Firepower {
+  constructor(duration = -1) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'firepower';
-  name = 'Власть огня';
+  spellName = 'firepower';
+  russianName = 'Власть огня';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = ['firespear', 'fireflow', 'waterspear', 'waterflow', 'earthspear', 'earthflow', 'airspear', 'airflow'];
   activationProbability = 1;
-  duration = -1;
   percentIncreaseDamage = 0;
   pointsIncreaseDamage = 5;
 
@@ -449,7 +464,7 @@ module.exports.Firepower = class Firepower {
 
   increaseSpellDamage(spell) {
       if (this.activationProbability < Math.random()) return;
-      spell.increaseDamage(this.percentIncreaseDamage, this.pointsIncreaseDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+      spell.increaseDamage(this.percentIncreaseDamage, this.pointsIncreaseDamage, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
   }
 
   saveEffect(player) {
@@ -462,8 +477,8 @@ module.exports.Waterspear = class Waterspear {
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'waterspear'
-  name = 'Ледяной осколок';
+  spellName = 'waterspear';
+  russianName = 'Ледяной осколок';
   descriptionForUser = '';
   descriptionForEnemy = '';
   maxDamage = Math.round(Math.random()*(15 - 5)) + 5;
@@ -494,21 +509,24 @@ module.exports.Waterspear = class Waterspear {
   decreasePlayerHealth(player) {
     if (this.hitProbability < Math.random()) return;
     let totalDamage = this.currentDamage + player['debuffs'].length*5;
-    player.decreaseHealth(totalDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    player.decreaseHealth(totalDamage, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
   }
 }
 
 module.exports.Watershild = class Watershild {
+  constructor(duration = 6) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'watershild';
-  name = 'Ледяная стена';
+  spellName = 'watershild';
+  russianName = 'Ледяная стена';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = ['firespear', 'fireflow', 'waterspear', 'waterflow', 'earthspear', 'earthflow', 'airspear', 'airflow'];
   activationProbability = 1;
-  duration = 6;
   percentDecreaseDamage = 40;
   pointsDecreaseDamage = 0;
 
@@ -538,7 +556,7 @@ module.exports.Watershild = class Watershild {
 
   decreaseSpellDamage(spell) {
     if (this.activationProbability < Math.random()) return;
-    spell.decreaseDamage(this.percentDecreaseDamage, this.pointsDecreaseDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    spell.decreaseDamage(this.percentDecreaseDamage, this.pointsDecreaseDamage, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
   }
 
   saveEffect(player) {
@@ -548,16 +566,19 @@ module.exports.Watershild = class Watershild {
 }
 
 module.exports.Watercrown = class Watercrown {
+  constructor(duration = 6) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'watercrown';
-  name = 'Корона воды';
+  spellName = 'watercrown';
+  russianName = 'Корона воды';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = ['firesource', 'firesphere', 'deathflow'];
   activationProbability = 1;
-  duration = 6;
   percentDecreaseDamage = 50;
   pointsDecreaseDamage = 0;
 
@@ -587,7 +608,7 @@ module.exports.Watercrown = class Watercrown {
 
   decreaseSpellDamage(spell) {
     if (this.activationProbability < Math.random()) return;
-    spell.decreaseDamage(this.percentDecreaseDamage, this.pointsDecreaseDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    spell.decreaseDamage(this.percentDecreaseDamage, this.pointsDecreaseDamage, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
   }
 
   saveEffect(player) {
@@ -600,8 +621,8 @@ module.exports.Watersource = class Watersource {
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 0.66;
-  spell = 'watersource'
-  name = 'Родник';
+  spellName = 'watersource';
+  russianName = 'Родник';
   descriptionForUser = '';
   descriptionForEnemy = '';
 
@@ -619,21 +640,24 @@ module.exports.Watersource = class Watersource {
 
   deleteEffect(player) {
     if (this.hitProbability < Math.random()) return;
-    player.deleteNegativeEffect(this.spellForDelete, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    player.deleteNegativeEffect(this.spellForDelete, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
   }
 }
 
 module.exports.Watersphere = class Watersphere {
+  constructor(duration = 2) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'watersphere';
-  name = 'Ледяная сфера';
+  spellName = 'watersphere';
+  russianName = 'Ледяная сфера';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = ['firespear', 'fireflow', 'waterspear', 'waterflow', 'earthspear', 'earthflow', 'airspear', 'airflow'];
   activationProbability = 1;
-  duration = 2;
   percentDecreaseDamage = 100;
   pointsDecreaseDamage = 0;
 
@@ -663,7 +687,7 @@ module.exports.Watersphere = class Watersphere {
 
   decreaseSpellDamage(spell) {
     if (this.activationProbability < Math.random()) return;
-    spell.decreaseDamage(this.percentDecreaseDamage, this.pointsDecreaseDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    spell.decreaseDamage(this.percentDecreaseDamage, this.pointsDecreaseDamage, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
   }
 
   saveEffect(player) {
@@ -673,16 +697,19 @@ module.exports.Watersphere = class Watersphere {
 }
 
 module.exports.Waterstamp = class Waterstamp {
+  constructor(duration = 6) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'waterstamp';
-  name = 'Ледяная стена';
+  spellName = 'waterstamp';
+  russianName = 'Ледяная стена';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = ['firespear', 'fireflow', 'waterspear', 'waterflow', 'earthspear', 'earthflow', 'airspear', 'airflow'];
   activationProbability = 1;
-  duration = 6;
   percentDecreaseDamage = 33;
   pointsDecreaseDamage = 0;
 
@@ -712,7 +739,7 @@ module.exports.Waterstamp = class Waterstamp {
 
   decreaseSpellDamage(spell) {
     if (this.activationProbability < Math.random()) return;
-    spell.decreaseDamage(this.percentDecreaseDamage, this.pointsDecreaseDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    spell.decreaseDamage(this.percentDecreaseDamage, this.pointsDecreaseDamage, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
   }
 
   saveEffect(player) {
@@ -725,8 +752,8 @@ module.exports.Waterkey = class Waterkey {
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'waterkey'
-  name = 'Ключ воды';
+  spellName = 'waterkey';
+  russianName = 'Ключ воды';
   descriptionForUser = '';
   descriptionForEnemy = '';
 
@@ -744,7 +771,7 @@ module.exports.Waterkey = class Waterkey {
 
   deleteEffect(player) {
     if (this.hitProbability < Math.random()) return;
-    player.deleteNegativeEffect(this.spellForDelete, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    player.deleteNegativeEffect(this.spellForDelete, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
   }
 }
 
@@ -752,8 +779,8 @@ module.exports.Waterflow = class Waterflow {
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'waterflow'
-  name = 'Водный поток';
+  spellName = 'waterflow';
+  russianName = 'Водный поток';
   descriptionForUser = '';
   descriptionForEnemy = '';
   maxDamage = 20;
@@ -784,21 +811,23 @@ module.exports.Waterflow = class Waterflow {
   decreasePlayerHealth(player) {
     if (this.hitProbability < Math.random()) return;
     let totalDamage = this.currentDamage + player['debuffs'].length*5;
-    player.decreaseHealth(totalDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    player.decreaseHealth(totalDamage, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
   }
 }
 
 module.exports.Waterpower = class Waterpower {
+  constructor(duration = -1) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'waterpower';
-  name = 'Власть воды';
+  spellName = 'waterpower';
+  russianName = 'Власть воды';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = ['watershild', 'watercrown', 'watersphere', 'waterstamp'];
-  activationProbability = 1;
-  duration = -1;
   pointsIncreaseDuration = 2;
 
 
@@ -820,7 +849,7 @@ module.exports.Waterpower = class Waterpower {
 
   increaseSpellDuration(spell) {
     if (this.activationProbability < Math.random()) return;
-    spell.increaseDuration(this.pointsIncreaseDuration, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    spell.increaseDuration(this.pointsIncreaseDuration, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
   }
 
   saveEffect(player) {
@@ -833,8 +862,8 @@ module.exports.Earthspear = class Earthspear {
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 0.33;
-  spell = 'earthspear'
-  name = 'Глыба';
+  spellName = 'earthspear';
+  russianName = 'Глыба';
   descriptionForUser = '';
   descriptionForEnemy = '';
   maxDamage = Math.round(Math.random()*(70 - 50)) + 50;
@@ -864,21 +893,24 @@ module.exports.Earthspear = class Earthspear {
 
   decreasePlayerHealth(player) {
     if (this.hitProbability < Math.random()) return;
-    player.decreaseHealth(this.currentDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    player.decreaseHealth(this.currentDamage, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
   }
 }
 
 module.exports.Earthshild = class Earthshild {
+  constructor(duration = 8) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'earthshild';
-  name = 'Скала';
+  spellName = 'earthshild';
+  russianName = 'Скала';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = ['firesource', 'firesphere', 'deathflow', 'firespear', 'fireflow', 'waterspear', 'waterflow', 'earthspear', 'earthflow', 'airspear', 'airflow'];
   activationProbability = 1;
-  duration = 8;
   percentDecreaseDamage = 0;
   pointsDecreaseDamage = 10;
 
@@ -908,7 +940,7 @@ module.exports.Earthshild = class Earthshild {
 
   decreaseSpellDamage(spell) {
     if (this.activationProbability < Math.random()) return;
-    spell.decreaseDamage(this.percentDecreaseDamage, this.pointsDecreaseDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    spell.decreaseDamage(this.percentDecreaseDamage, this.pointsDecreaseDamage, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
   }
 
   saveEffect(player) {
@@ -918,16 +950,19 @@ module.exports.Earthshild = class Earthshild {
 }
 
 module.exports.Earthcrown = class Earthcrown {
+  constructor(duration = 6) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'earthcrown';
-  name = 'Корона земли';
+  spellName = 'earthcrown';
+  russianName = 'Корона земли';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = ['firespear', 'fireflow', 'waterspear', 'waterflow', 'earthspear', 'earthflow', 'airspear', 'airflow'];
   activationProbability = 1;
-  duration = 6;
   percentIncreaseHitProbability = 0.15;
 
 
@@ -967,16 +1002,19 @@ module.exports.Earthcrown = class Earthcrown {
 }
 
 module.exports.Earthsource = class Earthsource {
+  constructor(duration = 4) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'earthsource';
-  name = 'Земные недра';
+  spellName = 'earthsource';
+  russianName = 'Земные недра';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = ['earthspear', 'earthflow', 'earthsphere'];
   activationProbability = 1;
-  duration = 4;
   percentIncreaseDamage = 0;
   pointsIncreaseDamage = 15;
   pointsIncreaseDuration = 1;
@@ -998,13 +1036,14 @@ module.exports.Earthsource = class Earthsource {
     this.activationProbability += percent;
   }
 
-  increaseSpellDurationOrDamage(spell) {
-      if (this.activationProbability < Math.random()) return;
-      if (spell['spell'] == 'earthsphere') {
-        spell.increaseDuration(this.pointsIncreaseDuration);
-      } else {
-        spell.increaseDamage(this.percentIncreaseDamage, this.pointsIncreaseDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
-      }
+  icreaseSpellDuration(spell) {
+    if (this.activationProbability < Math.random()) return;
+    spell.increaseDuration(this.pointsIncreaseDuration);
+  }
+
+  increaseSpellDamage(spell) {
+    if (this.activationProbability < Math.random()) return;
+    spell.increaseDamage(this.percentIncreaseDamage, this.pointsIncreaseDamage, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
   }
 
   saveEffect(player) {
@@ -1014,16 +1053,19 @@ module.exports.Earthsource = class Earthsource {
 }
 
 module.exports.Earthsphere = class Earthsphere {
+  constructor(duration = 10) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'earthsphere';
-  name = 'Склеп';
+  spellName = 'earthsphere';
+  russianName = 'Склеп';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = ['firespear', 'fireflow', 'waterspear', 'waterflow', 'earthspear', 'earthflow', 'airspear', 'airflow', 'firesource', 'firesphere', 'earthsphere', 'airshild', 'aircrown', 'airsphere', 'airstamp', 'deathshild', 'deathsphere', 'deathstamp', 'deathflow'];
   activationProbability = 1;
-  duration = 10;
   percentIncreaseHitProbability = 0.05;
 
   decreaseHitProbability(percent, spellName, descriptionForUser, descriptionForEnemy) {
@@ -1062,16 +1104,19 @@ module.exports.Earthsphere = class Earthsphere {
 }
 
 module.exports.Earthstamp = class Earthstamp {
+  constructor(duration = 4) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'earthstamp';
-  name = 'Печать земли';
+  spellName = 'earthstamp';
+  russianName = 'Печать земли';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = ['firespear', 'fireflow', 'waterspear', 'waterflow', 'earthspear', 'earthflow', 'airspear', 'airflow'];
   activationProbability = 1;
-  duration = 4;
   percentDecreaseDamage = 50;
   pointsDecreaseDamage = 0;
 
@@ -1101,7 +1146,7 @@ module.exports.Earthstamp = class Earthstamp {
 
   decreaseSpellDamage(spell) {
     if (this.activationProbability < Math.random()) return;
-    spell.decreaseDamage(this.percentDecreaseDamage, this.pointsDecreaseDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    spell.decreaseDamage(this.percentDecreaseDamage, this.pointsDecreaseDamage, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
   }
 
   saveEffect(player) {
@@ -1114,8 +1159,8 @@ module.exports.Earthkey = class Earthkey {
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'earthkey'
-  name = 'Ключ земли';
+  spellName = 'earthkey';
+  russianName = 'Ключ земли';
   descriptionForUser = '';
   descriptionForEnemy = '';
 
@@ -1133,7 +1178,7 @@ module.exports.Earthkey = class Earthkey {
 
   deleteEffect(player) {
     if (this.hitProbability < Math.random()) return;
-    player.deleteNegativeEffect(this.spellForDelete, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    player.deleteNegativeEffect(this.spellForDelete, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
   }
 }
 
@@ -1141,8 +1186,8 @@ module.exports.Earthflow = class Earthflow {
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 0.25;
-  spell = 'earthflow'
-  name = 'Сель';
+  spellName = 'earthflow';
+  russianName = 'Сель';
   descriptionForUser = '';
   descriptionForEnemy = '';
   maxDamage = 80;
@@ -1172,21 +1217,24 @@ module.exports.Earthflow = class Earthflow {
 
   decreasePlayerHealth(player) {
     if (this.hitProbability < Math.random()) return;
-    player.decreaseHealth(this.currentDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    player.decreaseHealth(this.currentDamage, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
   }
 }
 
 module.exports.Earthpower = class Earthpower {
+  constructor(duration = 4) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'earthpower';
-  name = 'Власть земли';
+  spellName = 'earthpower';
+  russianName = 'Власть земли';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = ['earthshild', 'earthcrown', 'earthsource', 'earthstamp'];
   activationProbability = 0.5;
-  duration = 4;
   pointsIncreaseDuration = 4;
 
 
@@ -1208,7 +1256,7 @@ module.exports.Earthpower = class Earthpower {
 
   increaseSpellDuration(spell) {
     if (this.activationProbability < Math.random()) return;
-    spell.increaseDuration(this.pointsIncreaseDuration, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    spell.increaseDuration(this.pointsIncreaseDuration, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
   }
 
   saveEffect(player) {
@@ -1221,8 +1269,8 @@ module.exports.Airspear = class Airspear {
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 0.75;
-  spell = 'airspear'
-  name = 'Копье воздуха';
+  spellName = 'airspear';
+  russianName = 'Копье воздуха';
   descriptionForUser = '';
   descriptionForEnemy = '';
   maxDamage = 25;
@@ -1252,21 +1300,24 @@ module.exports.Airspear = class Airspear {
 
   decreasePlayerHealth(player) {
     if (this.hitProbability < Math.random()) return;
-    player.decreaseHealth(this.currentDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    player.decreaseHealth(this.currentDamage, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
   }
 }
 
 module.exports.Airshild = class Airshild {
+  constructor(duration = 4) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'airshild';
-  name = 'Вихрь';
+  spellName = 'airshild';
+  russianName = 'Вихрь';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = ['firespear', 'fireflow', 'waterspear', 'waterflow', 'earthspear', 'earthflow', 'airspear', 'airflow'];
   activationProbability = 1;
-  duration = 4;
   percentDecreaseHitProbability = 0.33;
 
   decreaseHitProbability(percent, spellName, descriptionForUser, descriptionForEnemy) {
@@ -1305,16 +1356,19 @@ module.exports.Airshild = class Airshild {
 }
 
 module.exports.Aircrown = class Aircrown {
+  constructor(duration = 4) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'aircrown';
-  name = 'Корона земли';
+  spellName = 'aircrown';
+  russianName = 'Корона земли';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = ['fireshild', 'firecrown', 'firepower', 'watershild', 'watercrown', 'watersphere', 'waterstamp', 'waterpower', 'earthshild', 'earthcrown', 'earthsource', 'earthstamp', 'earthpower', 'airsource', 'airpower', 'lifeshild', 'lifesphere', 'lifestamp', 'lifeflow', 'lifepower', 'deathkey'];
   activationProbability = 1;
-  duration = 4;
   percentDecreaseHitProbability = 0.33;
 
 
@@ -1354,16 +1408,19 @@ module.exports.Aircrown = class Aircrown {
 }
 
 module.exports.Airsource = class Airsource {
+  constructor(duration = 6) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'airsource';
-  name = 'Врата воздуха';
+  spellName = 'airsource';
+  russianName = 'Врата воздуха';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = ['firespear', 'fireflow', 'waterspear', 'waterflow', 'earthspear', 'earthflow', 'airspear', 'airflow', 'firesource', 'firesphere', 'earthsphere', 'airshild', 'aircrown', 'airsphere', 'airstamp', 'deathshild', 'deathsphere', 'deathstamp', 'deathflow'];
   activationProbability = 1;
-  duration = 6;
   percentIncreaseHitProbability = 0.1;
 
 
@@ -1395,16 +1452,19 @@ module.exports.Airsource = class Airsource {
 }
 
 module.exports.Airsphere = class Airsphere {
+  constructor(duration = 4) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'airsphere';
-  name = 'Воздушный кокон';
+  spellName = 'airsphere';
+  russianName = 'Воздушный кокон';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = ['firesource', 'firesphere', 'earthsphere', 'airshild', 'aircrown', 'airsphere', 'airstamp', 'deathshild', 'deathsphere', 'deathstamp', 'deathflow'];
   activationProbability = 1;
-  duration = 4;
   percentDecreaseHitProbability = 0.33;
 
   decreaseHitProbability(percent, spellName, descriptionForUser, descriptionForEnemy) {
@@ -1443,16 +1503,19 @@ module.exports.Airsphere = class Airsphere {
 }
 
 module.exports.Airstamp = class Airstamp {
+  constructor(duration = 10) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'airstamp';
-  name = 'Печать воздуха';
+  spellName = 'airstamp';
+  russianName = 'Печать воздуха';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = ['fireshild', 'firecrown', 'firepower', 'watershild', 'watercrown', 'watersphere', 'waterstamp', 'waterpower', 'earthshild', 'earthcrown', 'earthsource', 'earthstamp', 'earthpower', 'airsource', 'airpower', 'lifeshild', 'lifesphere', 'lifestamp', 'lifeflow', 'lifepower', 'deathkey'];
   activationProbability = 1;
-  duration = 10;
   percentDecreaseHitProbability = 0.1;
 
 
@@ -1495,8 +1558,8 @@ module.exports.Airkey = class Airkey {
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'airkey'
-  name = 'Ключ воздуха';
+  spellName = 'airkey';
+  russianName = 'Ключ воздуха';
   descriptionForUser = '';
   descriptionForEnemy = '';
 
@@ -1514,7 +1577,7 @@ module.exports.Airkey = class Airkey {
 
   deleteEffect(player) {
     if (this.hitProbability < Math.random()) return;
-    player.deletePositiveEffect(this.spellForDelete, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    player.deletePositiveEffect(this.spellForDelete, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
   }
 }
 
@@ -1522,8 +1585,8 @@ module.exports.Airflow = class Airflow {
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 0.5;
-  spell = 'airflow'
-  name = 'Ударная волна';
+  spellName = 'airflow';
+  russianName = 'Ударная волна';
   descriptionForUser = '';
   descriptionForEnemy = '';
   maxDamage = 40;
@@ -1553,21 +1616,24 @@ module.exports.Airflow = class Airflow {
 
   decreasePlayerHealth(player) {
     if (this.hitProbability < Math.random()) return;
-    player.decreaseHealth(this.currentDamage, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    player.decreaseHealth(this.currentDamage, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
   }
 }
 
 module.exports.Airpower = class Airpower {
+  constructor(duration = -1) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'airpower';
-  name = 'Власть воздуха';
+  spellName = 'airpower';
+  russianName = 'Власть воздуха';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = ['firespear', 'fireflow', 'waterspear', 'waterflow', 'earthspear', 'earthflow', 'airspear', 'airflow'];
   activationProbability = 1;
-  duration = -1;
   percentDecreaseHitProbability = 0.2;
 
   decreaseHitProbability(percent, spellName, descriptionForUser, descriptionForEnemy) {
@@ -1609,8 +1675,8 @@ module.exports.Lifespear = class Lifespear {
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'lifespear'
-  name = 'Касание жизни';
+  spellName = 'lifespear';
+  russianName = 'Касание жизни';
   descriptionForUser = '';
   descriptionForEnemy = '';
 
@@ -1628,21 +1694,24 @@ module.exports.Lifespear = class Lifespear {
 
   deleteEffect(player) {
     if (this.hitProbability < Math.random()) return;
-    player.deleteNegativeEffect(this.spellForDelete, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    player.deleteNegativeEffect(this.spellForDelete, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
   }
 }
 
 module.exports.Lifeshild = class Lifeshild {
+  constructor(duration = -1) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'lifeshild';
-  name = 'Щит жизни';
+  spellName = 'lifeshild';
+  russianName = 'Щит жизни';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = ['deathcrown'];
   activationProbability = 1;
-  duration = -1;
   percentDecreaseHitProbability = 1;
 
   decreaseHitProbability(percent, spellName, descriptionForUser, descriptionForEnemy) {
@@ -1676,8 +1745,8 @@ module.exports.Lifecrown = class Lifecrown {
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'lifecrown'
-  name = 'Корона жизни';
+  spellName = 'lifecrown';
+  russianName = 'Корона жизни';
   descriptionForUser = '';
   descriptionForEnemy = '';
   pointsIncreaseMaxHealth = 15;
@@ -1700,8 +1769,8 @@ module.exports.Lifesource = class Lifesource {
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'lifesource'
-  name = 'Источник жизни';
+  spellName = 'lifesource';
+  russianName = 'Источник жизни';
   descriptionForUser = '';
   descriptionForEnemy = '';
   pointsIncreaseHealth = 30;
@@ -1721,16 +1790,19 @@ module.exports.Lifesource = class Lifesource {
 }
 
 module.exports.Lifesphere = class Lifesphere {
+  constructor(duration = 5) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'lifesphere';
-  name = 'Сфера восстановления';
+  spellName = 'lifesphere';
+  russianName = 'Сфера восстановления';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = [];
   activationProbability = 1;
-  duration = 5;
   pointsIncreaseHealth = 10;
 
   decreaseHitProbability(percent, spellName, descriptionForUser, descriptionForEnemy) {
@@ -1769,16 +1841,19 @@ module.exports.Lifesphere = class Lifesphere {
 }
 
 module.exports.Lifestamp = class Lifestamp {
+  constructor(duration = 8) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'lifestamp';
-  name = 'Печать жизни';
+  spellName = 'lifestamp';
+  russianName = 'Печать жизни';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = ['deathshild', 'deathsphere', 'deathstamp', 'deathflow'];
   activationProbability = 1;
-  duration = 8;
   percentDecreaseHitProbability = 1;
 
   decreaseHitProbability(percent, spellName, descriptionForUser, descriptionForEnemy) {
@@ -1820,8 +1895,8 @@ module.exports.Lifekey = class Lifekey {
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 0.66;
-  spell = 'lifekey';
-  name = 'Ключ жизни';
+  spellName = 'lifekey';
+  russianName = 'Ключ жизни';
   descriptionForUser = '';
   descriptionForEnemy = '';
 
@@ -1839,21 +1914,24 @@ module.exports.Lifekey = class Lifekey {
 
   deleteEffect(player) {
     if (this.hitProbability < Math.random()) return;
-    player.deleteNegativeEffect(this.spellForDelete, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    player.deleteNegativeEffect(this.spellForDelete, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
   }
 }
 
 module.exports.Lifeflow = class Lifeflow {
+  constructor(duration = 2) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'lifeflow';
-  name = 'Поток жизни';
+  spellName = 'lifeflow';
+  russianName = 'Поток жизни';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = [];
   activationProbability = 1;
-  duration = 2;
   pointsIncreaseHealth = 25;
 
   decreaseHitProbability(percent, spellName, descriptionForUser, descriptionForEnemy) {
@@ -1892,11 +1970,15 @@ module.exports.Lifeflow = class Lifeflow {
 }
 
 module.exports.Lifepower = class Lifepower {
+  constructor(duration = -1) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'lifepower';
-  name = 'Власть жизни';
+  spellName = 'lifepower';
+  russianName = 'Власть жизни';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = [];
@@ -1935,8 +2017,8 @@ module.exports.Deathspear = class Deathspear {
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 0.66;
-  spell = 'deathspear'
-  name = 'Касание смерти';
+  spellName = 'deathspear'
+  russianName = 'Касание смерти';
   descriptionForUser = '';
   descriptionForEnemy = '';
 
@@ -1954,21 +2036,24 @@ module.exports.Deathspear = class Deathspear {
 
   deleteEffect(player) {
     if (this.hitProbability < Math.random()) return;
-    player.deletePositiveEffect(this.spellForDelete, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    player.deletePositiveEffect(this.spellForDelete, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
   }
 }
 
 module.exports.Deathshild = class Deathshild {
+  constructor(duration = 4) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'deathshild';
-  name = 'Пелена смерти';
+  spellName = 'deathshild';
+  russianName = 'Пелена смерти';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = ['fireshild', 'firecrown', 'firepower', 'watershild', 'watercrown', 'watersphere', 'waterstamp', 'waterpower', 'earthshild', 'earthcrown', 'earthsource', 'earthstamp', 'earthpower', 'airsource', 'airpower', 'lifeshild', 'lifesphere', 'lifestamp', 'lifeflow', 'lifepower', 'deathkey'];
   activationProbability = 1;
-  duration = 4;
   percentDecreaseHitProbability = 0.5;
 
 
@@ -2011,8 +2096,8 @@ module.exports.Deathcrown = class Deathcrown {
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'deathcrown';
-  name = 'Корона мертвеца';
+  spellName = 'deathcrown';
+  russianName = 'Корона мертвеца';
   descriptionForUser = '';
   descriptionForEnemy = '';
   pointsDecreaseMaxHealth = 15;
@@ -2035,8 +2120,8 @@ module.exports.Deathsource = class Deathsource {
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'deathsource';
-  name = 'Смерть';
+  spellName = 'deathsource';
+  russianName = 'Смерть';
   descriptionForUser = '';
   descriptionForEnemy = '';
 
@@ -2055,16 +2140,19 @@ module.exports.Deathsource = class Deathsource {
 }
 
 module.exports.Deathsphere = class Deathsphere {
+  constructor(duration = 2) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'deathsphere';
-  name = 'Круг смерти';
+  spellName = 'deathsphere';
+  russianName = 'Круг смерти';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = ['firesource', 'deathflow'];
   activationProbability = 1;
-  duration = 2;
   percentIncreaseDamage = 0;
   pointsIncreaseDamage = 15;
 
@@ -2104,16 +2192,19 @@ module.exports.Deathsphere = class Deathsphere {
 }
 
 module.exports.Deathstamp = class Deathstamp {
+  constructor(duration = 2) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'deathstamp';
-  name = 'Печать смерти';
+  spellName = 'deathstamp';
+  russianName = 'Печать смерти';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = ['fireshild', 'firecrown', 'firepower', 'watershild', 'watercrown', 'watersphere', 'waterstamp', 'waterpower', 'earthshild', 'earthcrown', 'earthsource', 'earthstamp', 'earthpower', 'airsource', 'airpower', 'lifeshild', 'lifesphere', 'lifestamp', 'lifeflow', 'lifepower', 'deathkey'];
   activationProbability = 1;
-  duration = 2;
   percentDecreaseHitProbability = 1;
 
 
@@ -2153,16 +2244,19 @@ module.exports.Deathstamp = class Deathstamp {
 }
 
 module.exports.Deathkey = class Deathkey {
+  constructor(duration = 4) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'deathkey';
-  name = 'Ключ от смерти';
+  spellName = 'deathkey';
+  russianName = 'Ключ от смерти';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = ['firespear', 'fireflow', 'waterspear', 'waterflow', 'earthspear', 'earthflow', 'airspear', 'airflow'];
   activationProbability = 0.5;
-  duration = 4;
   pointsIncreaseHealth = 1;
 
   decreaseHitProbability(percent, spellName, descriptionForUser, descriptionForEnemy) {
@@ -2204,16 +2298,19 @@ module.exports.Deathkey = class Deathkey {
 }
 
 module.exports.Deathflow = class Deathflow {
+  constructor(duration = 5) {
+    this.duration = duration;
+  }
+
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'deathflow';
-  name = 'Поток смерти';
+  spellName = 'deathflow';
+  russianName = 'Поток смерти';
   descriptionForUser = '';
   descriptionForEnemy = '';
   dependences = [];
   activationProbability = 1;
-  duration = 5;
   maxDamage = 5;
   currentDamage = this.maxDamage;
   pointsIncreaseHealth = 5;
@@ -2269,8 +2366,8 @@ module.exports.Deathpower = class Deathpower {
   actionPoints = 1;
   energyPoints = 1;
   hitProbability = 1;
-  spell = 'deathpower'
-  name = 'Власть смерти';
+  spellName = 'deathpower'
+  russianName = 'Власть смерти';
   descriptionForUser = '';
   descriptionForEnemy = '';
 
@@ -2288,6 +2385,6 @@ module.exports.Deathpower = class Deathpower {
 
   deleteEffect(player) {
     if (this.hitProbability < Math.random()) return;
-    player.deletePositiveEffect(this.spellForDelete, this.name, this.descriptionForUser, this.descriptionForEnemy);
+    player.deletePositiveEffect(this.spellForDelete, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
   }
 }

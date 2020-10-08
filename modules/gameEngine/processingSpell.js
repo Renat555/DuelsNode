@@ -1,42 +1,41 @@
 
-const spellClasses = require('./spellClasses');
-const Player = spellClasses.Player;
+const createPlayers = require('./createPlayers').createPlayers;
 const createSpell = require('./createSpell');
 const applySpell = require('./applySpell');
+const isHaveDependences = require('./isHaveDependences')
+const savePlayers = require('./savePlayers').savePlayers;
+const sendGameInformation = require('./sendGameInformation');
 
-function createEffectsFromSpellNames(arrNames) {
-  let arrEffects = [];
-  for (let i = 0; i < arrNames.length; i++) {
-    arrEffects[i] = createSpell(arrNames[i][0]);
-  }
-  return arrEffects;
-}
-
-function createSpellNamesFromEffects(arrEffects) {
-  let arrNames = [];
-  for (let i = 0; i < arrEffects.length; i++) {
-    arrNames[i] = [];
-    arrNames[i][0] = arrEffects[i]['spell'];
-    arrNames[i][1] = arrEffects[i]['duration'];
-  }
-  return arrNames;
-}
-
-function isHaveDependences(effect, spell) {
-  for (let i = 0; i < effect['dependences'].length; i++) {
-    if (effect['dependences'][i] == spell['spell']) return true;
-  }
-  return false;
-}
-
-function processingSpellByPlayerEffects(player, spell) {
+function processingSpellByUserEffects(player, spell) {
 
   for (let i = 0; i < player['buffs'].length; i++) {
     if (!isHaveDependences(player['buffs'][i], spell)) continue;
 
-    switch (player['buffs'][i]['spell']) {
-      case 'fireshild':
-        player['buffs'][i].decreaseSpellDamager(spell);
+    switch (player['buffs'][i]['spellName']) {
+      case 'firecrown':
+        player['buffs'][i].increaseSpellDamage(spell);
+        break;
+      case 'firepower':
+        player['buffs'][i].increaseSpellDamage(spell);
+        break;
+      case 'waterpower':
+        player['buffs'][i].increaseSpellDuration(spell);
+        break;
+      case 'earthcrown':
+        player['buffs'][i].increaseSpellHitProbability(spell);
+        break;
+      case 'earthsource':
+        if (spell['spellName'] == 'earthsphere') {
+          player['buffs'][i].increaseSpellDuration(spell);
+        } else {
+          player['buffs'][i].increaseSpellDamage(spell);
+        }
+        break;
+      case 'earthpower':
+        player['buffs'][i].increaseSpellDuration(spell);
+        break;
+      case 'airsource':
+        player['buffs'][i].increaseSpellHitProbability(spell);
         break;
     }
 
@@ -45,9 +44,27 @@ function processingSpellByPlayerEffects(player, spell) {
   for (let i = 0; i < player['debuffs'].length; i++) {
     if (!isHaveDependences(player['debuffs'][i], spell)) continue;
 
-    switch (player['debuffs'][i]['spell']) {
-      case 'firesphere':
-        player['debuffs'][i].decreasePlayerHealth(player);
+    switch (player['debuffs'][i]['spellName']) {
+      case 'airshild':
+        player['debuffs'][i].decreaseSpellHitProbability(player);
+        break;
+      case 'aircrown':
+        player['debuffs'][i].decreaseSpellHitProbability(player);
+        break;
+      case 'airsphere':
+        player['debuffs'][i].decreaseSpellHitProbability(player);
+        break;
+      case 'airstamp':
+        player['debuffs'][i].decreaseSpellHitProbability(player);
+        break;
+      case 'deathshild':
+        player['debuffs'][i].decreaseSpellHitProbability(player);
+        break;
+      case 'deathshild':
+        player['debuffs'][i].decreaseSpellHitProbability(player);
+        break;
+      case 'deathstamp':
+        player['debuffs'][i].decreaseSpellHitProbability(player);
         break;
     }
 
@@ -55,69 +72,62 @@ function processingSpellByPlayerEffects(player, spell) {
 
 }
 
-function createPlayers(mongoCollection, ws) {
-  return new Promise((resolve, reject) => {
-    let arr = {user: "", enemy: ""};
+function processingSpellByEnemyEffects(player, spell) {
+  for (let i = 0; i < player['buffs'].length; i++) {
+    if (!isHaveDependences(player['buffs'][i], spell)) continue;
 
-    mongoCollection.findOne({'id': ws['id']})
-      .then(doc => {
-        let userBuffs = createEffectsFromSpellNames(doc['buffs']);
-        let userDebuffs = createEffectsFromSpellNames(doc['debuffs']);
-        let user = new Player(doc['actionPoints'], doc['energyPoints'], doc['health'], doc['maxHealth'], userBuffs, userDebuffs);
-        arr['user'] = user;
-      })
-        .then(() => {
-          mongoCollection.findOne({'id': ws['idEnemy']}, function (err, doc) {
-            let enemyBuffs = createEffectsFromSpellNames(doc['buffs']);
-            let enemyDebuffs = createEffectsFromSpellNames(doc['debuffs']);
-            let enemy = new Player(doc['actionPoints'], doc['energyPoints'], doc['health'], doc['maxHealth'], enemyBuffs, enemyDebuffs);
-            arr['enemy'] = enemy;
-            resolve(arr);
-          });
-        });
+    switch (player['buffs'][i]['spellName']) {
+      case 'fireshild':
+        player['buffs'][i].decreaseSpellDamage(spell);
+        break;
+      case 'watershild':
+        player['buffs'][i].decreaseSpellDamage(spell);
+        break;
+      case 'watersphere':
+        player['buffs'][i].decreaseSpellDamage(spell);
+        break;
+      case 'waterstamp':
+        player['buffs'][i].decreaseSpellDamage(spell);
+        break;
+      case 'earthshild':
+        player['buffs'][i].decreaseSpellDamage(spell);
+        break;
+      case 'earthstamp':
+        player['buffs'][i].decreaseSpellDamage(spell);
+        break;
+      case 'airpower':
+        player['buffs'][i].decreaseSpellHitProbability(spell);
+        break;
+      case 'lifeshild':
+        player['buffs'][i].decreaseSpellHitProbability(spell);
+        break;
+      case 'lifestamp':
+        player['buffs'][i].decreaseSpellHitProbability(spell);
+        break;
+      case 'lifepower':
+        player['buffs'][i].decreaseSpellHitProbability(spell);
+        break;
+      case 'deathkey':
+        player['buffs'][i].incrasePlayerHealth(player, spell);
+        break;
+    }
 
-  });
-}
+  }
 
-function savePlayers(user, enemy, mongoCollection, ws) {
-  return new Promise((resolve, reject) => {
-  user['buffs'] = createSpellNamesFromEffects(user['buffs']);
-  user['debuffs'] = createSpellNamesFromEffects(user['debuffs']);
+  for (let i = 0; i < player['debuffs'].length; i++) {
+    if (!isHaveDependences(player['debuffs'][i], spell)) continue;
 
-  mongoCollection.updateOne(
-    {'id': ws['id']},
-    {$set: {actionPoints: user['actionPoints'], energyPoints: user['energyPoints'], maxHealth: user['maxHealth'], health: user['health'], buffs: user['buffs'], debuffs: user['debuffs']}});
+    switch (player['debuffs'][i]['spellName']) {
+      case 'firesphere':
+        player['debuffs'][i].decreasePlayerHealth(player);
+        break;
+      case 'earthsphere':
+        player['debuffs'][i].increaseSpellHitProbability(spell);
+        break;
+    }
 
-  enemy['buffs'] = createSpellNamesFromEffects(enemy['buffs']);
-  enemy['debuffs'] = createSpellNamesFromEffects(enemy['debuffs']);
-  mongoCollection.updateOne(
-    {'id': ws['idEnemy']},
-    {$set: {actionPoints: enemy['actionPoints'], energyPoints: enemy['energyPoints'], maxHealth: enemy['maxHealth'], health: enemy['health'], buffs: enemy['buffs'], debuffs: enemy['debuffs']}});
-    resolve();
-  });
-}
+  }
 
-function sendGameInformation(mongoCollection, ws, wss) {
-  let response = {header: 'processingSpell'};
-
-  mongoCollection.findOne({'id': ws['id']})
-      .then(doc => {
-        response['user'] = doc;
-      })
-        .then(() => {
-          mongoCollection.findOne({'id': ws['idEnemy']}, function (err, doc) {
-            response['enemy'] = doc;
-            ws.send(JSON.stringify(response));
-            wss.clients.forEach(function each(client) {
-            if (client.readyState == 1 && client['id'] == ws['idEnemy']) {
-              let responseForEnemy = {'header': 'processingSpell'};
-			        responseForEnemy['user'] = response['enemy'];
-			        responseForEnemy['enemy'] = response['user'];
-			        client.send(JSON.stringify(responseForEnemy));
-            }
-            });
-          });
-        });
 }
 
 function processingSpell(request, collection, ws, wss) {
@@ -125,19 +135,17 @@ function processingSpell(request, collection, ws, wss) {
     .then(result => {
       let {user, enemy} = result;
       let spell = createSpell(request['spell'], request['despell']);
+      processingSpellByUserEffects(user, spell);
+      processingSpellByEnemyEffects(enemy, spell);
       applySpell(spell, user, enemy);
       savePlayers(user, enemy, collection, ws)
         .then(result => {
           sendGameInformation(collection, ws, wss);
         })
-  /*processingSpellByPlayerEffects(enemy, spell);
-  processingSpellByPlayerEffects(user, spell);
-  savePlayers(user, enemy);*/
     });
 }
 
 module.exports.processingSpell = processingSpell;
-module.exports.createEffectsFromSpellNames = createEffectsFromSpellNames;
-module.exports.createSpellNamesFromEffects = createSpellNamesFromEffects;
-module.exports.processingSpellByPlayerEffects = processingSpellByPlayerEffects;
+module.exports.processingSpellByUserEffects = processingSpellByUserEffects;
+module.exports.processingSpellByEnemyEffects = processingSpellByEnemyEffects;
 module.exports.savePlayers = savePlayers;

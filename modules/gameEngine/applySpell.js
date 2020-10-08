@@ -1,24 +1,43 @@
 
+function saveOrMergeEffect(spell, player) {
+  let mark = 0;
+  
+  for (let i = 0; i < player['buffs'].length; i++) {
+   if (player['buffs'][i]['spellName'] == spell['spellName']) {
+    player['buffs'][i]['duration'] += spell['duration'];
+    mark = 1;
+   }
+  }
+  
+  for (let i = 0; i < player['debuffs'].length; i++) {
+   if (player['debuffs'][i]['spellName'] == spell['spellName']) {
+    player['debuffs'][i]['duration'] += spell['duration'];
+    mark = 1;
+   }
+  }
+
+  if (mark == 0) spell.saveEffect(player);
+}
+
 function applySpell(spell, user, enemy) {
-  let spellName = spell['spell'];
   user.actionPoints = user.actionPoints - spell.actionPoints;
   user.energyPoints = user.energyPoints - spell.energyPoints;
 
-  switch (spellName) {
+  switch (spell['spellName']) {
       case 'firespear':
         spell.decreasePlayerHealth(enemy);
         break;
       case 'fireshild':
-        spell.saveEffect(user);
+        saveOrMergeEffect(spell, user);
         break;
       case 'firecrown':
-        spell.saveEffect(user);
+        saveOrMergeEffect(spell, user);
         break;
       case 'firesource':
-        spell.saveEffect(enemy);
+        saveOrMergeEffect(spell, enemy);
         break;
       case 'firesphere':
-        spell.saveEffect(enemy);
+        saveOrMergeEffect(spell, enemy);
         break; 
       case 'firestamp': 
         spell.increaseSpellDuration(enemy); 
@@ -30,25 +49,25 @@ function applySpell(spell, user, enemy) {
         spell.decreasePlayerHealth(enemy); 
         break; 
       case 'firepower': 
-        spell.saveEffect(user); 
+        saveOrMergeEffect(spell, user);
         break; 
       case 'waterspear': 
         spell.decreasePlayerHealth(enemy); 
         break; 
       case 'watershild':
-        spell.saveEffect(user);
+        saveOrMergeEffect(spell, user);
         break;
       case 'watercrown':
-        spell.saveEffect(user);
+        saveOrMergeEffect(spell, user);
         break;
       case 'watersource':
         spell.deleteEffect(user);
         break;
       case 'watersphere':
-        spell.saveEffect(user);
+        saveOrMergeEffect(spell, user);
         break;
       case 'waterstamp':
-        spell.saveEffect(user);
+        saveOrMergeEffect(spell, user);
         break;
       case 'waterkey':
         spell.deleteEffect(user);
@@ -57,25 +76,25 @@ function applySpell(spell, user, enemy) {
         spell.decreasePlayerHealth(enemy);
         break;
       case 'waterpower':
-        spell.saveEffect(user);
+        saveOrMergeEffect(spell, user);
         break;
       case 'earthspear':
         spell.decreasePlayerHealth(enemy);
         break;
       case 'earthshild':
-        spell.saveEffect(user);
+        saveOrMergeEffect(spell, user);
         break;
       case 'earthcrown':
-        spell.saveEffect(user);
+        saveOrMergeEffect(spell, user);
         break;
       case 'earthsource':
-        spell.saveEffect(user);
+        saveOrMergeEffect(spell, user);
         break;
       case 'earthsphere':
-        spell.saveEffect(enemy);
+        saveOrMergeEffect(spell, enemy);
         break;
       case 'earthstamp':
-        spell.saveEffect(user);
+        saveOrMergeEffect(spell, user);
         break;
       case 'earthkey':
         spell.deleteEffect(user);
@@ -84,25 +103,25 @@ function applySpell(spell, user, enemy) {
         spell.decreasePlayerHealth(enemy);
         break;
       case 'earthpower':
-        spell.saveEffect(user);
+        saveOrMergeEffect(spell, user);
         break;
       case 'airspear':
         spell.decreasePlayerHealth(enemy); 
         break; 
       case 'airshild': 
-        spell.saveEffect(enemy);
+        saveOrMergeEffect(spell, enemy);
         break; 
       case 'aircrown': 
-        spell.saveEffect(enemy);
+        saveOrMergeEffect(spell, enemy);
         break; 
       case 'airsource': 
-        spell.saveEffect(user);
+        saveOrMergeEffect(spell, user);
         break; 
       case 'airsphere': 
-        spell.saveEffect(enemy);
+        saveOrMergeEffect(spell, enemy);
         break;
       case 'airstamp':
-        spell.saveEffect(enemy);
+        saveOrMergeEffect(spell, enemy);
         break;
       case 'airkey':
         spell.deleteEffect(enemy);
@@ -111,13 +130,13 @@ function applySpell(spell, user, enemy) {
         spell.decreasePlayerHealth(enemy);
         break;
       case 'airpower':
-        spell.saveEffect(user);
+        saveOrMergeEffect(spell, user);
         break;
       case 'lifespear':
         spell.deleteEffect(user);
         break;
       case 'lifeshild':
-        spell.saveEffect(user);
+        saveOrMergeEffect(spell, user);
         break;
       case 'lifecrown': 
         spell.increasePlayerMaxHealth(user); 
@@ -126,25 +145,25 @@ function applySpell(spell, user, enemy) {
         spell.increasePlayerHealth(user); 
         break; 
       case 'lifesphere': 
-        spell.saveEffect(user); 
+        saveOrMergeEffect(spell, user);
         break; 
       case 'lifestamp': 
-        spell.saveEffect(user); 
+        saveOrMergeEffect(spell, user);
         break; 
       case 'lifekey': 
         spell.deleteEffect(user); 
         break; 
       case 'lifeflow': 
-        spell.saveEffect(user); 
+        saveOrMergeEffect(spell, user);
         break; 
       case 'lifepower': 
-        spell.saveEffect(user); 
+        saveOrMergeEffect(spell, user);
         break; 
       case 'deathspear': 
         spell.deleteEffect(enemy); 
         break; 
       case 'deathshild': 
-        spell.saveEffect(enemy); 
+        saveOrMergeEffect(spell, enemy);
         break; 
       case 'deathcrown': 
         spell.decreasePlayerMaxHealth(enemy); 
@@ -153,16 +172,16 @@ function applySpell(spell, user, enemy) {
         spell.decreasePlayerHealth(enemy); 
         break; 
       case 'deathsphere': 
-        spell.saveEffect(enemy); 
+        saveOrMergeEffect(spell, enemy);
         break; 
       case 'deathstamp': 
-        spell.saveEffect(enemy); 
+        saveOrMergeEffect(spell, enemy);
         break; 
       case 'deathkey': 
-        spell.saveEffect(user); 
+        saveOrMergeEffect(spell, user);
         break; 
       case 'deathflow': 
-        spell.saveEffect(enemy); 
+        saveOrMergeEffect(spell, enemy);
         break; 
       case 'deathpower': 
         spell.deleteEffect(enemy); 

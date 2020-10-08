@@ -17,14 +17,13 @@ function fillEffects(userBuffs, userDebuffs, enemyBuffs, enemyDebuffs) {
   let divUserEffects = document.getElementById("userEffects");
   let divEnemyEffects = document.getElementById("enemyEffects");
   
-  if (userBuffs.length + userDebuffs.length > 0) {
-    divUserEffects.innerHTML = '';
-  } 
-  
-  if (enemyBuffs.length + enemyDebuffs.length > 0) {
-    divEnemyEffects.innerHTML = '';
+  while (divUserEffects.childNodes[0]) {
+    divUserEffects.childNodes[0].remove();
   }
 
+  while (divEnemyEffects.childNodes[0]) {
+    divEnemyEffects.childNodes[0].remove();
+  }
 
   for (let i = 0; i < userBuffs.length; i++) {
     let divBuff = document.createElement('div');

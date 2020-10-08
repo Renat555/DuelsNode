@@ -1,52 +1,5 @@
 "use strict";
 
-function deleteBr(string) {
-  if (string == null) return "";
-
-  while (true) {
-		let pos = string.indexOf("<br><br>");
-		if (pos == -1) break;
-		let first = string.slice(0, pos);
-		let second = string.slice(pos+8);
-		string = first + "<br>" + second;
-	}
-
-	let letters = string.slice(0, 4);
-	if (letters == "<br>") string = string.slice(4);
-	letters = string.slice(- 4);
-	if (letters == "<br>") string = string.slice(0, -4);
-
-	return string;
-}
-
-function fillDescription() {
-  let divDescription = document.getElementsByClassName("description")[0];
-  divDescription.innerHTML = "Активность за ход: <br>" + deleteBr(gameInformation['muveInformation']['description']);
-}
-
-function fillInterface1() {
-  console.log(gameInformation['muveInformation']);
-
-  fillDescription();
-
-  if (gameInformation['muveInformation']['currentHealth'] <= 0) {
-    alert("Вы проиграли! Победил: " + gameInformation['muveInformation']['enemyName'] + "!");
-    window.location.href = '../createHero/createHero.html';
-  } else if (gameInformation['muveInformation']['currentHealthEnemy'] <= 0) {
-    alert("Вы победили! " + gameInformation['muveInformation']['enemyName'] + " проиграл!");
-    window.location.href = '../createHero/createHero.html';
-  } else if (gameInformation['muveInformation']['currentHealthEnemy'] <= 0 && gameInformation['muveInformation']['currentHealth'] <= 0) {
-    alert("Ничья!");
-    window.location.href = '../createHero/createHero.html';
-  }
-
-}
-
-
-
-
-
-
 function fillEnemyName(enemy) {
   let enemyName = document.getElementById('enemyName');
   enemyName.innerHTML = "Противник: " + enemy['name'];
@@ -125,7 +78,6 @@ function fillInterface(users) {
   fillForms(users['user']['forms']);
   fillElements(users['user']['elements']);
   fillHealth(users);
-  fillEffects(users['user']['buffs'], users['user']['debuffs'], users['enemy']['buffs'], users['enemy']['debuffs']);
   fillPoints(users['user']);
   hideMuveText(users['user']['muve'], users['enemy']['muve']);
   showHints();
