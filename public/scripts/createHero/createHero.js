@@ -5,8 +5,8 @@ let gameInformation = {
   user: {
     name: "undefined",
     idGame: '',
-    actionPoints: 3,
-    energyPoints: 3,
+    actionPoints: 5,
+    energyPoints: 5,
     maxHealth: '',
     health: '',
     muve: '',

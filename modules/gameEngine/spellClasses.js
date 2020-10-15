@@ -1,10 +1,11 @@
 
 module.exports.Player = class Player {
-  constructor(actionPoints, energyPoints, health, maxHealth, buffs, debuffs) {
+  constructor(actionPoints, energyPoints, health, maxHealth, muve, buffs, debuffs) {
     this.actionPoints = actionPoints;
     this.energyPoints = energyPoints;
     this.health = health;
     this.maxHealth = maxHealth;
+    this.muve = muve;
     this.buffs = buffs;
     this.debuffs = debuffs;
     this.descriptionForUser = '';
@@ -46,18 +47,14 @@ module.exports.Player = class Player {
     this.descriptionForEnemy += 'Вы успешно наложили на противника ' + effect.name + '. ';
   }
 
-  deletePositiveEffect(spellForDelete, spellName, descriptionForUser, descriptionForEnemy) {
-    let index = this.buffs.findIndex(item => item.spell == spellForDelete);
+  deletePositiveEffect(spellForDelete) {
+    let index = this.buffs.findIndex(item => item.spellName == spellForDelete);
     this.buffs.splice(index, 1);
-    this.descriptionForUser += 'Вы успешно сняли с противника ' + spellName + '. ' + descriptionForUser;
-    this.descriptionForEnemy += 'Противник успешно снял с вас ' + spellName + '. ' + descriptionForEnemy;
   }
 
-  deleteNegativeEffect(spellForDelete, spellName, descriptionForUser, descriptionForEnemy) {
-    let index = this.debuffs.findIndex(item => item.spell == spellForDelete);
+  deleteNegativeEffect(spellForDelete) {
+    let index = this.debuffs.findIndex(item => item.spellName == spellForDelete);
     this.debuffs.splice(index, 1);
-    this.descriptionForUser += 'Вы успешно сняли с себя ' + spellName + '. ' + descriptionForUser;
-    this.descriptionForEnemy += 'Противник успешно снял с себя ' + spellName + '. ' + descriptionForEnemy;
   }
 }
 
@@ -133,11 +130,14 @@ module.exports.Fireshild = class Fireshild {
     this.activationProbability += percent;
   }
 
-  decreaseDuration(duration) {
+  decreaseDuration(duration, player) {
     this.duration -= duration;
+    if (this.duration <= 0) {
+      player.deletePositiveEffect(this.spellName)
+    }
   }
 
-  increaseDuration(duration) {
+  increaseDuration(duration, player) {
     this.duration += duration;
   }
 
@@ -185,8 +185,11 @@ module.exports.Firecrown = class Firecrown {
     this.activationProbability += percent;
   }
 
-  decreaseDuration(duration) {
+  decreaseDuration(duration, player) {
     this.duration -= duration;
+    if (this.duration <= 0) {
+      player.deletePositiveEffect(this.spellName)
+    }
   }
 
   increaseDuration(duration) {
@@ -237,8 +240,11 @@ module.exports.Firesource = class Firesource {
     this.activationProbability += percent;
   }
 
-  decreaseDuration(duration) {
+  decreaseDuration(duration, player) {
     this.duration -= duration;
+    if (this.duration <= 0) {
+      player.deleteNegativeEffect(this.spellName)
+    }
   }
 
   increaseDuration(duration) {
@@ -303,8 +309,11 @@ module.exports.Firesphere = class Firesphere {
     this.activationProbability += percent;
   }
 
-  decreaseDuration(duration) {
+  decreaseDuration(duration, player) {
     this.duration -= duration;
+    if (this.duration <= 0) {
+      player.deleteNegativeEffect(this.spellName)
+    }
   }
 
   increaseDuration(duration) {
@@ -546,8 +555,11 @@ module.exports.Watershild = class Watershild {
     this.activationProbability += percent;
   }
 
-  decreaseDuration(duration) {
+  decreaseDuration(duration, player) {
     this.duration -= duration;
+    if (this.duration <= 0) {
+      player.deletePositiveEffect(this.spellName)
+    }
   }
 
   increaseDuration(duration) {
@@ -598,8 +610,11 @@ module.exports.Watercrown = class Watercrown {
     this.activationProbability += percent;
   }
 
-  decreaseDuration(duration) {
+  decreaseDuration(duration, player) {
     this.duration -= duration;
+    if (this.duration <= 0) {
+      player.deletePositiveEffect(this.spellName)
+    }
   }
 
   increaseDuration(duration) {
@@ -677,8 +692,11 @@ module.exports.Watersphere = class Watersphere {
     this.activationProbability += percent;
   }
 
-  decreaseDuration(duration) {
+  decreaseDuration(duration, player) {
     this.duration -= duration;
+    if (this.duration <= 0) {
+      player.deletePositiveEffect(this.spellName)
+    }
   }
 
   increaseDuration(duration) {
@@ -729,8 +747,11 @@ module.exports.Waterstamp = class Waterstamp {
     this.activationProbability += percent;
   }
 
-  decreaseDuration(duration) {
+  decreaseDuration(duration, player) {
     this.duration -= duration;
+    if (this.duration <= 0) {
+      player.deletePositiveEffect(this.spellName)
+    }
   }
 
   increaseDuration(duration) {
@@ -930,8 +951,11 @@ module.exports.Earthshild = class Earthshild {
     this.activationProbability += percent;
   }
 
-  decreaseDuration(duration) {
+  decreaseDuration(duration, player) {
     this.duration -= duration;
+    if (this.duration <= 0) {
+      player.deletePositiveEffect(this.spellName)
+    }
   }
 
   increaseDuration(duration) {
@@ -982,8 +1006,11 @@ module.exports.Earthcrown = class Earthcrown {
     this.activationProbability += percent;
   }
 
-  decreaseDuration(duration) {
+  decreaseDuration(duration, player) {
     this.duration -= duration;
+    if (this.duration <= 0) {
+      player.deletePositiveEffect(this.spellName)
+    }
   }
 
   increaseDuration(duration) {
@@ -1036,6 +1063,17 @@ module.exports.Earthsource = class Earthsource {
     this.activationProbability += percent;
   }
 
+  decreaseDuration(duration, player) {
+    this.duration -= duration;
+    if (this.duration <= 0) {
+      player.deletePositiveEffect(this.spellName)
+    }
+  }
+
+  increaseDuration(duration) {
+    this.duration += duration;
+  }
+
   icreaseSpellDuration(spell) {
     if (this.activationProbability < Math.random()) return;
     spell.increaseDuration(this.pointsIncreaseDuration);
@@ -1084,8 +1122,11 @@ module.exports.Earthsphere = class Earthsphere {
     this.activationProbability += percent;
   }
 
-  decreaseDuration(duration) {
+  decreaseDuration(duration, player) {
     this.duration -= duration;
+    if (this.duration <= 0) {
+      player.deletePositiveEffect(this.spellName)
+    }
   }
 
   increaseDuration(duration) {
@@ -1136,8 +1177,11 @@ module.exports.Earthstamp = class Earthstamp {
     this.activationProbability += percent;
   }
 
-  decreaseDuration(duration) {
+  decreaseDuration(duration, player) {
     this.duration -= duration;
+    if (this.duration <= 0) {
+      player.deletePositiveEffect(this.spellName)
+    }
   }
 
   increaseDuration(duration) {
@@ -1254,6 +1298,17 @@ module.exports.Earthpower = class Earthpower {
     this.activationProbability += percent;
   }
 
+  decreaseDuration(duration, player) {
+    this.duration -= duration;
+    if (this.duration <= 0) {
+      player.deletePositiveEffect(this.spellName)
+    }
+  }
+
+  increaseDuration(duration) {
+    this.duration += duration;
+  }
+
   increaseSpellDuration(spell) {
     if (this.activationProbability < Math.random()) return;
     spell.increaseDuration(this.pointsIncreaseDuration, this.russianName, this.descriptionForUser, this.descriptionForEnemy);
@@ -1336,8 +1391,11 @@ module.exports.Airshild = class Airshild {
     this.activationProbability += percent;
   }
 
-  decreaseDuration(duration) {
+  decreaseDuration(duration, player) {
     this.duration -= duration;
+    if (this.duration <= 0) {
+      player.deleteNegativeEffect(this.spellName)
+    }
   }
 
   increaseDuration(duration) {
@@ -1388,8 +1446,11 @@ module.exports.Aircrown = class Aircrown {
     this.activationProbability += percent;
   }
 
-  decreaseDuration(duration) {
+  decreaseDuration(duration, player) {
     this.duration -= duration;
+    if (this.duration <= 0) {
+      player.deleteNegativeEffect(this.spellName)
+    }
   }
 
   increaseDuration(duration) {
@@ -1440,6 +1501,17 @@ module.exports.Airsource = class Airsource {
     this.activationProbability += percent;
   }
 
+  decreaseDuration(duration, player) {
+    this.duration -= duration;
+    if (this.duration <= 0) {
+      player.deletePositiveEffect(this.spellName)
+    }
+  }
+
+  increaseDuration(duration) {
+    this.duration += duration;
+  }
+
   increaseSpellHitProbability(spell) {
     if (this.activationProbability < Math.random()) return;
     spell.increaseHitProbability(this.percentIncreaseHitProbability);
@@ -1485,6 +1557,9 @@ module.exports.Airsphere = class Airsphere {
 
   decreaseDuration(duration) {
     this.duration -= duration;
+    if (this.duration <= 0) {
+      player.deleteNegativeEffect(this.spellName)
+    }
   }
 
   increaseDuration(duration) {
@@ -1535,8 +1610,11 @@ module.exports.Airstamp = class Airstamp {
     this.activationProbability += percent;
   }
 
-  decreaseDuration(duration) {
+  decreaseDuration(duration, player) {
     this.duration -= duration;
+    if (this.duration <= 0) {
+      player.deleteNegativeEffect(this.spellName)
+    }
   }
 
   increaseDuration(duration) {
@@ -1650,14 +1728,6 @@ module.exports.Airpower = class Airpower {
 
   increaseActivationProbability(percent) {
     this.activationProbability += percent;
-  }
-
-  decreaseDuration(duration) {
-    this.duration -= duration;
-  }
-
-  increaseDuration(duration) {
-    this.duration += duration;
   }
 
   decreaseSpellHitProbability(spell) {
@@ -1821,8 +1891,11 @@ module.exports.Lifesphere = class Lifesphere {
     this.activationProbability += percent;
   }
 
-  decreaseDuration(duration) {
+  decreaseDuration(duration, player) {
     this.duration -= duration;
+    if (this.duration <= 0) {
+      player.deletePositiveEffect(this.spellName)
+    }
   }
 
   increaseDuration(duration) {
@@ -1872,8 +1945,11 @@ module.exports.Lifestamp = class Lifestamp {
     this.activationProbability += percent;
   }
 
-  decreaseDuration(duration) {
+  decreaseDuration(duration, player) {
     this.duration -= duration;
+    if (this.duration <= 0) {
+      player.deletePositiveEffect(this.spellName)
+    }
   }
 
   increaseDuration(duration) {
@@ -1950,8 +2026,11 @@ module.exports.Lifeflow = class Lifeflow {
     this.activationProbability += percent;
   }
 
-  decreaseDuration(duration) {
+  decreaseDuration(duration, player) {
     this.duration -= duration;
+    if (this.duration <= 0) {
+      player.deletePositiveEffect(this.spellName)
+    }
   }
 
   increaseDuration(duration) {
@@ -1983,7 +2062,6 @@ module.exports.Lifepower = class Lifepower {
   descriptionForEnemy = '';
   dependences = [];
   activationProbability = 1;
-  duration = -1;
   percentDecreaseHitProbability = 1;
 
   decreaseHitProbability(percent, spellName, descriptionForUser, descriptionForEnemy) {
@@ -2073,8 +2151,11 @@ module.exports.Deathshild = class Deathshild {
     this.activationProbability += percent;
   }
 
-  decreaseDuration(duration) {
+  decreaseDuration(duration, player) {
     this.duration -= duration;
+    if (this.duration <= 0) {
+      player.deleteNegativeEffect(this.spellName)
+    }
   }
 
   increaseDuration(duration) {
@@ -2172,8 +2253,11 @@ module.exports.Deathsphere = class Deathsphere {
     this.activationProbability += percent;
   }
 
-  decreaseDuration(duration) {
+  decreaseDuration(duration, player) {
     this.duration -= duration;
+    if (this.duration <= 0) {
+      player.deleteNegativeEffect(this.spellName)
+    }
   }
 
   increaseDuration(duration) {
@@ -2226,6 +2310,9 @@ module.exports.Deathstamp = class Deathstamp {
 
   decreaseDuration(duration) {
     this.duration -= duration;
+    if (this.duration <= 0) {
+      player.deleteNegativeEffect(this.spellName)
+    }
   }
 
   increaseDuration(duration) {
@@ -2277,6 +2364,9 @@ module.exports.Deathkey = class Deathkey {
 
   decreaseDuration(duration) {
     this.duration -= duration;
+    if (this.duration <= 0) {
+      player.deletePositiveEffect(this.spellName)
+    }
   }
 
   increaseDuration(duration) {
@@ -2332,8 +2422,11 @@ module.exports.Deathflow = class Deathflow {
     this.activationProbability += percent;
   }
 
-  decreaseDuration(duration) {
+  decreaseDuration(duration, player) {
     this.duration -= duration;
+    if (this.duration <= 0) {
+      player.deletePositiveEffect(this.spellName)
+    }
   }
 
   increaseDuration(duration) {

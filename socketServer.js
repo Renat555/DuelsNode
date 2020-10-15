@@ -38,7 +38,7 @@ mongoClient.connect(function(err, client) {
             ws.send(JSON.stringify(request));
             break;
           case 'endMuve':
-            endMuve(request, collection, ws, wss);
+            endMuve(collection, ws, wss);
             break;
         }
 

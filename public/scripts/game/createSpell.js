@@ -149,10 +149,21 @@ function addChooseEffectFunction() {
 }
 
 function sendSpell() {
+  let userMuve = document.getElementById('userMuve');
+  if (userMuve.hidden) return; 
+
+  let divActionPointsNeed = document.getElementById('actionPointsNeed');
+  let divEnergyPointsNeed = document.getElementById('energyPointsNeed');
+  let divActionPointsHave = document.getElementById('actionPoints');
+  let divEnergyPointsHave = document.getElementById('energyPoints');
+
+  if ((divActionPointsHave.innerHTML - divActionPointsNeed.innerHTML) < 0 || (divEnergyPointsHave.innerHTML - divEnergyPointsNeed.innerHTML) < 0) {
+    return;
+  }
+
   let divSpell = document.querySelector(".userSpell");
 
   if (!divSpell.dataset.spell) {
-    alert('Создайте заклинание.');
     return;
   }
 
@@ -168,6 +179,9 @@ function sendSpell() {
 }
 
 function endMuve() {
+  let userMuve = document.getElementById('userMuve');
+  if (userMuve.hidden) return; 
+
   let message = {header: 'endMuve'};
   ws.send(JSON.stringify(message));
 }

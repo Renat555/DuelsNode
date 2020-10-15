@@ -1,66 +1,43 @@
 body {
-  margin: 0;
   background-image: url(../../img/createHero/fonChoose.jpg);
   background-size: cover;
   color: #ebdb83;
 }
-#margin {
-  height: 2%;
-}
-a {
-  text-decoration: none;
-  color: white;
-  display: inline-block;
-}
-#help {
-  font-family: Arial;
-  font-weight: 700;
-  padding: .9em 2em;
-  font-size: 30px;
-  background-color: rgba(255, 255, 255, 0.1);
-  border: 3px solid white;
-  border-radius: 70px;
-  position: absolute;
-  margin: 70px 0 0 100px;
-  text-align: center;
-  transition: 0.7s;
-}
-#help:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-}
-#help:active {
-  background-color: white;
-}
-h1 {
-  font-size: 50px;
-  text-align: center;
-}
-h2 {
-  font-size: 30px;
-  text-align: center;
-}
+
 #name {
-  text-align: center;
+  width: 250px;
 }
-#elements {
-  margin-top: 50px;
-  text-align: center;
-}
-.text {
-  font-size: 30px;
-  margin-top: 1%;
-}
+
 .wrapperElement {
+  margin-bottom: 30px;
+  text-align: center;
+  font-size: 2rem;
   font-style: italic;
   width: 230px;
   height: 230px;
   color: white;
   vertical-align: middle;
   background: #3b3b3b;
-  display: inline-block;
   border-radius: 10px;
-  margin: 0 2% 0 2%;
   Box-shadow:0px 4px 0px #ba9e00,0px -4px 0px #ba9e00,4px 0px 0px #ba9e00,-4px 0px 0px #ba9e00;
+}
+
+.wrapperForm {
+  font-style: italic;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1.5rem;
+  width: 200px;
+  height: 200px;
+  color: white;
+  vertical-align: middle;
+  background: #3b3b3b;
+  border-radius: 10px;
+  Box-shadow:0px 4px 0px #ba9e00,0px -4px 0px #ba9e00, 4px 0px 0px #ba9e00,-4px 0px 0px #ba9e00;
+}
+
+.text {
+  margin-top: 1%;
 }
 .picture {
   height: 70%;
@@ -114,39 +91,24 @@ h2 {
 #power {
   background-image: url(../../img/createHero/power.png);
 }
-#forms {
-  margin: 50px 0 50px 0;
-  text-align: center;
 
+.highlight
+{
+  background: #595959;
+  Box-shadow:0px 3px 0px #e3c100,0px -3px 0px #e3c100,3px 0px 0px #e3c100,-3px 0px 0px #e3c100;
 }
-.wrapperForm {
-  font-style: italic;
-  width: 200px;
-  height: 200px;
-  color: white;
-  vertical-align: middle;
-  background: #3b3b3b;
-  display: inline-block;
-  border-radius: 10px;
-  margin: 0 1% 2% 1%;
-  Box-shadow:0px 4px 0px #ba9e00,0px -4px 0px #ba9e00, 4px 0px 0px #ba9e00,-4px 0px 0px #ba9e00;
-}
-#button {
-  text-align: center;
-  position: relative;
-  margin-bottom: 20px;
-}
+
+
 .startGame {
-  display: inline-block;
   background-color: rgba(255,255,255,.1);
-  font-size: 40px;
+  font-size: 2.5rem;
   text-align: center;
   color: white;
   font-weight: 700;
   text-decoration: none;
   user-select: none;
-  padding: .5em 2em;
   outline: none;
+  padding: .5em 2em;
   border: 2px solid;
   border-radius: 1px;
   transition: 0.7s;
@@ -157,8 +119,4 @@ h2 {
 .startGame:active {
     background: white;
   }
-.highlight
-{
-  background: #595959;
-  Box-shadow:0px 3px 0px #e3c100,0px -3px 0px #e3c100,3px 0px 0px #e3c100,-3px 0px 0px #e3c100;
-}
+

@@ -140,7 +140,8 @@ function processingSpell(request, collection, ws, wss) {
       applySpell(spell, user, enemy);
       savePlayers(user, enemy, collection, ws)
         .then(result => {
-          sendGameInformation(collection, ws, wss);
+          let response = {header: 'processingSpell'};
+          sendGameInformation(response, collection, ws, wss);
         })
     });
 }

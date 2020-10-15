@@ -2,90 +2,109 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="../css/createHero/createHero.css">
   <link rel="stylesheet" type="text/css" href="../css/createHero/otherScreen.css">
   <title>Выбор героя</title>
 </head>
 <body>
-  <div id="margin"></div>
-    <a href="../help">
-      <div id="help">Помощь</div>
-    </a>
-  <h1>Создание героя</h1>
-  <h2>Представтесь</h2>
-  <div id="name">
-  <input maxlength="20" size="40" value="Введите ваше имя" name="userName">
+  <div class="container-fluid">
+    <div class="row text-center">
+      <div class="col-12 col-lg-2"></div>
+      <div class="col-12 col-lg-2">
+        <a href="../help" class="btn btn-warning btn-block btn-lg mt-4">Описание заклинаний</a>
+      </div>
+      <div class="col-12 col-lg-4">
+        <h1 class="mt-4 mb-4">Создание героя</h1>
+        <h2 class="mb-4">Представтесь</h2>
+         <input id="name" maxlength="30" size="40" value="Введите ваше имя" name="userName">
+      </div>
+      <div class="col-12 col-lg-4"></div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h2 class="mt-5 mb-5 text-center">Выберите три стихии</h2>
+      </div>
+    </div>
+    <div class="row justify-content-around" id="elements">
+      <div class="wrapperElement" data-status="notSelected" data-value="fire">
+        <div class="text">Огонь</div>
+        <div class="picture" id="fire"></div>
+      </div>
+      <div class="wrapperElement" data-status="notSelected" data-value="water">
+        <div class="text">Вода</div>
+        <div class="picture" id="water"></div>
+      </div>
+      <div class="wrapperElement" data-status="notSelected" data-value="earth">
+        <div class="text">Земля</div>
+        <div class="picture" id="earth"></div>
+      </div>
+      <div class="wrapperElement" data-status="notSelected" data-value="air">
+        <div class="text">Воздух</div>
+        <div class="picture" id="air"></div>
+      </div>
+      <div class="wrapperElement" data-status="notSelected" data-value="life">
+        <div class="text">Жизнь</div>
+        <div class="picture" id="life"></div>
+      </div>
+      <div class="wrapperElement"  data-status="notSelected" data-value="death">
+        <div class="text">Смерть</div>
+        <div class="picture" id="death"></div>
+      </div>
+    </div>
+    <div class="row mt-5 mb-5">
+      <div class="col">
+        <h2 class="text-center">Выберите пять форм</h2>
+      </div>
+    </div>
+    <div class="row justify-content-around" id="forms">
+      <div class="wrapperForm"  data-status="notSelected" data-value="spear">
+        <div class="text">Копье</div>
+        <div class="picture" id="spear"></div>
+      </div>
+      <div class="wrapperForm"  data-status="notSelected" data-value="shild">
+        <div class="text">Щит</div>
+        <div class="picture" id="shild"></div>
+      </div>
+      <div class="wrapperForm"  data-status="notSelected" data-value="crown">
+        <div class="text">Корона</div>
+        <div class="picture" id="crown"></div>
+      </div>
+      <div class="wrapperForm"  data-status="notSelected" data-value="source">
+        <div class="text">Источник</div>
+        <div class="picture" id="source"></div>
+      </div>
+      <div class="wrapperForm"  data-status="notSelected" data-value="sphere">
+        <div class="text">Сфера</div>
+        <div class="picture" id="sphere"></div>
+      </div>
+      <div class="wrapperForm"  data-status="notSelected" data-value="stamp">
+        <div class="text">Печать</div>
+        <div class="picture" id="stamp"></div>
+      </div>
+      <div class="wrapperForm"  data-status="notSelected" data-value="key">
+        <div class="text">Ключ</div>
+        <div class="picture" id="key"></div>
+      </div>
+      <div class="wrapperForm"  data-status="notSelected" data-value="flow">
+        <div class="text">Поток</div>
+        <div class="picture" id="flow"></div>
+      </div>
+      <div class="wrapperForm"  data-status="notSelected" data-value="power">
+        <div class="text">Власть</div>
+        <div class="picture" id="power"></div>
+      </div>
   </div>
-  <div id="elements">
-    <h2>Выберите три стихии</h2>
-    <div class="wrapperElement" data-status="notSelected" data-value="fire">
-      <div class="text">Огонь</div>
-      <div class="picture" id="fire"></div>
-    </div>
-    <div class="wrapperElement" data-status="notSelected" data-value="water">
-      <div class="text">Вода</div>
-      <div class="picture" id="water"></div>
-    </div>
-    <div class="wrapperElement" data-status="notSelected" data-value="earth">
-      <div class="text">Земля</div>
-      <div class="picture" id="earth"></div>
-    </div>
-    <div class="wrapperElement" data-status="notSelected" data-value="air">
-      <div class="text">Воздух</div>
-      <div class="picture" id="air"></div>
-    </div>
-    <div class="wrapperElement" data-status="notSelected" data-value="life">
-      <div class="text">Жизнь</div>
-      <div class="picture" id="life"></div>
-    </div>
-    <div class="wrapperElement"  data-status="notSelected" data-value="death">
-      <div class="text">Смерть</div>
-      <div class="picture" id="death"></div>
-    </div>
-  </div>
-  <div id="forms">
-    <h2 id="formHeader">Выберите пять форм</h2>
-    <div class="wrapperForm"  data-status="notSelected" data-value="spear">
-      <div class="text">Копье</div>
-      <div class="picture" id="spear"></div>
-    </div>
-    <div class="wrapperForm"  data-status="notSelected" data-value="shild">
-      <div class="text">Щит</div>
-      <div class="picture" id="shild"></div>
-    </div>
-    <div class="wrapperForm"  data-status="notSelected" data-value="crown">
-      <div class="text">Корона</div>
-      <div class="picture" id="crown"></div>
-    </div>
-    <div class="wrapperForm"  data-status="notSelected" data-value="source">
-      <div class="text">Источник</div>
-      <div class="picture" id="source"></div>
-    </div>
-    <div class="wrapperForm"  data-status="notSelected" data-value="sphere">
-      <div class="text">Сфера</div>
-      <div class="picture" id="sphere"></div>
-    </div>
-    <div class="wrapperForm"  data-status="notSelected" data-value="stamp">
-      <div class="text">Печать</div>
-      <div class="picture" id="stamp"></div>
-    </div>
-    <div class="wrapperForm"  data-status="notSelected" data-value="key">
-      <div class="text">Ключ</div>
-      <div class="picture" id="key"></div>
-    </div>
-    <div class="wrapperForm"  data-status="notSelected" data-value="flow">
-      <div class="text">Поток</div>
-      <div class="picture" id="flow"></div>
-    </div>
-    <div class="wrapperForm"  data-status="notSelected" data-value="power">
-      <div class="text">Власть</div>
-      <div class="picture" id="power"></div>
-    </div>
-  </div>
-  <div id="button">
+  <div class="row mt-5">
+    <div class="col text-center">
       <button class="startGame" name="startGame">Начать игру</button>
+    </div>
   </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
   <script src="../scripts/createHero/createHero.js"></script>
 </body>
 </html>

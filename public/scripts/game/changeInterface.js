@@ -21,7 +21,7 @@ function fillEffects(userBuffs, userDebuffs, enemyBuffs, enemyDebuffs) {
     divUserEffects.childNodes[0].remove();
   }
 
-  while (divEnemyEffects.childNodes[0]) {
+  while (divEnemyEffects.childNodes[0]) { 
     divEnemyEffects.childNodes[0].remove();
   }
 
@@ -32,6 +32,7 @@ function fillEffects(userBuffs, userDebuffs, enemyBuffs, enemyDebuffs) {
     divBuff.setAttribute('data-status', 'notSelected');
     divBuff.classList.add('spell');
     divBuff.classList.add('effect');
+    divBuff.classList.add('col-2');
     divBuff.innerHTML = spellbook[userBuffs[i][0]][0];
     divUserEffects.append(divBuff);
   }
@@ -43,6 +44,7 @@ function fillEffects(userBuffs, userDebuffs, enemyBuffs, enemyDebuffs) {
     divDebuff.setAttribute('data-status', 'notSelected');
     divDebuff.classList.add('spell');
     divDebuff.classList.add('effect');
+    divDebuff.classList.add('col-2');
     divDebuff.innerHTML = spellbook[userDebuffs[i][0]][0];
     divUserEffects.append(divDebuff);
   }
@@ -54,6 +56,7 @@ function fillEffects(userBuffs, userDebuffs, enemyBuffs, enemyDebuffs) {
     divBuff.setAttribute('data-status', 'notSelected');
     divBuff.classList.add('spell');
     divBuff.classList.add('effect');
+    divBuff.classList.add('col-2');
     divBuff.innerHTML = spellbook[enemyBuffs[i][0]][0];
     divEnemyEffects.append(divBuff);
   }
@@ -65,6 +68,7 @@ function fillEffects(userBuffs, userDebuffs, enemyBuffs, enemyDebuffs) {
     divDebuff.setAttribute('data-status', 'notSelected');
     divDebuff.classList.add('spell');
     divDebuff.classList.add('effect');
+    divDebuff.classList.add('col-2');
     divDebuff.innerHTML = spellbook[enemyDebuffs[i][0]][0];
     divEnemyEffects.append(divDebuff);
   }
@@ -91,12 +95,23 @@ function hideMuveText(muveUser) {
   }
 }
 
+function isGameOver(userHealth, enemyHealth, enemyName) {
+  if (userHealth <= 0 && enemyHealth > 0) {
+    alert('Вы проиграли! Победил ' + enemyName + '!');
+  } else if (enemyHealth <= 0 && userHealth > 0) {
+    alert('Вы победили! ' + enemyName + ' проиграл!')
+  } else if (userHealth <= 0 && enemyHealth <= 0) {
+    alert('Ничья!');
+  } 
+}
+
 function changeInterface(users) {
   fillHealth(users);
   fillEffects(users['user']['buffs'], users['user']['debuffs'], users['enemy']['buffs'], users['enemy']['debuffs']);
   fillPoints(users['user']);
   hideMuveText(users['user']['muve'], users['enemy']['muve']);
   showHints();
+  isGameOver(users['user']['health'], users['enemy']['health'], users['enemy']['name']);
 
   let gameInformation = users;
   gameInformation['header'] = 'restoreGame';

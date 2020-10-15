@@ -1,6 +1,5 @@
 
-function sendGameInformation(mongoCollection, ws, wss) {
-  let response = {header: 'processingSpell'};
+function sendGameInformation(response, mongoCollection, ws, wss) {
 
   mongoCollection.findOne({'id': ws['id']})
       .then(doc => {

@@ -5,16 +5,6 @@ function fillEnemyName(enemy) {
   enemyName.innerHTML = "Противник: " + enemy['name'];
 }
 
-function createBattleField() {
-  let battleField = document.getElementById('battleField');
-
-  for (let i = 0; i < 80; i++) {
-    let div = document.createElement('div');
-    div.classList.add('battleSquare');
-    battleField.append(div);
-  }
-}
-
 function fillForms(forms) {
   let divForms = document.querySelectorAll("[data-form]");
 
@@ -73,7 +63,6 @@ function hideWaitingScreen() {
 }
 
 function fillInterface(users) {
-  createBattleField();
   fillEnemyName(users['enemy']);
   fillForms(users['user']['forms']);
   fillElements(users['user']['elements']);

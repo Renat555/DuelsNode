@@ -16,13 +16,13 @@ function savePlayers(user, enemy, mongoCollection, ws) {
 
   mongoCollection.updateOne(
     {'id': ws['id']},
-    {$set: {actionPoints: user['actionPoints'], energyPoints: user['energyPoints'], maxHealth: user['maxHealth'], health: user['health'], buffs: user['buffs'], debuffs: user['debuffs']}});
+    {$set: {actionPoints: user['actionPoints'], energyPoints: user['energyPoints'], maxHealth: user['maxHealth'], health: user['health'], muve: user['muve'], buffs: user['buffs'], debuffs: user['debuffs']}});
 
   enemy['buffs'] = createSpellNamesFromEffects(enemy['buffs']);
   enemy['debuffs'] = createSpellNamesFromEffects(enemy['debuffs']);
   mongoCollection.updateOne(
     {'id': ws['idEnemy']},
-    {$set: {actionPoints: enemy['actionPoints'], energyPoints: enemy['energyPoints'], maxHealth: enemy['maxHealth'], health: enemy['health'], buffs: enemy['buffs'], debuffs: enemy['debuffs']}});
+    {$set: {actionPoints: enemy['actionPoints'], energyPoints: enemy['energyPoints'], maxHealth: enemy['maxHealth'], health: enemy['health'], muve: enemy['muve'], buffs: enemy['buffs'], debuffs: enemy['debuffs']}});
     resolve();
   });
 }

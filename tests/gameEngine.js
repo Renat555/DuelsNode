@@ -109,7 +109,7 @@ describe('game engine', function () {
       spellExpect.maxDamage = spellResult.maxDamage;
       spellExpect.currentDamage = spellResult.currentDamage;
 
-      let player = new Player(3, 3, 250, 250, [], []);
+      let player = new Player(3, 3, 250, 250, 0, [], []);
       player['buffs'][0] = new Fireshild();
 
       processingEffect(spellResult, player);
@@ -126,8 +126,8 @@ describe('game engine', function () {
     it('firespear', function() {
       let firespear = new Firespear();
 
-      let enemyResult = new Player(3, 3, 250, 250, [], []);
-      let enemyExpect = new Player(3, 3, 250, 250, [], []);
+      let enemyResult = new Player(3, 3, 250, 250, 0, [], []);
+      let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
       enemyExpect.health -= firespear.currentDamage;
 
       firespear.decreasePlayerHealth(enemyResult);
@@ -174,8 +174,8 @@ describe('game engine', function () {
     it('firesource', function() {
       let firesource = new Firesource();
 
-      let enemyResult = new Player(3, 3, 250, 250, [], []);
-      let enemyExpect = new Player(3, 3, 250, 250, [], []);
+      let enemyResult = new Player(3, 3, 250, 250, 0, [], []);
+      let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
       enemyExpect.health -= firesource.currentDamage;
 
       firesource.decreasePlayerHealth(enemyResult);
@@ -189,10 +189,10 @@ describe('game engine', function () {
       let firesphere = new Firesphere();
       let firespear = new Firespear();
 
-      let enemyExpect = new Player(3, 3, 250, 250, [], []);
+      let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
       enemyExpect.health = enemyExpect.health - firespear.currentDamage - firesphere.currentDamage;
 
-      let enemyResult = new Player(3, 3, 250, 250, [], []);
+      let enemyResult = new Player(3, 3, 250, 250, 0, [], []);
       firesphere.saveEffect(enemyResult);
       processingSpellByEnemyEffects(enemyResult, firespear);
       firespear.decreasePlayerHealth(enemyResult);
@@ -208,11 +208,11 @@ describe('game engine', function () {
       let firestamp = new Firestamp();
       let firesource = new Firesource();
 
-      let enemyExpect = new Player(3, 3, 250, 250, [], []);
+      let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
       enemyExpect['debuffs'][0] = firesource;
       enemyExpect['debuffs'][0]['duration'] += 2;
 
-      let enemyResult = new Player(3, 3, 250, 250, [], []);
+      let enemyResult = new Player(3, 3, 250, 250, 0, [], []);
       firesource.saveEffect(enemyResult);
       firestamp.increaseSpellDuration(enemyResult);
 
@@ -226,9 +226,9 @@ describe('game engine', function () {
       let firekey = new Firekey('fireshild');
       let fireshild = new Fireshild();
 
-      let enemyExpect = new Player(3, 3, 250, 250, [], []);
+      let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
 
-      let enemyResult = new Player(3, 3, 250, 250, [], []);
+      let enemyResult = new Player(3, 3, 250, 250, 0, [], []);
       fireshild.saveEffect(enemyResult);
       firekey.deleteEffect(enemyResult);
 
@@ -242,8 +242,8 @@ describe('game engine', function () {
       let fireflow = new Fireflow();
       fireflow.hitProbability = 1;
 
-      let enemyResult = new Player(3, 3, 250, 250, [], []);
-      let enemyExpect = new Player(3, 3, 250, 250, [], []);
+      let enemyResult = new Player(3, 3, 250, 250, 0, [], []);
+      let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
       enemyExpect.health -= fireflow.currentDamage;
 
       fireflow.decreasePlayerHealth(enemyResult);
@@ -274,10 +274,10 @@ describe('game engine', function () {
       let waterspear = new Waterspear();
       let firesource = new Firesource();
 
-      let enemyExpect = new Player(3, 3, 250, 250, [], []);
+      let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
       enemyExpect.health = enemyExpect.health - waterspear.currentDamage - 5;
 
-      let enemyResult = new Player(3, 3, 250, 250, [], []);
+      let enemyResult = new Player(3, 3, 250, 250, 0, [], []);
       firesource.saveEffect(enemyResult);
       waterspear.decreasePlayerHealth(enemyResult);
 
@@ -328,9 +328,9 @@ describe('game engine', function () {
       watersource.hitProbability = 1;
       let firesource = new Firesource();
 
-      let enemyExpect = new Player(3, 3, 250, 250, [], []);
+      let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
 
-      let enemyResult = new Player(3, 3, 250, 250, [], []);
+      let enemyResult = new Player(3, 3, 250, 250, 0, [], []);
       firesource.saveEffect(enemyResult);
       watersource.deleteEffect(enemyResult);
 
@@ -379,9 +379,9 @@ describe('game engine', function () {
       let waterkey = new Waterkey('firesource');
       let firesource = new Firesource();
 
-      let enemyExpect = new Player(3, 3, 250, 250, [], []);
+      let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
 
-      let enemyResult = new Player(3, 3, 250, 250, [], []);
+      let enemyResult = new Player(3, 3, 250, 250, 0, [], []);
       firesource.saveEffect(enemyResult);
       waterkey.deleteEffect(enemyResult);
 
@@ -394,8 +394,8 @@ describe('game engine', function () {
     it('waterflow', function() {
       let waterflow = new Waterflow();
 
-      let enemyResult = new Player(3, 3, 250, 250, [], []);
-      let enemyExpect = new Player(3, 3, 250, 250, [], []);
+      let enemyResult = new Player(3, 3, 250, 250, 0, [], []);
+      let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
       enemyExpect.health -= waterflow.currentDamage;
 
       waterflow.decreasePlayerHealth(enemyResult);
@@ -421,8 +421,8 @@ describe('game engine', function () {
       let earthspear = new Earthspear();
       earthspear.hitProbability = 1;
 
-      let enemyResult = new Player(3, 3, 250, 250, [], []);
-      let enemyExpect = new Player(3, 3, 250, 250, [], []);
+      let enemyResult = new Player(3, 3, 250, 250, 0, [], []);
+      let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
       enemyExpect.health -= earthspear.currentDamage;
 
       earthspear.decreasePlayerHealth(enemyResult);
@@ -440,10 +440,10 @@ describe('game engine', function () {
       let totalDamage = (firespear.currentDamage + firesource.currentDamage) - 20;
       if (totalDamage < 0) totalDamage = 0;
 
-      let playerExpect = new Player(3, 3, 250, 250, [], []);
+      let playerExpect = new Player(3, 3, 250, 250, 0, [], []);
       playerExpect.health = playerExpect.health - totalDamage;
 
-      let playerResult = new Player(3, 3, 250, 250, [], []);
+      let playerResult = new Player(3, 3, 250, 250, 0, [], []);
       earthshild.decreaseSpellDamage(firespear);
       earthshild.decreaseSpellDamage(firesource);
       firespear.decreasePlayerHealth(playerResult);
@@ -531,9 +531,9 @@ describe('game engine', function () {
       let earthkey = new Earthkey('firesource');
       let firesource = new Firesource();
 
-      let enemyExpect = new Player(3, 3, 250, 250, [], []);
+      let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
 
-      let enemyResult = new Player(3, 3, 250, 250, [], []);
+      let enemyResult = new Player(3, 3, 250, 250, 0, [], []);
       firesource.saveEffect(enemyResult);
       earthkey.deleteEffect(enemyResult);
 
@@ -547,8 +547,8 @@ describe('game engine', function () {
       let earthflow = new Earthflow();
       earthflow.hitProbability = 1;
 
-      let enemyResult = new Player(3, 3, 250, 250, [], []);
-      let enemyExpect = new Player(3, 3, 250, 250, [], []);
+      let enemyResult = new Player(3, 3, 250, 250, 0, [], []);
+      let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
       enemyExpect.health -= earthflow.currentDamage;
 
       earthflow.decreasePlayerHealth(enemyResult);
@@ -575,8 +575,8 @@ describe('game engine', function () {
       let airspear = new Airspear();
       airspear.hitProbability = 1;
 
-      let enemyResult = new Player(3, 3, 250, 250, [], []);
-      let enemyExpect = new Player(3, 3, 250, 250, [], []);
+      let enemyResult = new Player(3, 3, 250, 250, 0, [], []);
+      let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
       enemyExpect.health -= airspear.currentDamage;
 
       airspear.decreasePlayerHealth(enemyResult);
@@ -662,9 +662,9 @@ describe('game engine', function () {
       let airkey = new Airkey('waterpower');
       let waterpower = new Waterpower();
 
-      let enemyExpect = new Player(3, 3, 250, 250, [], []);
+      let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
 
-      let enemyResult = new Player(3, 3, 250, 250, [], []);
+      let enemyResult = new Player(3, 3, 250, 250, 0, [], []);
       waterpower.saveEffect(enemyResult);
       airkey.deleteEffect(enemyResult);
 
@@ -678,8 +678,8 @@ describe('game engine', function () {
       let airflow = new Airflow();
       airflow.hitProbability = 1;
 
-      let enemyResult = new Player(3, 3, 250, 250, [], []);
-      let enemyExpect = new Player(3, 3, 250, 250, [], []);
+      let enemyResult = new Player(3, 3, 250, 250, 0, [], []);
+      let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
       enemyExpect.health -= airflow.currentDamage;
 
       airflow.decreasePlayerHealth(enemyResult);
@@ -707,9 +707,9 @@ describe('game engine', function () {
       let lifespear = new Lifespear('deathshild');
       let deathshild = new Deathshild();
 
-      let enemyExpect = new Player(3, 3, 250, 250, [], []);
+      let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
 
-      let enemyResult = new Player(3, 3, 250, 250, [], []);
+      let enemyResult = new Player(3, 3, 250, 250, 0, [], []);
       deathshild.saveEffect(enemyResult);
       lifespear.deleteEffect(enemyResult);
 
@@ -735,10 +735,10 @@ describe('game engine', function () {
     it('lifecrown', function() {
       let lifecrown = new Lifecrown();
 
-      let playerExpect = new Player(3, 3, 250, 250, [], []);
+      let playerExpect = new Player(3, 3, 250, 250, 0, [], []);
       playerExpect.maxHealth = 265;
 
-      let playerResult = new Player(3, 3, 250, 250, [], []);
+      let playerResult = new Player(3, 3, 250, 250, 0, [], []);
       lifecrown.increasePlayerMaxHealth(playerResult);
 
       playerResult['descriptionForUser'] = '';
@@ -750,10 +750,10 @@ describe('game engine', function () {
     it('lifesource', function() {
       let lifesource = new Lifesource();
 
-      let playerExpect = new Player(3, 3, 200, 250, [], []);
+      let playerExpect = new Player(3, 3, 200, 250, 0, [], []);
       playerExpect.health = 230;
 
-      let playerResult = new Player(3, 3, 200, 250, [], []);
+      let playerResult = new Player(3, 3, 200, 250, 0, [], []);
       lifesource.increasePlayerHealth(playerResult);
 
       playerResult['descriptionForUser'] = '';
@@ -765,10 +765,10 @@ describe('game engine', function () {
     it('lifesphere', function() {
       let lifesphere = new Lifesphere();
 
-      let playerExpect = new Player(3, 3, 200, 250, [], []);
+      let playerExpect = new Player(3, 3, 200, 250, 0, [], []);
       playerExpect.health = 210;
 
-      let playerResult = new Player(3, 3, 200, 250, [], []);
+      let playerResult = new Player(3, 3, 200, 250, 0, [], []);
       lifesphere.increasePlayerHealth(playerResult);
 
       playerResult['descriptionForUser'] = '';
@@ -797,9 +797,9 @@ describe('game engine', function () {
       lifekey.hitProbability = 1;
       let airshild = new Airshild();
 
-      let enemyExpect = new Player(3, 3, 250, 250, [], []);
+      let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
 
-      let enemyResult = new Player(3, 3, 250, 250, [], []);
+      let enemyResult = new Player(3, 3, 250, 250, 0, [], []);
       airshild.saveEffect(enemyResult);
       lifekey.deleteEffect(enemyResult);
 
@@ -812,10 +812,10 @@ describe('game engine', function () {
     it('lifeflow', function() {
       let lifeflow = new Lifeflow();
 
-      let playerExpect = new Player(3, 3, 200, 250, [], []);
+      let playerExpect = new Player(3, 3, 200, 250, 0, [], []);
       playerExpect.health = 225;
 
-      let playerResult = new Player(3, 3, 200, 250, [], []);
+      let playerResult = new Player(3, 3, 200, 250, 0, [], []);
       lifeflow.increasePlayerHealth(playerResult);
 
       playerResult['descriptionForUser'] = '';
@@ -841,9 +841,9 @@ describe('game engine', function () {
       deathspear.hitProbability = 1;
       let waterpower = new Waterpower();
 
-      let enemyExpect = new Player(3, 3, 250, 250, [], []);
+      let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
 
-      let enemyResult = new Player(3, 3, 250, 250, [], []);
+      let enemyResult = new Player(3, 3, 250, 250, 0, [], []);
       waterpower.saveEffect(enemyResult);
       deathspear.deleteEffect(enemyResult);
 
@@ -870,10 +870,10 @@ describe('game engine', function () {
     it('deathcrown', function() {
       let deathcrown = new Deathcrown();
 
-      let enemyExpect = new Player(3, 3, 250, 250, [], []);
+      let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
       enemyExpect.maxHealth -= 15;
 
-      let enemyResult = new Player(3, 3, 250, 250, [], []);
+      let enemyResult = new Player(3, 3, 250, 250, 0, [], []);
       deathcrown.decreasePlayerMaxHealth(enemyResult);
 
       enemyResult['descriptionForUser'] = '';
@@ -885,10 +885,10 @@ describe('game engine', function () {
     it('deathsource', function() {
       let deathsource = new Deathsource();
 
-      let enemyExpect = new Player(3, 3, 250, 250, [], []);
+      let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
       enemyExpect.health -= 250;
 
-      let enemyResult = new Player(3, 3, 250, 250, [], []);
+      let enemyResult = new Player(3, 3, 250, 250, 0, [], []);
       deathsource.decreasePlayerHealth(enemyResult);
 
       enemyResult['descriptionForUser'] = '';
@@ -935,9 +935,9 @@ describe('game engine', function () {
       deathkey.activationProbability = 1;
       let waterflow = new Waterflow();
 
-      let enemyExpect = new Player(3, 3, 1, 250, [], []);
+      let enemyExpect = new Player(3, 3, 1, 250, 0, [], []);
 
-      let enemyResult = new Player(3, 3, 20, 250, [], []);
+      let enemyResult = new Player(3, 3, 20, 250, 0, [], []);
       deathkey.increasePlayerHealth(enemyResult, waterflow);
       waterflow.decreasePlayerHealth(enemyResult);
 
@@ -953,8 +953,8 @@ describe('game engine', function () {
       let arrExpect = [205, 205];
       let arrResult = [];
 
-      let user = new Player(3, 3, 200, 250, [], []);
-      let enemy = new Player(3, 3, 210, 250, [], []);
+      let user = new Player(3, 3, 200, 250, 0, [], []);
+      let enemy = new Player(3, 3, 210, 250, 0, [], []);
       deathflow.deathflowEffect(user, enemy);
 
       arrResult[0] = user.health;
@@ -967,9 +967,9 @@ describe('game engine', function () {
       let deathpower = new Deathpower('lifepower');
       let lifepower = new Lifepower();
 
-      let enemyExpect = new Player(3, 3, 250, 250, [], []);
+      let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
 
-      let enemyResult = new Player(3, 3, 250, 250, [], []);
+      let enemyResult = new Player(3, 3, 250, 250, 0, [], []);
       lifepower.saveEffect(enemyResult);
       deathpower.deleteEffect(enemyResult);
 
