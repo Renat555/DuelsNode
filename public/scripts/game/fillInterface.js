@@ -45,6 +45,55 @@ function fillPoints(user) {
   divEnergyPoints.innerHTML = user['energyPoints'];
 }
 
+function fillBattlfield(userMuve) {
+  let divUser = document.createElement('div');
+  divUser.style.cssText = `
+  position: absolute;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  `;
+
+  let divEnemy = document.createElement('div');
+  divEnemy.style.cssText = `
+  position: absolute;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  `;
+
+  if (userMuve === 1) {
+    divUser.style.backgroundImage = 'url(../../img/game/heroes/a1.png)';
+    divUser.dataset.hero = 'user';
+    divEnemy.style.backgroundImage = 'url(../../img/game/heroes/b3.png)';
+    divEnemy.dataset.hero = 'enemy';
+  } else {
+    divUser.style.backgroundImage = 'url(../../img/game/heroes/b1.png)';
+    divUser.dataset.hero = 'user';
+    divEnemy.style.backgroundImage = 'url(../../img/game/heroes/a3.png)';
+    divEnemy.dataset.hero = 'enemy';
+
+  }
+
+  let divSquareUser = document.querySelectorAll(`[data-row="1"]`)[2];
+  let coordSquareUser = divSquareUser.getBoundingClientRect();
+  divUser.style.height = coordSquareUser.height - (coordSquareUser.height/10) + 'px';
+  divUser.style.width = coordSquareUser.width - (coordSquareUser.width/10) + 'px';
+  divUser.style.left = coordSquareUser.left + (coordSquareUser.width/20) + 'px';
+  divUser.style.top = coordSquareUser.top + (coordSquareUser.height/20) + 'px';
+
+  let divSquareEnemy = document.querySelectorAll(`[data-row="5"]`)[2];
+  let coordSquareEnemy = divSquareEnemy.getBoundingClientRect();
+  divEnemy.style.height = coordSquareEnemy.height - (coordSquareEnemy.height/10) + 'px';
+  divEnemy.style.width = coordSquareEnemy.width - (coordSquareEnemy.width/10) + 'px';
+  divEnemy.style.left = coordSquareEnemy.left + (coordSquareEnemy.width/20) + 'px';
+  divEnemy.style.top = coordSquareEnemy.top + (coordSquareEnemy.height/20) + 'px';
+
+  
+  document.body.append(divUser);
+  document.body.append(divEnemy);
+}
+
 function hideMuveText(muveUser) {
   let divUserMuve = document.getElementById('userMuve');
   let divEnemyMuve = document.getElementById('enemyMuve');
@@ -68,6 +117,7 @@ function fillInterface(users) {
   fillElements(users['user']['elements']);
   fillHealth(users);
   fillPoints(users['user']);
+  fillBattlfield(users['user']['muve']);
   hideMuveText(users['user']['muve'], users['enemy']['muve']);
   showHints();
   

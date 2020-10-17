@@ -7,6 +7,7 @@ let gameInformation = {
     idGame: '',
     actionPoints: 5,
     energyPoints: 5,
+    position: '',
     maxHealth: '',
     health: '',
     muve: '',

@@ -46,25 +46,22 @@ function processingSpellByUserEffects(player, spell) {
 
     switch (player['debuffs'][i]['spellName']) {
       case 'airshild':
-        player['debuffs'][i].decreaseSpellHitProbability(player);
+        player['debuffs'][i].decreaseSpellHitProbability(spell);
         break;
       case 'aircrown':
-        player['debuffs'][i].decreaseSpellHitProbability(player);
+        player['debuffs'][i].decreaseSpellHitProbability(spell);
         break;
       case 'airsphere':
-        player['debuffs'][i].decreaseSpellHitProbability(player);
+        player['debuffs'][i].decreaseSpellHitProbability(spell);
         break;
       case 'airstamp':
-        player['debuffs'][i].decreaseSpellHitProbability(player);
+        player['debuffs'][i].decreaseSpellHitProbability(spell);
         break;
       case 'deathshild':
-        player['debuffs'][i].decreaseSpellHitProbability(player);
-        break;
-      case 'deathshild':
-        player['debuffs'][i].decreaseSpellHitProbability(player);
+        player['debuffs'][i].decreaseSpellHitProbability(spell);
         break;
       case 'deathstamp':
-        player['debuffs'][i].decreaseSpellHitProbability(player);
+        player['debuffs'][i].decreaseSpellHitProbability(spell);
         break;
     }
 
