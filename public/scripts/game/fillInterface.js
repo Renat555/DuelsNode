@@ -65,17 +65,21 @@ function fillBattlfield(userMuve) {
   if (userMuve === 1) {
     divUser.style.backgroundImage = 'url(../../img/game/heroes/a1.png)';
     divUser.dataset.hero = 'user';
-    divEnemy.style.backgroundImage = 'url(../../img/game/heroes/b3.png)';
+    divUser.dataset.picture = 'a';
+    divEnemy.style.backgroundImage = 'url(../../img/game/heroes/c3.png)';
     divEnemy.dataset.hero = 'enemy';
+    divEnemy.dataset.picture = 'b';
   } else {
-    divUser.style.backgroundImage = 'url(../../img/game/heroes/b1.png)';
+    divUser.style.backgroundImage = 'url(../../img/game/heroes/c1.png)';
     divUser.dataset.hero = 'user';
+    divUser.dataset.picture = 'b';
     divEnemy.style.backgroundImage = 'url(../../img/game/heroes/a3.png)';
     divEnemy.dataset.hero = 'enemy';
-
+    divEnemy.dataset.picture = 'a';
   }
 
   let divSquareUser = document.querySelectorAll(`[data-row="1"]`)[2];
+  divSquareUser.dataset.state = "user";
   let coordSquareUser = divSquareUser.getBoundingClientRect();
   divUser.style.height = coordSquareUser.height - (coordSquareUser.height/10) + 'px';
   divUser.style.width = coordSquareUser.width - (coordSquareUser.width/10) + 'px';
@@ -83,6 +87,7 @@ function fillBattlfield(userMuve) {
   divUser.style.top = coordSquareUser.top + (coordSquareUser.height/20) + 'px';
 
   let divSquareEnemy = document.querySelectorAll(`[data-row="5"]`)[2];
+  divSquareEnemy.dataset.state = "enemy";
   let coordSquareEnemy = divSquareEnemy.getBoundingClientRect();
   divEnemy.style.height = coordSquareEnemy.height - (coordSquareEnemy.height/10) + 'px';
   divEnemy.style.width = coordSquareEnemy.width - (coordSquareEnemy.width/10) + 'px';
