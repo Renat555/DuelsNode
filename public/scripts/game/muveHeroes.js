@@ -300,6 +300,40 @@ function faceToEnemy(divUser) {
   
 }
 
+function isClearGeneralPath(divUser, divTarget) {
+  let arrDiv = [];
+
+  if (divUser.dataset.row < divTarget.dataset.row) {
+    for (let i = +divUser.dataset.row + 1; i < divTarget.dataset.row; i++) {
+      let divSquare = document.querySelector(`[data-row="${i}"][data-col="${divUser.dataset.col}"]`);
+      arrDiv.push(divSquare);
+    }
+  } else if (divUser.dataset.row > divTarget.dataset.row) {
+    for (let i = +divUser.dataset.row - 1; i > divTarget.dataset.row; i--) {
+      let divSquare = document.querySelector(`[data-row="${i}"][data-col="${divUser.dataset.col}"]`);
+      arrDiv.push(divSquare);
+    }
+  }
+
+  if (divUser.dataset.col < divTarget.dataset.col) {
+    for (let i = +divUser.dataset.col + 1; i < divTarget.dataset.col; i++) {
+      let divSquare = document.querySelector(`[data-row="${divUser.dataset.row}"][data-col="${i}"]`);
+      arrDiv.push(divSquare);
+    }
+  } else if (divUser.dataset.col > divTarget.dataset.col) {
+    for (let i = +divUser.dataset.col - 1; i > divTarget.dataset.col; i--) {
+      let divSquare = document.querySelector(`[data-row="${divUser.dataset.row}"][data-col="${i}"]`);
+      arrDiv.push(divSquare);
+    }
+  }
+
+  console.log(arrDiv);
+}
+
+function isClearAlternativePath(divUser, divTarget) {
+
+}
+
 function muveHero (event) {
   let target = event.target;
   if (!target.dataset.row) return;
@@ -317,6 +351,12 @@ function muveHero (event) {
 
   let coordDivUser = divUser.getBoundingClientRect();
   let coordTarget = target.getBoundingClientRect();
+
+  if (isClearGeneralPath(divSquareUser, target)) {
+    
+  } else if (isClearAlternativePath(divSquareUser, target)) {
+
+  }
 
   if (divSquareUser.dataset.row > target.dataset.row) {
     let end = coordDivUser.top + coordTarget.height*distanceRow;
