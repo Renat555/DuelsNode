@@ -1,24 +1,26 @@
 "use strict";
 
-const ws = new WebSocket('ws://localhost:8080');
+const ws = new WebSocket("ws://localhost:8080");
 
 ws.onopen = () => {
-  let gameInformation = localStorage.getItem('gameInformation');
+  let gameInformation = localStorage.getItem("gameInformation");
   ws.send(gameInformation);
-}
+};
 
 ws.onmessage = (message) => {
-  let users = JSON.parse(message.data);
+  message = JSON.parse(message.data);
 
-  switch (users.header) {
-    case 'createGame':
-      fillInterface(users);
+  switch (message.header) {
+    case "createGame":
+      fillInterface(message);
       break;
-    case 'processingSpell':
-    case 'changeMuve':
-      changeInterface(users);
+    case "processingSpell":
+    case "changeMuve":
+      changeInterface(message);
+      break;
+    case "enemyMuve":
+      muveEnemy(message["row"], message["col"]);
       break;
   }
-  console.log(JSON.parse(message.data));
-
+  console.log(message);
 };

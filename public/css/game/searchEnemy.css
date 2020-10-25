@@ -1,31 +1,35 @@
-#fixed {
-    position: fixed;
-    overflow: auto;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url(../../img/game/fonChoose.jpg);
-    background-size: cover;
-    font-style: normal;
-    text-shadow: none;
-    color: black;
-    font-weight: normal;
-}
-#container {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin-left: -150px;
-    margin-top: -75px;
-}
-#search {
-  font-size: 35px;
+.backdrop {
+  z-index: 999;
   position: absolute;
-  background-color: #fff;
-  width: 400px;
-  height: 50px;
-  border-radius: 30px;
-  padding: 15px;
+  height: 100%;
+  width: 100%;
+  background-image: url(../../img/game/fonChoose.jpg);
+  background-size: cover;
+}
+.searchBackground {
+  height: 100%;
+}
+.searchBackgroundTwo {
   text-align: center;
+}
+.userSpin {
+  font-size: 1.3rem;
+}
+.search {
+  display: inline;
+  vertical-align: middle;
+  font-size: 2rem;
+  background-color: #fff;
+  border-radius: 30px;
+  padding: 1.5rem;
+}
+
+@media (max-width: 500px) {
+  .userSpin {
+    font-size: 1rem;
+  }
+  .search {
+    font-size: 1.5rem;
+    padding: 0.7rem;
+  }
 }

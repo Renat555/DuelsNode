@@ -1,0 +1,24 @@
+@media (max-width: 1950px) {
+  .enemy {
+    height: 17vh;
+  }
+  .gameTable {
+    height: 56vh;
+  }
+  .user {
+    height: 27vh;
+  }
+  .button {
+    padding: 0.4em 1em;
+  }
+  .needPoints {
+    padding: 0.1em;
+    font-size: 1.7rem;
+  }
+  .smallText {
+    font-size: 1.7rem;
+  }
+  .bigText {
+    font-size: 4rem;
+  }
+}

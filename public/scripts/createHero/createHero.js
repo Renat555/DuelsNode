@@ -1,52 +1,55 @@
 "use strict";
 
 let gameInformation = {
-  header: 'createGame',
+  header: "createGame",
   user: {
     name: "undefined",
-    idGame: '',
+    idGame: "",
     actionPoints: 5,
     energyPoints: 5,
-    position: '',
-    maxHealth: '',
-    health: '',
-    muve: '',
+    position: {
+      row: "",
+      col: "",
+    },
+    maxHealth: "",
+    health: "",
+    muve: "",
     elements: [],
     forms: [],
     buffs: [],
-    debuffs: []
-  }
-}
+    debuffs: [],
+  },
+};
 
-gameInformation['user']['id'] = randomString();
+gameInformation["user"]["id"] = randomString();
 
 function randomString() {
-	let string = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789";
-	let result = "";
+  let string = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789";
+  let result = "";
 
-	for (let i = 0; i < 10; i++) {
-		result += string[Math.floor(Math.random()*Math.floor(62))];
-	}
+  for (let i = 0; i < 10; i++) {
+    result += string[Math.floor(Math.random() * Math.floor(62))];
+  }
 
-	return result;
+  return result;
 }
 
 function selectElement(div, elements) {
-    if (elements.length < 3) {
-      div.setAttribute("data-status", "selected");
-      div.classList.add("highlight");
-      elements.push(div.dataset.value);
-      return;
-    }
+  if (elements.length < 3) {
+    div.setAttribute("data-status", "selected");
+    div.classList.add("highlight");
+    elements.push(div.dataset.value);
+    return;
+  }
 }
 
 function selectForm(div, forms) {
-    if (forms.length < 5) {
-      div.setAttribute("data-status", "selected");
-      div.classList.add("highlight");
-      forms.push(div.dataset.value);
-      return;
-    }
+  if (forms.length < 5) {
+    div.setAttribute("data-status", "selected");
+    div.classList.add("highlight");
+    forms.push(div.dataset.value);
+    return;
+  }
 }
 
 function clearElement(div, elements) {
@@ -76,29 +79,25 @@ function choose(event) {
   let classElement = div.classList[0];
 
   if (div.dataset.status == "notSelected") {
-
     switch (classElement) {
       case "wrapperElement":
-        selectElement(div, gameInformation['user']['elements']);
+        selectElement(div, gameInformation["user"]["elements"]);
         break;
       case "wrapperForm":
-        selectForm(div, gameInformation['user']['forms']);
+        selectForm(div, gameInformation["user"]["forms"]);
     }
-
   } else if (div.dataset.status == "selected") {
-
     switch (classElement) {
       case "wrapperElement":
-        clearElement(div, gameInformation['user']['elements']);
+        clearElement(div, gameInformation["user"]["elements"]);
         break;
       case "wrapperForm":
-        clearForm(div, gameInformation['user']['forms']);
+        clearForm(div, gameInformation["user"]["forms"]);
     }
-
   }
 }
 
-let selectedDivs = document.querySelectorAll('[data-status]');
+let selectedDivs = document.querySelectorAll("[data-status]");
 for (let div of selectedDivs) {
   div.addEventListener("click", choose);
 }
@@ -106,20 +105,21 @@ for (let div of selectedDivs) {
 let buttonStartGame = document.getElementsByName("startGame")[0];
 
 buttonStartGame.onclick = async () => {
+  gameInformation["user"].name = document.getElementsByName(
+    "userName"
+  )[0].value;
 
-  gameInformation['user'].name = document.getElementsByName("userName")[0].value;
+  if (gameInformation["user"]["elements"].length < 3) {
+    alert("Выберите три стихии.");
+    return;
+  }
 
-    if (gameInformation['user']['elements'].length < 3) {
-      alert("Выберите три стихии.");
-      return;
-    }
+  if (gameInformation["user"]["forms"].length < 5) {
+    alert("Выберите пять форм.");
+    return;
+  }
 
-  if (gameInformation['user']['forms'].length < 5) {
-      alert("Выберите пять форм.");
-      return;
-    }
+  localStorage.setItem("gameInformation", JSON.stringify(gameInformation));
 
-  localStorage.setItem('gameInformation', JSON.stringify(gameInformation));
-
-  window.location.href = '../game';
+  window.location.href = "../game";
 };
