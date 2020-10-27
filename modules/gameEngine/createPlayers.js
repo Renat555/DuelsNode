@@ -11,7 +11,7 @@ function createEffectsFromSpellNames(arrNames) {
   return arrEffects;
 }
 
-function createPlayersAndBattlefield(mongoCollection, ws) {
+function createPlayers(mongoCollection, ws) {
   return new Promise((resolve, reject) => {
     let arr = { user: "", enemy: "", battlefield: "" };
     mongoCollection
@@ -44,17 +44,11 @@ function createPlayersAndBattlefield(mongoCollection, ws) {
             enemyDebuffs
           );
           arr["enemy"] = enemy;
-          mongoCollection.findOne(
-            { idGame: ws["idGame"], battlefield: { $exists: 1 } },
-            function (err, doc) {
-              arr["battlefield"] = doc["battlefield"];
-              resolve(arr);
-            }
-          );
+          resolve(arr);
         });
       });
   });
 }
 
-module.exports.createPlayersAndBattlefield = createPlayersAndBattlefield;
+module.exports.createPlayers = createPlayers;
 module.exports.createEffectsFromSpellNames = createEffectsFromSpellNames;

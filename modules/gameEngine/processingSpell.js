@@ -3,9 +3,7 @@ const applySpell = require("./applySpell");
 const isHaveDependences = require("./isHaveDependences");
 const sendGameInformation = require("./sendGameInformation");
 const savePlayers = require("./savePlayers").savePlayers;
-const {
-  createPlayersAndBattlefield,
-} = require("./createPlayersAndBattlefields");
+const { createPlayers } = require("./createPlayers");
 
 function processingSpellByUserEffects(player, spell) {
   for (let i = 0; i < player["buffs"].length; i++) {
@@ -122,7 +120,7 @@ function processingSpellByEnemyEffects(player, spell) {
 }
 
 function processingSpell(request, collection, ws, wss) {
-  createPlayersAndBattlefield(collection, ws).then((result) => {
+  createPlayers(collection, ws).then((result) => {
     let { user, enemy } = result;
     let spell = createSpell(request["spell"], request["despell"]);
     processingSpellByUserEffects(user, spell);

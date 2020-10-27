@@ -85,24 +85,6 @@ function setMuve(player, mongoCollection) {
     });
 }
 
-function createBattlefield(ws, mongoCollection) {
-  let battlefield = [];
-
-  for (let i = 0; i < 5; i++) {
-    battlefield[i] = [];
-    for (let j = 0; j < 5; j++) {
-      battlefield[i][j] = ["free", ""];
-    }
-  }
-
-  let doc = {
-    idGame: ws["idGame"],
-    battlefield: battlefield,
-  };
-
-  mongoCollection.insertOne(doc);
-}
-
 function searchEnemy(user, mongoCollection, ws, wss) {
   mongoCollection
     .findOneAndUpdate(
@@ -121,7 +103,6 @@ function searchEnemy(user, mongoCollection, ws, wss) {
           { returnOriginal: false }
         )
         .then((res) => {
-          createBattlefield(ws, mongoCollection);
           setMuve(user, mongoCollection);
           sendGameInformation(user, mongoCollection, ws, wss);
         });

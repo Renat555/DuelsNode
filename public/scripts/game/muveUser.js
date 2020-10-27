@@ -1,306 +1,67 @@
 "use strict";
 
-function muveUp(start, end, divHero, target) {
+function muveGeneralPath(
+  verticalStart,
+  verticalEnd,
+  horizontalStart,
+  horzontalEnd,
+  divUser,
+  target,
+  divSquareUser
+) {
   let divBattleField = document.getElementsByClassName("battleField")[0];
   divBattleField.removeEventListener("click", muveUser);
 
-  let top = start;
+  let shift = verticalStart;
   let counter = 0;
   let toggle = "a";
 
-  if (divHero.dataset.picture === "a") {
-    let idInterval = setInterval(function () {
-      if (top <= end) {
-        clearInterval(idInterval);
-        faceToEnemy(divHero);
-        divBattleField.addEventListener("click", muveUser);
-        let click = new Event("click", { bubbles: true });
-        target.dispatchEvent(click);
-        return;
-      }
-
-      divHero.style.top = top + "px";
-      top -= 1;
+  let idInterval = setInterval(function () {
+    if (shift - 1 > verticalEnd) {
+      divUser.style.top = shift + "px";
+      shift -= 1;
 
       counter++;
       if (counter % 70 === 0) {
+        console.log(shift, verticalEnd);
         if (toggle == "a") {
-          divHero.style.backgroundImage = "url(../../img/game/heroes/a2.png)";
+          let pictureUrl =
+            "url(../../img/game/heroes/" + divUser.dataset.picture + "2.png)";
+          divUser.style.backgroundImage = pictureUrl;
           toggle = "b";
         } else {
-          divHero.style.backgroundImage = "url(../../img/game/heroes/a1.png)";
+          let pictureUrl =
+            "url(../../img/game/heroes/" + divUser.dataset.picture + "1.png)";
+          divUser.style.backgroundImage = pictureUrl;
           toggle = "a";
         }
       }
-    }, 5);
-  } else {
-    let idInterval = setInterval(function () {
-      if (top <= end) {
-        clearInterval(idInterval);
-        faceToEnemy(divHero);
-        divBattleField.addEventListener("click", muveUser);
-        let click = new Event("click", { bubbles: true });
-        target.dispatchEvent(click);
-        return;
-      }
-
-      divHero.style.top = top + "px";
-      top -= 1;
+    } else if (shift + 1 < verticalEnd) {
+      divUser.style.top = shift + "px";
+      shift += 1;
 
       counter++;
       if (counter % 70 === 0) {
+        console.log(shift, verticalEnd);
         if (toggle == "a") {
-          divHero.style.backgroundImage = "url(../../img/game/heroes/c2.png)";
+          let pictureUrl =
+            "url(../../img/game/heroes/" + divUser.dataset.picture + "3.png)";
+          divUser.style.backgroundImage = pictureUrl;
           toggle = "b";
         } else {
-          divHero.style.backgroundImage = "url(../../img/game/heroes/c1.png)";
+          let pictureUrl =
+            "url(../../img/game/heroes/" + divUser.dataset.picture + "4.png)";
+          divUser.style.backgroundImage = pictureUrl;
           toggle = "a";
         }
       }
-    }, 5);
-  }
-}
-
-function muveDown(start, end, divHero, target) {
-  let divBattleField = document.getElementsByClassName("battleField")[0];
-  divBattleField.removeEventListener("click", muveUser);
-
-  let top = start;
-  let counter = 0;
-  let toggle = "a";
-
-  if (divHero.dataset.picture === "a") {
-    let idInterval = setInterval(function () {
-      if (top >= end) {
-        clearInterval(idInterval);
-        faceToEnemy(divHero);
-        divBattleField.addEventListener("click", muveUser);
-        let click = new Event("click", { bubbles: true });
-        target.dispatchEvent(click);
-        return;
-      }
-
-      divHero.style.top = top + "px";
-      top += 1;
-
-      counter++;
-      if (counter == 1) {
-        divHero.style.backgroundImage = "url(../../img/game/heroes/a3.png)";
-      }
-
-      if (counter % 70 === 0) {
-        if (toggle == "a") {
-          divHero.style.backgroundImage = "url(../../img/game/heroes/a3.png)";
-          toggle = "b";
-        } else {
-          divHero.style.backgroundImage = "url(../../img/game/heroes/a4.png)";
-          toggle = "a";
-        }
-      }
-    }, 5);
-  } else {
-    let idInterval = setInterval(function () {
-      if (top >= end) {
-        clearInterval(idInterval);
-        faceToEnemy(divHero);
-        divBattleField.addEventListener("click", muveUser);
-        let click = new Event("click", { bubbles: true });
-        target.dispatchEvent(click);
-        return;
-      }
-
-      divHero.style.top = top + "px";
-      top += 1;
-
-      counter++;
-      if (counter == 1) {
-        divHero.style.backgroundImage = "url(../../img/game/heroes/c3.png)";
-      }
-
-      if (counter % 70 === 0) {
-        if (toggle == "a") {
-          divHero.style.backgroundImage = "url(../../img/game/heroes/c3.png)";
-          toggle = "b";
-        } else {
-          divHero.style.backgroundImage = "url(../../img/game/heroes/c4.png)";
-          toggle = "a";
-        }
-      }
-    }, 5);
-  }
-}
-
-function muveRight(start, end, divHero, target) {
-  let divBattleField = document.getElementsByClassName("battleField")[0];
-  divBattleField.removeEventListener("click", muveUser);
-
-  let left = start;
-  let counter = 0;
-  let toggle = "a";
-
-  if (divHero.dataset.picture === "a") {
-    let idInterval = setInterval(function () {
-      if (left >= end) {
-        clearInterval(idInterval);
-        faceToEnemy(divHero);
-        divBattleField.addEventListener("click", muveUser);
-        let click = new Event("click", { bubbles: true });
-        target.dispatchEvent(click);
-        return;
-      }
-
-      divHero.style.left = left + "px";
-      left += 1;
-
-      counter++;
-      if (counter == 1) {
-        divHero.style.backgroundImage = "url(../../img/game/heroes/a7.png)";
-      }
-
-      if (counter % 70 === 0) {
-        if (toggle == "a") {
-          divHero.style.backgroundImage = "url(../../img/game/heroes/a7.png)";
-          toggle = "b";
-        } else {
-          divHero.style.backgroundImage = "url(../../img/game/heroes/a8.png)";
-          toggle = "a";
-        }
-      }
-    }, 5);
-  } else {
-    let idInterval = setInterval(function () {
-      if (left >= end) {
-        clearInterval(idInterval);
-        faceToEnemy(divHero);
-        divBattleField.addEventListener("click", muveUser);
-        let click = new Event("click", { bubbles: true });
-        target.dispatchEvent(click);
-        return;
-      }
-
-      divHero.style.left = left + "px";
-      left += 1;
-
-      counter++;
-      if (counter == 1) {
-        divHero.style.backgroundImage = "url(../../img/game/heroes/c7.png)";
-      }
-
-      if (counter % 70 === 0) {
-        if (toggle == "a") {
-          divHero.style.backgroundImage = "url(../../img/game/heroes/c7.png)";
-          toggle = "b";
-        } else {
-          divHero.style.backgroundImage = "url(../../img/game/heroes/c8.png)";
-          toggle = "a";
-        }
-      }
-    }, 5);
-  }
-}
-
-function muveLeft(start, end, divHero, target) {
-  let divBattleField = document.getElementsByClassName("battleField")[0];
-  divBattleField.removeEventListener("click", muveUser);
-
-  let left = start;
-  let counter = 0;
-  let toggle = "a";
-
-  if (divHero.dataset.picture === "a") {
-    let idInterval = setInterval(function () {
-      if (left <= end) {
-        clearInterval(idInterval);
-        faceToEnemy(divHero);
-        divBattleField.addEventListener("click", muveUser);
-        let click = new Event("click", { bubbles: true });
-        target.dispatchEvent(click);
-        return;
-      }
-
-      divHero.style.left = left + "px";
-      left -= 1;
-
-      counter++;
-      if (counter == 1) {
-        divHero.style.backgroundImage = "url(../../img/game/heroes/a5.png)";
-      }
-
-      if (counter % 70 === 0) {
-        if (toggle == "a") {
-          divHero.style.backgroundImage = "url(../../img/game/heroes/a5.png)";
-          toggle = "b";
-        } else {
-          divHero.style.backgroundImage = "url(../../img/game/heroes/a6.png)";
-          toggle = "a";
-        }
-      }
-    }, 5);
-  } else {
-    let idInterval = setInterval(function () {
-      if (left <= end) {
-        clearInterval(idInterval);
-        faceToEnemy(divHero);
-        divBattleField.addEventListener("click", muveUser);
-        let click = new Event("click", { bubbles: true });
-        target.dispatchEvent(click);
-        return;
-      }
-
-      divHero.style.left = left + "px";
-      left -= 1;
-
-      counter++;
-      if (counter == 1) {
-        divHero.style.backgroundImage = "url(../../img/game/heroes/c5.png)";
-      }
-
-      if (counter % 70 === 0) {
-        if (toggle == "a") {
-          divHero.style.backgroundImage = "url(../../img/game/heroes/c5.png)";
-          toggle = "b";
-        } else {
-          divHero.style.backgroundImage = "url(../../img/game/heroes/c6.png)";
-          toggle = "a";
-        }
-      }
-    }, 5);
-  }
-}
-
-function isEnoughActivePoints(distanceRow, distanceCol) {
-  let divActionPointsHave = document.getElementById("actionPoints");
-  let path = distanceCol + distanceRow;
-
-  if (path > divActionPointsHave.innerHTML) return false;
-  return true;
-}
-
-function faceToEnemy(divUser) {
-  let divSquareEnemy = document.querySelector(`[data-state="enemy"]`);
-  let divSquareUser = document.querySelector(`[data-state="user"]`);
-
-  if (divUser.dataset.picture === "a") {
-    if (divSquareEnemy.dataset.row > divSquareUser.dataset.row) {
-      divUser.style.backgroundImage = "url(../../img/game/heroes/a1.png)";
-    } else if (divSquareEnemy.dataset.row < divSquareUser.dataset.row) {
-      divUser.style.backgroundImage = "url(../../img/game/heroes/a3.png)";
-    } else if (divSquareEnemy.dataset.col < divSquareUser.dataset.col) {
-      divUser.style.backgroundImage = "url(../../img/game/heroes/a6.png)";
-    } else if (divSquareEnemy.dataset.col > divSquareUser.dataset.col) {
-      divUser.style.backgroundImage = "url(../../img/game/heroes/a8.png)";
+    } else {
+      clearInterval(idInterval);
+      divSquareUser.dataset.state = "free";
+      target.dataset.state = "user";
+      divBattleField.addEventListener("click", muveUser);
     }
-  } else {
-    if (divSquareEnemy.dataset.row > divSquareUser.dataset.row) {
-      divUser.style.backgroundImage = "url(../../img/game/heroes/c1.png)";
-    } else if (divSquareEnemy.dataset.row < divSquareUser.dataset.row) {
-      divUser.style.backgroundImage = "url(../../img/game/heroes/c3.png)";
-    } else if (divSquareEnemy.dataset.col < divSquareUser.dataset.col) {
-      divUser.style.backgroundImage = "url(../../img/game/heroes/c6.png)";
-    } else if (divSquareEnemy.dataset.col > divSquareUser.dataset.col) {
-      divUser.style.backgroundImage = "url(../../img/game/heroes/c8.png)";
-    }
-  }
+  }, 5);
 }
 
 function isClearGeneralPath(divUser, divTarget) {
@@ -397,123 +158,50 @@ function isClearAlternativePath(divUser, divTarget) {
   return true;
 }
 
-function muveGeneralPath(
-  divUser,
-  divTarget,
-  divSquareUser,
-  coordDivUser,
-  coordTarget,
-  distanceRow,
-  distanceCol
-) {
-  let falseTarget = document.querySelector(
-    `[data-row="${divTarget.dataset.row}"][data-col="${divSquareUser.dataset.col}"]`
-  );
+function isEnoughActivePoints(distanceRow, distanceCol) {
+  distanceRow = Math.abs(distanceRow);
+  distanceCol = Math.abs(distanceCol);
 
-  if (divSquareUser.dataset.row > divTarget.dataset.row) {
-    let end = coordDivUser.top + coordTarget.height * distanceRow;
-    muveDown(coordDivUser.top, end, divUser, divTarget);
-    divSquareUser.dataset.state = "free";
-    falseTarget.dataset.state = "user";
-    return;
-  }
+  let divActionPointsHave = document.getElementById("actionPoints");
+  let path = distanceCol + distanceRow;
 
-  if (divSquareUser.dataset.row < divTarget.dataset.row) {
-    let end = coordDivUser.top - coordTarget.height * distanceRow;
-    muveUp(coordDivUser.top, end, divUser, divTarget);
-    divSquareUser.dataset.state = "free";
-    falseTarget.dataset.state = "user";
-    return;
-  }
+  if (path > divActionPointsHave.innerHTML) return false;
 
-  if (divSquareUser.dataset.col < divTarget.dataset.col) {
-    let end = coordDivUser.left + coordTarget.width * distanceCol;
-    muveRight(coordDivUser.left, end, divUser, divTarget);
-    divSquareUser.dataset.state = "free";
-    divTarget.dataset.state = "user";
-    return;
-  }
-
-  if (divSquareUser.dataset.col > divTarget.dataset.col) {
-    let end = coordDivUser.left - coordTarget.width * distanceCol;
-    muveLeft(coordDivUser.left, end, divUser, divTarget);
-    divSquareUser.dataset.state = "free";
-    divTarget.dataset.state = "user";
-    return;
-  }
-}
-
-function muveAlternativePath(
-  divUser,
-  divTarget,
-  divSquareUser,
-  coordDivUser,
-  coordTarget,
-  distanceRow,
-  distanceCol
-) {
-  let falseTarget = document.querySelector(
-    `[data-row="${divSquareUser.dataset.row}"][data-col="${divTarget.dataset.col}"]`
-  );
-
-  if (divSquareUser.dataset.col < divTarget.dataset.col) {
-    let end = coordDivUser.left + coordTarget.width * distanceCol;
-    muveRight(coordDivUser.left, end, divUser, divTarget);
-    divSquareUser.dataset.state = "free";
-    falseTarget.dataset.state = "user";
-    return;
-  }
-
-  if (divSquareUser.dataset.col > divTarget.dataset.col) {
-    let end = coordDivUser.left - coordTarget.width * distanceCol;
-    muveLeft(coordDivUser.left, end, divUser, divTarget);
-    divSquareUser.dataset.state = "free";
-    falseTarget.dataset.state = "user";
-    return;
-  }
-
-  if (divSquareUser.dataset.row > divTarget.dataset.row) {
-    let end = coordDivUser.top + coordTarget.height * distanceRow;
-    muveDown(coordDivUser.top, end, divUser, divTarget);
-    divSquareUser.dataset.state = "free";
-    divTarget.dataset.state = "user";
-    return;
-  }
-
-  if (divSquareUser.dataset.row < divTarget.dataset.row) {
-    let end = coordDivUser.top - coordTarget.height * distanceRow;
-    muveUp(coordDivUser.top, end, divUser, divTarget);
-    divSquareUser.dataset.state = "free";
-    divTarget.dataset.state = "user";
-    return;
-  }
+  return true;
 }
 
 function muveUser(event) {
   let target = event.target;
   if (!target.dataset.row) return;
 
-  let divSquareUser = document.querySelector(`[data-state="user"]`);
+  let userMuve = document.getElementById("userMuve");
+  if (userMuve.hidden) return;
+
   let divUser = document.querySelector(`[data-hero="user"]`);
+  let divSquareUser = document.querySelector(`[data-state="user"]`);
+
   let coordDivUser = divUser.getBoundingClientRect();
   let coordTarget = target.getBoundingClientRect();
 
   let distanceRow = divSquareUser.dataset.row - target.dataset.row;
-  distanceRow = Math.abs(distanceRow);
   let distanceCol = divSquareUser.dataset.col - target.dataset.col;
-  distanceCol = Math.abs(distanceCol);
 
   if (!isEnoughActivePoints(distanceRow, distanceCol)) return;
 
+  let verticalStart = coordDivUser.top;
+  let verticalEnd = coordDivUser.top + coordTarget.height * distanceRow;
+  let horizontalStart = coordDivUser.top - coordTarget.height * distanceRow;
+  let horzontalEnd = coordDivUser.top - coordTarget.height * distanceRow;
+
   if (isClearGeneralPath(divSquareUser, target)) {
     muveGeneralPath(
+      verticalStart,
+      verticalEnd,
+      horizontalStart,
+      horzontalEnd,
       divUser,
       target,
-      divSquareUser,
-      coordDivUser,
-      coordTarget,
-      distanceRow,
-      distanceCol
+      divSquareUser
     );
   } else if (isClearAlternativePath(divSquareUser, target)) {
     muveAlternativePath(
@@ -522,20 +210,12 @@ function muveUser(event) {
       divSquareUser,
       coordDivUser,
       coordTarget,
+      falseTarget,
       distanceRow,
       distanceCol
     );
   } else {
     return;
-  }
-
-  if (divSquareUser === target) {
-    let muves = {
-      header: "muveHero",
-      row: target.dataset.row,
-      col: target.dataset.col,
-    };
-    ws.send(JSON.stringify(muves));
   }
 }
 

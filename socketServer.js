@@ -45,22 +45,7 @@ mongoClient.connect(function (err, client) {
       }
     });
     ws.on("close", function close() {
-      collection.deleteOne({ id: ws["id"] }).then((result) => {
-        collection.findOne(
-          {
-            idGame: ws["idGame"],
-            battlefield: { $exists: 1 },
-          },
-          function (err, doc) {
-            if (doc != null) {
-              collection.deleteOne({
-                idGame: ws["idGame"],
-                battlefield: { $exists: 1 },
-              });
-            }
-          }
-        );
-      });
+      collection.deleteOne({ id: ws["id"] });
     });
   });
 });

@@ -1,8 +1,4 @@
-const createPlayersAndBattlefields = require("./createPlayersAndBattlefields")
-  .createPlayersAndBattlefield;
-const {
-  createPlayersAndBattlefield,
-} = require("./createPlayersAndBattlefields");
+const { createPlayers } = require("./createPlayers");
 const isHaveDependences = require("./isHaveDependences");
 const sendGameInformation = require("./sendGameInformation");
 const savePlayers = require("./savePlayers").savePlayers;
@@ -166,7 +162,7 @@ function applyEffect(effect, user, enemy) {
 }
 
 function endMuve(collection, ws, wss) {
-  createPlayersAndBattlefield(collection, ws).then((result) => {
+  createPlayers(collection, ws).then((result) => {
     let { user, enemy } = result;
     processingEffects(user, enemy);
     applyEffects(user, enemy);

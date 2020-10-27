@@ -1,8 +1,8 @@
 "use strict";
 
 function fillEnemyName(enemy) {
-  let enemyName = document.getElementById('enemyName');
-  enemyName.innerHTML = "Противник: " + enemy['name'];
+  let enemyName = document.getElementById("enemyName");
+  enemyName.innerHTML = "Противник: " + enemy["name"];
 }
 
 function fillForms(forms) {
@@ -24,29 +24,37 @@ function fillElements(elements) {
 }
 
 function fillHealth(users) {
-  let healthEnemy = document.getElementById('healthEnemy');
-  let percentHealthEnemy = Math.round(users['enemy']['health']*100/users['enemy']['maxHealth']);
+  let healthEnemy = document.getElementById("healthEnemy");
+  let percentHealthEnemy = Math.round(
+    (users["enemy"]["health"] * 100) / users["enemy"]["maxHealth"]
+  );
   healthEnemy.style.width = percentHealthEnemy + "%";
   healthEnemy.style.marginLeft = 100 - percentHealthEnemy + "%";
-  healthEnemy.innerHTML = users['enemy']['health'];
+  healthEnemy.innerHTML = users["enemy"]["health"];
 
-  let healthUser = document.getElementById('health');
-  let percentHealth = Math.round(users['user']['health']*100/users['user']['maxHealth']);
+  let healthUser = document.getElementById("health");
+  let percentHealth = Math.round(
+    (users["user"]["health"] * 100) / users["user"]["maxHealth"]
+  );
   healthUser.style.width = percentHealth + "%";
   healthUser.style.marginLeft = 100 - percentHealth + "%";
-  healthUser.innerHTML = users['user']['health'];
+  healthUser.innerHTML = users["user"]["health"];
 }
 
-function fillPoints(user) {
-  let divActionPoints = document.getElementById('actionPoints');
-  let divEnergyPoints = document.getElementById('energyPoints');
+function firstFillPoints(users) {
+  let divActionPoints = document.getElementById("actionPoints");
+  let divEnergyPoints = document.getElementById("energyPoints");
+  let divEnemyActionPoints = document.getElementById("enemyActionPoints");
+  let divEnemyEnergyPoints = document.getElementById("enemyEnergyPoints");
 
-  divActionPoints.innerHTML = user['actionPoints'];
-  divEnergyPoints.innerHTML = user['energyPoints'];
+  divEnemyActionPoints.innerHTML = users["enemy"]["actionPoints"];
+  divEnemyEnergyPoints.innerHTML = users["enemy"]["energyPoints"];
+  divActionPoints.innerHTML = users["user"]["actionPoints"];
+  divEnergyPoints.innerHTML = users["user"]["energyPoints"];
 }
 
 function fillBattlfield(userMuve) {
-  let divUser = document.createElement('div');
+  let divUser = document.createElement("div");
   divUser.style.cssText = `
   position: absolute;
   background-size: contain;
@@ -54,7 +62,7 @@ function fillBattlfield(userMuve) {
   background-position: center;
   `;
 
-  let divEnemy = document.createElement('div');
+  let divEnemy = document.createElement("div");
   divEnemy.style.cssText = `
   position: absolute;
   background-size: contain;
@@ -63,45 +71,50 @@ function fillBattlfield(userMuve) {
   `;
 
   if (userMuve === 1) {
-    divUser.style.backgroundImage = 'url(../../img/game/heroes/a1.png)';
-    divUser.dataset.hero = 'user';
-    divUser.dataset.picture = 'a';
-    divEnemy.style.backgroundImage = 'url(../../img/game/heroes/c3.png)';
-    divEnemy.dataset.hero = 'enemy';
-    divEnemy.dataset.picture = 'b';
+    divUser.style.backgroundImage = "url(../../img/game/heroes/a1.png)";
+    divUser.dataset.hero = "user";
+    divUser.dataset.picture = "a";
+    divEnemy.style.backgroundImage = "url(../../img/game/heroes/c3.png)";
+    divEnemy.dataset.hero = "enemy";
+    divEnemy.dataset.picture = "b";
   } else {
-    divUser.style.backgroundImage = 'url(../../img/game/heroes/c1.png)';
-    divUser.dataset.hero = 'user';
-    divUser.dataset.picture = 'b';
-    divEnemy.style.backgroundImage = 'url(../../img/game/heroes/a3.png)';
-    divEnemy.dataset.hero = 'enemy';
-    divEnemy.dataset.picture = 'a';
+    divUser.style.backgroundImage = "url(../../img/game/heroes/c1.png)";
+    divUser.dataset.hero = "user";
+    divUser.dataset.picture = "b";
+    divEnemy.style.backgroundImage = "url(../../img/game/heroes/a3.png)";
+    divEnemy.dataset.hero = "enemy";
+    divEnemy.dataset.picture = "a";
   }
 
-  let divSquareUser = document.querySelectorAll(`[data-row="1"]`)[2];
+  let divSquareUser = document.querySelectorAll(`[data-row="0"]`)[2];
   divSquareUser.dataset.state = "user";
   let coordSquareUser = divSquareUser.getBoundingClientRect();
-  divUser.style.height = coordSquareUser.height - (coordSquareUser.height/10) + 'px';
-  divUser.style.width = coordSquareUser.width - (coordSquareUser.width/10) + 'px';
-  divUser.style.left = coordSquareUser.left + (coordSquareUser.width/20) + 'px';
-  divUser.style.top = coordSquareUser.top + (coordSquareUser.height/20) + 'px';
+  divUser.style.height =
+    coordSquareUser.height - coordSquareUser.height / 10 + "px";
+  divUser.style.width =
+    coordSquareUser.width - coordSquareUser.width / 10 + "px";
+  divUser.style.left = coordSquareUser.left + coordSquareUser.width / 20 + "px";
+  divUser.style.top = coordSquareUser.top + coordSquareUser.height / 20 + "px";
 
-  let divSquareEnemy = document.querySelectorAll(`[data-row="5"]`)[2];
+  let divSquareEnemy = document.querySelectorAll(`[data-row="4"]`)[2];
   divSquareEnemy.dataset.state = "enemy";
   let coordSquareEnemy = divSquareEnemy.getBoundingClientRect();
-  divEnemy.style.height = coordSquareEnemy.height - (coordSquareEnemy.height/10) + 'px';
-  divEnemy.style.width = coordSquareEnemy.width - (coordSquareEnemy.width/10) + 'px';
-  divEnemy.style.left = coordSquareEnemy.left + (coordSquareEnemy.width/20) + 'px';
-  divEnemy.style.top = coordSquareEnemy.top + (coordSquareEnemy.height/20) + 'px';
+  divEnemy.style.height =
+    coordSquareEnemy.height - coordSquareEnemy.height / 10 + "px";
+  divEnemy.style.width =
+    coordSquareEnemy.width - coordSquareEnemy.width / 10 + "px";
+  divEnemy.style.left =
+    coordSquareEnemy.left + coordSquareEnemy.width / 20 + "px";
+  divEnemy.style.top =
+    coordSquareEnemy.top + coordSquareEnemy.height / 20 + "px";
 
-  
   document.body.append(divUser);
   document.body.append(divEnemy);
 }
 
 function hideMuveText(muveUser) {
-  let divUserMuve = document.getElementById('userMuve');
-  let divEnemyMuve = document.getElementById('enemyMuve');
+  let divUserMuve = document.getElementById("userMuve");
+  let divEnemyMuve = document.getElementById("enemyMuve");
   if (muveUser === 1) {
     divUserMuve.hidden = false;
     divEnemyMuve.hidden = true;
@@ -112,23 +125,23 @@ function hideMuveText(muveUser) {
 }
 
 function hideWaitingScreen() {
-  let divWaitingScreen = document.getElementById('fixed');
+  let divWaitingScreen = document.getElementsByClassName("backdrop")[0];
   divWaitingScreen.hidden = true;
 }
 
 function fillInterface(users) {
-  fillEnemyName(users['enemy']);
-  fillForms(users['user']['forms']);
-  fillElements(users['user']['elements']);
+  fillEnemyName(users["enemy"]);
+  fillForms(users["user"]["forms"]);
+  fillElements(users["user"]["elements"]);
+  firstFillPoints(users);
   fillHealth(users);
-  fillPoints(users['user']);
-  fillBattlfield(users['user']['muve']);
-  hideMuveText(users['user']['muve'], users['enemy']['muve']);
+  fillBattlfield(users["user"]["muve"]);
+  hideMuveText(users["user"]["muve"], users["enemy"]["muve"]);
   showHints();
-  
+
   let gameInformation = users;
-  gameInformation['header'] = 'restoreGame';
-  localStorage.setItem('gameInformation', JSON.stringify(gameInformation));
+  gameInformation["header"] = "restoreGame";
+  localStorage.setItem("gameInformation", JSON.stringify(gameInformation));
 
   hideWaitingScreen();
 }

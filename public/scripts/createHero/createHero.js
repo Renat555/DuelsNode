@@ -11,6 +11,7 @@ let gameInformation = {
       row: "",
       col: "",
     },
+    battlefield: "",
     maxHealth: "",
     health: "",
     muve: "",
