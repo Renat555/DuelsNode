@@ -26,16 +26,25 @@ function muveHero(muve, mongoCollection, ws, wss) {
   mongoCollection
     .findOneAndUpdate(
       { id: ws["id"] },
-      { $set: { "position.row": muve["row"], "position.col": muve["col"] } }
+      {
+        $set: {
+          "position.row": muve["row"],
+          "position.col": muve["col"],
+          actionPoints: muve["actionPoints"],
+        },
+      }
     )
     .then((result) => {
       let coordForEnemy = coordinateTransform(muve["row"], muve["col"]);
+      coordForEnemy["pathType"] = muve["path"];
       wss.clients.forEach(function each(client) {
         if (client.readyState == 1 && client["id"] == ws["idEnemy"]) {
           let responseForEnemy = {
             header: "enemyMuve",
             row: coordForEnemy["row"],
             col: coordForEnemy["col"],
+            pathType: muve["pathType"],
+            actionPoints: muve["actionPoints"],
           };
           client.send(JSON.stringify(responseForEnemy));
         }

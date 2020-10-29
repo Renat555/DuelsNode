@@ -19,7 +19,7 @@ ws.onmessage = (message) => {
       changeInterface(message);
       break;
     case "enemyMuve":
-      muveEnemy(message["row"], message["col"]);
+      muveEnemy(message);
       break;
   }
   console.log(message);

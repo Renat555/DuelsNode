@@ -4,26 +4,24 @@ function muveGeneralPath(
   verticalStart,
   verticalEnd,
   horizontalStart,
-  horzontalEnd,
-  divUser,
-  target,
-  divSquareUser
+  horizontalEnd,
+  divUser
 ) {
   let divBattleField = document.getElementsByClassName("battleField")[0];
   divBattleField.removeEventListener("click", muveUser);
 
-  let shift = verticalStart;
+  let verticalShift = verticalStart;
+  let horizontalShift = horizontalStart;
   let counter = 0;
   let toggle = "a";
 
   let idInterval = setInterval(function () {
-    if (shift - 1 > verticalEnd) {
-      divUser.style.top = shift + "px";
-      shift -= 1;
+    if (verticalShift - 1 > verticalEnd) {
+      divUser.style.top = verticalShift + "px";
+      verticalShift -= 1;
 
       counter++;
       if (counter % 70 === 0) {
-        console.log(shift, verticalEnd);
         if (toggle == "a") {
           let pictureUrl =
             "url(../../img/game/heroes/" + divUser.dataset.picture + "2.png)";
@@ -36,13 +34,144 @@ function muveGeneralPath(
           toggle = "a";
         }
       }
-    } else if (shift + 1 < verticalEnd) {
-      divUser.style.top = shift + "px";
-      shift += 1;
+    } else if (verticalShift + 1 < verticalEnd) {
+      divUser.style.top = verticalShift + "px";
+      verticalShift += 1;
 
       counter++;
       if (counter % 70 === 0) {
-        console.log(shift, verticalEnd);
+        if (toggle == "a") {
+          let pictureUrl =
+            "url(../../img/game/heroes/" + divUser.dataset.picture + "3.png)";
+          divUser.style.backgroundImage = pictureUrl;
+          toggle = "b";
+        } else {
+          let pictureUrl =
+            "url(../../img/game/heroes/" + divUser.dataset.picture + "4.png)";
+          divUser.style.backgroundImage = pictureUrl;
+          toggle = "a";
+        }
+      }
+    } else if (horizontalShift - 1 > horizontalEnd) {
+      divUser.style.left = horizontalShift + "px";
+      horizontalShift -= 1;
+
+      counter++;
+      if (counter % 70 === 0) {
+        if (toggle == "a") {
+          let pictureUrl =
+            "url(../../img/game/heroes/" + divUser.dataset.picture + "5.png)";
+          divUser.style.backgroundImage = pictureUrl;
+          toggle = "b";
+        } else {
+          let pictureUrl =
+            "url(../../img/game/heroes/" + divUser.dataset.picture + "6.png)";
+          divUser.style.backgroundImage = pictureUrl;
+          toggle = "a";
+        }
+      }
+    } else if (horizontalShift + 1 < horizontalEnd) {
+      divUser.style.left = horizontalShift + "px";
+      horizontalShift += 1;
+
+      counter++;
+      if (counter % 70 === 0) {
+        if (toggle == "a") {
+          let pictureUrl =
+            "url(../../img/game/heroes/" + divUser.dataset.picture + "7.png)";
+          divUser.style.backgroundImage = pictureUrl;
+          toggle = "b";
+        } else {
+          let pictureUrl =
+            "url(../../img/game/heroes/" + divUser.dataset.picture + "8.png)";
+          divUser.style.backgroundImage = pictureUrl;
+          toggle = "a";
+        }
+      }
+    } else {
+      clearInterval(idInterval);
+      faceToEnemy();
+      divBattleField.addEventListener("click", muveUser);
+    }
+  }, 5);
+}
+
+function muveAlternativePath(
+  verticalStart,
+  verticalEnd,
+  horizontalStart,
+  horizontalEnd,
+  divUser
+) {
+  let divBattleField = document.getElementsByClassName("battleField")[0];
+  divBattleField.removeEventListener("click", muveUser);
+
+  let verticalShift = verticalStart;
+  let horizontalShift = horizontalStart;
+  let counter = 0;
+  let toggle = "a";
+
+  let idInterval = setInterval(function () {
+    if (horizontalShift - 1 > horizontalEnd) {
+      divUser.style.left = horizontalShift + "px";
+      horizontalShift -= 1;
+
+      counter++;
+      if (counter % 70 === 0) {
+        if (toggle == "a") {
+          let pictureUrl =
+            "url(../../img/game/heroes/" + divUser.dataset.picture + "5.png)";
+          divUser.style.backgroundImage = pictureUrl;
+          toggle = "b";
+        } else {
+          let pictureUrl =
+            "url(../../img/game/heroes/" + divUser.dataset.picture + "6.png)";
+          divUser.style.backgroundImage = pictureUrl;
+          toggle = "a";
+        }
+      }
+    } else if (horizontalShift + 1 < horizontalEnd) {
+      divUser.style.left = horizontalShift + "px";
+      horizontalShift += 1;
+
+      counter++;
+      if (counter % 70 === 0) {
+        if (toggle == "a") {
+          let pictureUrl =
+            "url(../../img/game/heroes/" + divUser.dataset.picture + "7.png)";
+          divUser.style.backgroundImage = pictureUrl;
+          toggle = "b";
+        } else {
+          let pictureUrl =
+            "url(../../img/game/heroes/" + divUser.dataset.picture + "8.png)";
+          divUser.style.backgroundImage = pictureUrl;
+          toggle = "a";
+        }
+      }
+    } else if (verticalShift - 1 > verticalEnd) {
+      divUser.style.top = verticalShift + "px";
+      verticalShift -= 1;
+
+      counter++;
+      if (counter % 70 === 0) {
+        if (toggle == "a") {
+          let pictureUrl =
+            "url(../../img/game/heroes/" + divUser.dataset.picture + "2.png)";
+          divUser.style.backgroundImage = pictureUrl;
+          toggle = "b";
+        } else {
+          let pictureUrl =
+            "url(../../img/game/heroes/" + divUser.dataset.picture + "1.png)";
+          divUser.style.backgroundImage = pictureUrl;
+          toggle = "a";
+        }
+      }
+    } else if (verticalShift + 1 < verticalEnd) {
+      divUser.style.top = verticalShift + "px";
+      verticalShift += 1;
+
+      counter++;
+      if (counter % 70 === 0) {
         if (toggle == "a") {
           let pictureUrl =
             "url(../../img/game/heroes/" + divUser.dataset.picture + "3.png)";
@@ -57,11 +186,39 @@ function muveGeneralPath(
       }
     } else {
       clearInterval(idInterval);
-      divSquareUser.dataset.state = "free";
-      target.dataset.state = "user";
+      faceToEnemy();
       divBattleField.addEventListener("click", muveUser);
     }
   }, 5);
+}
+
+function faceToEnemy() {
+  let divUser = document.querySelector(`[data-hero="user"]`);
+  let divEnemy = document.querySelector(`[data-hero="enemy"]`);
+  let divSquareUser = document.querySelector(`[data-state="user"]`);
+  let divSquareEnemy = document.querySelector(`[data-state="enemy"]`);
+
+  if (divSquareEnemy.dataset.row > divSquareUser.dataset.row) {
+    divUser.style.backgroundImage =
+      "url(../../img/game/heroes/" + divUser.dataset.picture + "1.png)";
+    divEnemy.style.backgroundImage =
+      "url(../../img/game/heroes/" + divEnemy.dataset.picture + "3.png)";
+  } else if (divSquareEnemy.dataset.row < divSquareUser.dataset.row) {
+    divUser.style.backgroundImage =
+      "url(../../img/game/heroes/" + divUser.dataset.picture + "3.png)";
+    divEnemy.style.backgroundImage =
+      "url(../../img/game/heroes/" + divEnemy.dataset.picture + "1.png)";
+  } else if (divSquareEnemy.dataset.col < divSquareUser.dataset.col) {
+    divUser.style.backgroundImage =
+      "url(../../img/game/heroes/" + divUser.dataset.picture + "6.png)";
+    divEnemy.style.backgroundImage =
+      "url(../../img/game/heroes/" + divEnemy.dataset.picture + "8.png)";
+  } else if (divSquareEnemy.dataset.col > divSquareUser.dataset.col) {
+    divUser.style.backgroundImage =
+      "url(../../img/game/heroes/" + divUser.dataset.picture + "8.png)";
+    divEnemy.style.backgroundImage =
+      "url(../../img/game/heroes/" + divEnemy.dataset.picture + "6.png)";
+  }
 }
 
 function isClearGeneralPath(divUser, divTarget) {
@@ -167,7 +324,22 @@ function isEnoughActivePoints(distanceRow, distanceCol) {
 
   if (path > divActionPointsHave.innerHTML) return false;
 
+  divActionPointsHave.innerHTML = divActionPointsHave.innerHTML - path;
   return true;
+}
+
+function sendMuve(div, pathType) {
+  let actionPoints = document.getElementById("actionPoints").innerHTML;
+
+  let muve = {
+    header: "muveHero",
+    row: div.dataset.row,
+    col: div.dataset.col,
+    pathType: pathType,
+    actionPoints: actionPoints,
+  };
+
+  ws.send(JSON.stringify(muve));
 }
 
 function muveUser(event) {
@@ -184,14 +356,19 @@ function muveUser(event) {
   let coordTarget = target.getBoundingClientRect();
 
   let distanceRow = divSquareUser.dataset.row - target.dataset.row;
-  let distanceCol = divSquareUser.dataset.col - target.dataset.col;
+  let distanceCol = target.dataset.col - divSquareUser.dataset.col;
 
   if (!isEnoughActivePoints(distanceRow, distanceCol)) return;
 
+  divSquareUser.dataset.state = "free";
+  target.dataset.state = "user";
+
   let verticalStart = coordDivUser.top;
   let verticalEnd = coordDivUser.top + coordTarget.height * distanceRow;
-  let horizontalStart = coordDivUser.top - coordTarget.height * distanceRow;
-  let horzontalEnd = coordDivUser.top - coordTarget.height * distanceRow;
+  let horizontalStart = coordDivUser.left;
+  let horzontalEnd = coordDivUser.left + coordTarget.width * distanceCol;
+
+  let pathType = "";
 
   if (isClearGeneralPath(divSquareUser, target)) {
     muveGeneralPath(
@@ -199,24 +376,25 @@ function muveUser(event) {
       verticalEnd,
       horizontalStart,
       horzontalEnd,
-      divUser,
-      target,
-      divSquareUser
+      divUser
     );
+
+    pathType = "general";
   } else if (isClearAlternativePath(divSquareUser, target)) {
     muveAlternativePath(
-      divUser,
-      target,
-      divSquareUser,
-      coordDivUser,
-      coordTarget,
-      falseTarget,
-      distanceRow,
-      distanceCol
+      verticalStart,
+      verticalEnd,
+      horizontalStart,
+      horzontalEnd,
+      divUser
     );
+
+    pathType = "alternative";
   } else {
     return;
   }
+
+  sendMuve(target, pathType);
 }
 
 let divBattleField = document.getElementsByClassName("battleField")[0];

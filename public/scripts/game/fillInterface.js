@@ -76,11 +76,11 @@ function fillBattlfield(userMuve) {
     divUser.dataset.picture = "a";
     divEnemy.style.backgroundImage = "url(../../img/game/heroes/c3.png)";
     divEnemy.dataset.hero = "enemy";
-    divEnemy.dataset.picture = "b";
+    divEnemy.dataset.picture = "c";
   } else {
     divUser.style.backgroundImage = "url(../../img/game/heroes/c1.png)";
     divUser.dataset.hero = "user";
-    divUser.dataset.picture = "b";
+    divUser.dataset.picture = "c";
     divEnemy.style.backgroundImage = "url(../../img/game/heroes/a3.png)";
     divEnemy.dataset.hero = "enemy";
     divEnemy.dataset.picture = "a";

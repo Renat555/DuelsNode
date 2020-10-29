@@ -76,14 +76,10 @@ function applyEffect(effect, user, enemy) {
       effect.decreaseDuration(1, user);
       break;
     case "firecrown":
-      effect.increasePlayerHealth(user);
       effect.decreaseDuration(1, user);
       break;
     case "firesource":
       effect.decreasePlayerHealth(user);
-      effect.decreaseDuration(1, user);
-      break;
-    case "firesphere":
       effect.decreaseDuration(1, user);
       break;
     case "watershild":
