@@ -27,6 +27,4 @@ app.get("/help", function (req, res) {
 });
 
 const port = config.get("server")["port"];
-app.listen(port, function () {
-  console.log("server run");
-});
+app.listen(port, function () {});

@@ -87,7 +87,7 @@ function fillBattlfield(userMuve) {
   }
 
   let divSquareUser = document.querySelectorAll(`[data-row="0"]`)[2];
-  divSquareUser.dataset.state = "user";
+  divSquareUser.dataset.availability = "user";
   let coordSquareUser = divSquareUser.getBoundingClientRect();
   divUser.style.height =
     coordSquareUser.height - coordSquareUser.height / 10 + "px";
@@ -97,7 +97,7 @@ function fillBattlfield(userMuve) {
   divUser.style.top = coordSquareUser.top + coordSquareUser.height / 20 + "px";
 
   let divSquareEnemy = document.querySelectorAll(`[data-row="4"]`)[2];
-  divSquareEnemy.dataset.state = "enemy";
+  divSquareEnemy.dataset.availability = "enemy";
   let coordSquareEnemy = divSquareEnemy.getBoundingClientRect();
   divEnemy.style.height =
     coordSquareEnemy.height - coordSquareEnemy.height / 10 + "px";

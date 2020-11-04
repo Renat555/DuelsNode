@@ -7,7 +7,7 @@ function muveGeneralPath(
   horizontalEnd,
   divUser
 ) {
-  let divBattleField = document.getElementsByClassName("battleField")[0];
+  let divBattleField = document.getElementsByClassName("battlefield")[0];
   divBattleField.removeEventListener("click", muveUser);
 
   let verticalShift = verticalStart;
@@ -103,7 +103,7 @@ function muveAlternativePath(
   horizontalEnd,
   divUser
 ) {
-  let divBattleField = document.getElementsByClassName("battleField")[0];
+  let divBattleField = document.getElementsByClassName("battlefield")[0];
   divBattleField.removeEventListener("click", muveUser);
 
   let verticalShift = verticalStart;
@@ -195,8 +195,8 @@ function muveAlternativePath(
 function faceToEnemy() {
   let divUser = document.querySelector(`[data-hero="user"]`);
   let divEnemy = document.querySelector(`[data-hero="enemy"]`);
-  let divSquareUser = document.querySelector(`[data-state="user"]`);
-  let divSquareEnemy = document.querySelector(`[data-state="enemy"]`);
+  let divSquareUser = document.querySelector(`[data-availability="user"]`);
+  let divSquareEnemy = document.querySelector(`[data-availability="enemy"]`);
 
   if (divSquareEnemy.dataset.row > divSquareUser.dataset.row) {
     divUser.style.backgroundImage =
@@ -258,8 +258,8 @@ function isClearGeneralPath(divUser, divTarget) {
 
   for (let i = 0; i < arrDiv.length; i++) {
     if (
-      arrDiv[i].dataset.state == "block" ||
-      arrDiv[i].dataset.state == "enemy"
+      arrDiv[i].dataset.availability == "block" ||
+      arrDiv[i].dataset.availability == "enemy"
     ) {
       return false;
     }
@@ -305,8 +305,8 @@ function isClearAlternativePath(divUser, divTarget) {
 
   for (let i = 0; i < arrDiv.length; i++) {
     if (
-      arrDiv[i].dataset.state == "block" ||
-      arrDiv[i].dataset.state == "enemy"
+      arrDiv[i].dataset.availability == "block" ||
+      arrDiv[i].dataset.availability == "enemy"
     ) {
       return false;
     }
@@ -345,12 +345,13 @@ function sendMuve(div, pathType) {
 function muveUser(event) {
   let target = event.target;
   if (!target.dataset.row) return;
+  if (target.dataset.availability != "free") return;
 
   let userMuve = document.getElementById("userMuve");
   if (userMuve.hidden) return;
 
   let divUser = document.querySelector(`[data-hero="user"]`);
-  let divSquareUser = document.querySelector(`[data-state="user"]`);
+  let divSquareUser = document.querySelector(`[data-availability="user"]`);
 
   let coordDivUser = divUser.getBoundingClientRect();
   let coordTarget = target.getBoundingClientRect();
@@ -360,8 +361,8 @@ function muveUser(event) {
 
   if (!isEnoughActivePoints(distanceRow, distanceCol)) return;
 
-  divSquareUser.dataset.state = "free";
-  target.dataset.state = "user";
+  divSquareUser.dataset.availability = "free";
+  target.dataset.availability = "user";
 
   let verticalStart = coordDivUser.top;
   let verticalEnd = coordDivUser.top + coordTarget.height * distanceRow;
@@ -397,5 +398,5 @@ function muveUser(event) {
   sendMuve(target, pathType);
 }
 
-let divBattleField = document.getElementsByClassName("battleField")[0];
+let divBattleField = document.getElementsByClassName("battlefield")[0];
 divBattleField.addEventListener("click", muveUser);

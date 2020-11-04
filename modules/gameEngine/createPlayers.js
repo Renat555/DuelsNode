@@ -1,11 +1,11 @@
 const spellClasses = require("./spellClasses");
 const Player = spellClasses.Player;
-const createSpell = require("./createSpell");
+const createEffect = require("./createSpells/createEffect");
 
 function createEffectsFromSpellNames(arrNames) {
   let arrEffects = [];
   for (let i = 0; i < arrNames.length; i++) {
-    arrEffects[i] = createSpell(arrNames[i][0], undefined, arrNames[i][1]);
+    arrEffects[i] = createEffect(arrNames[i][0], arrNames[i][1]);
   }
 
   return arrEffects;
@@ -50,5 +50,4 @@ function createPlayers(mongoCollection, ws) {
   });
 }
 
-module.exports.createPlayers = createPlayers;
-module.exports.createEffectsFromSpellNames = createEffectsFromSpellNames;
+module.exports = createPlayers;

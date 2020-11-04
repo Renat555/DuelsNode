@@ -2,7 +2,7 @@
 
 function muveEnemy(muve) {
   let divEnemy = document.querySelector(`[data-hero="enemy"]`);
-  let divSquareEnemy = document.querySelector(`[data-state="enemy"]`);
+  let divSquareEnemy = document.querySelector(`[data-availability="enemy"]`);
   let target = document.querySelector(
     `[data-row="${muve["row"]}"][data-col="${muve["col"]}"]`
   );
@@ -18,8 +18,8 @@ function muveEnemy(muve) {
   let horizontalStart = coordDivEnemy.left;
   let horzontalEnd = coordDivEnemy.left + coordTarget.width * distanceCol;
 
-  divSquareEnemy.dataset.state = "free";
-  target.dataset.state = "enemy";
+  divSquareEnemy.dataset.availability = "free";
+  target.dataset.availability = "enemy";
 
   if (muve["pathType"] == "general") {
     muveGeneralPath(

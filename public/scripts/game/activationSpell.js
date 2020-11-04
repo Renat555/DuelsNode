@@ -48,26 +48,6 @@ function clearElements() {
   }
 }
 
-function chooseEffect(event) {
-  clearEffects();
-
-  let target = event.target;
-  target.dataset.status = "selected";
-  target.classList.add("selected");
-
-  let divSpell = document.querySelector(".userSpell");
-  divSpell.dataset.despell = target.dataset.spell;
-}
-
-function clearEffects() {
-  let divEffects = document.querySelectorAll("[data-duration]");
-
-  for (let item of divEffects) {
-    item.dataset.status = "notSelected";
-    item.classList.remove("selected");
-  }
-}
-
 function sendSpell() {
   let userMuve = document.getElementById("userMuve");
   if (userMuve.hidden) return;
@@ -84,24 +64,13 @@ function sendSpell() {
     return;
   }
 
-  let divSpell = document.querySelector(".userSpell");
-
-  if (!divSpell.dataset.spell) {
-    return;
-  }
-
-  if (divSpell.dataset.spell != "") {
-    let spellInformation = {
-      header: "spell",
-      spell: divSpell.dataset.spell,
-      despell: divSpell.dataset.despell,
-    };
-    ws.send(JSON.stringify(spellInformation));
+  if (localStorage.getItem("complete") == "yes") {
+    ws.send(localStorage.getItem("spellInformation"));
   }
 }
 
 document.addEventListener("click", chooseForm);
 document.addEventListener("click", chooseElement);
 
-let buttonSend = document.getElementsByName("buttonActiveSpell")[0];
-buttonSend.addEventListener("click", sendSpell);
+let buttonActivationSpell = document.getElementsByName("buttonActiveSpell")[0];
+buttonActivationSpell.addEventListener("click", sendSpell);

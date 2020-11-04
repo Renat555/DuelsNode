@@ -4,10 +4,11 @@ const MongoClient = require("mongodb").MongoClient;
 const config = require("config");
 
 const createGame = require("./modules/createGame");
-const processingSpell = require("./modules/gameEngine/processingSpell")
-  .processingSpell;
+const processingSpell = require("./modules/gameEngine/processingSpell/processingSpell");
+const processingDespell = require("./modules/gameEngine/processingDespell");
 const muveHero = require("./modules/gameEngine/muveHero");
 const endMuve = require("./modules/gameEngine/endMuve").endMuve;
+const processingBattlefieldSpell = require("./modules/gameEngine/processingBattlefieldSpell");
 
 const url = config.get("mongo")["url"];
 const mongoClient = new MongoClient(url, { useUnifiedTopology: true });
@@ -21,8 +22,6 @@ mongoClient.connect(function (err, client) {
 
   wss.on("connection", function connection(ws) {
     ws.on("message", function (message) {
-      console.log("WebSocket run");
-
       let request = JSON.parse(message);
       switch (request["header"]) {
         case "createGame":
@@ -30,6 +29,15 @@ mongoClient.connect(function (err, client) {
           break;
         case "spell":
           processingSpell(request, collection, ws, wss);
+          break;
+        case "despell":
+          processingDespell(request, collection, ws, wss);
+          break;
+        case "effect":
+          processingEffect(request, collection, ws, wss);
+          break;
+        case "battlefieldSpell":
+          processingBattlefieldSpell(request, collection, ws, wss);
           break;
         case "muveHero":
           muveHero(request, collection, ws, wss);

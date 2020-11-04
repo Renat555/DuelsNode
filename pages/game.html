@@ -17,6 +17,7 @@
       href="../css/game/gameOtherScreens.css"
     />
     <link rel="stylesheet" type="text/css" href="../css/game/searchEnemy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/game/spells.css" />
     <link rel="stylesheet" type="text/css" href="../css/game/showHints.css" />
     <title>Игра</title>
   </head>
@@ -69,38 +70,43 @@
       </div>
     </div>
     <div class="container-fluid gameTable">
-      <div class="row battleField">
-        <div class="col-6 col-xl-4 container">
+      <div class="row" style="height: 100%">
+        <div class="col-6 col-xl-4 container battlefield">
           <div class="row battleRow justify-content-center">
             <div
               class="col battleSquare"
               data-row="4"
               data-col="0"
-              data-state="free"
+              data-availability="free"
+              data-spell=""
             ></div>
             <div
               class="col battleSquare"
               data-row="4"
               data-col="1"
-              data-state="free"
+              data-availability="free"
+              data-spell=""
             ></div>
             <div
               class="col battleSquare"
               data-row="4"
               data-col="2"
-              data-state="free"
+              data-availability="free"
+              data-spell=""
             ></div>
             <div
               class="col battleSquare"
               data-row="4"
               data-col="3"
-              data-state="free"
+              data-availability="free"
+              data-spell=""
             ></div>
             <div
               class="col battleSquare"
               data-row="4"
               data-col="4"
-              data-state="free"
+              data-availability="free"
+              data-spell=""
             ></div>
           </div>
           <div class="row battleRow justify-content-center">
@@ -108,31 +114,36 @@
               class="col battleSquare"
               data-row="3"
               data-col="0"
-              data-state="free"
+              data-availability="free"
+              data-spell=""
             ></div>
             <div
               class="col battleSquare"
               data-row="3"
               data-col="1"
-              data-state="free"
+              data-availability="free"
+              data-spell=""
             ></div>
             <div
               class="col battleSquare"
               data-row="3"
               data-col="2"
-              data-state="free"
+              data-availability="free"
+              data-spell=""
             ></div>
             <div
               class="col battleSquare"
               data-row="3"
               data-col="3"
-              data-state="free"
+              data-availability="free"
+              data-spell=""
             ></div>
             <div
               class="col battleSquare"
               data-row="3"
               data-col="4"
-              data-state="free"
+              data-availability="free"
+              data-spell=""
             ></div>
           </div>
           <div class="row battleRow justify-content-center">
@@ -140,31 +151,36 @@
               class="col battleSquare"
               data-row="2"
               data-col="0"
-              data-state="free"
+              data-availability="free"
+              data-spell=""
             ></div>
             <div
               class="col battleSquare"
               data-row="2"
               data-col="1"
-              data-state="free"
+              data-availability="free"
+              data-spell=""
             ></div>
             <div
               class="col battleSquare"
               data-row="2"
               data-col="2"
-              data-state="free"
+              data-availability="free"
+              data-spell=""
             ></div>
             <div
               class="col battleSquare"
               data-row="2"
               data-col="3"
-              data-state="free"
+              data-availability="free"
+              data-spell=""
             ></div>
             <div
               class="col battleSquare"
               data-row="2"
               data-col="4"
-              data-state="free"
+              data-availability="free"
+              data-spell=""
             ></div>
           </div>
           <div class="row battleRow justify-content-center">
@@ -172,31 +188,36 @@
               class="col battleSquare"
               data-row="1"
               data-col="0"
-              data-state="free"
+              data-availability="free"
+              data-spell=""
             ></div>
             <div
               class="col battleSquare"
               data-row="1"
               data-col="1"
-              data-state="free"
+              data-availability="free"
+              data-spell=""
             ></div>
             <div
               class="col battleSquare"
               data-row="1"
               data-col="2"
-              data-state="free"
+              data-availability="free"
+              data-spell=""
             ></div>
             <div
               class="col battleSquare"
               data-row="1"
               data-col="3"
-              data-state="free"
+              data-availability="free"
+              data-spell=""
             ></div>
             <div
               class="col battleSquare"
               data-row="1"
               data-col="4"
-              data-state="free"
+              data-availability="free"
+              data-spell=""
             ></div>
           </div>
           <div class="row battleRow justify-content-center">
@@ -204,31 +225,36 @@
               class="col battleSquare"
               data-row="0"
               data-col="0"
-              data-state="free"
+              data-availability="free"
+              data-spell=""
             ></div>
             <div
               class="col battleSquare"
               data-row="0"
               data-col="1"
-              data-state="free"
+              data-availability="free"
+              data-spell=""
             ></div>
             <div
               class="col battleSquare"
               data-row="0"
               data-col="2"
-              data-state="free"
+              data-availability="free"
+              data-spell=""
             ></div>
             <div
               class="col battleSquare"
               data-row="0"
               data-col="3"
-              data-state="free"
+              data-availability="free"
+              data-spell=""
             ></div>
             <div
               class="col battleSquare"
               data-row="0"
               data-col="4"
-              data-state="free"
+              data-availability="free"
+              data-spell=""
             ></div>
           </div>
         </div>
@@ -248,7 +274,6 @@
                 data-spellElement=""
                 data-spellForm=""
                 data-spell=""
-                data-despell=""
               ></div>
             </div>
           </div>

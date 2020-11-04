@@ -11,14 +11,15 @@ function showHints() {
 function showHint(event) {
   let target = event.target;
   if (!target.dataset.spell) return;
+  if (target.dataset.availability) return;
 
   let duration = target.dataset.duration;
   let hint;
 
-  let divHint = document.createElement('div');
-  divHint.classList.add('hint');
+  let divHint = document.createElement("div");
+  divHint.classList.add("hint");
   document.body.append(divHint);
-  
+
   switch (target.dataset.spell) {
     case "fireshild":
       hint = "(огонь, баф) Cнижает на 40% урон от дебафов.";
@@ -39,13 +40,15 @@ function showHint(event) {
       divHint.innerHTML = hint;
       break;
     case "firesphere":
-      hint = "(огонь, дебаф) При получении прямого урона наносит 5-10 единиц урона от клетки.";
+      hint =
+        "(огонь, дебаф) При получении прямого урона наносит 5-10 единиц урона от клетки.";
       if (duration == -1) duration = "действует постоянно.";
       hint += " Осталось ходов: " + duration;
       divHint.innerHTML = hint;
       break;
     case "firepower":
-      hint = "(огонь, баф) Увеличивает урон от атакующих огненных заклинаний на 5 единиц.";
+      hint =
+        "(огонь, баф) Увеличивает урон от атакующих огненных заклинаний на 5 единиц.";
       if (duration == -1) duration = "действует постоянно.";
       hint += " Осталось ходов: " + duration;
       divHint.innerHTML = hint;
@@ -81,25 +84,29 @@ function showHint(event) {
       divHint.innerHTML = hint;
       break;
     case "earthshild":
-      hint = "(земля, баф) Снижает урон от дебафов и атакующих заклинаний на 10 единиц.";
+      hint =
+        "(земля, баф) Снижает урон от дебафов и атакующих заклинаний на 10 единиц.";
       if (duration == -1) duration = "действует постоянно.";
       hint += " Осталось ходов: " + duration;
       divHint.innerHTML = hint;
       break;
     case "earthcrown":
-      hint = "(земля, баф) Увеличивает вероятность попаданя по противнику атакующими заклинаниями на 15%.";
+      hint =
+        "(земля, баф) Увеличивает вероятность попаданя по противнику атакующими заклинаниями на 15%.";
       if (duration == -1) duration = "действует постоянно.";
       hint += " Осталось ходов: " + duration;
       divHint.innerHTML = hint;
       break;
     case "earthsource":
-      hint = "(земля, баф) Увеличивает урон от атакующих земных заклинаний на 15 единиц, увеличивает длительность дебафов земли на один ход.";
+      hint =
+        "(земля, баф) Увеличивает урон от атакующих земных заклинаний на 15 единиц, увеличивает длительность дебафов земли на один ход.";
       if (duration == -1) duration = "действует постоянно.";
       hint += " Осталось ходов: " + duration;
       divHint.innerHTML = hint;
       break;
     case "earthsphere":
-      hint = "(земля, дебаф) Увеличивает вероятность попадания по противнику дебафами и заклинаниями урона на 5%.";
+      hint =
+        "(земля, дебаф) Увеличивает вероятность попадания по противнику дебафами и заклинаниями урона на 5%.";
       if (duration == -1) duration = "действует постоянно.";
       hint += " Осталось ходов: " + duration;
       divHint.innerHTML = hint;
@@ -111,25 +118,29 @@ function showHint(event) {
       divHint.innerHTML = hint;
       break;
     case "earthpower":
-      hint = "(земля, баф) Увелчивает срок действия бафов земли на четыре хода, срабатывает на каждом бафе с вероятностью 50%.";
+      hint =
+        "(земля, баф) Увелчивает срок действия бафов земли на четыре хода, срабатывает на каждом бафе с вероятностью 50%.";
       if (duration == -1) duration = "действует постоянно.";
       hint += " Осталось ходов: " + duration;
       divHint.innerHTML = hint;
       break;
     case "airshild":
-      hint = "(воздух, дебаф) Снижает вероятность пападания по противнику заклинаниями урона на 33%.";
+      hint =
+        "(воздух, дебаф) Снижает вероятность пападания по противнику заклинаниями урона на 33%.";
       if (duration == -1) duration = "действует постоянно.";
       hint += " Осталось ходов: " + duration;
       divHint.innerHTML = hint;
       break;
     case "aircrown":
-      hint = "(воздух, дебаф) Снижает вероятность успешного наложения бафа на 33%.";
+      hint =
+        "(воздух, дебаф) Снижает вероятность успешного наложения бафа на 33%.";
       if (duration == -1) duration = "действует постоянно.";
       hint += " Осталось ходов: " + duration;
       divHint.innerHTML = hint;
       break;
     case "airsource":
-      hint = "(воздух, баф) Увеличивает вероятность попадания по противнику дебафами и заклинаниями прямого урона на 10%.";
+      hint =
+        "(воздух, баф) Увеличивает вероятность попадания по противнику дебафами и заклинаниями прямого урона на 10%.";
       if (duration == -1) duration = "действует постоянно.";
       hint += " Осталось ходов: " + duration;
       divHint.innerHTML = hint;
@@ -141,13 +152,15 @@ function showHint(event) {
       divHint.innerHTML = hint;
       break;
     case "airstamp":
-      hint = "(воздух, дебаф) Снижает вероятность успешного наложения бафа на 10%.";
+      hint =
+        "(воздух, дебаф) Снижает вероятность успешного наложения бафа на 10%.";
       if (duration == -1) duration = "действует постоянно.";
       hint += " Осталось ходов: " + duration;
       divHint.innerHTML = hint;
       break;
     case "airpower":
-      hint = "(воздух, баф) Уменьшает вероятность попадания по вам заклинаниями урона, на 20%.";
+      hint =
+        "(воздух, баф) Уменьшает вероятность попадания по вам заклинаниями урона, на 20%.";
       if (duration == -1) duration = "действует постоянно.";
       hint += " Осталось ходов: " + duration;
       divHint.innerHTML = hint;
@@ -177,19 +190,22 @@ function showHint(event) {
       divHint.innerHTML = hint;
       break;
     case "lifepower":
-      hint = "(жизнь, баф) Не позволяет противнику снимать с вас бафы жизни, до тех пока не будет снят этот баф.";
+      hint =
+        "(жизнь, баф) Не позволяет противнику снимать с вас бафы жизни, до тех пока не будет снят этот баф.";
       if (duration == -1) duration = "действует постоянно.";
       hint += " Осталось ходов: " + duration;
       divHint.innerHTML = hint;
       break;
     case "deathshild":
-      hint = "(смерть, дебаф) Снижает вероятность успешного наложения бафов на 50%.";
+      hint =
+        "(смерть, дебаф) Снижает вероятность успешного наложения бафов на 50%.";
       if (duration == -1) duration = "действует постоянно.";
       hint += " Осталось ходов: " + duration;
       divHint.innerHTML = hint;
       break;
     case "deathsphere":
-      hint = "(смерть, дебаф) Увеличивает урон от накладываемых дебафов на 15 единиц.";
+      hint =
+        "(смерть, дебаф) Увеличивает урон от накладываемых дебафов на 15 единиц.";
       if (duration == -1) duration = "действует постоянно.";
       hint += " Осталось ходов: " + duration;
       divHint.innerHTML = hint;
@@ -201,13 +217,15 @@ function showHint(event) {
       divHint.innerHTML = hint;
       break;
     case "deathkey":
-      hint = "(смерть, баф) С вероятностью 50%, при получении смертельного урона от атакующего заклинания, ваше здоровье восстановиться до единицы.";
+      hint =
+        "(смерть, баф) С вероятностью 50%, при получении смертельного урона от атакующего заклинания, ваше здоровье восстановиться до единицы.";
       if (duration == -1) duration = "действует постоянно.";
       hint += " Осталось ходов: " + duration;
       divHint.innerHTML = hint;
       break;
     case "deathflow":
-      hint = "(смерть, дебаф) Отнимает пять единиц здоровья и восстанавливает пять единиц здоровья наложившему дебаф.";
+      hint =
+        "(смерть, дебаф) Отнимает пять единиц здоровья и восстанавливает пять единиц здоровья наложившему дебаф.";
       if (duration == -1) duration = "действует постоянно.";
       hint += " Осталось ходов: " + duration;
       divHint.innerHTML = hint;
@@ -222,18 +240,19 @@ function showHint(event) {
   let coordHint = divHint.getBoundingClientRect();
   let top, left;
 
-  if (coordSpell['top'] < 300) {
-    top = coordSpell['top'] + coordSpell['height'] + 10;
+  if (coordSpell["top"] < 300) {
+    top = coordSpell["top"] + coordSpell["height"] + 10;
   } else {
-    top = coordSpell['top'] - coordHint['height'] - 10;
+    top = coordSpell["top"] - coordHint["height"] - 10;
   }
 
-  if (coordSpell['left'] < 150) {
-    left = coordSpell['left'];
-  } else if (document.documentElement.clientWidth - coordSpell['right'] < 150) {
-    left = coordSpell['right'] - coordHint['width'];
+  if (coordSpell["left"] < 150) {
+    left = coordSpell["left"];
+  } else if (document.documentElement.clientWidth - coordSpell["right"] < 150) {
+    left = coordSpell["right"] - coordHint["width"];
   } else {
-    left = (coordSpell['left'] + coordSpell['width']/2) - coordHint['width']/2;
+    left =
+      coordSpell["left"] + coordSpell["width"] / 2 - coordHint["width"] / 2;
   }
 
   divHint.style.top = top + "px";
