@@ -9,9 +9,9 @@ $opt = [
    PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
 ];
 
-$DB = 'kz123755_organizer';
-$userDB = 'kz123_user';
-$passwordDB = 'asdf123456';
+$DB = 'duels_db';
+$userDB = 'mysql';
+$passwordDB = 'mysql';
 $pdo = new PDO("mysql:host=localhost;dbname=$DB", $userDB, $passwordDB, $opt);
 
 session_start();
