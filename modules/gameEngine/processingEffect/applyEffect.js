@@ -18,7 +18,7 @@ function saveOrMergeEffect(spell, player) {
   if (mark == 0) spell.saveEffect(player);
 }
 
-function applySpell(spell, user, enemy) {
+function applyEffect(spell, user, enemy) {
   user.actionPoints = user.actionPoints - spell.actionPoints;
   user.energyPoints = user.energyPoints - spell.energyPoints;
 
@@ -188,4 +188,4 @@ function applySpell(spell, user, enemy) {
   }
 }
 
-module.exports = applySpell;
+module.exports = applyEffect;

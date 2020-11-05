@@ -1,26 +1,13 @@
-function applyUserEffectsOnSpell(player, spell) {
+function applyUserEffectsOnEffect(player, spell) {
   for (let i = 0; i < player["buffs"].length; i++) {
     if (!isHaveDependences(player["buffs"][i], spell)) continue;
 
     switch (player["buffs"][i]["spellName"]) {
-      case "firecrown":
-        player["buffs"][i].increaseSpellDamage(spell);
-        break;
-      case "firepower":
-        player["buffs"][i].increaseSpellDamage(spell);
-        break;
       case "waterpower":
         player["buffs"][i].increaseSpellDuration(spell);
         break;
-      case "earthcrown":
-        player["buffs"][i].increaseSpellHitProbability(spell);
-        break;
       case "earthsource":
-        if (spell["spellName"] == "earthsphere") {
-          player["buffs"][i].increaseSpellDuration(spell);
-        } else {
-          player["buffs"][i].increaseSpellDamage(spell);
-        }
+        player["buffs"][i].increaseSpellDuration(spell);
         break;
       case "earthpower":
         player["buffs"][i].increaseSpellDuration(spell);
@@ -35,9 +22,6 @@ function applyUserEffectsOnSpell(player, spell) {
     if (!isHaveDependences(player["debuffs"][i], spell)) continue;
 
     switch (player["debuffs"][i]["spellName"]) {
-      case "airshild":
-        player["debuffs"][i].decreaseSpellHitProbability(spell);
-        break;
       case "aircrown":
         player["debuffs"][i].decreaseSpellHitProbability(spell);
         break;
@@ -57,4 +41,4 @@ function applyUserEffectsOnSpell(player, spell) {
   }
 }
 
-module.exports = applyUserEffectsOnSpell;
+module.exports = applyUserEffectsOnEffect;
