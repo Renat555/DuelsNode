@@ -1,0 +1,211 @@
+body {
+  margin: 0px;
+  background-image: url(../img/fon2.jpg);
+  background-size: cover;
+}
+#enemy {
+  height: 170px;
+  box-shadow: 0px -6px 0px -4px #7a7a7a inset;
+  background-image: url(../img/fonGame.jpg);
+  background-size: cover;
+}
+.healthContainer {
+  padding-top: 10px;
+  height: 30px;
+  width: 98%;
+  margin-left: 1%;
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+.healthBorder {
+  width: 99%;
+  height: 100%;
+  margin-left: 0.5%;
+  background-color: gray;
+  border: 3px solid white;
+  border-radius: 10px;
+}
+.health {
+  background-color: green;
+  height: 100%;
+  color: white;
+  text-align: right;
+  border-radius: 10px;
+}
+.effects {
+  width: 100%;
+  margin: 0 0 10px 0;
+  text-align: center;
+}
+.effect {
+  margin: 0 1% 0 1%;
+}
+.spell {
+  text-align: center;
+  color: white;
+  display: inline-block;
+  vertical-align: middle;
+  height: 40px;
+  width: 330px;
+  font-size: 30px;
+  background-color: #dbac0069;
+  border-radius: 10px;
+  border: 2px solid #003d14;
+  text-shadow: 1px 0 1px #000, 0 1px 1px #000, -1px 0 1px #000, 0 -1px 1px #000;
+  cursor: help;
+}
+.battleSpell {
+  width: 15%;
+  height: 5.5%;
+  border-radius: 20px;
+  text-align: center;
+  background-color: #dbac0069;
+  Box-shadow:0px 3px 0px #003d14,0px -3px 0px #003d14, 3px 0px 0px #003d14,-3px 0px 0px #003d14;
+}
+#firstSpellEnemy {
+  position: fixed;
+  margin-top: 5%;
+  margin-left: 5%;
+  display: inline-block;
+}
+#secondSpellEnemy {
+  position: fixed;
+  margin-top: 10%;
+  margin-left: 8%;
+  display: inline-block;
+}
+#thirdSpellEnemy {
+  position: fixed;
+  margin-top: 15%;
+  margin-left: 11%;
+  display: inline-block;
+}
+#battlefield {
+  width: 100%;
+}
+.description {
+  position: fixed;
+  right: 0px;
+  color: black;
+  border-radius: 20px;
+  width: 500px;
+  padding: 0.7em;
+  font-style: italic;
+  text-align: justify;
+  border: 2px solid #003d14;
+  background-color: #fff3c7;
+  font-size: 27px;
+}
+#enemyName {
+  width: 500px;
+  background-color: white;
+  color: black;
+  border-radius: 20px;
+  text-align: center;
+  font-size: 30px;
+}
+#user {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-image: url(../img/fonGame.jpg);
+  background-size: cover;
+}
+.muve {
+  height: 55px;
+  width: 100%;
+  font-size: 40px;
+  text-align: center;
+  vertical-align: middle;
+  color: #474747;
+  font-weight: 800;
+  border-top: 2px solid #7a7a7a;
+  border-bottom: 2px solid #7a7a7a;
+  margin-bottom: 10px;
+}
+#userMuve {
+  background-color: #519e5e;
+}
+#enemyMuve {
+  background-color: #c44957;
+}
+.choose {
+  display: inline-block;
+  width: 90%;
+  float: left;
+  text-align: center;
+  font-size: 30px;
+  color: white;
+  margin: 0 0 10px 0;
+  text-shadow: 1px 0 1px #000, 0 1px 1px #000, -1px 0 1px #000, 0 -1px 1px #000;
+}
+.element {
+  width: 165px;
+  height: 40px;
+  color: white;
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 3% 0 3%;
+  border-radius: 10px;
+  background-color: #dbac0069;
+  border: 2px solid #003d14;
+  cursor: pointer;
+}
+.form {
+  width: 165px;
+  height: 40px;
+  margin: 0;
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 10px;
+  margin: 0 3% 0 3%;
+  background-color: #dbac0069;
+  border: 2px solid #003d14;
+  cursor: pointer;
+}
+.userSpell {
+  margin: 0 4% 0 4%;
+}
+#buttonMuve {
+  font-size: 22px;
+  font-weight: 800;
+  width: 200px;
+  height: 160px;
+  font-family: Tahoma;
+  display: inline-block;
+  color: #fff;
+  text-decoration: none;
+  text-shadow: 0 -1px rgba(0,0,0,.5);
+  user-select: none;
+  padding: .7em 1.5em;
+  border: 1px solid rgb(80,32,0);
+  border-radius: 25px;
+  outline: none;
+  background: rgb(35, 148, 94) linear-gradient(rgb(48, 107, 27), rgb(35, 148, 94) 80%);
+  box-shadow:
+   0 6px rgb(17, 87, 6),
+   0 6px 15px rgba(0,0,0,.4),
+   inset 0 3px rgba(255,255,255,.3),
+   inset 0 0 3px rgba(255,255,255,.5);
+  transition: .2s;
+}
+#buttonMuve:hover {
+  cursor: pointer;
+  background: rgb(41, 166, 143) linear-gradient(rgb(44, 125, 31), rgb(41, 166, 143) 80%);
+}
+#buttonMuve:active {
+  background: rgb(120,63,25) linear-gradient(rgb(25, 120, 41) 20%, rgb(41, 166, 143));
+  box-shadow:
+   0 2px rgb(22, 87, 6),
+   0 1px 6px rgba(0,0,0,.4),
+   inset 0 1px rgba(255,255,255,.3),
+   inset 0 0 3px rgba(255,255,255,.5);
+  -webkit-transform: translate(0, 4px);
+  transform: translate(0, 4px);
+}
+.selected {
+  background-color: #487f00cc;
+}
+.red {
+  background-color: #7f2600cc;
+}
