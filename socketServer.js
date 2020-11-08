@@ -5,10 +5,11 @@ const config = require("config");
 
 const createGame = require("./modules/createGame");
 const processingSpell = require("./modules/gameEngine/processingSpell/processingSpell");
-const processingDespell = require("./modules/gameEngine/processingDespell");
+const processingEffect = require("./modules/gameEngine/processingEffect/processingEffect");
+const processingDespell = require("./modules/gameEngine/processingDespell/processingDespell");
 const muveHero = require("./modules/gameEngine/muveHero");
-const endMuve = require("./modules/gameEngine/endMuve").endMuve;
-const processingBattlefieldSpell = require("./modules/gameEngine/processingBattlefieldSpell");
+const endMuve = require("./modules/gameEngine/endMuve/endMuve");
+const processingBattlefieldSpell = require("./modules/gameEngine/processingBattlefieldSpell/processingBattlefieldSpell");
 
 const url = config.get("mongo")["url"];
 const mongoClient = new MongoClient(url, { useUnifiedTopology: true });

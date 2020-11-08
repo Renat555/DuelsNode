@@ -1,4 +1,4 @@
-const spellClasses = require("./spellClasses");
+const spellClasses = require("../spellClasses");
 
 function createDespell(spellName, despellName) {
   let spell;

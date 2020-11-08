@@ -192,6 +192,24 @@ function removeEarthshild() {
   }
 }
 
+function spell(spellName) {
+  let spellInformation = {
+    header: "spell",
+    spell: spellName,
+  };
+  localStorage.setItem("spellInformation", JSON.stringify(spellInformation));
+  localStorage.setItem("complete", "yes");
+}
+
+function effect(spellName) {
+  let spellInformation = {
+    header: "effect",
+    spell: spellName,
+  };
+  localStorage.setItem("spellInformation", JSON.stringify(spellInformation));
+  localStorage.setItem("complete", "yes");
+}
+
 function createSpell() {
   let userMuve = document.getElementById("userMuve");
   if (userMuve.hidden) return;
@@ -220,43 +238,170 @@ function createSpell() {
   let divBattlefield = document.getElementsByClassName("battlefield")[0];
 
   switch (divSpell.dataset.spell) {
+    case "firespear":
+      spell(divSpell.dataset.spell);
+      break;
+    case "fireshild":
+      effect(divSpell.dataset.spell);
+      break;
+    case "firecrown":
+      effect(divSpell.dataset.spell);
+      break;
+    case "firesource":
+      effect(divSpell.dataset.spell);
+      break;
+    case "firesphere":
+      effect(divSpell.dataset.spell);
+      break;
+    case "firestamp":
+      spell(divSpell.dataset.spell);
+      break;
     case "firekey":
       firekey(enemyEffects);
+      break;
+    case "fireflow":
+      spell(divSpell.dataset.spell);
+      break;
+    case "firepower":
+      effect(divSpell.dataset.spell);
+      break;
+    case "waterspear":
+      spell(divSpell.dataset.spell);
+      break;
+    case "watershild":
+      effect(divSpell.dataset.spell);
+      break;
+    case "watercrown":
+      effect(divSpell.dataset.spell);
       break;
     case "watersource":
       watersource(enemyEffects);
       break;
+    case "watersphere":
+      effect(divSpell.dataset.spell);
+      break;
+    case "waterstamp":
+      effect(divSpell.dataset.spell);
+      break;
     case "waterkey":
       waterkey(userEffects);
+      break;
+    case "waterflow":
+      spell(divSpell.dataset.spell);
+      break;
+    case "waterpower":
+      effect(divSpell.dataset.spell);
+      break;
+    case "earthspear":
+      spell(divSpell.dataset.spell);
       break;
     case "earthshild":
       document.addEventListener("mouseover", earthshildMuve);
       divBattlefield.addEventListener("click", earthshildPreparing);
+    case "earthcrown":
+      effect(divSpell.dataset.spell);
+      break;
+    case "earthsource":
+      effect(divSpell.dataset.spell);
+      break;
+    case "earthsphere":
+      effect(divSpell.dataset.spell);
+      break;
+    case "earthstamp":
+      effect(divSpell.dataset.spell);
+      break;
     case "earthkey":
       earthkey(userEffects);
+      break;
+    case "earthflow":
+      spell(divSpell.dataset.spell);
+      break;
+    case "earthpower":
+      effect(divSpell.dataset.spell);
+      break;
+    case "airspear":
+      spell(divSpell.dataset.spell);
+      break;
+    case "airshild":
+      effect(divSpell.dataset.spell);
+      break;
+    case "aircrown":
+      effect(divSpell.dataset.spell);
+      break;
+    case "airsource":
+      effect(divSpell.dataset.spell);
+      break;
+    case "airsphere":
+      effect(divSpell.dataset.spell);
+      break;
+    case "airstamp":
+      effect(divSpell.dataset.spell);
       break;
     case "airkey":
       airkey(enemyEffects);
       break;
+    case "airflow":
+      spell(divSpell.dataset.spell);
+      break;
+    case "airpower":
+      effect(divSpell.dataset.spell);
+      break;
     case "lifespear":
       lifespear(userEffects);
+      break;
+    case "lifeshild":
+      effect(divSpell.dataset.spell);
+      break;
+    case "lifecrown":
+      spell(divSpell.dataset.spell);
+      break;
+    case "lifesource":
+      spell(divSpell.dataset.spell);
+      break;
+    case "lifesphere":
+      effect(divSpell.dataset.spell);
+      break;
+    case "lifestamp":
+      effect(divSpell.dataset.spell);
       break;
     case "lifekey":
       lifekey(userEffects);
       break;
+    case "lifeflow":
+      effect(divSpell.dataset.spell);
+      break;
+    case "lifepower":
+      effect(divSpell.dataset.spell);
+      break;
+    case "deathspear":
+      spell(divSpell.dataset.spell);
+      break;
+    case "deathspear":
+      spell(divSpell.dataset.spell);
+      break;
+    case "deathshild":
+      effect(divSpell.dataset.spell);
+      break;
+    case "deathcrown":
+      spell(divSpell.dataset.spell);
+      break;
+    case "deathsource":
+      spell(divSpell.dataset.spell);
+      break;
+    case "deathsphere":
+      effect(divSpell.dataset.spell);
+      break;
+    case "deathstamp":
+      effect(divSpell.dataset.spell);
+      break;
+    case "deathkey":
+      effect(divSpell.dataset.spell);
+      break;
+    case "deathflow":
+      effect(divSpell.dataset.spell);
+      break;
     case "deathpower":
       deathpower(enemyEffects);
-      break;
-    default:
-      let spellInformation = {
-        header: "spell",
-        spell: divSpell.dataset.spell,
-      };
-      localStorage.setItem(
-        "spellInformation",
-        JSON.stringify(spellInformation)
-      );
-      localStorage.setItem("complete", "yes");
       break;
   }
 }

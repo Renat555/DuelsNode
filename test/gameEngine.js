@@ -1,8 +1,7 @@
-
-const chai = require('chai');
+const chai = require("chai");
 const expect = chai.expect;
 
-const spellClasses = require('./../modules/gameEngine/spellClasses');
+const spellClasses = require("../modules/gameEngine/spellClasses");
 const Player = spellClasses.Player;
 const Firespear = spellClasses.Firespear;
 const Fireshild = spellClasses.Fireshild;
@@ -59,71 +58,83 @@ const Deathkey = spellClasses.Deathkey;
 const Deathflow = spellClasses.Deathflow;
 const Deathpower = spellClasses.Deathpower;
 
-const processingSpell = require('./../modules/gameEngine/processingSpell');
-const processingSpellByEnemyEffects = processingSpell.processingSpellByEnemyEffects;
+const processingSpell = require("./../modules/gameEngine/processingSpell");
+const processingSpellByEnemyEffects =
+  processingSpell.processingSpellByEnemyEffects;
 
-const createPlayers = require('./../modules/gameEngine/createPlayers');
+const createPlayers = require("../modules/gameEngine/createPlayers");
 const createEffectsFromSpellNames = createPlayers.createEffectsFromSpellNames;
-const createSpellNamesFromEffects = require('./../modules/gameEngine/savePlayers').createSpellNamesFromEffects;
-const createSpell = require('./../modules/gameEngine/createSpell');
+const createSpellNamesFromEffects = require("../modules/gameEngine/savePlayers")
+  .createSpellNamesFromEffects;
+const createSpell = require("./../modules/gameEngine/createSpell");
 
-const endMuve = require('./../modules/gameEngine/endMuve');
+const endMuve = require("./../modules/gameEngine/endMuve");
 const processingEffect = endMuve.processingEffect;
 
-describe('game engine', function () {
-
-  describe('processing users and battlfield by spell', function () {
-
-    it('create effects from spell names', function() {
+describe("game engine", function () {
+  describe("processing users and battlfield by spell", function () {
+    it("create effects from spell names", function () {
       let expectEffects = [];
-      expectEffects[0] = new Fireshild;
-      expectEffects[1] = new Waterpower;
-      expectEffects[2] = new Airstamp;
+      expectEffects[0] = new Fireshild();
+      expectEffects[1] = new Waterpower();
+      expectEffects[2] = new Airstamp();
 
-      let resultEffects = createEffectsFromSpellNames([['fireshild', 4], ['waterpower', -1], ['airstamp', 10]]);
+      let resultEffects = createEffectsFromSpellNames([
+        ["fireshild", 4],
+        ["waterpower", -1],
+        ["airstamp", 10],
+      ]);
       expect(resultEffects).to.deep.equal(expectEffects);
     });
 
-    it('create spell names from effects', function() {
+    it("create spell names from effects", function () {
       let effects = [];
-      effects[0] = new Fireshild;
-      effects[1] = new Waterpower;
-      effects[2] = new Airstamp;
+      effects[0] = new Fireshild();
+      effects[1] = new Waterpower();
+      effects[2] = new Airstamp();
 
       let resultNames = createSpellNamesFromEffects(effects);
-      let expectNames = [['fireshild', 4], ['waterpower', -1], ['airstamp', 10]];
+      let expectNames = [
+        ["fireshild", 4],
+        ["waterpower", -1],
+        ["airstamp", 10],
+      ];
 
       expect(resultNames).to.deep.equal(expectNames);
     });
 
-    it('create spell from name', function() {
+    it("create spell from name", function () {
       let spellExpect = new Watersource();
-      let spellResultl = createSpell('watersource');
+      let spellResultl = createSpell("watersource");
 
       expect(spellResultl).to.deep.equal(spellExpect);
     });
 
-    it('processing effect by others effects', function() {
+    it("processing effect by others effects", function () {
       let spellExpect = new Firesource();
       let spellResult = new Firesource();
       spellExpect.maxDamage = spellResult.maxDamage;
       spellExpect.currentDamage = spellResult.currentDamage;
 
       let player = new Player(3, 3, 250, 250, 0, [], []);
-      player['buffs'][0] = new Fireshild();
+      player["buffs"][0] = new Fireshild();
 
       processingEffect(spellResult, player);
 
-      spellExpect.decreaseDamage(40, 0, 'Огненный щит', player['buffs'][0].descriptionForUser, player['buffs'][0].descriptionForEnemy);
+      spellExpect.decreaseDamage(
+        40,
+        0,
+        "Огненный щит",
+        player["buffs"][0].descriptionForUser,
+        player["buffs"][0].descriptionForEnemy
+      );
 
       expect(spellResult).to.deep.equal(spellExpect);
     });
-
   });
 
-  describe('spells', function () {
-
-    it('firespear', function() {
+  describe("spells", function () {
+    it("firespear", function () {
       let firespear = new Firespear();
 
       let enemyResult = new Player(3, 3, 250, 250, 0, [], []);
@@ -131,13 +142,13 @@ describe('game engine', function () {
       enemyExpect.health -= firespear.currentDamage;
 
       firespear.decreasePlayerHealth(enemyResult);
-      enemyResult['descriptionForUser'] = '';
-      enemyResult['descriptionForEnemy'] = '';
+      enemyResult["descriptionForUser"] = "";
+      enemyResult["descriptionForEnemy"] = "";
 
       expect(enemyResult).to.deep.equal(enemyExpect);
     });
 
-    it('fireshild', function() {
+    it("fireshild", function () {
       let fireshild = new Fireshild();
 
       let spellResult = new Firesource();
@@ -146,15 +157,17 @@ describe('game engine', function () {
       spellExpect.currentDamage = spellResult.currentDamage;
 
       fireshild.decreaseSpellDamage(spellResult);
-      spellExpect.currentDamage -= Math.round(spellExpect.currentDamage*fireshild.percentDecreaseDamage/100);
+      spellExpect.currentDamage -= Math.round(
+        (spellExpect.currentDamage * fireshild.percentDecreaseDamage) / 100
+      );
 
-      spellResult['descriptionForUser'] = '';
-      spellResult['descriptionForEnemy'] = '';
+      spellResult["descriptionForUser"] = "";
+      spellResult["descriptionForEnemy"] = "";
 
       expect(spellResult).to.deep.equal(spellExpect);
     });
 
-    it('firecrown', function() {
+    it("firecrown", function () {
       let firecrown = new Firecrown();
 
       let spellExpect = new Firespear();
@@ -162,16 +175,18 @@ describe('game engine', function () {
       spellExpect.maxDamage = spellResult.maxDamage;
       spellExpect.currentDamage = spellResult.currentDamage;
 
-      spellExpect.currentDamage += Math.round(spellExpect.maxDamage*firecrown.percentIncreaseDamage/100);
+      spellExpect.currentDamage += Math.round(
+        (spellExpect.maxDamage * firecrown.percentIncreaseDamage) / 100
+      );
       firecrown.increaseSpellDamage(spellResult);
 
-      spellResult['descriptionForUser'] = '';
-      spellResult['descriptionForEnemy'] = '';
+      spellResult["descriptionForUser"] = "";
+      spellResult["descriptionForEnemy"] = "";
 
       expect(spellResult).to.deep.equal(spellExpect);
     });
 
-    it('firesource', function() {
+    it("firesource", function () {
       let firesource = new Firesource();
 
       let enemyResult = new Player(3, 3, 250, 250, 0, [], []);
@@ -179,51 +194,52 @@ describe('game engine', function () {
       enemyExpect.health -= firesource.currentDamage;
 
       firesource.decreasePlayerHealth(enemyResult);
-      enemyResult['descriptionForUser'] = '';
-      enemyResult['descriptionForEnemy'] = '';
+      enemyResult["descriptionForUser"] = "";
+      enemyResult["descriptionForEnemy"] = "";
 
       expect(enemyResult).to.deep.equal(enemyExpect);
     });
 
-    it('firesphere', function() {
+    it("firesphere", function () {
       let firesphere = new Firesphere();
       let firespear = new Firespear();
 
       let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
-      enemyExpect.health = enemyExpect.health - firespear.currentDamage - firesphere.currentDamage;
+      enemyExpect.health =
+        enemyExpect.health - firespear.currentDamage - firesphere.currentDamage;
 
       let enemyResult = new Player(3, 3, 250, 250, 0, [], []);
       firesphere.saveEffect(enemyResult);
       processingSpellByEnemyEffects(enemyResult, firespear);
       firespear.decreasePlayerHealth(enemyResult);
 
-      enemyResult['descriptionForUser'] = '';
-      enemyResult['descriptionForEnemy'] = '';
-      enemyResult['debuffs'] = [];
+      enemyResult["descriptionForUser"] = "";
+      enemyResult["descriptionForEnemy"] = "";
+      enemyResult["debuffs"] = [];
 
       expect(enemyResult).to.deep.equal(enemyExpect);
     });
 
-    it('firestamp', function() {
+    it("firestamp", function () {
       let firestamp = new Firestamp();
       let firesource = new Firesource();
 
       let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
-      enemyExpect['debuffs'][0] = firesource;
-      enemyExpect['debuffs'][0]['duration'] += 2;
+      enemyExpect["debuffs"][0] = firesource;
+      enemyExpect["debuffs"][0]["duration"] += 2;
 
       let enemyResult = new Player(3, 3, 250, 250, 0, [], []);
       firesource.saveEffect(enemyResult);
       firestamp.increaseSpellDuration(enemyResult);
 
-      enemyResult['descriptionForUser'] = '';
-      enemyResult['descriptionForEnemy'] = '';
+      enemyResult["descriptionForUser"] = "";
+      enemyResult["descriptionForEnemy"] = "";
 
       expect(enemyResult).to.deep.equal(enemyExpect);
     });
 
-    it('firekey', function() {
-      let firekey = new Firekey('fireshild');
+    it("firekey", function () {
+      let firekey = new Firekey("fireshild");
       let fireshild = new Fireshild();
 
       let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
@@ -232,13 +248,13 @@ describe('game engine', function () {
       fireshild.saveEffect(enemyResult);
       firekey.deleteEffect(enemyResult);
 
-      enemyResult['descriptionForUser'] = '';
-      enemyResult['descriptionForEnemy'] = '';
+      enemyResult["descriptionForUser"] = "";
+      enemyResult["descriptionForEnemy"] = "";
 
       expect(enemyResult).to.deep.equal(enemyExpect);
     });
 
-    it('fireflow', function() {
+    it("fireflow", function () {
       let fireflow = new Fireflow();
       fireflow.hitProbability = 1;
 
@@ -247,13 +263,13 @@ describe('game engine', function () {
       enemyExpect.health -= fireflow.currentDamage;
 
       fireflow.decreasePlayerHealth(enemyResult);
-      enemyResult['descriptionForUser'] = '';
-      enemyResult['descriptionForEnemy'] = '';
+      enemyResult["descriptionForUser"] = "";
+      enemyResult["descriptionForEnemy"] = "";
 
       expect(enemyResult).to.deep.equal(enemyExpect);
     });
 
-    it('firepower', function() {
+    it("firepower", function () {
       let firepower = new Firepower();
 
       let spellExpect = new Firespear();
@@ -264,13 +280,13 @@ describe('game engine', function () {
       spellExpect.currentDamage += 5;
       firepower.increaseSpellDamage(spellResult);
 
-      spellResult['descriptionForUser'] = '';
-      spellResult['descriptionForEnemy'] = '';
+      spellResult["descriptionForUser"] = "";
+      spellResult["descriptionForEnemy"] = "";
 
       expect(spellResult).to.deep.equal(spellExpect);
     });
 
-    it('waterspear', function() {
+    it("waterspear", function () {
       let waterspear = new Waterspear();
       let firesource = new Firesource();
 
@@ -281,14 +297,14 @@ describe('game engine', function () {
       firesource.saveEffect(enemyResult);
       waterspear.decreasePlayerHealth(enemyResult);
 
-      enemyResult['debuffs'] = [];
-      enemyResult['descriptionForUser'] = '';
-      enemyResult['descriptionForEnemy'] = '';
+      enemyResult["debuffs"] = [];
+      enemyResult["descriptionForUser"] = "";
+      enemyResult["descriptionForEnemy"] = "";
 
       expect(enemyResult).to.deep.equal(enemyExpect);
     });
 
-    it('watershild', function() {
+    it("watershild", function () {
       let watershild = new Watershild();
 
       let spellExpect = new Firespear();
@@ -296,17 +312,19 @@ describe('game engine', function () {
       spellExpect.maxDamage = spellResult.maxDamage;
       spellExpect.currentDamage = spellResult.currentDamage;
 
-      spellExpect.currentDamage = spellExpect.currentDamage - Math.round(spellExpect.currentDamage*40/100);;
+      spellExpect.currentDamage =
+        spellExpect.currentDamage -
+        Math.round((spellExpect.currentDamage * 40) / 100);
 
       watershild.decreaseSpellDamage(spellResult);
 
-      spellResult['descriptionForUser'] = '';
-      spellResult['descriptionForEnemy'] = '';
+      spellResult["descriptionForUser"] = "";
+      spellResult["descriptionForEnemy"] = "";
 
       expect(spellResult).to.deep.equal(spellExpect);
     });
 
-    it('watercrown', function() {
+    it("watercrown", function () {
       let watercrown = new Watercrown();
 
       let spellResult = new Firesource();
@@ -315,16 +333,18 @@ describe('game engine', function () {
       spellExpect.currentDamage = spellResult.currentDamage;
 
       watercrown.decreaseSpellDamage(spellResult);
-      spellExpect.currentDamage -= Math.round(spellExpect.currentDamage*watercrown.percentDecreaseDamage/100);
+      spellExpect.currentDamage -= Math.round(
+        (spellExpect.currentDamage * watercrown.percentDecreaseDamage) / 100
+      );
 
-      spellResult['descriptionForUser'] = '';
-      spellResult['descriptionForEnemy'] = '';
+      spellResult["descriptionForUser"] = "";
+      spellResult["descriptionForEnemy"] = "";
 
       expect(spellResult).to.deep.equal(spellExpect);
     });
 
-    it('watersource', function() {
-      let watersource = new Watersource('firesource');
+    it("watersource", function () {
+      let watersource = new Watersource("firesource");
       watersource.hitProbability = 1;
       let firesource = new Firesource();
 
@@ -334,13 +354,13 @@ describe('game engine', function () {
       firesource.saveEffect(enemyResult);
       watersource.deleteEffect(enemyResult);
 
-      enemyResult['descriptionForUser'] = '';
-      enemyResult['descriptionForEnemy'] = '';
+      enemyResult["descriptionForUser"] = "";
+      enemyResult["descriptionForEnemy"] = "";
 
       expect(enemyResult).to.deep.equal(enemyExpect);
     });
 
-    it('watersphere', function() {
+    it("watersphere", function () {
       let watersphere = new Watersphere();
 
       let spellExpect = new Firespear();
@@ -351,13 +371,13 @@ describe('game engine', function () {
 
       watersphere.decreaseSpellDamage(spellResult);
 
-      spellResult['descriptionForUser'] = '';
-      spellResult['descriptionForEnemy'] = '';
+      spellResult["descriptionForUser"] = "";
+      spellResult["descriptionForEnemy"] = "";
 
       expect(spellResult).to.deep.equal(spellExpect);
     });
 
-    it('waterstamp', function() {
+    it("waterstamp", function () {
       let waterstamp = new Waterstamp();
 
       let spellExpect = new Firespear();
@@ -365,18 +385,20 @@ describe('game engine', function () {
       spellExpect.maxDamage = spellResult.maxDamage;
       spellExpect.currentDamage = spellResult.currentDamage;
 
-      spellExpect.currentDamage = spellExpect.currentDamage - Math.round(spellExpect.currentDamage*33/100);;
+      spellExpect.currentDamage =
+        spellExpect.currentDamage -
+        Math.round((spellExpect.currentDamage * 33) / 100);
 
       waterstamp.decreaseSpellDamage(spellResult);
 
-      spellResult['descriptionForUser'] = '';
-      spellResult['descriptionForEnemy'] = '';
+      spellResult["descriptionForUser"] = "";
+      spellResult["descriptionForEnemy"] = "";
 
       expect(spellResult).to.deep.equal(spellExpect);
     });
 
-    it('waterkey', function() {
-      let waterkey = new Waterkey('firesource');
+    it("waterkey", function () {
+      let waterkey = new Waterkey("firesource");
       let firesource = new Firesource();
 
       let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
@@ -385,13 +407,13 @@ describe('game engine', function () {
       firesource.saveEffect(enemyResult);
       waterkey.deleteEffect(enemyResult);
 
-      enemyResult['descriptionForUser'] = '';
-      enemyResult['descriptionForEnemy'] = '';
+      enemyResult["descriptionForUser"] = "";
+      enemyResult["descriptionForEnemy"] = "";
 
       expect(enemyResult).to.deep.equal(enemyExpect);
     });
 
-    it('waterflow', function() {
+    it("waterflow", function () {
       let waterflow = new Waterflow();
 
       let enemyResult = new Player(3, 3, 250, 250, 0, [], []);
@@ -399,13 +421,13 @@ describe('game engine', function () {
       enemyExpect.health -= waterflow.currentDamage;
 
       waterflow.decreasePlayerHealth(enemyResult);
-      enemyResult['descriptionForUser'] = '';
-      enemyResult['descriptionForEnemy'] = '';
+      enemyResult["descriptionForUser"] = "";
+      enemyResult["descriptionForEnemy"] = "";
 
       expect(enemyResult).to.deep.equal(enemyExpect);
     });
 
-    it('waterpower', function() {
+    it("waterpower", function () {
       let waterpower = new Waterpower();
 
       let spellExpect = new Watershild();
@@ -417,7 +439,7 @@ describe('game engine', function () {
       expect(spellResult).to.deep.equal(spellExpect);
     });
 
-    it('earthspear', function() {
+    it("earthspear", function () {
       let earthspear = new Earthspear();
       earthspear.hitProbability = 1;
 
@@ -426,18 +448,18 @@ describe('game engine', function () {
       enemyExpect.health -= earthspear.currentDamage;
 
       earthspear.decreasePlayerHealth(enemyResult);
-      enemyResult['descriptionForUser'] = '';
-      enemyResult['descriptionForEnemy'] = '';
+      enemyResult["descriptionForUser"] = "";
+      enemyResult["descriptionForEnemy"] = "";
 
       expect(enemyResult).to.deep.equal(enemyExpect);
     });
 
-    it('earthshild', function() {
+    it("earthshild", function () {
       let earthshild = new Earthshild();
       let firesource = new Firesource();
       let firespear = new Firespear();
 
-      let totalDamage = (firespear.currentDamage + firesource.currentDamage) - 20;
+      let totalDamage = firespear.currentDamage + firesource.currentDamage - 20;
       if (totalDamage < 0) totalDamage = 0;
 
       let playerExpect = new Player(3, 3, 250, 250, 0, [], []);
@@ -449,13 +471,13 @@ describe('game engine', function () {
       firespear.decreasePlayerHealth(playerResult);
       firesource.decreasePlayerHealth(playerResult);
 
-      playerResult['descriptionForUser'] = '';
-      playerResult['descriptionForEnemy'] = '';
+      playerResult["descriptionForUser"] = "";
+      playerResult["descriptionForEnemy"] = "";
 
       expect(playerResult).to.deep.equal(playerExpect);
     });
 
-    it('earthcrown', function() {
+    it("earthcrown", function () {
       let earthcrown = new Earthcrown();
 
       let spellExpect = new Earthspear();
@@ -469,7 +491,7 @@ describe('game engine', function () {
       expect(spellResult).to.deep.equal(spellExpect);
     });
 
-    it('earthsource', function() {
+    it("earthsource", function () {
       let earthsource = new Earthsource();
       let earthspear = new Earthspear();
       let earthsphere = new Earthsphere();
@@ -488,7 +510,7 @@ describe('game engine', function () {
       expect(arrResult).to.deep.equal(arrExpect);
     });
 
-    it('earthsphere', function() {
+    it("earthsphere", function () {
       let earthsphere = new Earthsphere();
 
       let arrExpect = [];
@@ -509,7 +531,7 @@ describe('game engine', function () {
       expect(arrResult).to.deep.equal(arrExpect);
     });
 
-    it('earthstamp', function() {
+    it("earthstamp", function () {
       let earthstamp = new Earthstamp();
 
       let spellExpect = new Firespear();
@@ -517,18 +539,20 @@ describe('game engine', function () {
       spellExpect.maxDamage = spellResult.maxDamage;
       spellExpect.currentDamage = spellResult.currentDamage;
 
-      spellExpect.currentDamage = spellExpect.currentDamage - Math.round(spellExpect.currentDamage*50/100);;
+      spellExpect.currentDamage =
+        spellExpect.currentDamage -
+        Math.round((spellExpect.currentDamage * 50) / 100);
 
       earthstamp.decreaseSpellDamage(spellResult);
 
-      spellResult['descriptionForUser'] = '';
-      spellResult['descriptionForEnemy'] = '';
+      spellResult["descriptionForUser"] = "";
+      spellResult["descriptionForEnemy"] = "";
 
       expect(spellResult).to.deep.equal(spellExpect);
     });
 
-    it('earthkey', function() {
-      let earthkey = new Earthkey('firesource');
+    it("earthkey", function () {
+      let earthkey = new Earthkey("firesource");
       let firesource = new Firesource();
 
       let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
@@ -537,13 +561,13 @@ describe('game engine', function () {
       firesource.saveEffect(enemyResult);
       earthkey.deleteEffect(enemyResult);
 
-      enemyResult['descriptionForUser'] = '';
-      enemyResult['descriptionForEnemy'] = '';
+      enemyResult["descriptionForUser"] = "";
+      enemyResult["descriptionForEnemy"] = "";
 
       expect(enemyResult).to.deep.equal(enemyExpect);
     });
 
-    it('earthflow', function() {
+    it("earthflow", function () {
       let earthflow = new Earthflow();
       earthflow.hitProbability = 1;
 
@@ -552,13 +576,13 @@ describe('game engine', function () {
       enemyExpect.health -= earthflow.currentDamage;
 
       earthflow.decreasePlayerHealth(enemyResult);
-      enemyResult['descriptionForUser'] = '';
-      enemyResult['descriptionForEnemy'] = '';
+      enemyResult["descriptionForUser"] = "";
+      enemyResult["descriptionForEnemy"] = "";
 
       expect(enemyResult).to.deep.equal(enemyExpect);
     });
 
-    it('earthpower', function() {
+    it("earthpower", function () {
       let earthpower = new Earthpower();
       earthpower.activationProbability = 1;
 
@@ -571,7 +595,7 @@ describe('game engine', function () {
       expect(spellResult).to.deep.equal(spellExpect);
     });
 
-    it('airspear', function() {
+    it("airspear", function () {
       let airspear = new Airspear();
       airspear.hitProbability = 1;
 
@@ -580,13 +604,13 @@ describe('game engine', function () {
       enemyExpect.health -= airspear.currentDamage;
 
       airspear.decreasePlayerHealth(enemyResult);
-      enemyResult['descriptionForUser'] = '';
-      enemyResult['descriptionForEnemy'] = '';
+      enemyResult["descriptionForUser"] = "";
+      enemyResult["descriptionForEnemy"] = "";
 
       expect(enemyResult).to.deep.equal(enemyExpect);
     });
 
-    it('airshild', function() {
+    it("airshild", function () {
       let airshild = new Airshild();
 
       let spellExpect = new Airspear();
@@ -598,7 +622,7 @@ describe('game engine', function () {
       expect(spellResult).to.deep.equal(spellExpect);
     });
 
-    it('aircrown', function() {
+    it("aircrown", function () {
       let aircrown = new Aircrown();
       let waterpower = new Waterpower();
 
@@ -611,7 +635,7 @@ describe('game engine', function () {
       expect(spellResult).to.deep.equal(spellExpect);
     });
 
-    it('airsource', function() {
+    it("airsource", function () {
       let airsource = new Airsource();
 
       let arrExpect = [];
@@ -632,7 +656,7 @@ describe('game engine', function () {
       expect(arrResult).to.deep.equal(arrExpect);
     });
 
-    it('airsphere', function() {
+    it("airsphere", function () {
       let airsphere = new Airsphere();
 
       let spellExpect = new Firesource();
@@ -646,7 +670,7 @@ describe('game engine', function () {
       expect(spellResult).to.deep.equal(spellExpect);
     });
 
-    it('airstamp', function() {
+    it("airstamp", function () {
       let airstamp = new Airstamp();
 
       let spellExpect = new Earthpower();
@@ -658,8 +682,8 @@ describe('game engine', function () {
       expect(spellResult).to.deep.equal(spellExpect);
     });
 
-    it('airkey', function() {
-      let airkey = new Airkey('waterpower');
+    it("airkey", function () {
+      let airkey = new Airkey("waterpower");
       let waterpower = new Waterpower();
 
       let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
@@ -668,13 +692,13 @@ describe('game engine', function () {
       waterpower.saveEffect(enemyResult);
       airkey.deleteEffect(enemyResult);
 
-      enemyResult['descriptionForUser'] = '';
-      enemyResult['descriptionForEnemy'] = '';
+      enemyResult["descriptionForUser"] = "";
+      enemyResult["descriptionForEnemy"] = "";
 
       expect(enemyResult).to.deep.equal(enemyExpect);
     });
 
-    it('airflow', function() {
+    it("airflow", function () {
       let airflow = new Airflow();
       airflow.hitProbability = 1;
 
@@ -683,13 +707,13 @@ describe('game engine', function () {
       enemyExpect.health -= airflow.currentDamage;
 
       airflow.decreasePlayerHealth(enemyResult);
-      enemyResult['descriptionForUser'] = '';
-      enemyResult['descriptionForEnemy'] = '';
+      enemyResult["descriptionForUser"] = "";
+      enemyResult["descriptionForEnemy"] = "";
 
       expect(enemyResult).to.deep.equal(enemyExpect);
     });
 
-    it('airpower', function() {
+    it("airpower", function () {
       let airspower = new Airpower();
 
       let spellExpect = new Firespear();
@@ -703,8 +727,8 @@ describe('game engine', function () {
       expect(spellResult).to.deep.equal(spellExpect);
     });
 
-    it('lifespear', function() {
-      let lifespear = new Lifespear('deathshild');
+    it("lifespear", function () {
+      let lifespear = new Lifespear("deathshild");
       let deathshild = new Deathshild();
 
       let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
@@ -713,13 +737,13 @@ describe('game engine', function () {
       deathshild.saveEffect(enemyResult);
       lifespear.deleteEffect(enemyResult);
 
-      enemyResult['descriptionForUser'] = '';
-      enemyResult['descriptionForEnemy'] = '';
+      enemyResult["descriptionForUser"] = "";
+      enemyResult["descriptionForEnemy"] = "";
 
       expect(enemyResult).to.deep.equal(enemyExpect);
     });
 
-    it('lifeshild', function() {
+    it("lifeshild", function () {
       let lifeshild = new Lifeshild();
       let deathcrown = new Deathcrown();
 
@@ -732,7 +756,7 @@ describe('game engine', function () {
       expect(spellResult).to.deep.equal(spellExpect);
     });
 
-    it('lifecrown', function() {
+    it("lifecrown", function () {
       let lifecrown = new Lifecrown();
 
       let playerExpect = new Player(3, 3, 250, 250, 0, [], []);
@@ -741,13 +765,13 @@ describe('game engine', function () {
       let playerResult = new Player(3, 3, 250, 250, 0, [], []);
       lifecrown.increasePlayerMaxHealth(playerResult);
 
-      playerResult['descriptionForUser'] = '';
-      playerResult['descriptionForEnemy'] = '';
+      playerResult["descriptionForUser"] = "";
+      playerResult["descriptionForEnemy"] = "";
 
       expect(playerResult).to.deep.equal(playerExpect);
     });
 
-    it('lifesource', function() {
+    it("lifesource", function () {
       let lifesource = new Lifesource();
 
       let playerExpect = new Player(3, 3, 200, 250, 0, [], []);
@@ -756,13 +780,13 @@ describe('game engine', function () {
       let playerResult = new Player(3, 3, 200, 250, 0, [], []);
       lifesource.increasePlayerHealth(playerResult);
 
-      playerResult['descriptionForUser'] = '';
-      playerResult['descriptionForEnemy'] = '';
+      playerResult["descriptionForUser"] = "";
+      playerResult["descriptionForEnemy"] = "";
 
       expect(playerResult).to.deep.equal(playerExpect);
     });
 
-    it('lifesphere', function() {
+    it("lifesphere", function () {
       let lifesphere = new Lifesphere();
 
       let playerExpect = new Player(3, 3, 200, 250, 0, [], []);
@@ -771,13 +795,13 @@ describe('game engine', function () {
       let playerResult = new Player(3, 3, 200, 250, 0, [], []);
       lifesphere.increasePlayerHealth(playerResult);
 
-      playerResult['descriptionForUser'] = '';
-      playerResult['descriptionForEnemy'] = '';
+      playerResult["descriptionForUser"] = "";
+      playerResult["descriptionForEnemy"] = "";
 
       expect(playerResult).to.deep.equal(playerExpect);
     });
 
-    it('lifestamp', function() {
+    it("lifestamp", function () {
       let lifestamp = new Lifestamp();
 
       let spellExpect = new Deathshild();
@@ -786,14 +810,14 @@ describe('game engine', function () {
       let spellResult = new Deathshild();
       lifestamp.decreaseSpellHitProbability(spellResult);
 
-      spellResult['descriptionForUser'] = '';
-      spellResult['descriptionForEnemy'] = '';
+      spellResult["descriptionForUser"] = "";
+      spellResult["descriptionForEnemy"] = "";
 
       expect(spellResult).to.deep.equal(spellExpect);
     });
 
-    it('lifekey', function() {
-      let lifekey = new Lifekey('airshild');
+    it("lifekey", function () {
+      let lifekey = new Lifekey("airshild");
       lifekey.hitProbability = 1;
       let airshild = new Airshild();
 
@@ -803,13 +827,13 @@ describe('game engine', function () {
       airshild.saveEffect(enemyResult);
       lifekey.deleteEffect(enemyResult);
 
-      enemyResult['descriptionForUser'] = '';
-      enemyResult['descriptionForEnemy'] = '';
+      enemyResult["descriptionForUser"] = "";
+      enemyResult["descriptionForEnemy"] = "";
 
       expect(enemyResult).to.deep.equal(enemyExpect);
     });
 
-    it('lifeflow', function() {
+    it("lifeflow", function () {
       let lifeflow = new Lifeflow();
 
       let playerExpect = new Player(3, 3, 200, 250, 0, [], []);
@@ -818,26 +842,26 @@ describe('game engine', function () {
       let playerResult = new Player(3, 3, 200, 250, 0, [], []);
       lifeflow.increasePlayerHealth(playerResult);
 
-      playerResult['descriptionForUser'] = '';
-      playerResult['descriptionForEnemy'] = '';
+      playerResult["descriptionForUser"] = "";
+      playerResult["descriptionForEnemy"] = "";
 
       expect(playerResult).to.deep.equal(playerExpect);
     });
 
-    it('lifepower', function() {
+    it("lifepower", function () {
       let lifepower = new Lifepower();
 
       let spellExpect = new Deathspear();
       spellExpect.hitProbability -= 1;
 
       let spellResult = new Deathspear();
-      lifepower.decreaseSpellHitProbability(spellResult)
+      lifepower.decreaseSpellHitProbability(spellResult);
 
       expect(spellResult).to.deep.equal(spellExpect);
     });
 
-    it('deathspear', function() {
-      let deathspear = new Deathspear('waterpower');
+    it("deathspear", function () {
+      let deathspear = new Deathspear("waterpower");
       deathspear.hitProbability = 1;
       let waterpower = new Waterpower();
 
@@ -847,13 +871,13 @@ describe('game engine', function () {
       waterpower.saveEffect(enemyResult);
       deathspear.deleteEffect(enemyResult);
 
-      enemyResult['descriptionForUser'] = '';
-      enemyResult['descriptionForEnemy'] = '';
+      enemyResult["descriptionForUser"] = "";
+      enemyResult["descriptionForEnemy"] = "";
 
       expect(enemyResult).to.deep.equal(enemyExpect);
     });
 
-    it('deathshild', function() {
+    it("deathshild", function () {
       let deathshild = new Deathshild();
 
       let spellExpect = new Firesource();
@@ -867,7 +891,7 @@ describe('game engine', function () {
       expect(spellResult).to.deep.equal(spellExpect);
     });
 
-    it('deathcrown', function() {
+    it("deathcrown", function () {
       let deathcrown = new Deathcrown();
 
       let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
@@ -876,13 +900,13 @@ describe('game engine', function () {
       let enemyResult = new Player(3, 3, 250, 250, 0, [], []);
       deathcrown.decreasePlayerMaxHealth(enemyResult);
 
-      enemyResult['descriptionForUser'] = '';
-      enemyResult['descriptionForEnemy'] = '';
+      enemyResult["descriptionForUser"] = "";
+      enemyResult["descriptionForEnemy"] = "";
 
       expect(enemyResult).to.deep.equal(enemyExpect);
     });
 
-    it('deathsource', function() {
+    it("deathsource", function () {
       let deathsource = new Deathsource();
 
       let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
@@ -891,13 +915,13 @@ describe('game engine', function () {
       let enemyResult = new Player(3, 3, 250, 250, 0, [], []);
       deathsource.decreasePlayerHealth(enemyResult);
 
-      enemyResult['descriptionForUser'] = '';
-      enemyResult['descriptionForEnemy'] = '';
+      enemyResult["descriptionForUser"] = "";
+      enemyResult["descriptionForEnemy"] = "";
 
       expect(enemyResult).to.deep.equal(enemyExpect);
     });
 
-    it('deathsphere', function() {
+    it("deathsphere", function () {
       let deathsphere = new Deathsphere();
 
       let spellExpect = new Firesource();
@@ -909,13 +933,13 @@ describe('game engine', function () {
 
       deathsphere.increaseSpellDamage(spellResult);
 
-      spellResult['descriptionForUser'] = '';
-      spellResult['descriptionForEnemy'] = '';
+      spellResult["descriptionForUser"] = "";
+      spellResult["descriptionForEnemy"] = "";
 
       expect(spellResult).to.deep.equal(spellExpect);
     });
 
-    it('deathstamp', function() {
+    it("deathstamp", function () {
       let deathstamp = new Deathstamp();
 
       let spellExpect = new Lifesphere();
@@ -924,13 +948,13 @@ describe('game engine', function () {
       let spellResult = new Lifesphere();
       deathstamp.decreaseSpellHitProbability(spellResult);
 
-      spellResult['descriptionForUser'] = '';
-      spellResult['descriptionForEnemy'] = '';
+      spellResult["descriptionForUser"] = "";
+      spellResult["descriptionForEnemy"] = "";
 
       expect(spellResult).to.deep.equal(spellExpect);
     });
 
-    it('deathkey', function() {
+    it("deathkey", function () {
       let deathkey = new Deathkey();
       deathkey.activationProbability = 1;
       let waterflow = new Waterflow();
@@ -941,13 +965,13 @@ describe('game engine', function () {
       deathkey.increasePlayerHealth(enemyResult, waterflow);
       waterflow.decreasePlayerHealth(enemyResult);
 
-      enemyResult['descriptionForUser'] = '';
-      enemyResult['descriptionForEnemy'] = '';
+      enemyResult["descriptionForUser"] = "";
+      enemyResult["descriptionForEnemy"] = "";
 
       expect(enemyResult).to.deep.equal(enemyExpect);
     });
 
-    it('deathflow', function() {
+    it("deathflow", function () {
       let deathflow = new Deathflow();
 
       let arrExpect = [205, 205];
@@ -963,8 +987,8 @@ describe('game engine', function () {
       expect(arrResult).to.deep.equal(arrExpect);
     });
 
-    it('deathpower', function() {
-      let deathpower = new Deathpower('lifepower');
+    it("deathpower", function () {
+      let deathpower = new Deathpower("lifepower");
       let lifepower = new Lifepower();
 
       let enemyExpect = new Player(3, 3, 250, 250, 0, [], []);
@@ -973,12 +997,10 @@ describe('game engine', function () {
       lifepower.saveEffect(enemyResult);
       deathpower.deleteEffect(enemyResult);
 
-      enemyResult['descriptionForUser'] = '';
-      enemyResult['descriptionForEnemy'] = '';
+      enemyResult["descriptionForUser"] = "";
+      enemyResult["descriptionForEnemy"] = "";
 
       expect(enemyResult).to.deep.equal(enemyExpect);
     });
-
   });
-
 });
