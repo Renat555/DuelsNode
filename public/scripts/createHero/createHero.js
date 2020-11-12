@@ -8,10 +8,18 @@ let gameInformation = {
     actionPoints: 5,
     energyPoints: 5,
     position: {
-      row: "",
-      col: "",
+      user: {
+        row: "",
+        col: "",
+        pathType: "",
+      },
+      enemy: {
+        row: "",
+        col: "",
+        pathType: "",
+      },
     },
-    battlefield: "",
+    battlefield: [],
     maxHealth: "",
     health: "",
     muve: "",

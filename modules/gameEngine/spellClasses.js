@@ -5,6 +5,7 @@ module.exports.Player = class Player {
     health,
     maxHealth,
     muve,
+    position,
     buffs,
     debuffs
   ) {
@@ -13,6 +14,8 @@ module.exports.Player = class Player {
     this.health = health;
     this.maxHealth = maxHealth;
     this.muve = muve;
+    this.position = position;
+    this.battlefield = [];
     this.buffs = buffs;
     this.debuffs = debuffs;
     this.descriptionForUser = "";

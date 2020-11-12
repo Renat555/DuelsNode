@@ -140,7 +140,7 @@ function earthshildPreparing(event) {
 
   document.removeEventListener("mouseover", earthshildMuve);
 
-  let earthshild = { header: "battlefieldSpell", spell: ["earthshild"] };
+  let earthshild = { header: "battlefieldSpell", spell: ["earthshild", 3] };
 
   let battlefield = document.querySelectorAll("[data-availability]");
 

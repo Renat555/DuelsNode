@@ -7,7 +7,7 @@ const createGame = require("./modules/createGame");
 const processingSpell = require("./modules/gameEngine/processingSpell/processingSpell");
 const processingEffect = require("./modules/gameEngine/processingEffect/processingEffect");
 const processingDespell = require("./modules/gameEngine/processingDespell/processingDespell");
-const muveHero = require("./modules/gameEngine/muveHero");
+const muveHero = require("./modules/gameEngine/processingMuve/muveHero");
 const endMuve = require("./modules/gameEngine/endMuve/endMuve");
 const processingBattlefieldSpell = require("./modules/gameEngine/processingBattlefieldSpell/processingBattlefieldSpell");
 

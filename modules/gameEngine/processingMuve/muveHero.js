@@ -1,17 +1,17 @@
 const createPlayers = require("../createPlayers");
-const applyBattlefieldSpell = require("./applyBattlefieldSpell");
+const makeMuve = require("./makeMuve");
 const savePlayers = require("../savePlayers");
 const sendGameInformation = require("../sendGameInformation");
 
-function processingBattlefieldSpell(request, collection, ws, wss) {
+function muveHero(request, collection, ws, wss) {
   createPlayers(collection, ws).then((result) => {
     let { user, enemy } = result;
-    applyBattlefieldSpell(request["spell"], user, enemy);
+    makeMuve(request, user, enemy);
     savePlayers(user, enemy, collection, ws).then((result) => {
-      let response = { header: "processingBattlefieldSpell" };
+      let response = { header: "processingMuve" };
       sendGameInformation(response, collection, ws, wss);
     });
   });
 }
 
-module.exports = processingBattlefieldSpell;
+module.exports = muveHero;

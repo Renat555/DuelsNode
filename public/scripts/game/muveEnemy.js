@@ -1,10 +1,13 @@
 "use strict";
 
 function muveEnemy(muve) {
+  let userMuve = document.getElementById("userMuve");
+  if (!userMuve.hidden) return;
+
   let divEnemy = document.querySelector(`[data-hero="enemy"]`);
   let divSquareEnemy = document.querySelector(`[data-availability="enemy"]`);
   let target = document.querySelector(
-    `[data-row="${muve["row"]}"][data-col="${muve["col"]}"]`
+    `[data-row="${muve["user"]["position"]["enemy"]["row"]}"][data-col="${muve["user"]["position"]["enemy"]["col"]}"]`
   );
 
   let coordDivEnemy = divEnemy.getBoundingClientRect();
@@ -21,7 +24,7 @@ function muveEnemy(muve) {
   divSquareEnemy.dataset.availability = "free";
   target.dataset.availability = "enemy";
 
-  if (muve["pathType"] == "general") {
+  if (muve["user"]["position"]["enemy"]["pathType"] == "general") {
     muveGeneralPath(
       verticalStart,
       verticalEnd,
@@ -29,7 +32,7 @@ function muveEnemy(muve) {
       horzontalEnd,
       divEnemy
     );
-  } else if (muve["pathType"] == "alternative") {
+  } else if (muve["user"]["position"]["enemy"]["pathType"] == "alternative") {
     muveAlternativePath(
       verticalStart,
       verticalEnd,

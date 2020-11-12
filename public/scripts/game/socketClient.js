@@ -18,7 +18,10 @@ ws.onmessage = (message) => {
     case "changeMuve":
       changeInterface(message);
       break;
-    case "enemyMuve":
+    case "processingBattlefieldSpell":
+      changeBattlefield(message);
+      break;
+    case "processingMuve":
       muveEnemy(message);
       break;
   }
