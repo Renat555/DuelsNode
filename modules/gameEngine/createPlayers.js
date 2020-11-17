@@ -26,6 +26,7 @@ function createPlayers(mongoCollection, ws) {
           doc["maxHealth"],
           doc["muve"],
           doc["position"],
+          doc["battlefield"],
           userBuffs,
           userDebuffs
         );
@@ -42,6 +43,7 @@ function createPlayers(mongoCollection, ws) {
             doc["maxHealth"],
             doc["muve"],
             doc["position"],
+            doc["battlefield"],
             enemyBuffs,
             enemyDebuffs
           );

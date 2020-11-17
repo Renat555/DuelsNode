@@ -93,44 +93,46 @@ function deathpower(enemyEffects) {
 }
 
 function earthshildMuve(event) {
-  removeEarthshild();
+  removeBattlefieldObjects();
 
   let target = event.target;
   if (!target.dataset.row) return;
-
-  if (target.dataset.availability != "free") return;
+  if (target.dataset.player) return;
+  if (target.dataset.spell) return;
 
   let divBattleField = document.getElementsByClassName("battlefield")[0];
   divBattleField.removeEventListener("click", muveUser);
 
   target.classList.add("earthshild");
   target.style.opacity = 0.5;
-  target.dataset.spell = "earthshild";
+  target.dataset.state = "preparing";
 
-  let colLeft = +target.dataset.col - 1;
   let divSquareLeft = document.querySelector(
-    `[data-row="${target.dataset.row}"][data-col="${colLeft}"]`
+    `[data-row="${target.dataset.row}"][data-col="${+target.dataset.col - 1}"]`
   );
 
-  if (divSquareLeft && divSquareLeft.dataset.availability == "free") {
-    if (divSquareLeft.dataset.availability == "free") {
-      divSquareLeft.classList.add("earthshild");
-      divSquareLeft.style.opacity = 0.5;
-      divSquareLeft.dataset.spell = "earthshild";
-    }
+  if (
+    divSquareLeft &&
+    !divSquareLeft.dataset.player &&
+    !divSquareLeft.dataset.spell
+  ) {
+    divSquareLeft.classList.add("earthshild");
+    divSquareLeft.style.opacity = 0.5;
+    divSquareLeft.dataset.state = "preparing";
   }
 
-  let colRight = +target.dataset.col + 1;
   let divSquareRight = document.querySelector(
-    `[data-row="${target.dataset.row}"][data-col="${colRight}"]`
+    `[data-row="${target.dataset.row}"][data-col="${+target.dataset.col + 1}"]`
   );
 
-  if (divSquareRight && divSquareRight.dataset.availability == "free") {
-    if (divSquareRight.dataset.availability == "free") {
-      divSquareRight.classList.add("earthshild");
-      divSquareRight.style.opacity = 0.5;
-      divSquareRight.dataset.spell = "earthshild";
-    }
+  if (
+    divSquareRight &&
+    !divSquareRight.dataset.player &&
+    !divSquareRight.dataset.spell
+  ) {
+    divSquareRight.classList.add("earthshild");
+    divSquareRight.style.opacity = 0.5;
+    divSquareRight.dataset.state = "preparing";
   }
 }
 
@@ -140,12 +142,12 @@ function earthshildPreparing(event) {
 
   document.removeEventListener("mouseover", earthshildMuve);
 
-  let earthshild = { header: "battlefieldSpell", spell: ["earthshild", 3] };
+  let earthshild = { header: "battlefieldSpell", spell: ["earthshild", 5] };
 
-  let battlefield = document.querySelectorAll("[data-availability]");
+  let battlefield = document.querySelectorAll("[data-row]");
 
   for (let i = 0; i < battlefield.length; i++) {
-    if (battlefield[i].dataset.spell == "earthshild") {
+    if (battlefield[i].dataset.state == "preparing") {
       let coord = [];
       coord[0] = battlefield[i].dataset.row;
       coord[1] = battlefield[i].dataset.col;
@@ -153,6 +155,7 @@ function earthshildPreparing(event) {
     }
   }
 
+  console.log(earthshild);
   localStorage.setItem("spellInformation", JSON.stringify(earthshild));
   localStorage.setItem("complete", "yes");
 
@@ -165,12 +168,13 @@ function earthshildPreparing(event) {
 }
 
 function earthshildApproval() {
-  let battlefield = document.querySelectorAll("[data-availability]");
+  let battlefield = document.querySelectorAll("[data-row]");
 
   for (let i = 0; i < battlefield.length; i++) {
-    if (battlefield[i].dataset.spell == "earthshild") {
+    if (battlefield[i].classList.contains("earthshild")) {
       battlefield[i].style.opacity = 1;
-      battlefield[i].dataset.availability = "block";
+      battlefield[i].dataset.spell = "earthshild";
+      battlefield[i].dataset.state = "approval";
     }
   }
 
@@ -180,16 +184,121 @@ function earthshildApproval() {
   buttonActivationSpell.removeEventListener("click", earthshildApproval);
 }
 
-function removeEarthshild() {
-  let battlefield = document.querySelectorAll("[data-availability]");
+function watersphereMuve(event) {
+  removeBattlefieldObjects();
+
+  let target = event.target;
+  if (!target.dataset.row) return;
+  if (target.dataset.spell) return;
+
+  let divBattleField = document.getElementsByClassName("battlefield")[0];
+  divBattleField.removeEventListener("click", muveUser);
+
+  target.classList.add("watersphere");
+  target.style.opacity = 0.5;
+  target.dataset.state = "preparing";
+
+  let divSquareBottom = document.querySelector(
+    `[data-row="${+target.dataset.row - 1}"][data-col="${target.dataset.col}"]`
+  );
+
+  if (divSquareBottom && !divSquareBottom.dataset.spell) {
+    divSquareBottom.classList.add("watersphere");
+    divSquareBottom.style.opacity = 0.5;
+    divSquareBottom.dataset.state = "preparing";
+  }
+
+  let divSquareRight = document.querySelector(
+    `[data-row="${target.dataset.row}"][data-col="${+target.dataset.col + 1}"]`
+  );
+
+  if (divSquareRight && !divSquareRight.dataset.spell) {
+    divSquareRight.classList.add("watersphere");
+    divSquareRight.style.opacity = 0.5;
+    divSquareRight.dataset.state = "preparing";
+  }
+
+  let divSquareRightBottom = document.querySelector(
+    `[data-row="${+target.dataset.row - 1}"][data-col="${
+      +target.dataset.col + 1
+    }"]`
+  );
+
+  if (divSquareRightBottom && !divSquareRightBottom.dataset.spell) {
+    divSquareRightBottom.classList.add("watersphere");
+    divSquareRightBottom.style.opacity = 0.5;
+    divSquareRightBottom.dataset.state = "preparing";
+  }
+}
+
+function waterspherePreparing(event) {
+  let target = event.target;
+  if (!target.dataset.row) return;
+
+  document.removeEventListener("mouseover", watersphereMuve);
+
+  let watersphere = { header: "battlefieldSpell", spell: ["watersphere", 3] };
+
+  let battlefield = document.querySelectorAll("[data-row]");
 
   for (let i = 0; i < battlefield.length; i++) {
-    if (battlefield[i].dataset.spell == "earthshild") {
-      battlefield[i].classList.remove("earthshild");
-      battlefield[i].style.opacity = 1;
-      battlefield[i].dataset.spell = "";
+    if (battlefield[i].dataset.state == "preparing") {
+      let coord = [];
+      coord[0] = battlefield[i].dataset.row;
+      coord[1] = battlefield[i].dataset.col;
+      watersphere["spell"].push(coord);
     }
   }
+
+  localStorage.setItem("spellInformation", JSON.stringify(watersphere));
+  localStorage.setItem("complete", "yes");
+
+  let buttonActivationSpell = document.getElementsByName(
+    "buttonActiveSpell"
+  )[0];
+  buttonActivationSpell.addEventListener("click", watersphereApproval);
+
+  divBattleField.addEventListener("click", muveUser);
+}
+
+function watersphereApproval() {
+  let battlefield = document.querySelectorAll("[data-row]");
+
+  for (let i = 0; i < battlefield.length; i++) {
+    if (battlefield[i].dataset.state == "preparing") {
+      battlefield[i].style.opacity = 1;
+      battlefield[i].dataset.spell = "watersphere";
+      battlefield[i].dataset.state = "approval";
+    }
+  }
+
+  let buttonActivationSpell = document.getElementsByName(
+    "buttonActiveSpell"
+  )[0];
+  buttonActivationSpell.removeEventListener("click", watersphereApproval);
+}
+
+function removeBattlefieldObjects() {
+  let battlefield = document.querySelectorAll("[data-row]");
+
+  for (let i = 0; i < battlefield.length; i++) {
+    if (battlefield[i].dataset.state == "preparing") {
+      battlefield[i].className = "col battleSquare";
+      battlefield[i].style.opacity = 1;
+      battlefield[i].dataset.state = "";
+    }
+  }
+}
+
+function removeSpells() {
+  removeBattlefieldObjects();
+
+  let divBattlefield = document.getElementsByClassName("battlefield")[0];
+
+  document.removeEventListener("mouseover", earthshildMuve);
+  divBattlefield.removeEventListener("click", earthshildPreparing);
+  document.removeEventListener("mouseover", watersphereMuve);
+  divBattlefield.removeEventListener("click", waterspherePreparing);
 }
 
 function spell(spellName) {
@@ -278,7 +387,8 @@ function createSpell() {
       watersource(enemyEffects);
       break;
     case "watersphere":
-      effect(divSpell.dataset.spell);
+      document.addEventListener("mouseover", watersphereMuve);
+      divBattlefield.addEventListener("click", waterspherePreparing);
       break;
     case "waterstamp":
       effect(divSpell.dataset.spell);
@@ -404,9 +514,4 @@ function createSpell() {
       deathpower(enemyEffects);
       break;
   }
-}
-
-function removeSpells() {
-  document.removeEventListener("mouseover", earthshildMuve);
-  document.removeEventListener("mouseover", earthshildPreparing);
 }

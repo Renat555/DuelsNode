@@ -195,8 +195,8 @@ function muveAlternativePath(
 function faceToEnemy() {
   let divUser = document.querySelector(`[data-hero="user"]`);
   let divEnemy = document.querySelector(`[data-hero="enemy"]`);
-  let divSquareUser = document.querySelector(`[data-availability="user"]`);
-  let divSquareEnemy = document.querySelector(`[data-availability="enemy"]`);
+  let divSquareUser = document.querySelector(`[data-player="user"]`);
+  let divSquareEnemy = document.querySelector(`[data-player="enemy"]`);
 
   if (divSquareEnemy.dataset.row > divSquareUser.dataset.row) {
     divUser.style.backgroundImage =
@@ -258,8 +258,8 @@ function isClearGeneralPath(divUser, divTarget) {
 
   for (let i = 0; i < arrDiv.length; i++) {
     if (
-      arrDiv[i].dataset.availability == "block" ||
-      arrDiv[i].dataset.availability == "enemy"
+      arrDiv[i].dataset.spell == "earthshild" ||
+      arrDiv[i].dataset.player == "enemy"
     ) {
       return false;
     }
@@ -305,8 +305,8 @@ function isClearAlternativePath(divUser, divTarget) {
 
   for (let i = 0; i < arrDiv.length; i++) {
     if (
-      arrDiv[i].dataset.availability == "block" ||
-      arrDiv[i].dataset.availability == "enemy"
+      arrDiv[i].dataset.spell == "earthshild" ||
+      arrDiv[i].dataset.player == "enemy"
     ) {
       return false;
     }
@@ -344,14 +344,16 @@ function sendMuve(div, pathType) {
 
 function muveUser(event) {
   let target = event.target;
+
   if (!target.dataset.row) return;
-  if (target.dataset.availability != "free") return;
+  if (target.dataset.player) return;
+  if (target.dataset.spell == "earthshild") return;
 
   let userMuve = document.getElementById("userMuve");
   if (userMuve.hidden) return;
 
   let divUser = document.querySelector(`[data-hero="user"]`);
-  let divSquareUser = document.querySelector(`[data-availability="user"]`);
+  let divSquareUser = document.querySelector(`[data-player="user"]`);
 
   let coordDivUser = divUser.getBoundingClientRect();
   let coordTarget = target.getBoundingClientRect();
@@ -361,8 +363,8 @@ function muveUser(event) {
 
   if (!isEnoughActivePoints(distanceRow, distanceCol)) return;
 
-  divSquareUser.dataset.availability = "free";
-  target.dataset.availability = "user";
+  divSquareUser.dataset.player = "";
+  target.dataset.player = "user";
 
   let verticalStart = coordDivUser.top;
   let verticalEnd = coordDivUser.top + coordTarget.height * distanceRow;

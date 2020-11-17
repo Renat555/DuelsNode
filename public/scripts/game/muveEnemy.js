@@ -5,7 +5,7 @@ function muveEnemy(muve) {
   if (!userMuve.hidden) return;
 
   let divEnemy = document.querySelector(`[data-hero="enemy"]`);
-  let divSquareEnemy = document.querySelector(`[data-availability="enemy"]`);
+  let divSquareEnemy = document.querySelector(`[data-player="enemy"]`);
   let target = document.querySelector(
     `[data-row="${muve["user"]["position"]["enemy"]["row"]}"][data-col="${muve["user"]["position"]["enemy"]["col"]}"]`
   );
@@ -21,8 +21,8 @@ function muveEnemy(muve) {
   let horizontalStart = coordDivEnemy.left;
   let horzontalEnd = coordDivEnemy.left + coordTarget.width * distanceCol;
 
-  divSquareEnemy.dataset.availability = "free";
-  target.dataset.availability = "enemy";
+  divSquareEnemy.dataset.player = "free";
+  target.dataset.player = "enemy";
 
   if (muve["user"]["position"]["enemy"]["pathType"] == "general") {
     muveGeneralPath(

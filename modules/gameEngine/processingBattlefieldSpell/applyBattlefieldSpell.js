@@ -1,35 +1,48 @@
-function coordTransform(spell) {
-  let spellForEnemy = [];
-  spellForEnemy[0] = spell[0];
-  spellForEnemy[1] = spell[1];
+function coordTransform(coordinates) {
+  let coordinatesForEnemy = [];
 
-  for (let i = 2; i < spell.length; i++) {
-    spellForEnemy[i] = spell[i];
+  for (let i = 0; i < coordinates.length; i++) {
+    coordinatesForEnemy[i] = coordinates[i];
 
-    switch (spell[i][0]) {
+    switch (coordinates[i][0]) {
       case "0":
-        spellForEnemy[i][0] = "4";
+        coordinatesForEnemy[i][0] = "6";
         break;
       case "1":
-        spellForEnemy[i][0] = "3";
+        coordinatesForEnemy[i][0] = "5";
         break;
-      case "3":
-        spellForEnemy[i][0] = "1";
+      case "2":
+        coordinatesForEnemy[i][0] = "4";
         break;
       case "4":
-        spellForEnemy[i][0] = "0";
+        coordinatesForEnemy[i][0] = "2";
+        break;
+      case "5":
+        coordinatesForEnemy[i][0] = "1";
+        break;
+      case "6":
+        coordinatesForEnemy[i][0] = "0";
         break;
     }
   }
 
-  return spellForEnemy;
+  return coordinatesForEnemy;
 }
 
-function applyBattlefieldSpell(spell, user, enemy) {
-  user.battlefield.push(spell);
+function applyBattlefieldSpell(spell, coordinates, user, enemy) {
+  user.actionPoints = user.actionPoints - spell.actionPoints;
+  user.energyPoints = user.energyPoints - spell.energyPoints;
 
-  let spellForEnemy = coordTransform(spell);
-  enemy.battlefield.push(spellForEnemy);
+  let spellBattlefield = [spell["spellName"], spell["duration"], coordinates];
+  user.battlefield.push(spellBattlefield);
+
+  let coordForEnemy = coordTransform(coordinates);
+  let spellBattlefieldForEnemy = [
+    spell["spellName"],
+    spell["duration"],
+    coordForEnemy,
+  ];
+  enemy.battlefield.push(spellBattlefieldForEnemy);
 }
 
 module.exports = applyBattlefieldSpell;

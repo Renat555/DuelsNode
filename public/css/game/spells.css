@@ -4,3 +4,10 @@
   background-position: bottom;
   background-repeat: no-repeat;
 }
+
+.watersphere {
+  background-image: url(../../img/game/battlefield/ice.png);
+  background-size: contain;
+  background-position: bottom;
+  background-repeat: no-repeat;
+}

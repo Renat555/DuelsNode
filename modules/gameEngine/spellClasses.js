@@ -6,6 +6,7 @@ module.exports.Player = class Player {
     maxHealth,
     muve,
     position,
+    battlefield,
     buffs,
     debuffs
   ) {
@@ -15,7 +16,7 @@ module.exports.Player = class Player {
     this.maxHealth = maxHealth;
     this.muve = muve;
     this.position = position;
-    this.battlefield = [];
+    this.battlefield = battlefield;
     this.buffs = buffs;
     this.debuffs = debuffs;
     this.descriptionForUser = "";
@@ -1117,16 +1118,7 @@ module.exports.Watersphere = class Watersphere {
   russianName = "Ледяная сфера";
   descriptionForUser = "";
   descriptionForEnemy = "";
-  dependences = [
-    "firespear",
-    "fireflow",
-    "waterspear",
-    "waterflow",
-    "earthspear",
-    "earthflow",
-    "airspear",
-    "airflow",
-  ];
+  dependences = [];
   activationProbability = 1;
   percentDecreaseDamage = 100;
   pointsDecreaseDamage = 0;
@@ -1168,20 +1160,14 @@ module.exports.Watersphere = class Watersphere {
     this.duration += duration;
   }
 
-  decreaseSpellDamage(spell) {
+  decreasePlayerHealth(player) {
     if (this.activationProbability < Math.random()) return;
-    spell.decreaseDamage(
-      this.percentDecreaseDamage,
-      this.pointsDecreaseDamage,
+    player.decreaseHealth(
+      this.currentDamage,
       this.russianName,
       this.descriptionForUser,
       this.descriptionForEnemy
     );
-  }
-
-  saveEffect(player) {
-    if (this.hitProbability < Math.random()) return;
-    player.savePositiveEffect(this);
   }
 };
 
@@ -1538,86 +1524,17 @@ module.exports.Earthspear = class Earthspear {
 };
 
 module.exports.Earthshild = class Earthshild {
-  constructor(duration = 8) {
+  constructor(duration = 5) {
     this.duration = duration;
   }
 
   actionPoints = 1;
   energyPoints = 1;
-  hitProbability = 1;
   spellName = "earthshild";
   russianName = "Скала";
   descriptionForUser = "";
   descriptionForEnemy = "";
-  dependences = [
-    "firesource",
-    "firesphere",
-    "deathflow",
-    "firespear",
-    "fireflow",
-    "waterspear",
-    "waterflow",
-    "earthspear",
-    "earthflow",
-    "airspear",
-    "airflow",
-  ];
-  activationProbability = 1;
-  percentDecreaseDamage = 0;
-  pointsDecreaseDamage = 10;
-
-  decreaseHitProbability(
-    percent,
-    spellName,
-    descriptionForUser,
-    descriptionForEnemy
-  ) {
-    this.hitProbability = this.hitProbability - percent;
-  }
-
-  increaseHitProbability(
-    percent,
-    spellName,
-    descriptionForUser,
-    descriptionForEnemy
-  ) {
-    this.hitProbability = this.hitProbability + percent;
-  }
-
-  decreaseActivationProbability(percent) {
-    this.activationProbability -= percent;
-  }
-
-  increaseActivationProbability(percent) {
-    this.activationProbability += percent;
-  }
-
-  decreaseDuration(duration, player) {
-    this.duration -= duration;
-    if (this.duration <= 0) {
-      player.deletePositiveEffect(this.spellName);
-    }
-  }
-
-  increaseDuration(duration) {
-    this.duration += duration;
-  }
-
-  decreaseSpellDamage(spell) {
-    if (this.activationProbability < Math.random()) return;
-    spell.decreaseDamage(
-      this.percentDecreaseDamage,
-      this.pointsDecreaseDamage,
-      this.russianName,
-      this.descriptionForUser,
-      this.descriptionForEnemy
-    );
-  }
-
-  saveEffect(player) {
-    if (this.hitProbability < Math.random()) return;
-    player.savePositiveEffect(this);
-  }
+  dependences = [];
 };
 
 module.exports.Earthcrown = class Earthcrown {

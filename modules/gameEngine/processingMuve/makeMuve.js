@@ -3,18 +3,21 @@ function coordTransform(row, col) {
 
   switch (row) {
     case "0":
-      arr["row"] = "4";
+      arr["row"] = "6";
       break;
     case "1":
-      arr["row"] = "3";
+      arr["row"] = "5";
       break;
     case "2":
-      arr["row"] = "2";
-      break;
-    case "3":
-      arr["row"] = "1";
+      arr["row"] = "4";
       break;
     case "4":
+      arr["row"] = "2";
+      break;
+    case "5":
+      arr["row"] = "1";
+      break;
+    case "6":
       arr["row"] = "0";
       break;
   }
