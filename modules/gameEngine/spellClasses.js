@@ -195,7 +195,7 @@ module.exports.Fireshild = class Fireshild {
   russianName = "Огненный щит";
   descriptionForUser = "";
   descriptionForEnemy = "";
-  dependences = ["firesource", "firesphere", "deathflow"];
+  dependences = ["firesource", "firesphere", "watersphere", "deathflow"];
   activationProbability = 1;
   percentDecreaseDamage = 40;
   pointsDecreaseDamage = 0;
@@ -1005,7 +1005,7 @@ module.exports.Watercrown = class Watercrown {
   russianName = "Корона воды";
   descriptionForUser = "";
   descriptionForEnemy = "";
-  dependences = ["firesource", "firesphere", "deathflow"];
+  dependences = ["firesource", "firesphere", "watersphere", "deathflow"];
   activationProbability = 1;
   percentDecreaseDamage = 50;
   pointsDecreaseDamage = 0;
@@ -1120,8 +1120,8 @@ module.exports.Watersphere = class Watersphere {
   descriptionForEnemy = "";
   dependences = [];
   activationProbability = 1;
-  percentDecreaseDamage = 100;
-  pointsDecreaseDamage = 0;
+  maxDamage = 20;
+  currentDamage = this.maxDamage;
 
   decreaseHitProbability(
     percent,
@@ -1149,15 +1149,50 @@ module.exports.Watersphere = class Watersphere {
     this.activationProbability += percent;
   }
 
-  decreaseDuration(duration, player) {
-    this.duration -= duration;
-    if (this.duration <= 0) {
-      player.deletePositiveEffect(this.spellName);
-    }
+  decreaseDamage(
+    percent,
+    points,
+    spellName,
+    descriptionForUser,
+    descriptionForEnemy
+  ) {
+    points += Math.round((this.maxDamage * percent) / 100);
+    this.currentDamage -= points;
+    this.descriptionForUser +=
+      spellName +
+      " снижает урон от заклинания на " +
+      points +
+      " единиц." +
+      descriptionForUser;
+    this.descriptionForEnemy +=
+      spellName +
+      " снижает урон от заклинания на " +
+      points +
+      " единиц." +
+      descriptionForEnemy;
   }
 
-  increaseDuration(duration) {
-    this.duration += duration;
+  increaseDamage(
+    percent,
+    points,
+    spellName,
+    descriptionForUser,
+    descriptionForEnemy
+  ) {
+    points += Math.round((this.maxDamage * percent) / 100);
+    this.currentDamage += points;
+    this.descriptionForUser +=
+      spellName +
+      " увеличивает урон от заклинания на " +
+      points +
+      " единиц." +
+      descriptionForUser;
+    this.descriptionForEnemy +=
+      spellName +
+      " увеличивает урон от заклинания на " +
+      points +
+      " единиц." +
+      descriptionForEnemy;
   }
 
   decreasePlayerHealth(player) {

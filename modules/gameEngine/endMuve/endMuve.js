@@ -1,4 +1,5 @@
 const createPlayers = require("../createPlayers");
+const activationBattlefieldEffects = require("./activationBattlefieldEffects/activationBattlefieldEffects");
 const applyEffectsToOthers = require("../endMuve/applyEffectsToOthers");
 const activationEffectsAtEndMuve = require("../endMuve/activationEffectsAtEndMuve");
 const sendGameInformation = require("../sendGameInformation");
@@ -7,6 +8,7 @@ const savePlayers = require("../savePlayers");
 function endMuve(collection, ws, wss) {
   createPlayers(collection, ws).then((result) => {
     let { user, enemy } = result;
+    activationBattlefieldEffects(user, enemy);
     applyEffectsToOthers(user, enemy);
     activationEffectsAtEndMuve(user, enemy);
     user["muve"] = 0;

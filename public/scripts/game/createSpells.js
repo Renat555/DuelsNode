@@ -155,7 +155,6 @@ function earthshildPreparing(event) {
     }
   }
 
-  console.log(earthshild);
   localStorage.setItem("spellInformation", JSON.stringify(earthshild));
   localStorage.setItem("complete", "yes");
 
@@ -188,6 +187,13 @@ function watersphereMuve(event) {
   removeBattlefieldObjects();
 
   let target = event.target;
+
+  if (target.dataset.hero == "user") {
+    target = document.querySelector("[data-player='user']");
+  } else if (target.dataset.hero == "enemy") {
+    target = document.querySelector("[data-player='enemy']");
+  }
+
   if (!target.dataset.row) return;
   if (target.dataset.spell) return;
 
@@ -233,6 +239,13 @@ function watersphereMuve(event) {
 
 function waterspherePreparing(event) {
   let target = event.target;
+
+  if (target.dataset.hero == "user") {
+    target = document.querySelector("[data-player='user']");
+  } else if (target.dataset.hero == "enemy") {
+    target = document.querySelector("[data-player='enemy']");
+  }
+
   if (!target.dataset.row) return;
 
   document.removeEventListener("mouseover", watersphereMuve);
@@ -296,9 +309,9 @@ function removeSpells() {
   let divBattlefield = document.getElementsByClassName("battlefield")[0];
 
   document.removeEventListener("mouseover", earthshildMuve);
-  divBattlefield.removeEventListener("click", earthshildPreparing);
+  document.removeEventListener("click", earthshildPreparing);
   document.removeEventListener("mouseover", watersphereMuve);
-  divBattlefield.removeEventListener("click", waterspherePreparing);
+  document.removeEventListener("click", waterspherePreparing);
 }
 
 function spell(spellName) {
@@ -344,8 +357,6 @@ function createSpell() {
   let divUserEffect = document.getElementById("userEffects");
   let userEffects = divUserEffect.querySelectorAll("[data-duration]");
 
-  let divBattlefield = document.getElementsByClassName("battlefield")[0];
-
   switch (divSpell.dataset.spell) {
     case "firespear":
       spell(divSpell.dataset.spell);
@@ -388,7 +399,7 @@ function createSpell() {
       break;
     case "watersphere":
       document.addEventListener("mouseover", watersphereMuve);
-      divBattlefield.addEventListener("click", waterspherePreparing);
+      document.addEventListener("click", waterspherePreparing);
       break;
     case "waterstamp":
       effect(divSpell.dataset.spell);
@@ -407,7 +418,7 @@ function createSpell() {
       break;
     case "earthshild":
       document.addEventListener("mouseover", earthshildMuve);
-      divBattlefield.addEventListener("click", earthshildPreparing);
+      document.addEventListener("click", earthshildPreparing);
     case "earthcrown":
       effect(divSpell.dataset.spell);
       break;

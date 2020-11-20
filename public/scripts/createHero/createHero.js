@@ -9,13 +9,13 @@ let gameInformation = {
     energyPoints: 5,
     position: {
       user: {
-        row: "",
-        col: "",
+        row: "0",
+        col: "3",
         pathType: "",
       },
       enemy: {
-        row: "",
-        col: "",
+        row: "6",
+        col: "3",
         pathType: "",
       },
     },

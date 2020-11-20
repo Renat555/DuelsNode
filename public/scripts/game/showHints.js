@@ -66,7 +66,8 @@ function showHint(event) {
       divHint.innerHTML = hint;
       break;
     case "watersphere":
-      hint = "(вода, баф) Полностью блокирует урон от атакующих заклинаний.";
+      hint =
+        "(вода, дебаф) Замораживает часть карты, размером 4х4 клетки. Игрок находящейся внутри данной области получит 20 единиц урона в конце хода.";
       if (duration == -1) duration = "действует постоянно.";
       hint += " Осталось ходов: " + duration;
       divHint.innerHTML = hint;

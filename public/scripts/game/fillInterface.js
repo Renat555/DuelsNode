@@ -98,7 +98,6 @@ function fillBattlfield(userMuve) {
 
   let divSquareEnemy = document.querySelector(`[data-row="6"][data-col="3"]`);
   divSquareEnemy.dataset.player = "enemy";
-  divSquareEnemy.dataset.availability = "player";
   let coordSquareEnemy = divSquareEnemy.getBoundingClientRect();
   divEnemy.style.height =
     coordSquareEnemy.height - coordSquareEnemy.height / 10 + "px";

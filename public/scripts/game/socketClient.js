@@ -16,9 +16,8 @@ ws.onmessage = (message) => {
       break;
     case "processingSpell":
     case "changeMuve":
-      changeInterface(message);
-      break;
     case "processingBattlefieldSpell":
+      changeInterface(message);
       changeBattlefield(message);
       break;
     case "processingMuve":

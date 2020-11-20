@@ -1,13 +1,19 @@
 "use strict";
 
-function muveEnemy(muve) {
+function muveEnemy(users) {
+  let userActionPoints = document.getElementById("actionPoints");
+  userActionPoints.innerHTML = users.user.actionPoints;
+
   let userMuve = document.getElementById("userMuve");
   if (!userMuve.hidden) return;
+
+  let enemyActionPoints = document.getElementById("enemyActionPoints");
+  enemyActionPoints.innerHTML = users.enemy.actionPoints;
 
   let divEnemy = document.querySelector(`[data-hero="enemy"]`);
   let divSquareEnemy = document.querySelector(`[data-player="enemy"]`);
   let target = document.querySelector(
-    `[data-row="${muve["user"]["position"]["enemy"]["row"]}"][data-col="${muve["user"]["position"]["enemy"]["col"]}"]`
+    `[data-row="${users["user"]["position"]["enemy"]["row"]}"][data-col="${users["user"]["position"]["enemy"]["col"]}"]`
   );
 
   let coordDivEnemy = divEnemy.getBoundingClientRect();
@@ -24,7 +30,7 @@ function muveEnemy(muve) {
   divSquareEnemy.dataset.player = "free";
   target.dataset.player = "enemy";
 
-  if (muve["user"]["position"]["enemy"]["pathType"] == "general") {
+  if (users["user"]["position"]["enemy"]["pathType"] == "general") {
     muveGeneralPath(
       verticalStart,
       verticalEnd,
@@ -32,7 +38,7 @@ function muveEnemy(muve) {
       horzontalEnd,
       divEnemy
     );
-  } else if (muve["user"]["position"]["enemy"]["pathType"] == "alternative") {
+  } else if (users["user"]["position"]["enemy"]["pathType"] == "alternative") {
     muveAlternativePath(
       verticalStart,
       verticalEnd,
@@ -41,7 +47,4 @@ function muveEnemy(muve) {
       divEnemy
     );
   }
-
-  let actionPointsEnemy = document.getElementById("enemyActionPoints");
-  actionPointsEnemy.innerHTML = muve["actionPoints"];
 }

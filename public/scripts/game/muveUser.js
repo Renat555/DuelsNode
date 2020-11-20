@@ -324,7 +324,6 @@ function isEnoughActivePoints(distanceRow, distanceCol) {
 
   if (path > divActionPointsHave.innerHTML) return false;
 
-  divActionPointsHave.innerHTML = divActionPointsHave.innerHTML - path;
   return true;
 }
 
@@ -336,7 +335,6 @@ function sendMuve(div, pathType) {
     row: div.dataset.row,
     col: div.dataset.col,
     pathType: pathType,
-    actionPoints: actionPoints,
   };
 
   ws.send(JSON.stringify(muve));

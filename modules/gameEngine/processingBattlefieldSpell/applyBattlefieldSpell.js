@@ -1,9 +1,17 @@
+function copyNestedArr(arr) {
+  let arrCopy = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    arrCopy[i] = arr[i].slice(0);
+  }
+
+  return arrCopy;
+}
+
 function coordTransform(coordinates) {
-  let coordinatesForEnemy = [];
+  let coordinatesForEnemy = copyNestedArr(coordinates);
 
   for (let i = 0; i < coordinates.length; i++) {
-    coordinatesForEnemy[i] = coordinates[i];
-
     switch (coordinates[i][0]) {
       case "0":
         coordinatesForEnemy[i][0] = "6";

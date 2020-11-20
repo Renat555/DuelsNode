@@ -26,10 +26,15 @@ function coordTransform(row, col) {
 }
 
 function makeMuve(muve, user, enemy) {
+  let distanceRow = muve["row"] - user.position.user.row;
+  let distanceCol = muve["col"] - user.position.user.col;
+  let distance = Math.abs(distanceRow) + Math.abs(distanceCol);
+
+  user.actionPoints = user.actionPoints - distance;
+
   user["position"]["user"]["row"] = muve["row"];
   user["position"]["user"]["col"] = muve["col"];
   user["position"]["user"]["pathType"] = muve["pathType"];
-  user["actionPoints"] = muve["actionPoints"];
 
   let coordForEnemy = coordTransform(muve["row"], muve["col"]);
 
