@@ -85,6 +85,11 @@ function fillPoints(user) {
   divEnergyPoints.innerHTML = user["energyPoints"];
 }
 
+function fillDescription(description) {
+  let divDescription = document.getElementsByClassName("description")[0];
+  divDescription.innerHTML += description + "<br>";
+}
+
 function hideMuveText(muveUser) {
   let divUserMuve = document.getElementById("userMuve");
   let divEnemyMuve = document.getElementById("enemyMuve");
@@ -116,6 +121,7 @@ function changeInterface(users) {
     users["enemy"]["debuffs"]
   );
   fillPoints(users["user"]);
+  fillDescription(users["user"]["description"]);
   hideMuveText(users["user"]["muve"], users["enemy"]["muve"]);
   showHints();
   isGameOver(

@@ -4,31 +4,31 @@ function applySpell(spell, user, enemy) {
 
   switch (spell["spellName"]) {
     case "firespear":
-      spell.decreasePlayerHealth(enemy);
+      spell.decreasePlayerHealth(user, enemy);
       break;
     case "firestamp":
       spell.increaseSpellDuration(enemy);
       break;
     case "fireflow":
-      spell.decreasePlayerHealth(enemy);
+      spell.decreasePlayerHealth(user, enemy);
       break;
     case "waterspear":
-      spell.decreasePlayerHealth(enemy);
+      spell.decreasePlayerHealth(user, enemy);
       break;
     case "waterflow":
-      spell.decreasePlayerHealth(enemy);
+      spell.decreasePlayerHealth(user, enemy);
       break;
     case "earthspear":
-      spell.decreasePlayerHealth(enemy);
+      spell.decreasePlayerHealth(user, enemy);
       break;
     case "earthflow":
-      spell.decreasePlayerHealth(enemy);
+      spell.decreasePlayerHealth(user, enemy);
       break;
     case "airspear":
-      spell.decreasePlayerHealth(enemy);
+      spell.decreasePlayerHealth(user, enemy);
       break;
     case "airflow":
-      spell.decreasePlayerHealth(enemy);
+      spell.decreasePlayerHealth(user, enemy);
       break;
     case "lifecrown":
       spell.increasePlayerMaxHealth(user);

@@ -10,6 +10,7 @@ ws.onopen = () => {
 ws.onmessage = (message) => {
   message = JSON.parse(message.data);
 
+  console.log(message);
   switch (message.header) {
     case "createGame":
       fillInterface(message);
@@ -24,5 +25,4 @@ ws.onmessage = (message) => {
       muveEnemy(message);
       break;
   }
-  console.log(message);
 };

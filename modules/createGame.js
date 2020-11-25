@@ -48,41 +48,46 @@ function sendGameInformation(user, mongoCollection, ws, wss) {
 }
 
 function setMuve(player, mongoCollection) {
-  let userHealth, enemyHealth, userMuve, enemyMuve;
-  if (Math.random() < 0.5) {
-    userHealth = 250;
-    enemyHealth = 200;
-    userMuve = 0;
-    enemyMuve = 1;
-  } else {
-    userHealth = 200;
-    enemyHealth = 250;
-    userMuve = 1;
-    enemyMuve = 0;
-  }
+  return new Promise((resolve, reject) => {
+    let userHealth, enemyHealth, userMuve, enemyMuve;
+    if (Math.random() < 0.5) {
+      userHealth = 250;
+      enemyHealth = 200;
+      userMuve = 0;
+      enemyMuve = 1;
+    } else {
+      userHealth = 200;
+      enemyHealth = 250;
+      userMuve = 1;
+      enemyMuve = 0;
+    }
 
-  mongoCollection
-    .findOneAndUpdate(
-      { id: player["id"] },
-      { $set: { health: userHealth, maxHealth: userHealth, muve: userMuve } }
-    )
-    .then((res) => {
-      mongoCollection.updateOne(
-        {
-          $and: [
-            { id: { $not: { $eq: res["value"]["id"] } } },
-            { idGame: res["value"]["idGame"] },
-          ],
-        },
-        {
-          $set: {
-            health: enemyHealth,
-            maxHealth: enemyHealth,
-            muve: enemyMuve,
+    mongoCollection
+      .findOneAndUpdate(
+        { id: player["id"] },
+        { $set: { health: userHealth, maxHealth: userHealth, muve: userMuve } }
+      )
+      .then((res) => {
+        mongoCollection.updateOne(
+          {
+            $and: [
+              { id: { $not: { $eq: res["value"]["id"] } } },
+              { idGame: res["value"]["idGame"] },
+            ],
           },
-        }
-      );
-    });
+          {
+            $set: {
+              health: enemyHealth,
+              maxHealth: enemyHealth,
+              muve: enemyMuve,
+            },
+          },
+          function (err, result) {
+            resolve();
+          }
+        );
+      });
+  });
 }
 
 function searchEnemy(user, mongoCollection, ws, wss) {
@@ -103,8 +108,9 @@ function searchEnemy(user, mongoCollection, ws, wss) {
           { returnOriginal: false }
         )
         .then((res) => {
-          setMuve(user, mongoCollection);
-          sendGameInformation(user, mongoCollection, ws, wss);
+          setMuve(user, mongoCollection).then((res) => {
+            sendGameInformation(user, mongoCollection, ws, wss);
+          });
         });
     });
 }

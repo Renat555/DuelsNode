@@ -11,6 +11,9 @@ function coordTransform(row, col) {
     case "2":
       arr["row"] = "4";
       break;
+    case "3":
+      arr["row"] = "3";
+      break;
     case "4":
       arr["row"] = "2";
       break;

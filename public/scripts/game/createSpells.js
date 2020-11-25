@@ -1,5 +1,53 @@
 "use strict";
 
+function chooseForm(event) {
+  let target = event.target;
+  if (!target.dataset.form) return;
+
+  clearForms();
+
+  target.dataset.status = "selected";
+  target.classList.add("selected");
+
+  let divSpell = document.querySelector(".userSpell");
+  divSpell.dataset.spellform = target.dataset.form;
+
+  createSpell();
+}
+
+function clearForms() {
+  let divForms = document.querySelectorAll("[data-form]");
+
+  for (let item of divForms) {
+    item.dataset.status = "notSelected";
+    item.classList.remove("selected");
+  }
+}
+
+function chooseElement(event) {
+  let target = event.target;
+  if (!target.dataset.element) return;
+
+  clearElements();
+
+  target.dataset.status = "selected";
+  target.classList.add("selected");
+
+  let divSpell = document.querySelector(".userSpell");
+  divSpell.dataset.spellelement = target.dataset.element;
+
+  createSpell();
+}
+
+function clearElements() {
+  let divElements = document.querySelectorAll("[data-element]");
+
+  for (let item of divElements) {
+    item.dataset.status = "notSelected";
+    item.classList.remove("selected");
+  }
+}
+
 function chooseEffect(event) {
   clearEffects();
 
@@ -174,6 +222,7 @@ function earthshildApproval() {
       battlefield[i].style.opacity = 1;
       battlefield[i].dataset.spell = "earthshild";
       battlefield[i].dataset.state = "approval";
+      battlefield[i].dataset.duration = "5";
     }
   }
 
@@ -282,6 +331,7 @@ function watersphereApproval() {
       battlefield[i].style.opacity = 1;
       battlefield[i].dataset.spell = "watersphere";
       battlefield[i].dataset.state = "approval";
+      battlefield[i].dataset.duration = "3";
     }
   }
 
@@ -305,8 +355,7 @@ function removeBattlefieldObjects() {
 
 function removeSpells() {
   removeBattlefieldObjects();
-
-  let divBattlefield = document.getElementsByClassName("battlefield")[0];
+  localStorage.setItem("complete", "no");
 
   document.removeEventListener("mouseover", earthshildMuve);
   document.removeEventListener("click", earthshildPreparing);
@@ -337,7 +386,6 @@ function createSpell() {
   if (userMuve.hidden) return;
 
   removeSpells();
-  localStorage.setItem("complete", "no");
 
   let divSpell = document.querySelector(".userSpell");
   let divActionPointsNeed = document.getElementById("actionPointsNeed");

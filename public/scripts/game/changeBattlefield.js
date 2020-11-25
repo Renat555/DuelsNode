@@ -10,6 +10,7 @@ function createBattlefieldSpell(divSquare, effects) {
       ) {
         divSquare.classList.add(effects[i][0]);
         divSquare.dataset.spell = effects[i][0];
+        divSquare.dataset.duration = effects[i][1];
       }
     }
   }

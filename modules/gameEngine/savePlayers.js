@@ -26,6 +26,7 @@ function savePlayers(user, enemy, mongoCollection, ws) {
           position: user["position"],
           buffs: user["buffs"],
           debuffs: user["debuffs"],
+          description: user["description"],
         },
       }
     );
@@ -45,6 +46,7 @@ function savePlayers(user, enemy, mongoCollection, ws) {
           position: enemy["position"],
           buffs: enemy["buffs"],
           debuffs: enemy["debuffs"],
+          description: enemy["description"],
         },
       }
     );

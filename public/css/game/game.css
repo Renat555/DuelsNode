@@ -5,6 +5,12 @@ body {
   background-image: url(../../img/game/fon2.jpg);
   background-size: cover;
 }
+.dot {
+  height: 1px;
+  width: 1px;
+  background-color: red;
+  position: absolute;
+}
 
 .enemy {
   height: 15vh;

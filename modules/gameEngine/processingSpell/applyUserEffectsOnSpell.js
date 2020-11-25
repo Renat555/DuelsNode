@@ -1,3 +1,5 @@
+const isHaveDependences = require("../isHaveDependences");
+
 function applyUserEffectsOnSpell(player, spell) {
   for (let i = 0; i < player["buffs"].length; i++) {
     if (!isHaveDependences(player["buffs"][i], spell)) continue;
