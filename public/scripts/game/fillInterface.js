@@ -71,17 +71,21 @@ function fillBattlfield(userMuve) {
   `;
 
   if (userMuve === 1) {
-    divUser.style.backgroundImage = "url(../../img/game/heroes/a1.png)";
+    divUser.style.backgroundImage =
+      "url(./../../../public/img/game/heroes/a1.png)";
     divUser.dataset.hero = "user";
     divUser.dataset.picture = "a";
-    divEnemy.style.backgroundImage = "url(../../img/game/heroes/c3.png)";
+    divEnemy.style.backgroundImage =
+      "url(./../../../public/img/game/heroes/c3.png)";
     divEnemy.dataset.hero = "enemy";
     divEnemy.dataset.picture = "c";
   } else {
-    divUser.style.backgroundImage = "url(../../img/game/heroes/c1.png)";
+    divUser.style.backgroundImage =
+      "url(./../../../public/img/game/heroes/c1.png)";
     divUser.dataset.hero = "user";
     divUser.dataset.picture = "c";
-    divEnemy.style.backgroundImage = "url(../../img/game/heroes/a3.png)";
+    divEnemy.style.backgroundImage =
+      "url(./../../../public/img/game/heroes/a3.png)";
     divEnemy.dataset.hero = "enemy";
     divEnemy.dataset.picture = "a";
   }

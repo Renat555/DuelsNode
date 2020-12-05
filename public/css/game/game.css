@@ -5,12 +5,6 @@ body {
   background-image: url(../../img/game/fon2.jpg);
   background-size: cover;
 }
-.dot {
-  height: 1px;
-  width: 1px;
-  background-color: red;
-  position: absolute;
-}
 
 .enemy {
   height: 15vh;
@@ -70,6 +64,7 @@ body {
 
 .gameTable {
   height: 60vh;
+  flex-wrap: nowrap;
 }
 .battlefield {
   background-color: #498780;
@@ -111,6 +106,8 @@ body {
   border: 2px solid #003d14;
   background-color: #fff3c7;
   font-size: 27px;
+  max-height: 550px;
+  overflow: auto;
 }
 
 .user {

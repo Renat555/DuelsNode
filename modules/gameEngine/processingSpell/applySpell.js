@@ -7,7 +7,7 @@ function applySpell(spell, user, enemy) {
       spell.decreasePlayerHealth(user, enemy);
       break;
     case "firestamp":
-      spell.increaseSpellDuration(enemy);
+      spell.increaseSpellDuration(user, enemy);
       break;
     case "fireflow":
       spell.decreasePlayerHealth(user, enemy);
@@ -31,16 +31,16 @@ function applySpell(spell, user, enemy) {
       spell.decreasePlayerHealth(user, enemy);
       break;
     case "lifecrown":
-      spell.increasePlayerMaxHealth(user);
+      spell.increasePlayerMaxHealth(user, enemy);
       break;
     case "lifesource":
-      spell.increasePlayerHealth(user);
+      spell.increasePlayerHealth(user, enemy);
       break;
     case "deathcrown":
-      spell.decreasePlayerMaxHealth(enemy);
+      spell.decreasePlayerMaxHealth(user, enemy);
       break;
     case "deathsource":
-      spell.decreasePlayerHealth(enemy);
+      spell.decreasePlayerHealth(user, enemy);
       break;
   }
 }

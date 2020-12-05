@@ -6,8 +6,6 @@ const config = require("config");
 let favicon = require("serve-favicon");
 app.use(favicon(__dirname + "/public/img/favicon.ico"));
 
-app.use(express.static("public"));
-
 app.get("/", function (req, res) {
   fs.readFile("./pages/createHero.html", function (error, data) {
     res.end(data);

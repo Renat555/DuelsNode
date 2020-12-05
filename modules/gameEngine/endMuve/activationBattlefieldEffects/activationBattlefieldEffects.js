@@ -6,10 +6,9 @@ const decreaseDurationBattlefieldEffects = require("./decreaseDurationBattlefiel
 function activationBattlefieldEffects(user, enemy) {
   let userEffects = createEffectsFromBattlefield(user);
   let enemyEffects = createEffectsFromBattlefield(enemy);
-  applyEffectsToBattlefieldEffect(userEffects, user);
-  applyEffectsToBattlefieldEffect(enemyEffects, enemy);
-  applyBattlefieldEffects(userEffects, user);
-  applyBattlefieldEffects(enemyEffects, enemy);
+  applyEffectsToBattlefieldEffect(userEffects, user, enemy);
+  applyEffectsToBattlefieldEffect(enemyEffects, user, enemy);
+  applyBattlefieldEffects(userEffects, enemyEffects, user, enemy);
   decreaseDurationBattlefieldEffects(user, enemy);
 }
 

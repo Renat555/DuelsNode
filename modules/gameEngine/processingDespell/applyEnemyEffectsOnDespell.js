@@ -1,3 +1,5 @@
+const isHaveDependences = require("../isHaveDependences");
+
 function applyEnemyEffectsOnDespell(player, spell) {
   for (let i = 0; i < player["buffs"].length; i++) {
     if (!isHaveDependences(player["buffs"][i], spell)) continue;

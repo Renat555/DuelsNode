@@ -87,7 +87,7 @@ function fillPoints(user) {
 
 function fillDescription(description) {
   let divDescription = document.getElementsByClassName("description")[0];
-  divDescription.innerHTML += description + "<br>";
+  divDescription.innerHTML = description + "<br>" + divDescription.innerHTML;
 }
 
 function hideMuveText(muveUser) {

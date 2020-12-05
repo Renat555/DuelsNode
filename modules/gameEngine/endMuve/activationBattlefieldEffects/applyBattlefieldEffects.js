@@ -1,8 +1,15 @@
-function applyBattlefieldEffects(effects, player) {
-  for (let i = 0; i < effects.length; i++) {
-    switch (effects[i]["spellName"]) {
+function applyBattlefieldEffects(userEffects, enemyEffects, user, enemy) {
+  for (let i = 0; i < userEffects.length; i++) {
+    switch (userEffects[i]["spellName"]) {
       case "watersphere":
-        effects[i].decreasePlayerHealth(player);
+        userEffects[i].decreasePlayerHealth(user, enemy);
+    }
+  }
+
+  for (let i = 0; i < enemyEffects.length; i++) {
+    switch (enemyEffects[i]["spellName"]) {
+      case "watersphere":
+        enemyEffects[i].decreasePlayerHealth(enemy, user);
     }
   }
 }

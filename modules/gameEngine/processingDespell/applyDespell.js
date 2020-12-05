@@ -4,31 +4,31 @@ function applyDespell(spell, user, enemy) {
 
   switch (spell["spellName"]) {
     case "firekey":
-      spell.deleteEffect(enemy);
+      spell.deleteEffect(user, enemy);
       break;
     case "watersource":
-      spell.deleteEffect(user);
+      spell.deleteEffect(user, enemy);
       break;
     case "waterkey":
-      spell.deleteEffect(user);
+      spell.deleteEffect(user, enemy);
       break;
     case "earthkey":
-      spell.deleteEffect(user);
+      spell.deleteEffect(user, enemy);
       break;
     case "airkey":
-      spell.deleteEffect(enemy);
+      spell.deleteEffect(user, enemy);
       break;
     case "lifespear":
-      spell.deleteEffect(user);
+      spell.deleteEffect(user, enemy);
       break;
     case "lifekey":
-      spell.deleteEffect(user);
+      spell.deleteEffect(user, enemy);
       break;
     case "deathspear":
-      spell.deleteEffect(enemy);
+      spell.deleteEffect(user, enemy);
       break;
     case "deathpower":
-      spell.deleteEffect(enemy);
+      spell.deleteEffect(user, enemy);
       break;
   }
 }

@@ -60,7 +60,7 @@ function chooseEffect(event) {
   let spellInformation = {
     header: "despell",
     spell: divSpell.dataset.spell,
-    despell: target.dataset.despell,
+    despell: target.dataset.spell,
   };
 
   localStorage.setItem("spellInformation", JSON.stringify(spellInformation));
@@ -132,9 +132,24 @@ function lifekey(userEffects) {
   }
 }
 
+function deathspear(enemyEffects) {
+  for (let i = 0; i < enemyEffects.length; i++) {
+    if (enemyEffects[i].dataset.spell == "lifepower") {
+      enemyEffects[i].addEventListener("click", chooseEffect);
+      return;
+    }
+  }
+
+  for (let i = 0; i < enemyEffects.length; i++) {
+    if (spellbook["deathspear"][4].indexOf(enemyEffects[i].dataset.spell) == -1)
+      continue;
+    enemyEffects[i].addEventListener("click", chooseEffect);
+  }
+}
+
 function deathpower(enemyEffects) {
   for (let i = 0; i < enemyEffects.length; i++) {
-    if (spellbook["lifekey"][4].indexOf(enemyEffects[i].dataset.spell) == -1)
+    if (spellbook["deathpower"][4].indexOf(enemyEffects[i].dataset.spell) == -1)
       continue;
     enemyEffects[i].addEventListener("click", chooseEffect);
   }
@@ -443,7 +458,7 @@ function createSpell() {
       effect(divSpell.dataset.spell);
       break;
     case "watersource":
-      watersource(enemyEffects);
+      watersource(userEffects);
       break;
     case "watersphere":
       document.addEventListener("mouseover", watersphereMuve);
@@ -543,10 +558,7 @@ function createSpell() {
       effect(divSpell.dataset.spell);
       break;
     case "deathspear":
-      spell(divSpell.dataset.spell);
-      break;
-    case "deathspear":
-      spell(divSpell.dataset.spell);
+      deathspear(enemyEffects);
       break;
     case "deathshild":
       effect(divSpell.dataset.spell);

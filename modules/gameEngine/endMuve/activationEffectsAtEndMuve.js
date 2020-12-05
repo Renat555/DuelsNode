@@ -25,7 +25,7 @@ function activationEffect(effect, user, enemy) {
       effect.decreaseDuration(1, user);
       break;
     case "firesource":
-      effect.decreasePlayerHealth(user);
+      effect.decreasePlayerHealth(user, enemy);
       effect.decreaseDuration(1, user);
       break;
     case "watershild":
@@ -74,14 +74,14 @@ function activationEffect(effect, user, enemy) {
       effect.decreaseDuration(1, user);
       break;
     case "lifesphere":
-      effect.increasePlayerHealth(user);
+      effect.increasePlayerHealth(user, enemy);
       effect.decreaseDuration(1, user);
       break;
     case "lifestamp":
       effect.decreaseDuration(1, user);
       break;
     case "lifeflow":
-      effect.increasePlayerHealth(user);
+      effect.increasePlayerHealth(user, enemy);
       effect.decreaseDuration(1, user);
       break;
     case "deathshild":

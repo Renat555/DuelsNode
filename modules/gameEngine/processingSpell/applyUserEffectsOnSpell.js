@@ -1,34 +1,34 @@
 const isHaveDependences = require("../isHaveDependences");
 
-function applyUserEffectsOnSpell(player, spell) {
-  for (let i = 0; i < player["buffs"].length; i++) {
-    if (!isHaveDependences(player["buffs"][i], spell)) continue;
+function applyUserEffectsOnSpell(spell, user, enemy) {
+  for (let i = 0; i < user["buffs"].length; i++) {
+    if (!isHaveDependences(user["buffs"][i], spell)) continue;
 
-    switch (player["buffs"][i]["spellName"]) {
+    switch (user["buffs"][i]["spellName"]) {
       case "firecrown":
-        player["buffs"][i].increaseSpellDamage(spell);
+        user["buffs"][i].increaseSpellDamage(spell);
         break;
       case "firepower":
-        player["buffs"][i].increaseSpellDamage(spell);
+        user["buffs"][i].increaseSpellDamage(spell);
         break;
       case "earthcrown":
-        player["buffs"][i].increaseSpellHitProbability(spell);
+        user["buffs"][i].increaseSpellHitProbability(spell);
         break;
       case "earthsource":
-        player["buffs"][i].increaseSpellDamage(spell);
+        user["buffs"][i].increaseSpellDamage(spell);
         break;
       case "airsource":
-        player["buffs"][i].increaseSpellHitProbability(spell);
+        user["buffs"][i].increaseSpellHitProbability(spell);
         break;
     }
   }
 
-  for (let i = 0; i < player["debuffs"].length; i++) {
-    if (!isHaveDependences(player["debuffs"][i], spell)) continue;
+  for (let i = 0; i < user["debuffs"].length; i++) {
+    if (!isHaveDependences(user["debuffs"][i], spell)) continue;
 
-    switch (player["debuffs"][i]["spellName"]) {
+    switch (user["debuffs"][i]["spellName"]) {
       case "airshild":
-        player["debuffs"][i].decreaseSpellHitProbability(spell);
+        user["debuffs"][i].decreaseSpellHitProbability(spell);
         break;
     }
   }

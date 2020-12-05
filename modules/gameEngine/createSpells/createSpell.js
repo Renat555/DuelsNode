@@ -8,6 +8,10 @@ function createSpell(spellName, duration) {
       const Firespear = spellClasses.Firespear;
       spell = new Firespear();
       break;
+    case "firestamp":
+      const Firestamp = spellClasses.Firestamp;
+      spell = new Firestamp();
+      break;
     case "fireflow":
       const Fireflow = spellClasses.Fireflow;
       spell = new Fireflow();

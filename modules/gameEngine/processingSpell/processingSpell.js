@@ -10,8 +10,8 @@ function processingSpell(request, collection, ws, wss) {
   createPlayers(collection, ws).then((result) => {
     let { user, enemy } = result;
     let spell = createSpell(request["spell"]);
-    applyUserEffectsOnSpell(user, spell);
-    applyEnemyEffectsOnSpell(enemy, spell);
+    applyUserEffectsOnSpell(spell, user, enemy);
+    applyEnemyEffectsOnSpell(spell, user, enemy);
     applySpell(spell, user, enemy);
     savePlayers(user, enemy, collection, ws).then((result) => {
       let response = { header: "processingSpell" };
