@@ -5,6 +5,9 @@ const ws = new WebSocket("ws://localhost:8080");
 ws.onopen = () => {
   let gameInformation = localStorage.getItem("gameInformation");
   ws.send(gameInformation);
+
+  gameInformation = "gameIsStart";
+  localStorage.setItem("gameInformation", gameInformation);
 };
 
 ws.onmessage = (message) => {
@@ -23,6 +26,10 @@ ws.onmessage = (message) => {
       break;
     case "processingMuve":
       muveEnemy(message);
+      break;
+    case "enemyIsLeft":
+      alert("Противник вышел. Вы победили!");
+      window.location.href = "../";
       break;
   }
 };

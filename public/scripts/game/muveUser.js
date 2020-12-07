@@ -24,12 +24,16 @@ function muveGeneralPath(
       if (counter % 70 === 0) {
         if (toggle == "a") {
           let pictureUrl =
-            "url(../../img/game/heroes/" + divUser.dataset.picture + "2.png)";
+            "url(./../../../public/img/game/heroes/" +
+            divUser.dataset.picture +
+            "2.png)";
           divUser.style.backgroundImage = pictureUrl;
           toggle = "b";
         } else {
           let pictureUrl =
-            "url(../../img/game/heroes/" + divUser.dataset.picture + "1.png)";
+            "url(./../../../public/img/game/heroes/" +
+            divUser.dataset.picture +
+            "1.png)";
           divUser.style.backgroundImage = pictureUrl;
           toggle = "a";
         }
@@ -42,12 +46,16 @@ function muveGeneralPath(
       if (counter % 70 === 0) {
         if (toggle == "a") {
           let pictureUrl =
-            "url(../../img/game/heroes/" + divUser.dataset.picture + "3.png)";
+            "url(./../../../public/img/game/heroes/" +
+            divUser.dataset.picture +
+            "3.png)";
           divUser.style.backgroundImage = pictureUrl;
           toggle = "b";
         } else {
           let pictureUrl =
-            "url(../../img/game/heroes/" + divUser.dataset.picture + "4.png)";
+            "url(./../../../public/img/game/heroes/" +
+            divUser.dataset.picture +
+            "4.png)";
           divUser.style.backgroundImage = pictureUrl;
           toggle = "a";
         }
@@ -60,12 +68,16 @@ function muveGeneralPath(
       if (counter % 70 === 0) {
         if (toggle == "a") {
           let pictureUrl =
-            "url(../../img/game/heroes/" + divUser.dataset.picture + "5.png)";
+            "url(./../../../public/img/game/heroes/" +
+            divUser.dataset.picture +
+            "5.png)";
           divUser.style.backgroundImage = pictureUrl;
           toggle = "b";
         } else {
           let pictureUrl =
-            "url(../../img/game/heroes/" + divUser.dataset.picture + "6.png)";
+            "url(./../../../public/img/game/heroes/" +
+            divUser.dataset.picture +
+            "6.png)";
           divUser.style.backgroundImage = pictureUrl;
           toggle = "a";
         }
@@ -78,12 +90,16 @@ function muveGeneralPath(
       if (counter % 70 === 0) {
         if (toggle == "a") {
           let pictureUrl =
-            "url(../../img/game/heroes/" + divUser.dataset.picture + "7.png)";
+            "url(./../../../public/img/game/heroes/" +
+            divUser.dataset.picture +
+            "7.png)";
           divUser.style.backgroundImage = pictureUrl;
           toggle = "b";
         } else {
           let pictureUrl =
-            "url(../../img/game/heroes/" + divUser.dataset.picture + "8.png)";
+            "url(./../../../public/img/game/heroes/" +
+            divUser.dataset.picture +
+            "8.png)";
           divUser.style.backgroundImage = pictureUrl;
           toggle = "a";
         }
@@ -120,12 +136,16 @@ function muveAlternativePath(
       if (counter % 70 === 0) {
         if (toggle == "a") {
           let pictureUrl =
-            "url(../../img/game/heroes/" + divUser.dataset.picture + "5.png)";
+            "url(./../../../public/img/game/heroes/" +
+            divUser.dataset.picture +
+            "5.png)";
           divUser.style.backgroundImage = pictureUrl;
           toggle = "b";
         } else {
           let pictureUrl =
-            "url(../../img/game/heroes/" + divUser.dataset.picture + "6.png)";
+            "url(./../../../public/img/game/heroes/" +
+            divUser.dataset.picture +
+            "6.png)";
           divUser.style.backgroundImage = pictureUrl;
           toggle = "a";
         }
@@ -138,12 +158,16 @@ function muveAlternativePath(
       if (counter % 70 === 0) {
         if (toggle == "a") {
           let pictureUrl =
-            "url(../../img/game/heroes/" + divUser.dataset.picture + "7.png)";
+            "url(./../../../public/img/game/heroes/" +
+            divUser.dataset.picture +
+            "7.png)";
           divUser.style.backgroundImage = pictureUrl;
           toggle = "b";
         } else {
           let pictureUrl =
-            "url(../../img/game/heroes/" + divUser.dataset.picture + "8.png)";
+            "url(./../../../public/img/game/heroes/" +
+            divUser.dataset.picture +
+            "8.png)";
           divUser.style.backgroundImage = pictureUrl;
           toggle = "a";
         }
@@ -156,12 +180,16 @@ function muveAlternativePath(
       if (counter % 70 === 0) {
         if (toggle == "a") {
           let pictureUrl =
-            "url(../../img/game/heroes/" + divUser.dataset.picture + "2.png)";
+            "url(./../../../public/img/game/heroes/" +
+            divUser.dataset.picture +
+            "2.png)";
           divUser.style.backgroundImage = pictureUrl;
           toggle = "b";
         } else {
           let pictureUrl =
-            "url(../../img/game/heroes/" + divUser.dataset.picture + "1.png)";
+            "url(./../../../public/img/game/heroes/" +
+            divUser.dataset.picture +
+            "1.png)";
           divUser.style.backgroundImage = pictureUrl;
           toggle = "a";
         }
@@ -174,12 +202,16 @@ function muveAlternativePath(
       if (counter % 70 === 0) {
         if (toggle == "a") {
           let pictureUrl =
-            "url(../../img/game/heroes/" + divUser.dataset.picture + "3.png)";
+            "url(./../../../public/img/game/heroes/" +
+            divUser.dataset.picture +
+            "3.png)";
           divUser.style.backgroundImage = pictureUrl;
           toggle = "b";
         } else {
           let pictureUrl =
-            "url(../../img/game/heroes/" + divUser.dataset.picture + "4.png)";
+            "url(./../../../public/img/game/heroes/" +
+            divUser.dataset.picture +
+            "4.png)";
           divUser.style.backgroundImage = pictureUrl;
           toggle = "a";
         }
@@ -200,24 +232,40 @@ function faceToEnemy() {
 
   if (divSquareEnemy.dataset.row > divSquareUser.dataset.row) {
     divUser.style.backgroundImage =
-      "url(../../img/game/heroes/" + divUser.dataset.picture + "1.png)";
+      "url(./../../../public/img/game/heroes/" +
+      divUser.dataset.picture +
+      "1.png)";
     divEnemy.style.backgroundImage =
-      "url(../../img/game/heroes/" + divEnemy.dataset.picture + "3.png)";
+      "url(./../../../public/img/game/heroes/" +
+      divEnemy.dataset.picture +
+      "3.png)";
   } else if (divSquareEnemy.dataset.row < divSquareUser.dataset.row) {
     divUser.style.backgroundImage =
-      "url(../../img/game/heroes/" + divUser.dataset.picture + "3.png)";
+      "url(./../../../public/img/game/heroes/" +
+      divUser.dataset.picture +
+      "3.png)";
     divEnemy.style.backgroundImage =
-      "url(../../img/game/heroes/" + divEnemy.dataset.picture + "1.png)";
+      "url(./../../../public/img/game/heroes/" +
+      divEnemy.dataset.picture +
+      "1.png)";
   } else if (divSquareEnemy.dataset.col < divSquareUser.dataset.col) {
     divUser.style.backgroundImage =
-      "url(../../img/game/heroes/" + divUser.dataset.picture + "6.png)";
+      "url(./../../../public/img/game/heroes/" +
+      divUser.dataset.picture +
+      "6.png)";
     divEnemy.style.backgroundImage =
-      "url(../../img/game/heroes/" + divEnemy.dataset.picture + "8.png)";
+      "url(./../../../public/img/game/heroes/" +
+      divEnemy.dataset.picture +
+      "8.png)";
   } else if (divSquareEnemy.dataset.col > divSquareUser.dataset.col) {
     divUser.style.backgroundImage =
-      "url(../../img/game/heroes/" + divUser.dataset.picture + "8.png)";
+      "url(./../../../public/img/game/heroes/" +
+      divUser.dataset.picture +
+      "8.png)";
     divEnemy.style.backgroundImage =
-      "url(../../img/game/heroes/" + divEnemy.dataset.picture + "6.png)";
+      "url(./../../../public/img/game/heroes/" +
+      divEnemy.dataset.picture +
+      "6.png)";
   }
 }
 

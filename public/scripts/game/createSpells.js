@@ -76,286 +76,6 @@ function clearEffects() {
   }
 }
 
-function firekey(enemyEffects) {
-  for (let i = 0; i < enemyEffects.length; i++) {
-    if (spellbook["firekey"][4].indexOf(enemyEffects[i].dataset.spell) == -1)
-      continue;
-    enemyEffects[i].addEventListener("click", chooseEffect);
-  }
-}
-
-function watersource(userEffects) {
-  for (let i = 0; i < userEffects.length; i++) {
-    if (spellbook["watersource"][4].indexOf(userEffects[i].dataset.spell) == -1)
-      continue;
-    userEffects[i].addEventListener("click", chooseEffect);
-  }
-}
-
-function waterkey(userEffects) {
-  for (let i = 0; i < userEffects.length; i++) {
-    if (spellbook["waterkey"][4].indexOf(userEffects[i].dataset.spell) == -1)
-      continue;
-    userEffects[i].addEventListener("click", chooseEffect);
-  }
-}
-
-function earthkey(userEffects) {
-  for (let i = 0; i < userEffects.length; i++) {
-    if (spellbook["earthkey"][4].indexOf(userEffects[i].dataset.spell) == -1)
-      continue;
-    userEffects[i].addEventListener("click", chooseEffect);
-  }
-}
-
-function airkey(enemyEffects) {
-  for (let i = 0; i < enemyEffects.length; i++) {
-    if (spellbook["airkey"][4].indexOf(enemyEffects[i].dataset.spell) == -1)
-      continue;
-    enemyEffects[i].addEventListener("click", chooseEffect);
-  }
-}
-
-function lifespear(userEffects) {
-  for (let i = 0; i < userEffects.length; i++) {
-    if (spellbook["lifespear"][4].indexOf(userEffects[i].dataset.spell) == -1)
-      continue;
-    userEffects[i].addEventListener("click", chooseEffect);
-  }
-}
-
-function lifekey(userEffects) {
-  for (let i = 0; i < userEffects.length; i++) {
-    if (spellbook["lifekey"][4].indexOf(userEffects[i].dataset.spell) == -1)
-      continue;
-    userEffects[i].addEventListener("click", chooseEffect);
-  }
-}
-
-function deathspear(enemyEffects) {
-  for (let i = 0; i < enemyEffects.length; i++) {
-    if (enemyEffects[i].dataset.spell == "lifepower") {
-      enemyEffects[i].addEventListener("click", chooseEffect);
-      return;
-    }
-  }
-
-  for (let i = 0; i < enemyEffects.length; i++) {
-    if (spellbook["deathspear"][4].indexOf(enemyEffects[i].dataset.spell) == -1)
-      continue;
-    enemyEffects[i].addEventListener("click", chooseEffect);
-  }
-}
-
-function deathpower(enemyEffects) {
-  for (let i = 0; i < enemyEffects.length; i++) {
-    if (spellbook["deathpower"][4].indexOf(enemyEffects[i].dataset.spell) == -1)
-      continue;
-    enemyEffects[i].addEventListener("click", chooseEffect);
-  }
-}
-
-function earthshildMuve(event) {
-  removeBattlefieldObjects();
-
-  let target = event.target;
-  if (!target.dataset.row) return;
-  if (target.dataset.player) return;
-  if (target.dataset.spell) return;
-
-  let divBattleField = document.getElementsByClassName("battlefield")[0];
-  divBattleField.removeEventListener("click", muveUser);
-
-  target.classList.add("earthshild");
-  target.style.opacity = 0.5;
-  target.dataset.state = "preparing";
-
-  let divSquareLeft = document.querySelector(
-    `[data-row="${target.dataset.row}"][data-col="${+target.dataset.col - 1}"]`
-  );
-
-  if (
-    divSquareLeft &&
-    !divSquareLeft.dataset.player &&
-    !divSquareLeft.dataset.spell
-  ) {
-    divSquareLeft.classList.add("earthshild");
-    divSquareLeft.style.opacity = 0.5;
-    divSquareLeft.dataset.state = "preparing";
-  }
-
-  let divSquareRight = document.querySelector(
-    `[data-row="${target.dataset.row}"][data-col="${+target.dataset.col + 1}"]`
-  );
-
-  if (
-    divSquareRight &&
-    !divSquareRight.dataset.player &&
-    !divSquareRight.dataset.spell
-  ) {
-    divSquareRight.classList.add("earthshild");
-    divSquareRight.style.opacity = 0.5;
-    divSquareRight.dataset.state = "preparing";
-  }
-}
-
-function earthshildPreparing(event) {
-  let target = event.target;
-  if (!target.dataset.row) return;
-
-  document.removeEventListener("mouseover", earthshildMuve);
-
-  let earthshild = { header: "battlefieldSpell", spell: ["earthshild", 5] };
-
-  let battlefield = document.querySelectorAll("[data-row]");
-
-  for (let i = 0; i < battlefield.length; i++) {
-    if (battlefield[i].dataset.state == "preparing") {
-      let coord = [];
-      coord[0] = battlefield[i].dataset.row;
-      coord[1] = battlefield[i].dataset.col;
-      earthshild["spell"].push(coord);
-    }
-  }
-
-  localStorage.setItem("spellInformation", JSON.stringify(earthshild));
-  localStorage.setItem("complete", "yes");
-
-  let buttonActivationSpell = document.getElementsByName(
-    "buttonActiveSpell"
-  )[0];
-  buttonActivationSpell.addEventListener("click", earthshildApproval);
-
-  divBattleField.addEventListener("click", muveUser);
-}
-
-function earthshildApproval() {
-  let battlefield = document.querySelectorAll("[data-row]");
-
-  for (let i = 0; i < battlefield.length; i++) {
-    if (battlefield[i].classList.contains("earthshild")) {
-      battlefield[i].style.opacity = 1;
-      battlefield[i].dataset.spell = "earthshild";
-      battlefield[i].dataset.state = "approval";
-      battlefield[i].dataset.duration = "5";
-    }
-  }
-
-  let buttonActivationSpell = document.getElementsByName(
-    "buttonActiveSpell"
-  )[0];
-  buttonActivationSpell.removeEventListener("click", earthshildApproval);
-}
-
-function watersphereMuve(event) {
-  removeBattlefieldObjects();
-
-  let target = event.target;
-
-  if (target.dataset.hero == "user") {
-    target = document.querySelector("[data-player='user']");
-  } else if (target.dataset.hero == "enemy") {
-    target = document.querySelector("[data-player='enemy']");
-  }
-
-  if (!target.dataset.row) return;
-  if (target.dataset.spell) return;
-
-  let divBattleField = document.getElementsByClassName("battlefield")[0];
-  divBattleField.removeEventListener("click", muveUser);
-
-  target.classList.add("watersphere");
-  target.style.opacity = 0.5;
-  target.dataset.state = "preparing";
-
-  let divSquareBottom = document.querySelector(
-    `[data-row="${+target.dataset.row - 1}"][data-col="${target.dataset.col}"]`
-  );
-
-  if (divSquareBottom && !divSquareBottom.dataset.spell) {
-    divSquareBottom.classList.add("watersphere");
-    divSquareBottom.style.opacity = 0.5;
-    divSquareBottom.dataset.state = "preparing";
-  }
-
-  let divSquareRight = document.querySelector(
-    `[data-row="${target.dataset.row}"][data-col="${+target.dataset.col + 1}"]`
-  );
-
-  if (divSquareRight && !divSquareRight.dataset.spell) {
-    divSquareRight.classList.add("watersphere");
-    divSquareRight.style.opacity = 0.5;
-    divSquareRight.dataset.state = "preparing";
-  }
-
-  let divSquareRightBottom = document.querySelector(
-    `[data-row="${+target.dataset.row - 1}"][data-col="${
-      +target.dataset.col + 1
-    }"]`
-  );
-
-  if (divSquareRightBottom && !divSquareRightBottom.dataset.spell) {
-    divSquareRightBottom.classList.add("watersphere");
-    divSquareRightBottom.style.opacity = 0.5;
-    divSquareRightBottom.dataset.state = "preparing";
-  }
-}
-
-function waterspherePreparing(event) {
-  let target = event.target;
-
-  if (target.dataset.hero == "user") {
-    target = document.querySelector("[data-player='user']");
-  } else if (target.dataset.hero == "enemy") {
-    target = document.querySelector("[data-player='enemy']");
-  }
-
-  if (!target.dataset.row) return;
-
-  document.removeEventListener("mouseover", watersphereMuve);
-
-  let watersphere = { header: "battlefieldSpell", spell: ["watersphere", 3] };
-
-  let battlefield = document.querySelectorAll("[data-row]");
-
-  for (let i = 0; i < battlefield.length; i++) {
-    if (battlefield[i].dataset.state == "preparing") {
-      let coord = [];
-      coord[0] = battlefield[i].dataset.row;
-      coord[1] = battlefield[i].dataset.col;
-      watersphere["spell"].push(coord);
-    }
-  }
-
-  localStorage.setItem("spellInformation", JSON.stringify(watersphere));
-  localStorage.setItem("complete", "yes");
-
-  let buttonActivationSpell = document.getElementsByName(
-    "buttonActiveSpell"
-  )[0];
-  buttonActivationSpell.addEventListener("click", watersphereApproval);
-
-  divBattleField.addEventListener("click", muveUser);
-}
-
-function watersphereApproval() {
-  let battlefield = document.querySelectorAll("[data-row]");
-
-  for (let i = 0; i < battlefield.length; i++) {
-    if (battlefield[i].dataset.state == "preparing") {
-      battlefield[i].style.opacity = 1;
-      battlefield[i].dataset.spell = "watersphere";
-      battlefield[i].dataset.state = "approval";
-      battlefield[i].dataset.duration = "3";
-    }
-  }
-
-  let buttonActivationSpell = document.getElementsByName(
-    "buttonActiveSpell"
-  )[0];
-  buttonActivationSpell.removeEventListener("click", watersphereApproval);
-}
-
 function removeBattlefieldObjects() {
   let battlefield = document.querySelectorAll("[data-row]");
 
@@ -376,24 +96,17 @@ function removeSpells() {
   document.removeEventListener("click", earthshildPreparing);
   document.removeEventListener("mouseover", watersphereMuve);
   document.removeEventListener("click", waterspherePreparing);
-}
 
-function spell(spellName) {
-  let spellInformation = {
-    header: "spell",
-    spell: spellName,
-  };
-  localStorage.setItem("spellInformation", JSON.stringify(spellInformation));
-  localStorage.setItem("complete", "yes");
-}
+  let buttonActivationSpell = document.getElementsByName(
+    "buttonActiveSpell"
+  )[0];
 
-function effect(spellName) {
-  let spellInformation = {
-    header: "effect",
-    spell: spellName,
-  };
-  localStorage.setItem("spellInformation", JSON.stringify(spellInformation));
-  localStorage.setItem("complete", "yes");
+  buttonActivationSpell.removeEventListener("click", soundFire);
+  buttonActivationSpell.removeEventListener("click", soundWater);
+  buttonActivationSpell.removeEventListener("click", soundEarth);
+  buttonActivationSpell.removeEventListener("click", soundAir);
+  buttonActivationSpell.removeEventListener("click", soundLife);
+  buttonActivationSpell.removeEventListener("click", soundDeath);
 }
 
 function createSpell() {
@@ -422,40 +135,40 @@ function createSpell() {
 
   switch (divSpell.dataset.spell) {
     case "firespear":
-      spell(divSpell.dataset.spell);
+      fireSpell(divSpell.dataset.spell);
       break;
     case "fireshild":
-      effect(divSpell.dataset.spell);
+      fireEffect(divSpell.dataset.spell);
       break;
     case "firecrown":
-      effect(divSpell.dataset.spell);
+      fireEffect(divSpell.dataset.spell);
       break;
     case "firesource":
-      effect(divSpell.dataset.spell);
+      fireEffect(divSpell.dataset.spell);
       break;
     case "firesphere":
-      effect(divSpell.dataset.spell);
+      fireEffect(divSpell.dataset.spell);
       break;
     case "firestamp":
-      spell(divSpell.dataset.spell);
+      fireSpell(divSpell.dataset.spell);
       break;
     case "firekey":
       firekey(enemyEffects);
       break;
     case "fireflow":
-      spell(divSpell.dataset.spell);
+      fireSpell(divSpell.dataset.spell);
       break;
     case "firepower":
-      effect(divSpell.dataset.spell);
+      fireEffect(divSpell.dataset.spell);
       break;
     case "waterspear":
-      spell(divSpell.dataset.spell);
+      waterSpell(divSpell.dataset.spell);
       break;
     case "watershild":
-      effect(divSpell.dataset.spell);
+      waterEffect(divSpell.dataset.spell);
       break;
     case "watercrown":
-      effect(divSpell.dataset.spell);
+      waterEffect(divSpell.dataset.spell);
       break;
     case "watersource":
       watersource(userEffects);
@@ -465,121 +178,121 @@ function createSpell() {
       document.addEventListener("click", waterspherePreparing);
       break;
     case "waterstamp":
-      effect(divSpell.dataset.spell);
+      waterEffect(divSpell.dataset.spell);
       break;
     case "waterkey":
       waterkey(userEffects);
       break;
     case "waterflow":
-      spell(divSpell.dataset.spell);
+      waterSpell(divSpell.dataset.spell);
       break;
     case "waterpower":
-      effect(divSpell.dataset.spell);
+      waterEffect(divSpell.dataset.spell);
       break;
     case "earthspear":
-      spell(divSpell.dataset.spell);
+      earthSpell(divSpell.dataset.spell);
       break;
     case "earthshild":
       document.addEventListener("mouseover", earthshildMuve);
       document.addEventListener("click", earthshildPreparing);
     case "earthcrown":
-      effect(divSpell.dataset.spell);
+      earthEffect(divSpell.dataset.spell);
       break;
     case "earthsource":
-      effect(divSpell.dataset.spell);
+      earthEffect(divSpell.dataset.spell);
       break;
     case "earthsphere":
-      effect(divSpell.dataset.spell);
+      earthEffect(divSpell.dataset.spell);
       break;
     case "earthstamp":
-      effect(divSpell.dataset.spell);
+      earthEffect(divSpell.dataset.spell);
       break;
     case "earthkey":
       earthkey(userEffects);
       break;
     case "earthflow":
-      spell(divSpell.dataset.spell);
+      earthSpell(divSpell.dataset.spell);
       break;
     case "earthpower":
-      effect(divSpell.dataset.spell);
+      earthEffect(divSpell.dataset.spell);
       break;
     case "airspear":
-      spell(divSpell.dataset.spell);
+      airSpell(divSpell.dataset.spell);
       break;
     case "airshild":
-      effect(divSpell.dataset.spell);
+      airEffect(divSpell.dataset.spell);
       break;
     case "aircrown":
-      effect(divSpell.dataset.spell);
+      airEffect(divSpell.dataset.spell);
       break;
     case "airsource":
-      effect(divSpell.dataset.spell);
+      airEffect(divSpell.dataset.spell);
       break;
     case "airsphere":
-      effect(divSpell.dataset.spell);
+      airEffect(divSpell.dataset.spell);
       break;
     case "airstamp":
-      effect(divSpell.dataset.spell);
+      airEffect(divSpell.dataset.spell);
       break;
     case "airkey":
       airkey(enemyEffects);
       break;
     case "airflow":
-      spell(divSpell.dataset.spell);
+      airSpell(divSpell.dataset.spell);
       break;
     case "airpower":
-      effect(divSpell.dataset.spell);
+      airEffect(divSpell.dataset.spell);
       break;
     case "lifespear":
       lifespear(userEffects);
       break;
     case "lifeshild":
-      effect(divSpell.dataset.spell);
+      lifeEffect(divSpell.dataset.spell);
       break;
     case "lifecrown":
-      spell(divSpell.dataset.spell);
+      lifeSpell(divSpell.dataset.spell);
       break;
     case "lifesource":
-      spell(divSpell.dataset.spell);
+      lifeSpell(divSpell.dataset.spell);
       break;
     case "lifesphere":
-      effect(divSpell.dataset.spell);
+      lifeEffect(divSpell.dataset.spell);
       break;
     case "lifestamp":
-      effect(divSpell.dataset.spell);
+      lifeEffect(divSpell.dataset.spell);
       break;
     case "lifekey":
       lifekey(userEffects);
       break;
     case "lifeflow":
-      effect(divSpell.dataset.spell);
+      lifeEffect(divSpell.dataset.spell);
       break;
     case "lifepower":
-      effect(divSpell.dataset.spell);
+      lifeEffect(divSpell.dataset.spell);
       break;
     case "deathspear":
       deathspear(enemyEffects);
       break;
     case "deathshild":
-      effect(divSpell.dataset.spell);
+      deathEffect(divSpell.dataset.spell);
       break;
     case "deathcrown":
-      spell(divSpell.dataset.spell);
+      deathSpell(divSpell.dataset.spell);
       break;
     case "deathsource":
-      spell(divSpell.dataset.spell);
+      deathSpell(divSpell.dataset.spell);
       break;
     case "deathsphere":
-      effect(divSpell.dataset.spell);
+      deathEffect(divSpell.dataset.spell);
       break;
     case "deathstamp":
-      effect(divSpell.dataset.spell);
+      deathEffect(divSpell.dataset.spell);
       break;
     case "deathkey":
-      effect(divSpell.dataset.spell);
+      deathEffect(divSpell.dataset.spell);
       break;
     case "deathflow":
-      effect(divSpell.dataset.spell);
+      deathEffect(divSpell.dataset.spell);
       break;
     case "deathpower":
       deathpower(enemyEffects);

@@ -143,9 +143,5 @@ function fillInterface(users) {
   hideMuveText(users["user"]["muve"], users["enemy"]["muve"]);
   showHints();
 
-  let gameInformation = users;
-  gameInformation["header"] = "restoreGame";
-  localStorage.setItem("gameInformation", JSON.stringify(gameInformation));
-
   hideWaitingScreen();
 }

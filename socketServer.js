@@ -43,18 +43,19 @@ mongoClient.connect(function (err, client) {
         case "muveHero":
           muveHero(request, collection, ws, wss);
           break;
-        case "restoreGame":
-          request["header"] = "createGame";
-          ws["id"] = request["user"]["id"];
-          ws.send(JSON.stringify(request));
-          break;
         case "endMuve":
           endMuve(collection, ws, wss);
           break;
       }
     });
     ws.on("close", function close() {
-      collection.deleteOne({ id: ws["id"] });
+      collection.deleteOne({ id: ws["id"] }, function (err, doc) {
+        wss.clients.forEach(function each(client) {
+          if (client.readyState == 1 && client["id"] == ws["idEnemy"]) {
+            client.send(JSON.stringify({ header: "enemyIsLeft" }));
+          }
+        });
+      });
     });
   });
 });

@@ -129,8 +129,4 @@ function changeInterface(users) {
     users["enemy"]["health"],
     users["enemy"]["name"]
   );
-
-  let gameInformation = users;
-  gameInformation["header"] = "restoreGame";
-  localStorage.setItem("gameInformation", JSON.stringify(gameInformation));
 }
