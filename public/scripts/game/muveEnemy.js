@@ -22,8 +22,9 @@ function muveEnemy(users) {
   let distanceRow = divSquareEnemy.dataset.row - target.dataset.row;
   let distanceCol = target.dataset.col - divSquareEnemy.dataset.col;
 
-  let verticalStart = coordDivEnemy.top;
-  let verticalEnd = coordDivEnemy.top + coordTarget.height * distanceRow;
+  let verticalStart = window.pageYOffset + coordDivEnemy.top;
+  let verticalEnd =
+    window.pageYOffset + coordDivEnemy.top + coordTarget.height * distanceRow;
   let horizontalStart = coordDivEnemy.left;
   let horzontalEnd = coordDivEnemy.left + coordTarget.width * distanceCol;
 

@@ -1,6 +1,6 @@
 function createBattlefieldSpell(divSquare, effects) {
   divSquare.dataset.spell = "";
-  divSquare.className = "col battleSquare";
+  divSquare.className = "battleSquare";
 
   for (let i = 0; i < effects.length; i++) {
     for (let j = 0; j < effects[i][2].length; j++) {

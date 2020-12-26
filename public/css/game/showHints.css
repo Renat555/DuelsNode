@@ -9,6 +9,7 @@
   border: 2px solid #003d14;
   background-color: #fff3c7;
   font-size: 27px;
+  z-index: 998;
 }
 @media screen and (max-width: 1920px) {
   .hint {

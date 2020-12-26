@@ -43,3 +43,6 @@ function buttonClick() {
 }
 
 buttonMuve.addEventListener("click", buttonClick);
+
+let buttonShowEffects = document.getElementsByName("buttonShowEffects")[0];
+buttonShowEffects.addEventListener("click", buttonClick);

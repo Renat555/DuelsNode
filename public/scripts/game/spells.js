@@ -133,7 +133,7 @@ function earthshildMuve(event) {
   divBattleField.removeEventListener("click", muveUser);
 
   target.classList.add("earthshild");
-  target.style.opacity = 0.5;
+  target.style.opacity = 0.7;
   target.dataset.state = "preparing";
 
   let divSquareLeft = document.querySelector(
@@ -146,7 +146,7 @@ function earthshildMuve(event) {
     !divSquareLeft.dataset.spell
   ) {
     divSquareLeft.classList.add("earthshild");
-    divSquareLeft.style.opacity = 0.5;
+    divSquareLeft.style.opacity = 0.7;
     divSquareLeft.dataset.state = "preparing";
   }
 
@@ -160,7 +160,7 @@ function earthshildMuve(event) {
     !divSquareRight.dataset.spell
   ) {
     divSquareRight.classList.add("earthshild");
-    divSquareRight.style.opacity = 0.5;
+    divSquareRight.style.opacity = 0.7;
     divSquareRight.dataset.state = "preparing";
   }
 }
@@ -232,7 +232,7 @@ function watersphereMuve(event) {
   divBattleField.removeEventListener("click", muveUser);
 
   target.classList.add("watersphere");
-  target.style.opacity = 0.5;
+  target.style.opacity = 0.7;
   target.dataset.state = "preparing";
 
   let divSquareBottom = document.querySelector(
@@ -241,7 +241,7 @@ function watersphereMuve(event) {
 
   if (divSquareBottom && !divSquareBottom.dataset.spell) {
     divSquareBottom.classList.add("watersphere");
-    divSquareBottom.style.opacity = 0.5;
+    divSquareBottom.style.opacity = 0.7;
     divSquareBottom.dataset.state = "preparing";
   }
 
@@ -251,7 +251,7 @@ function watersphereMuve(event) {
 
   if (divSquareRight && !divSquareRight.dataset.spell) {
     divSquareRight.classList.add("watersphere");
-    divSquareRight.style.opacity = 0.5;
+    divSquareRight.style.opacity = 0.7;
     divSquareRight.dataset.state = "preparing";
   }
 
@@ -263,7 +263,7 @@ function watersphereMuve(event) {
 
   if (divSquareRightBottom && !divSquareRightBottom.dataset.spell) {
     divSquareRightBottom.classList.add("watersphere");
-    divSquareRightBottom.style.opacity = 0.5;
+    divSquareRightBottom.style.opacity = 0.7;
     divSquareRightBottom.dataset.state = "preparing";
   }
 }

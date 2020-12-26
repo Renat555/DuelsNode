@@ -1,6 +1,6 @@
 "use strict";
 
-const ws = new WebSocket("ws://localhost:8080");
+const ws = new WebSocket("ws://duelsnode:3000");
 
 ws.onopen = () => {
   let gameInformation = localStorage.getItem("gameInformation");

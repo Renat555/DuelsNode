@@ -2,7 +2,7 @@
 
 function fillEnemyName(enemy) {
   let enemyName = document.getElementById("enemyName");
-  enemyName.innerHTML = "Противник: " + enemy["name"];
+  enemyName.innerHTML = enemy["name"];
 }
 
 function fillForms(forms) {
@@ -93,12 +93,17 @@ function fillBattlfield(userMuve) {
   let divSquareUser = document.querySelector(`[data-row="0"][data-col="3"]`);
   divSquareUser.dataset.player = "user";
   let coordSquareUser = divSquareUser.getBoundingClientRect();
+
   divUser.style.height =
     coordSquareUser.height - coordSquareUser.height / 10 + "px";
   divUser.style.width =
     coordSquareUser.width - coordSquareUser.width / 10 + "px";
   divUser.style.left = coordSquareUser.left + coordSquareUser.width / 20 + "px";
-  divUser.style.top = coordSquareUser.top + coordSquareUser.height / 20 + "px";
+  divUser.style.top =
+    window.pageYOffset +
+    coordSquareUser.top +
+    coordSquareUser.height / 20 +
+    "px";
 
   let divSquareEnemy = document.querySelector(`[data-row="6"][data-col="3"]`);
   divSquareEnemy.dataset.player = "enemy";
@@ -110,7 +115,10 @@ function fillBattlfield(userMuve) {
   divEnemy.style.left =
     coordSquareEnemy.left + coordSquareEnemy.width / 20 + "px";
   divEnemy.style.top =
-    coordSquareEnemy.top + coordSquareEnemy.height / 20 + "px";
+    window.pageYOffset +
+    coordSquareEnemy.top +
+    coordSquareEnemy.height / 20 +
+    "px";
 
   document.body.append(divUser);
   document.body.append(divEnemy);
@@ -128,12 +136,19 @@ function hideMuveText(muveUser) {
   }
 }
 
+function hideEffects() {
+  let divEffects = document.getElementsByClassName("effects")[0];
+  divEffects.hidden = true;
+  document.removeEventListener("click", hideEffects);
+}
+
 function hideWaitingScreen() {
   let divWaitingScreen = document.getElementsByClassName("backdrop")[0];
   divWaitingScreen.hidden = true;
 }
 
 function fillInterface(users) {
+  hideEffects();
   fillEnemyName(users["enemy"]);
   fillForms(users["user"]["forms"]);
   fillElements(users["user"]["elements"]);

@@ -5,10 +5,38 @@ body {
   background-image: url(../../img/game/fon2.jpg);
   background-size: cover;
 }
+.containerForEffects {
+  width: 100%;
+  position: absolute;
+  z-index: 997;
+}
+.effects {
+  padding: 0.7em;
+  border-radius: 20px;
+  font-style: italic;
+  text-align: justify;
+  border: 2px solid #003d14;
+  background-color: #fff3c7;
+  font-size: 27px;
+}
+.close {
+  background-image: url(../../img/game/icons/cross.png);
+  background-size: cover;
+  width: 30px;
+  height: 30px;
+}
+.choose {
+  font-size: 1.9rem;
+  text-align: center;
+  color: white;
+  text-shadow: 1px 0 1px #000, 0 1px 1px #000, -1px 0 1px #000, 0 -1px 1px #000;
+  margin: 15px 0 15px 0;
+}
 
 .enemy {
-  height: 15vh;
+  height: 11vh;
   background-image: url(../../img/game/fonGame.jpg);
+  border-bottom: 2px solid #7a7a7a;
 }
 #enemyName {
   background-color: white;
@@ -35,22 +63,18 @@ body {
   text-align: right;
   border-radius: 10px;
 }
-.effects {
-  overflow: auto;
-}
 .spell {
-  width: 100%;
-  min-height: 3rem;
-  margin-left: 5px;
+  padding: 0 0.5rem;
+  margin: 3px;
   display: inline-block;
   text-align: center;
+  vertical-align: middle;
   color: white;
   font-size: 2rem;
-  background-color: #dbac0069;
+  background-color: #208217;
   border-radius: 10px;
   border: 2px solid #003d14;
   text-shadow: 1px 0 1px #000, 0 1px 1px #000, -1px 0 1px #000, 0 -1px 1px #000;
-  cursor: help;
 }
 .battleSpell {
   width: 15%;
@@ -63,24 +87,33 @@ body {
 }
 
 .gameTable {
-  height: 60vh;
-  flex-wrap: nowrap;
+  height: 69vh;
+  font-size: 0;
 }
 .battlefield {
-  background-color: #498780;
-}
-.battleRow {
-  height: 14.3%;
+  text-align: center;
 }
 .battleSquare {
+  background-color: #25645d;
   border: 1px solid white;
+  height: 110px;
+  width: 110px;
+  display: inline-block;
+}
+#buttonActiveSpell {
+  margin: 30px 0 20px 0;
 }
 .userSpell {
+  height: 3.5rem;
   background-color: #208217;
 }
 .needPoints {
   padding: 1em;
   font-size: 2rem;
+  margin: 40px 0 20px 0;
+}
+#havePoints {
+  margin: 0 0 70px 0;
 }
 .points {
   text-align: center;
@@ -96,7 +129,10 @@ body {
 }
 .bigText {
   color: white;
-  font-size: 7rem;
+  font-size: 6rem;
+}
+#buttonMuve {
+  margin: 30px 0 20px 0;
 }
 .description {
   padding: 0.7em;
@@ -106,12 +142,12 @@ body {
   border: 2px solid #003d14;
   background-color: #fff3c7;
   font-size: 27px;
-  max-height: 550px;
+  max-height: 750px;
   overflow: auto;
 }
 
 .user {
-  height: 25vh;
+  height: 20vh;
   background-image: url(../../img/game/fonGame.jpg);
 }
 .muve {
@@ -131,12 +167,6 @@ body {
 #enemyMuve {
   background-color: #c44957;
 }
-.choose {
-  font-size: 1.9rem;
-  text-align: center;
-  color: white;
-  text-shadow: 1px 0 1px #000, 0 1px 1px #000, -1px 0 1px #000, 0 -1px 1px #000;
-}
 .element {
   border-radius: 10px;
   background-color: #dbac0069;
@@ -150,6 +180,7 @@ body {
   cursor: pointer;
 }
 .button {
+  outline: none;
   font-size: 2rem;
   color: #fff;
   width: 100%;
@@ -167,11 +198,13 @@ body {
   transition: 0.2s;
 }
 .button:hover {
+  outline: none;
   cursor: pointer;
   background: rgb(41, 166, 143)
     linear-gradient(rgb(44, 125, 31), rgb(41, 166, 143) 80%);
 }
 .button:active {
+  outline: none;
   background: rgb(120, 63, 25)
     linear-gradient(rgb(25, 120, 41) 20%, rgb(41, 166, 143));
   box-shadow: 0 2px rgb(22, 87, 6), 0 1px 6px rgba(0, 0, 0, 0.4),
@@ -179,6 +212,12 @@ body {
   -webkit-transform: translate(0, 4px);
   transform: translate(0, 4px);
 }
+.button:focus {
+  outline: none;
+}
 .selected {
   background-color: #487f00cc;
+}
+.selectedEffect {
+  background-color: rgb(133, 1, 173);
 }

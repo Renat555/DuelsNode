@@ -1,6 +1,9 @@
 body {
   background-image: url(../../img/createHero/fonChoose.jpg);
   background-size: cover;
+}
+
+.workArea {
   color: #ebdb83;
 }
 
@@ -19,7 +22,8 @@ body {
   vertical-align: middle;
   background: #3b3b3b;
   border-radius: 10px;
-  Box-shadow:0px 4px 0px #ba9e00,0px -4px 0px #ba9e00,4px 0px 0px #ba9e00,-4px 0px 0px #ba9e00;
+  box-shadow: 0px 4px 0px #ba9e00, 0px -4px 0px #ba9e00, 4px 0px 0px #ba9e00,
+    -4px 0px 0px #ba9e00;
 }
 
 .wrapperForm {
@@ -33,7 +37,8 @@ body {
   vertical-align: middle;
   background: #3b3b3b;
   border-radius: 10px;
-  Box-shadow:0px 4px 0px #ba9e00,0px -4px 0px #ba9e00, 4px 0px 0px #ba9e00,-4px 0px 0px #ba9e00;
+  box-shadow: 0px 4px 0px #ba9e00, 0px -4px 0px #ba9e00, 4px 0px 0px #ba9e00,
+    -4px 0px 0px #ba9e00;
 }
 
 .text {
@@ -92,15 +97,14 @@ body {
   background-image: url(../../img/createHero/power.png);
 }
 
-.highlight
-{
+.highlight {
   background: #595959;
-  Box-shadow:0px 3px 0px #e3c100,0px -3px 0px #e3c100,3px 0px 0px #e3c100,-3px 0px 0px #e3c100;
+  box-shadow: 0px 3px 0px #e3c100, 0px -3px 0px #e3c100, 3px 0px 0px #e3c100,
+    -3px 0px 0px #e3c100;
 }
 
-
 .startGame {
-  background-color: rgba(255,255,255,.1);
+  background-color: rgba(255, 255, 255, 0.1);
   font-size: 2.5rem;
   text-align: center;
   color: white;
@@ -108,15 +112,14 @@ body {
   text-decoration: none;
   user-select: none;
   outline: none;
-  padding: .5em 2em;
+  padding: 0.5em 2em;
   border: 2px solid;
   border-radius: 1px;
   transition: 0.7s;
-  }
+}
 .startGame:hover {
-    background: rgba(255,255,255,.2);
-  }
+  background: rgba(255, 255, 255, 0.2);
+}
 .startGame:active {
-    background: white;
-  }
-
+  background: white;
+}

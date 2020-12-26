@@ -53,7 +53,7 @@ function chooseEffect(event) {
 
   let target = event.target;
   target.dataset.status = "selected";
-  target.classList.add("selected");
+  target.classList.add("selectedEffect");
 
   let divSpell = document.querySelector(".userSpell");
 
@@ -72,7 +72,7 @@ function clearEffects() {
 
   for (let item of divEffects) {
     item.dataset.status = "notSelected";
-    item.classList.remove("selected");
+    item.classList.remove("selectedEffect");
   }
 }
 
@@ -81,7 +81,7 @@ function removeBattlefieldObjects() {
 
   for (let i = 0; i < battlefield.length; i++) {
     if (battlefield[i].dataset.state == "preparing") {
-      battlefield[i].className = "col battleSquare";
+      battlefield[i].className = "battleSquare";
       battlefield[i].style.opacity = 1;
       battlefield[i].dataset.state = "";
     }
@@ -111,7 +111,6 @@ function removeSpells() {
 
 function createSpell() {
   let userMuve = document.getElementById("userMuve");
-  if (userMuve.hidden) return;
 
   removeSpells();
 

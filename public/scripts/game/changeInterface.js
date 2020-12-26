@@ -35,7 +35,6 @@ function fillEffects(userBuffs, userDebuffs, enemyBuffs, enemyDebuffs) {
     divBuff.setAttribute("data-status", "notSelected");
     divBuff.classList.add("spell");
     divBuff.classList.add("effect");
-    divBuff.classList.add("col-2");
     divBuff.innerHTML = spellbook[userBuffs[i][0]][0];
     divUserEffects.append(divBuff);
   }
@@ -47,7 +46,6 @@ function fillEffects(userBuffs, userDebuffs, enemyBuffs, enemyDebuffs) {
     divDebuff.setAttribute("data-status", "notSelected");
     divDebuff.classList.add("spell");
     divDebuff.classList.add("effect");
-    divDebuff.classList.add("col-2");
     divDebuff.innerHTML = spellbook[userDebuffs[i][0]][0];
     divUserEffects.append(divDebuff);
   }
@@ -59,7 +57,6 @@ function fillEffects(userBuffs, userDebuffs, enemyBuffs, enemyDebuffs) {
     divBuff.setAttribute("data-status", "notSelected");
     divBuff.classList.add("spell");
     divBuff.classList.add("effect");
-    divBuff.classList.add("col-2");
     divBuff.innerHTML = spellbook[enemyBuffs[i][0]][0];
     divEnemyEffects.append(divBuff);
   }
@@ -71,9 +68,16 @@ function fillEffects(userBuffs, userDebuffs, enemyBuffs, enemyDebuffs) {
     divDebuff.setAttribute("data-status", "notSelected");
     divDebuff.classList.add("spell");
     divDebuff.classList.add("effect");
-    divDebuff.classList.add("col-2");
     divDebuff.innerHTML = spellbook[enemyDebuffs[i][0]][0];
     divEnemyEffects.append(divDebuff);
+  }
+
+  if (divUserEffects.innerHTML == "") {
+    divUserEffects.innerHTML = "Нет активных эффектов.";
+  }
+
+  if (divEnemyEffects.innerHTML == "") {
+    divEnemyEffects.innerHTML = "Нет активных эффектов.";
   }
 }
 

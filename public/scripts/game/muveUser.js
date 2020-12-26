@@ -412,8 +412,9 @@ function muveUser(event) {
   divSquareUser.dataset.player = "";
   target.dataset.player = "user";
 
-  let verticalStart = coordDivUser.top;
-  let verticalEnd = coordDivUser.top + coordTarget.height * distanceRow;
+  let verticalStart = window.pageYOffset + coordDivUser.top;
+  let verticalEnd =
+    window.pageYOffset + coordDivUser.top + coordTarget.height * distanceRow;
   let horizontalStart = coordDivUser.left;
   let horzontalEnd = coordDivUser.left + coordTarget.width * distanceCol;
 

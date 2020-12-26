@@ -1,8 +1,6 @@
 const WebSocket = require("ws");
 const MongoClient = require("mongodb").MongoClient;
 
-const config = require("config");
-
 const createGame = require("./modules/createGame");
 const processingSpell = require("./modules/gameEngine/processingSpell/processingSpell");
 const processingEffect = require("./modules/gameEngine/processingEffect/processingEffect");
@@ -11,11 +9,11 @@ const muveHero = require("./modules/gameEngine/processingMuve/muveHero");
 const endMuve = require("./modules/gameEngine/endMuve/endMuve");
 const processingBattlefieldSpell = require("./modules/gameEngine/processingBattlefieldSpell/processingBattlefieldSpell");
 
-const url = config.get("mongo")["url"];
-const mongoClient = new MongoClient(url, { useUnifiedTopology: true });
+const mongoClient = new MongoClient("mongodb://duelsnode:27017/duelsdb", {
+  useUnifiedTopology: true,
+});
 
-const port = config.get("socket")["port"];
-const wss = new WebSocket.Server({ port: port, clientTracking: true });
+const wss = new WebSocket.Server({ port: 3000, clientTracking: true });
 
 mongoClient.connect(function (err, client) {
   const db = client.db("duelsdb");
