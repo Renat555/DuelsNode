@@ -41,16 +41,9 @@ function applyBattlefieldSpell(spell, coordinates, user, enemy) {
   user.actionPoints = user.actionPoints - spell.actionPoints;
   user.energyPoints = user.energyPoints - spell.energyPoints;
 
-  let spellBattlefield = [spell["spellName"], spell["duration"], coordinates];
-  user.battlefield.push(spellBattlefield);
+  let coordinatesForEnemy = coordTransform(coordinates);
 
-  let coordForEnemy = coordTransform(coordinates);
-  let spellBattlefieldForEnemy = [
-    spell["spellName"],
-    spell["duration"],
-    coordForEnemy,
-  ];
-  enemy.battlefield.push(spellBattlefieldForEnemy);
+  spell.placement(spell, coordinates, coordinatesForEnemy, user, enemy);
 }
 
 module.exports = applyBattlefieldSpell;

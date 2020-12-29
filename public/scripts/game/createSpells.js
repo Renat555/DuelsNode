@@ -110,8 +110,6 @@ function removeSpells() {
 }
 
 function createSpell() {
-  let userMuve = document.getElementById("userMuve");
-
   removeSpells();
 
   let divSpell = document.querySelector(".userSpell");
@@ -126,6 +124,9 @@ function createSpell() {
     divActionPointsNeed.innerHTML = spellbook[divSpell.dataset.spell][1];
     divEnergyPointsNeed.innerHTML = spellbook[divSpell.dataset.spell][2];
   }
+
+  let userMuve = document.getElementById("userMuve");
+  if (userMuve.hidden == true) return;
 
   let divEnemyEffect = document.getElementById("enemyEffects");
   let enemyEffects = divEnemyEffect.querySelectorAll("[data-duration]");

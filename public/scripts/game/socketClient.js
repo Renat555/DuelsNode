@@ -19,10 +19,14 @@ ws.onmessage = (message) => {
       fillInterface(message);
       break;
     case "processingSpell":
-    case "changeMuve":
     case "processingBattlefieldSpell":
       changeInterface(message);
       changeBattlefield(message);
+      break;
+    case "changeMuve":
+      changeInterface(message);
+      changeBattlefield(message);
+      clearUserSpell();
       break;
     case "processingMuve":
       muveEnemy(message);

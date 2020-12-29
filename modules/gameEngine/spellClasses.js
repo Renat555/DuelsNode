@@ -1357,6 +1357,29 @@ module.exports.Watersphere = class Watersphere {
     this.descriptionForEnemy = description + this.descriptionForEnemy;
   }
 
+  placement(spell, coordinates, coordinatesForEnemy, user, enemy) {
+    this.descriptionForUser = "Вы размещаете на поле боя Ледяную сферу.";
+    this.descriptionForEnemy = "Противник размещает Ледяную сферу на поле боя.";
+
+    let battlefieldSpellForUser = [
+      spell["spellName"],
+      spell["duration"],
+      coordinates,
+    ];
+
+    let battlefieldSpellForEnemy = [
+      spell["spellName"],
+      spell["duration"],
+      coordinatesForEnemy,
+    ];
+
+    user.battlefield.push(battlefieldSpellForUser);
+    enemy.battlefield.push(battlefieldSpellForEnemy);
+
+    user.addDescription(this.descriptionForUser);
+    enemy.addDescription(this.descriptionForEnemy);
+  }
+
   decreasePlayerHealth(user, enemy) {
     if (this.activationProbability < Math.random()) {
       this.descriptionForUser = " Ледяная сфера не сработала. ";
@@ -1802,6 +1825,32 @@ module.exports.Earthshild = class Earthshild {
   descriptionForUser = "";
   descriptionForEnemy = "";
   dependences = [];
+
+  placement(spell, coordinates, coordinatesForEnemy, user, enemy) {
+    this.descriptionForUser = "Вы размещаете на поле боя Скалу.";
+    this.descriptionForEnemy = "Противник размещает Скалу на поле боя.";
+
+    let battlefieldSpellForUser = [
+      spell["spellName"],
+      spell["duration"],
+      coordinates,
+    ];
+
+    let battlefieldSpellForEnemy = [
+      spell["spellName"],
+      spell["duration"],
+      coordinatesForEnemy,
+    ];
+
+    user.battlefield.push(battlefieldSpellForUser);
+    enemy.battlefield.push(battlefieldSpellForEnemy);
+
+    user.addDescription(this.descriptionForUser);
+    enemy.addDescription(this.descriptionForEnemy);
+
+    this.descriptionForUser = "";
+    this.descriptionForEnemy = "";
+  }
 };
 
 module.exports.Earthcrown = class Earthcrown {
