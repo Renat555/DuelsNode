@@ -71,6 +71,11 @@ function lifespear(userEffects) {
       continue;
     userEffects[i].addEventListener("click", chooseEffect);
   }
+
+  let buttonActivationSpell = document.getElementsByName(
+    "buttonActiveSpell"
+  )[0];
+  buttonActivationSpell.addEventListener("click", soundLife);
 }
 
 function lifekey(userEffects) {
@@ -109,16 +114,24 @@ function deathspear(enemyEffects) {
 }
 
 function deathpower(enemyEffects) {
+  let buttonActivationSpell = document.getElementsByName(
+    "buttonActiveSpell"
+  )[0];
+
+  for (let i = 0; i < enemyEffects.length; i++) {
+    if (enemyEffects[i].dataset.spell == "lifepower") {
+      enemyEffects[i].addEventListener("click", chooseEffect);
+      buttonActivationSpell.addEventListener("click", soundDeath);
+      return;
+    }
+  }
+
   for (let i = 0; i < enemyEffects.length; i++) {
     if (spellbook["deathpower"][4].indexOf(enemyEffects[i].dataset.spell) == -1)
       continue;
     enemyEffects[i].addEventListener("click", chooseEffect);
+    buttonActivationSpell.addEventListener("click", soundDeath);
   }
-
-  let buttonActivationSpell = document.getElementsByName(
-    "buttonActiveSpell"
-  )[0];
-  buttonActivationSpell.addEventListener("click", soundDeath);
 }
 
 function earthshildMuve(event) {
@@ -191,6 +204,7 @@ function earthshildPreparing(event) {
     "buttonActiveSpell"
   )[0];
   buttonActivationSpell.addEventListener("click", earthshildApproval);
+  buttonActivationSpell.addEventListener("click", soundEarth);
 
   divBattleField.addEventListener("click", muveUser);
 }
@@ -211,7 +225,6 @@ function earthshildApproval() {
     "buttonActiveSpell"
   )[0];
   buttonActivationSpell.removeEventListener("click", earthshildApproval);
-  buttonActivationSpell.addEventListener("click", soundEarth);
 }
 
 function watersphereMuve(event) {
@@ -301,6 +314,7 @@ function waterspherePreparing(event) {
     "buttonActiveSpell"
   )[0];
   buttonActivationSpell.addEventListener("click", watersphereApproval);
+  buttonActivationSpell.addEventListener("click", soundWater);
 
   divBattleField.addEventListener("click", muveUser);
 }
@@ -321,7 +335,6 @@ function watersphereApproval() {
     "buttonActiveSpell"
   )[0];
   buttonActivationSpell.removeEventListener("click", watersphereApproval);
-  buttonActivationSpell.addEventListener("click", soundWater);
 }
 
 function fireSpell(spellName) {

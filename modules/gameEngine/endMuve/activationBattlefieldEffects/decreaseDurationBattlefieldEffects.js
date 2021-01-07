@@ -3,6 +3,7 @@ function decreaseDurationBattlefieldEffets(user, enemy) {
     user.battlefield[i][1] = user.battlefield[i][1] - 1;
     if (user.battlefield[i][1] <= 0) {
       user.battlefield.splice(i, 1);
+      i -= 1;
     }
   }
 
@@ -10,6 +11,7 @@ function decreaseDurationBattlefieldEffets(user, enemy) {
     enemy.battlefield[i][1] = enemy.battlefield[i][1] - 1;
     if (enemy.battlefield[i][1] <= 0) {
       enemy.battlefield.splice(i, 1);
+      i -= 1;
     }
   }
 }

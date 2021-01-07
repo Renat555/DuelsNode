@@ -327,6 +327,7 @@ let spellbook = {
       "airshild",
       "aircrown",
       "airsphere",
+      "airstamp",
       "deathshild",
       "deathsphere",
       "deathstamp",

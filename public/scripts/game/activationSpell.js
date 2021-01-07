@@ -1,18 +1,5 @@
 "use strict";
 
-function clearUserSpell() {
-  clearForms();
-  clearElements();
-
-  localStorage.setItem("complete", "no");
-
-  let divUserSpell = document.getElementsByClassName("userSpell")[0];
-  divUserSpell.dataset.spellelement = "";
-  divUserSpell.dataset.spellform = "";
-  divUserSpell.dataset.spell = "";
-  divUserSpell.innerHTML = "";
-}
-
 function sendSpell() {
   let userMuve = document.getElementById("userMuve");
   if (userMuve.hidden) return;
@@ -36,7 +23,6 @@ function sendSpell() {
 
   if (localStorage.getItem("complete") == "yes") {
     ws.send(localStorage.getItem("spellInformation"));
-    clearUserSpell();
   }
 }
 

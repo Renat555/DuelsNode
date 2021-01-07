@@ -15,15 +15,6 @@ function chooseForm(event) {
   createSpell();
 }
 
-function clearForms() {
-  let divForms = document.querySelectorAll("[data-form]");
-
-  for (let item of divForms) {
-    item.dataset.status = "notSelected";
-    item.classList.remove("selected");
-  }
-}
-
 function chooseElement(event) {
   let target = event.target;
   if (!target.dataset.element) return;
@@ -37,15 +28,6 @@ function chooseElement(event) {
   divSpell.dataset.spellelement = target.dataset.element;
 
   createSpell();
-}
-
-function clearElements() {
-  let divElements = document.querySelectorAll("[data-element]");
-
-  for (let item of divElements) {
-    item.dataset.status = "notSelected";
-    item.classList.remove("selected");
-  }
 }
 
 function chooseEffect(event) {
@@ -67,50 +49,12 @@ function chooseEffect(event) {
   localStorage.setItem("complete", "yes");
 }
 
-function clearEffects() {
-  let divEffects = document.querySelectorAll("[data-duration]");
-
-  for (let item of divEffects) {
-    item.dataset.status = "notSelected";
-    item.classList.remove("selectedEffect");
-  }
-}
-
-function removeBattlefieldObjects() {
-  let battlefield = document.querySelectorAll("[data-row]");
-
-  for (let i = 0; i < battlefield.length; i++) {
-    if (battlefield[i].dataset.state == "preparing") {
-      battlefield[i].className = "battleSquare";
-      battlefield[i].style.opacity = 1;
-      battlefield[i].dataset.state = "";
-    }
-  }
-}
-
-function removeSpells() {
-  removeBattlefieldObjects();
-  localStorage.setItem("complete", "no");
-
-  document.removeEventListener("mouseover", earthshildMuve);
-  document.removeEventListener("click", earthshildPreparing);
-  document.removeEventListener("mouseover", watersphereMuve);
-  document.removeEventListener("click", waterspherePreparing);
-
-  let buttonActivationSpell = document.getElementsByName(
-    "buttonActiveSpell"
-  )[0];
-
-  buttonActivationSpell.removeEventListener("click", soundFire);
-  buttonActivationSpell.removeEventListener("click", soundWater);
-  buttonActivationSpell.removeEventListener("click", soundEarth);
-  buttonActivationSpell.removeEventListener("click", soundAir);
-  buttonActivationSpell.removeEventListener("click", soundLife);
-  buttonActivationSpell.removeEventListener("click", soundDeath);
-}
-
 function createSpell() {
-  removeSpells();
+  clearEffects();
+  removeBattlefieldObjects();
+  removeBattlefieldSpell();
+  removeSounds();
+  localStorage.setItem("complete", "no");
 
   let divSpell = document.querySelector(".userSpell");
   let divActionPointsNeed = document.getElementById("actionPointsNeed");

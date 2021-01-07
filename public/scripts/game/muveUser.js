@@ -398,6 +398,8 @@ function muveUser(event) {
   let userMuve = document.getElementById("userMuve");
   if (userMuve.hidden) return;
 
+  clearUserSpell();
+
   let divUser = document.querySelector(`[data-hero="user"]`);
   let divSquareUser = document.querySelector(`[data-player="user"]`);
 
