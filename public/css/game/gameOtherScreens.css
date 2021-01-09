@@ -138,6 +138,12 @@
     height: 110px;
     width: 110px;
   }
+  .userSpell {
+    height: auto;
+  }
+  .bigText {
+    font-size: 2rem;
+  }
 }
 
 @media (max-width: 800px) {

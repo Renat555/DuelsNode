@@ -46,7 +46,12 @@ mongoClient.connect(function (err, client) {
           break;
       }
     });
-    ws.on("close", function close() {
+
+    ws.on("close", function close(event, message) {
+      if (message == "gameOver") {
+        collection.deleteOne({ id: ws["id"] });
+      }
+
       collection.deleteOne({ id: ws["id"] }, function (err, doc) {
         wss.clients.forEach(function each(client) {
           if (client.readyState == 1 && client["id"] == ws["idEnemy"]) {

@@ -168,10 +168,13 @@ function hideMuveText(muveUser) {
 
 function isGameOver(userHealth, enemyHealth, enemyName) {
   if (userHealth <= 0 && enemyHealth > 0) {
+    ws.close(1000, "gameOver");
     alert("Вы проиграли! Победил " + enemyName + "!");
   } else if (enemyHealth <= 0 && userHealth > 0) {
+    ws.close(1000, "gameOver");
     alert("Вы победили! " + enemyName + " проиграл!");
   } else if (userHealth <= 0 && enemyHealth <= 0) {
+    ws.close(1000, "gameOver");
     alert("Ничья!");
   }
 }

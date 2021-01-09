@@ -11,9 +11,16 @@
   font-size: 27px;
   z-index: 998;
 }
+
 @media screen and (max-width: 1920px) {
   .hint {
     width: 400px;
     font-size: 23px;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .hint {
+    width: 300px;
   }
 }

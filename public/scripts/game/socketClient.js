@@ -4,8 +4,10 @@ const ws = new WebSocket("ws://duelsnode:3000");
 
 ws.onopen = () => {
   let gameInformation = localStorage.getItem("gameInformation");
-  ws.send(gameInformation);
 
+  if (gameInformation == "gameIsStart") return;
+
+  ws.send(gameInformation);
   gameInformation = "gameIsStart";
   localStorage.setItem("gameInformation", gameInformation);
 };
