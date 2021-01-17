@@ -1,6 +1,10 @@
-"use strict";
+import { spellbook } from "./dictionaries.js";
+import { chooseEffect } from "./createSpells.js";
+import * as sounds from "./sounds.js";
+import { removeBattlefieldObjects } from "./clearUserSpell.js";
+import { muveUser } from "./muveUser.js";
 
-function firekey(enemyEffects) {
+export function firekey(enemyEffects) {
   for (let i = 0; i < enemyEffects.length; i++) {
     if (spellbook["firekey"][4].indexOf(enemyEffects[i].dataset.spell) == -1)
       continue;
@@ -10,10 +14,10 @@ function firekey(enemyEffects) {
   let buttonActivationSpell = document.getElementsByName(
     "buttonActiveSpell"
   )[0];
-  buttonActivationSpell.addEventListener("click", soundFire);
+  buttonActivationSpell.addEventListener("click", sounds.soundFire);
 }
 
-function watersource(userEffects) {
+export function watersource(userEffects) {
   for (let i = 0; i < userEffects.length; i++) {
     if (spellbook["watersource"][4].indexOf(userEffects[i].dataset.spell) == -1)
       continue;
@@ -23,10 +27,10 @@ function watersource(userEffects) {
   let buttonActivationSpell = document.getElementsByName(
     "buttonActiveSpell"
   )[0];
-  buttonActivationSpell.addEventListener("click", soundWater);
+  buttonActivationSpell.addEventListener("click", sounds.soundWater);
 }
 
-function waterkey(userEffects) {
+export function waterkey(userEffects) {
   for (let i = 0; i < userEffects.length; i++) {
     if (spellbook["waterkey"][4].indexOf(userEffects[i].dataset.spell) == -1)
       continue;
@@ -36,10 +40,10 @@ function waterkey(userEffects) {
   let buttonActivationSpell = document.getElementsByName(
     "buttonActiveSpell"
   )[0];
-  buttonActivationSpell.addEventListener("click", soundWater);
+  buttonActivationSpell.addEventListener("click", sounds.soundWater);
 }
 
-function earthkey(userEffects) {
+export function earthkey(userEffects) {
   for (let i = 0; i < userEffects.length; i++) {
     if (spellbook["earthkey"][4].indexOf(userEffects[i].dataset.spell) == -1)
       continue;
@@ -49,10 +53,10 @@ function earthkey(userEffects) {
   let buttonActivationSpell = document.getElementsByName(
     "buttonActiveSpell"
   )[0];
-  buttonActivationSpell.addEventListener("click", soundEarth);
+  buttonActivationSpell.addEventListener("click", sounds.soundEarth);
 }
 
-function airkey(enemyEffects) {
+export function airkey(enemyEffects) {
   for (let i = 0; i < enemyEffects.length; i++) {
     if (spellbook["airkey"][4].indexOf(enemyEffects[i].dataset.spell) == -1)
       continue;
@@ -62,10 +66,10 @@ function airkey(enemyEffects) {
   let buttonActivationSpell = document.getElementsByName(
     "buttonActiveSpell"
   )[0];
-  buttonActivationSpell.addEventListener("click", soundAir);
+  buttonActivationSpell.addEventListener("click", sounds.soundAir);
 }
 
-function lifespear(userEffects) {
+export function lifespear(userEffects) {
   for (let i = 0; i < userEffects.length; i++) {
     if (spellbook["lifespear"][4].indexOf(userEffects[i].dataset.spell) == -1)
       continue;
@@ -75,10 +79,10 @@ function lifespear(userEffects) {
   let buttonActivationSpell = document.getElementsByName(
     "buttonActiveSpell"
   )[0];
-  buttonActivationSpell.addEventListener("click", soundLife);
+  buttonActivationSpell.addEventListener("click", sounds.soundLife);
 }
 
-function lifekey(userEffects) {
+export function lifekey(userEffects) {
   for (let i = 0; i < userEffects.length; i++) {
     if (spellbook["lifekey"][4].indexOf(userEffects[i].dataset.spell) == -1)
       continue;
@@ -88,10 +92,10 @@ function lifekey(userEffects) {
   let buttonActivationSpell = document.getElementsByName(
     "buttonActiveSpell"
   )[0];
-  buttonActivationSpell.addEventListener("click", soundLife);
+  buttonActivationSpell.addEventListener("click", sounds.soundLife);
 }
 
-function deathspear(enemyEffects) {
+export function deathspear(enemyEffects) {
   let buttonActivationSpell = document.getElementsByName(
     "buttonActiveSpell"
   )[0];
@@ -99,7 +103,7 @@ function deathspear(enemyEffects) {
   for (let i = 0; i < enemyEffects.length; i++) {
     if (enemyEffects[i].dataset.spell == "lifepower") {
       enemyEffects[i].addEventListener("click", chooseEffect);
-      buttonActivationSpell.addEventListener("click", soundDeath);
+      buttonActivationSpell.addEventListener("click", sounds.soundDeath);
       return;
     }
   }
@@ -110,10 +114,10 @@ function deathspear(enemyEffects) {
     enemyEffects[i].addEventListener("click", chooseEffect);
   }
 
-  buttonActivationSpell.addEventListener("click", soundDeath);
+  buttonActivationSpell.addEventListener("click", sounds.soundDeath);
 }
 
-function deathpower(enemyEffects) {
+export function deathpower(enemyEffects) {
   let buttonActivationSpell = document.getElementsByName(
     "buttonActiveSpell"
   )[0];
@@ -121,7 +125,7 @@ function deathpower(enemyEffects) {
   for (let i = 0; i < enemyEffects.length; i++) {
     if (enemyEffects[i].dataset.spell == "lifepower") {
       enemyEffects[i].addEventListener("click", chooseEffect);
-      buttonActivationSpell.addEventListener("click", soundDeath);
+      buttonActivationSpell.addEventListener("click", sounds.soundDeath);
       return;
     }
   }
@@ -130,11 +134,11 @@ function deathpower(enemyEffects) {
     if (spellbook["deathpower"][4].indexOf(enemyEffects[i].dataset.spell) == -1)
       continue;
     enemyEffects[i].addEventListener("click", chooseEffect);
-    buttonActivationSpell.addEventListener("click", soundDeath);
+    buttonActivationSpell.addEventListener("click", sounds.soundDeath);
   }
 }
 
-function earthshildMuve(event) {
+export function earthshildMuve(event) {
   removeBattlefieldObjects();
 
   let target = event.target;
@@ -178,7 +182,7 @@ function earthshildMuve(event) {
   }
 }
 
-function earthshildPreparing(event) {
+export function earthshildPreparing(event) {
   let target = event.target;
   if (!target.dataset.row) return;
 
@@ -204,12 +208,13 @@ function earthshildPreparing(event) {
     "buttonActiveSpell"
   )[0];
   buttonActivationSpell.addEventListener("click", earthshildApproval);
-  buttonActivationSpell.addEventListener("click", soundEarth);
+  buttonActivationSpell.addEventListener("click", sounds.soundEarth);
 
+  let divBattleField = document.getElementsByClassName("battlefield")[0];
   divBattleField.addEventListener("click", muveUser);
 }
 
-function earthshildApproval() {
+export function earthshildApproval() {
   let battlefield = document.querySelectorAll("[data-row]");
 
   for (let i = 0; i < battlefield.length; i++) {
@@ -227,7 +232,7 @@ function earthshildApproval() {
   buttonActivationSpell.removeEventListener("click", earthshildApproval);
 }
 
-function watersphereMuve(event) {
+export function watersphereMuve(event) {
   removeBattlefieldObjects();
 
   let target = event.target;
@@ -281,7 +286,7 @@ function watersphereMuve(event) {
   }
 }
 
-function waterspherePreparing(event) {
+export function waterspherePreparing(event) {
   let target = event.target;
 
   if (target.dataset.hero == "user") {
@@ -314,12 +319,13 @@ function waterspherePreparing(event) {
     "buttonActiveSpell"
   )[0];
   buttonActivationSpell.addEventListener("click", watersphereApproval);
-  buttonActivationSpell.addEventListener("click", soundWater);
+  buttonActivationSpell.addEventListener("click", sounds.soundWater);
 
+  let divBattleField = document.getElementsByClassName("battlefield")[0];
   divBattleField.addEventListener("click", muveUser);
 }
 
-function watersphereApproval() {
+export function watersphereApproval() {
   let battlefield = document.querySelectorAll("[data-row]");
 
   for (let i = 0; i < battlefield.length; i++) {
@@ -337,7 +343,7 @@ function watersphereApproval() {
   buttonActivationSpell.removeEventListener("click", watersphereApproval);
 }
 
-function fireSpell(spellName) {
+export function fireSpell(spellName) {
   let spellInformation = {
     header: "spell",
     spell: spellName,
@@ -348,10 +354,10 @@ function fireSpell(spellName) {
   let buttonActivationSpell = document.getElementsByName(
     "buttonActiveSpell"
   )[0];
-  buttonActivationSpell.addEventListener("click", soundFire);
+  buttonActivationSpell.addEventListener("click", sounds.soundFire);
 }
 
-function waterSpell(spellName) {
+export function waterSpell(spellName) {
   let spellInformation = {
     header: "spell",
     spell: spellName,
@@ -362,10 +368,10 @@ function waterSpell(spellName) {
   let buttonActivationSpell = document.getElementsByName(
     "buttonActiveSpell"
   )[0];
-  buttonActivationSpell.addEventListener("click", soundWater);
+  buttonActivationSpell.addEventListener("click", sounds.soundWater);
 }
 
-function earthSpell(spellName) {
+export function earthSpell(spellName) {
   let spellInformation = {
     header: "spell",
     spell: spellName,
@@ -376,10 +382,10 @@ function earthSpell(spellName) {
   let buttonActivationSpell = document.getElementsByName(
     "buttonActiveSpell"
   )[0];
-  buttonActivationSpell.addEventListener("click", soundEarth);
+  buttonActivationSpell.addEventListener("click", sounds.soundEarth);
 }
 
-function airSpell(spellName) {
+export function airSpell(spellName) {
   let spellInformation = {
     header: "spell",
     spell: spellName,
@@ -390,10 +396,10 @@ function airSpell(spellName) {
   let buttonActivationSpell = document.getElementsByName(
     "buttonActiveSpell"
   )[0];
-  buttonActivationSpell.addEventListener("click", soundAir);
+  buttonActivationSpell.addEventListener("click", sounds.soundAir);
 }
 
-function lifeSpell(spellName) {
+export function lifeSpell(spellName) {
   let spellInformation = {
     header: "spell",
     spell: spellName,
@@ -404,10 +410,10 @@ function lifeSpell(spellName) {
   let buttonActivationSpell = document.getElementsByName(
     "buttonActiveSpell"
   )[0];
-  buttonActivationSpell.addEventListener("click", soundLife);
+  buttonActivationSpell.addEventListener("click", sounds.soundLife);
 }
 
-function deathSpell(spellName) {
+export function deathSpell(spellName) {
   let spellInformation = {
     header: "spell",
     spell: spellName,
@@ -418,10 +424,10 @@ function deathSpell(spellName) {
   let buttonActivationSpell = document.getElementsByName(
     "buttonActiveSpell"
   )[0];
-  buttonActivationSpell.addEventListener("click", soundDeath);
+  buttonActivationSpell.addEventListener("click", sounds.soundDeath);
 }
 
-function fireEffect(spellName) {
+export function fireEffect(spellName) {
   let spellInformation = {
     header: "effect",
     spell: spellName,
@@ -432,10 +438,10 @@ function fireEffect(spellName) {
   let buttonActivationSpell = document.getElementsByName(
     "buttonActiveSpell"
   )[0];
-  buttonActivationSpell.addEventListener("click", soundFire);
+  buttonActivationSpell.addEventListener("click", sounds.soundFire);
 }
 
-function waterEffect(spellName) {
+export function waterEffect(spellName) {
   let spellInformation = {
     header: "effect",
     spell: spellName,
@@ -446,10 +452,10 @@ function waterEffect(spellName) {
   let buttonActivationSpell = document.getElementsByName(
     "buttonActiveSpell"
   )[0];
-  buttonActivationSpell.addEventListener("click", soundWater);
+  buttonActivationSpell.addEventListener("click", sounds.soundWater);
 }
 
-function earthEffect(spellName) {
+export function earthEffect(spellName) {
   let spellInformation = {
     header: "effect",
     spell: spellName,
@@ -460,10 +466,10 @@ function earthEffect(spellName) {
   let buttonActivationSpell = document.getElementsByName(
     "buttonActiveSpell"
   )[0];
-  buttonActivationSpell.addEventListener("click", soundEarth);
+  buttonActivationSpell.addEventListener("click", sounds.soundEarth);
 }
 
-function airEffect(spellName) {
+export function airEffect(spellName) {
   let spellInformation = {
     header: "effect",
     spell: spellName,
@@ -474,10 +480,10 @@ function airEffect(spellName) {
   let buttonActivationSpell = document.getElementsByName(
     "buttonActiveSpell"
   )[0];
-  buttonActivationSpell.addEventListener("click", soundAir);
+  buttonActivationSpell.addEventListener("click", sounds.soundAir);
 }
 
-function lifeEffect(spellName) {
+export function lifeEffect(spellName) {
   let spellInformation = {
     header: "effect",
     spell: spellName,
@@ -488,10 +494,10 @@ function lifeEffect(spellName) {
   let buttonActivationSpell = document.getElementsByName(
     "buttonActiveSpell"
   )[0];
-  buttonActivationSpell.addEventListener("click", soundLife);
+  buttonActivationSpell.addEventListener("click", sounds.soundLife);
 }
 
-function deathEffect(spellName) {
+export function deathEffect(spellName) {
   let spellInformation = {
     header: "effect",
     spell: spellName,
@@ -502,5 +508,5 @@ function deathEffect(spellName) {
   let buttonActivationSpell = document.getElementsByName(
     "buttonActiveSpell"
   )[0];
-  buttonActivationSpell.addEventListener("click", soundDeath);
+  buttonActivationSpell.addEventListener("click", sounds.soundDeath);
 }

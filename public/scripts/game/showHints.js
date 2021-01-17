@@ -1,4 +1,4 @@
-"use strict";
+import { spellbook } from "./dictionaries.js";
 
 function showHints() {
   let divSpells = document.querySelectorAll("[data-spell]");
@@ -265,3 +265,5 @@ function showHint(event) {
     divHint.remove();
   }
 }
+
+export { showHints };

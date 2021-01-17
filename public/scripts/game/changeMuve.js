@@ -1,4 +1,4 @@
-"use strict";
+import { ws } from "./socketClient.js";
 
 function endMuve() {
   let userMuve = document.getElementById("userMuve");

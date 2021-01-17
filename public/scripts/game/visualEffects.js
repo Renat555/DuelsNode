@@ -1,5 +1,3 @@
-"use strict";
-
 function lifesphereVisual() {
   let divPlayer = document.querySelector(`[data-hero="user"]`);
 

@@ -16,7 +16,7 @@ function createBattlefieldSpell(divSquare, effects) {
   }
 }
 
-function changeBattlefield(users) {
+export function changeBattlefield(users) {
   let userActionPoints = document.getElementById("actionPoints");
   let userEnergyPoints = document.getElementById("energyPoints");
   userActionPoints.innerHTML = users["user"]["actionPoints"];

@@ -1,60 +1,53 @@
-"use strict";
-
-function isMyMuve() {
+export function isMyMuve() {
   let userMuve = document.getElementById("userMuve");
   if (userMuve.hidden) return false;
   return true;
 }
 
-function soundFire() {
+export function soundFire() {
   if (!isMyMuve()) return;
   let click = new Audio();
   click.src = "../../public/audio/fire.mp3";
   click.autoplay = true;
 }
 
-function soundWater() {
+export function soundWater() {
   if (!isMyMuve()) return;
   let click = new Audio();
   click.src = "../../public/audio/water.mp3";
   click.autoplay = true;
 }
 
-function soundEarth() {
+export function soundEarth() {
   if (!isMyMuve()) return;
   let click = new Audio();
   click.src = "../../public/audio/earth.mp3";
   click.autoplay = true;
 }
 
-function soundAir() {
+export function soundAir() {
   if (!isMyMuve()) return;
   let click = new Audio();
   click.src = "../../public/audio/air.mp3";
   click.autoplay = true;
 }
 
-function soundLife() {
+export function soundLife() {
   if (!isMyMuve()) return;
   let click = new Audio();
   click.src = "../../public/audio/life.mp3";
   click.autoplay = true;
 }
 
-function soundDeath() {
+export function soundDeath() {
   if (!isMyMuve()) return;
   let click = new Audio();
   click.src = "../../public/audio/death.mp3";
   click.autoplay = true;
 }
 
-function buttonClick() {
+export function buttonClick() {
   let click = new Audio();
   click.src = "../../public/audio/click.mp3";
   click.autoplay = true;
 }
-
-buttonMuve.addEventListener("click", buttonClick);
-
-let buttonShowEffects = document.getElementsByName("buttonShowEffects")[0];
-buttonShowEffects.addEventListener("click", buttonClick);

@@ -1,4 +1,55 @@
-"use strict";
+import { dictionaryElements, dictionaryForms } from "./dictionaries.js";
+import { showHints } from "./showHints.js";
+import * as sounds from "./sounds.js";
+import { createSpell } from "./createSpells.js";
+
+function chooseForm(event) {
+  let target = event.target;
+  if (!target.dataset.form) return;
+
+  clearForms();
+
+  target.dataset.status = "selected";
+  target.classList.add("selected");
+
+  let divSpell = document.querySelector(".userSpell");
+  divSpell.dataset.spellform = target.dataset.form;
+
+  createSpell();
+}
+
+function chooseElement(event) {
+  let target = event.target;
+  if (!target.dataset.element) return;
+
+  clearElements();
+
+  target.dataset.status = "selected";
+  target.classList.add("selected");
+
+  let divSpell = document.querySelector(".userSpell");
+  divSpell.dataset.spellelement = target.dataset.element;
+
+  createSpell();
+}
+
+function clearForms() {
+  let divForms = document.querySelectorAll("[data-form]");
+
+  for (let item of divForms) {
+    item.dataset.status = "notSelected";
+    item.classList.remove("selected");
+  }
+}
+
+function clearElements() {
+  let divElements = document.querySelectorAll("[data-element]");
+
+  for (let item of divElements) {
+    item.dataset.status = "notSelected";
+    item.classList.remove("selected");
+  }
+}
 
 function fillEnemyName(enemy) {
   let enemyName = document.getElementById("enemyName");
@@ -158,5 +209,16 @@ function fillInterface(users) {
   hideMuveText(users["user"]["muve"], users["enemy"]["muve"]);
   showHints();
 
+  document.addEventListener("click", chooseForm);
+  document.addEventListener("click", chooseElement);
+
+  let buttonMuve = document.getElementById("buttonMuve");
+  buttonMuve.addEventListener("click", sounds.buttonClick);
+
+  let buttonShowEffects = document.getElementsByName("buttonShowEffects")[0];
+  buttonShowEffects.addEventListener("click", sounds.buttonClick);
+
   hideWaitingScreen();
 }
+
+export { clearForms, clearElements, hideEffects, fillInterface };

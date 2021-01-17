@@ -425,3 +425,5 @@ let spellbook = {
     ["lifeshild", "lifesphere", "lifestamp", "lifeflow", "lifepower"],
   ],
 };
+
+export { dictionaryElements, dictionaryForms, spellbook };

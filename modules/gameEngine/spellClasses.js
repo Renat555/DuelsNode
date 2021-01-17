@@ -1357,6 +1357,13 @@ module.exports.Watersphere = class Watersphere {
     this.currentDamage += points;
   }
 
+  decreaseDamage(points) {
+    this.currentDamage -= points;
+    if (this.currentDamage < 0) {
+      this.currentDamage = 0;
+    }
+  }
+
   addDescriptionForUser(description) {
     this.descriptionForUser = description + this.descriptionForUser;
   }

@@ -1,4 +1,8 @@
-"use strict";
+import { fillInterface } from "./fillInterface.js";
+import { changeInterface } from "./changeInterface.js";
+import { changeBattlefield } from "./changeBattlefield.js";
+import { clearUserSpell } from "./clearUserSpell.js";
+import { muveEnemy } from "./muveEnemy.js";
 
 const ws = new WebSocket("ws://duelsnode:3000");
 
@@ -39,3 +43,5 @@ ws.onmessage = (message) => {
       break;
   }
 };
+
+export { ws };

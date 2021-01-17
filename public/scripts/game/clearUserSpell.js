@@ -1,22 +1,13 @@
-"use strict";
-
-function clearForms() {
-  let divForms = document.querySelectorAll("[data-form]");
-
-  for (let item of divForms) {
-    item.dataset.status = "notSelected";
-    item.classList.remove("selected");
-  }
-}
-
-function clearElements() {
-  let divElements = document.querySelectorAll("[data-element]");
-
-  for (let item of divElements) {
-    item.dataset.status = "notSelected";
-    item.classList.remove("selected");
-  }
-}
+import {
+  earthshildMuve,
+  earthshildPreparing,
+  earthshildApproval,
+  watersphereMuve,
+  waterspherePreparing,
+  watersphereApproval,
+} from "./spells.js";
+import * as sounds from "./sounds.js";
+import { clearForms, clearElements } from "./fillInterface.js";
 
 function clearEffects() {
   let divEffects = document.querySelectorAll("[data-duration]");
@@ -58,12 +49,12 @@ function removeSounds() {
     "buttonActiveSpell"
   )[0];
 
-  buttonActivationSpell.removeEventListener("click", soundFire);
-  buttonActivationSpell.removeEventListener("click", soundWater);
-  buttonActivationSpell.removeEventListener("click", soundEarth);
-  buttonActivationSpell.removeEventListener("click", soundAir);
-  buttonActivationSpell.removeEventListener("click", soundLife);
-  buttonActivationSpell.removeEventListener("click", soundDeath);
+  buttonActivationSpell.removeEventListener("click", sounds.soundFire);
+  buttonActivationSpell.removeEventListener("click", sounds.soundWater);
+  buttonActivationSpell.removeEventListener("click", sounds.soundEarth);
+  buttonActivationSpell.removeEventListener("click", sounds.soundAir);
+  buttonActivationSpell.removeEventListener("click", sounds.soundLife);
+  buttonActivationSpell.removeEventListener("click", sounds.soundDeath);
 }
 
 function clearUserSpell() {
@@ -86,3 +77,11 @@ function clearUserSpell() {
   divUserSpell.dataset.spell = "";
   divUserSpell.innerHTML = "";
 }
+
+export {
+  clearEffects,
+  removeBattlefieldObjects,
+  removeBattlefieldSpell,
+  removeSounds,
+  clearUserSpell,
+};

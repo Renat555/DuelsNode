@@ -1,4 +1,5 @@
-"use strict";
+import { clearUserSpell } from "./clearUserSpell.js";
+import { ws } from "./socketClient.js";
 
 function muveGeneralPath(
   verticalStart,
@@ -451,3 +452,5 @@ function muveUser(event) {
 
 let divBattleField = document.getElementsByClassName("battlefield")[0];
 divBattleField.addEventListener("click", muveUser);
+
+export { muveGeneralPath, muveAlternativePath, muveUser };

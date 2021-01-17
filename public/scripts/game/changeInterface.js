@@ -1,3 +1,7 @@
+import { spellbook } from "./dictionaries.js";
+import { showHints } from "./showHints.js";
+import * as spells from "./spells.js";
+
 function fillHealth(users) {
   let healthEnemy = document.getElementById("healthEnemy");
   let percentHealthEnemy = Math.round(
@@ -114,9 +118,6 @@ function recreateBattlefieldSpell() {
   let divUserEffect = document.getElementById("userEffects");
   let userEffects = divUserEffect.querySelectorAll("[data-duration]");
 
-  let spellInformation = localStorage.getItem("spellInformation");
-  spellForDelete = JSON.parse(spellInformation)["despell"];
-
   switch (spell) {
     case "firekey":
       firekey(enemyEffects);
@@ -128,10 +129,10 @@ function recreateBattlefieldSpell() {
       waterkey(userEffects);
       break;
     case "watersphere":
-      document.addEventListener("mouseover", watersphereMuve);
+      document.addEventListener("mouseover", spells.watersphereMuve);
       break;
     case "earthshild":
-      document.addEventListener("mouseover", earthshildMuve);
+      document.addEventListener("mouseover", spells.earthshildMuve);
       break;
     case "earthkey":
       earthkey(userEffects);
@@ -179,7 +180,7 @@ function isGameOver(userHealth, enemyHealth, enemyName) {
   }
 }
 
-function changeInterface(users) {
+export function changeInterface(users) {
   fillHealth(users);
   fillEffects(
     users["user"]["buffs"],

@@ -1,6 +1,6 @@
-"use strict";
+import { muveGeneralPath, muveAlternativePath } from "./muveUser.js";
 
-function muveEnemy(users) {
+export function muveEnemy(users) {
   let userActionPoints = document.getElementById("actionPoints");
   userActionPoints.innerHTML = users.user.actionPoints;
 

@@ -1,5 +1,3 @@
-"use strict";
-
 function isBlock(left, top, coordBatlefield) {
   for (let i = 0; i < coordBatlefield.length; i++) {
     if (
@@ -443,3 +441,5 @@ function isClearPath() {
 
   return false;
 }
+
+export { isClearPath };

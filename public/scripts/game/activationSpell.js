@@ -1,4 +1,5 @@
-"use strict";
+import { isClearPath } from "./isClearPath.js";
+import { ws } from "./socketClient.js";
 
 function sendSpell() {
   let userMuve = document.getElementById("userMuve");
@@ -25,9 +26,6 @@ function sendSpell() {
     ws.send(localStorage.getItem("spellInformation"));
   }
 }
-
-document.addEventListener("click", chooseForm);
-document.addEventListener("click", chooseElement);
 
 let buttonActivationSpell = document.getElementsByName("buttonActiveSpell")[0];
 buttonActivationSpell.addEventListener("click", sendSpell);

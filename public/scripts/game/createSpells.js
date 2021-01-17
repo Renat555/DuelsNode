@@ -1,34 +1,11 @@
-"use strict";
-
-function chooseForm(event) {
-  let target = event.target;
-  if (!target.dataset.form) return;
-
-  clearForms();
-
-  target.dataset.status = "selected";
-  target.classList.add("selected");
-
-  let divSpell = document.querySelector(".userSpell");
-  divSpell.dataset.spellform = target.dataset.form;
-
-  createSpell();
-}
-
-function chooseElement(event) {
-  let target = event.target;
-  if (!target.dataset.element) return;
-
-  clearElements();
-
-  target.dataset.status = "selected";
-  target.classList.add("selected");
-
-  let divSpell = document.querySelector(".userSpell");
-  divSpell.dataset.spellelement = target.dataset.element;
-
-  createSpell();
-}
+import { spellbook } from "./dictionaries.js";
+import * as spells from "./spells.js";
+import {
+  clearEffects,
+  removeBattlefieldObjects,
+  removeBattlefieldSpell,
+  removeSounds,
+} from "./clearUserSpell.js";
 
 function chooseEffect(event) {
   clearEffects();
@@ -79,167 +56,169 @@ function createSpell() {
 
   switch (divSpell.dataset.spell) {
     case "firespear":
-      fireSpell(divSpell.dataset.spell);
+      spells.fireSpell(divSpell.dataset.spell);
       break;
     case "fireshild":
-      fireEffect(divSpell.dataset.spell);
+      spells.fireEffect(divSpell.dataset.spell);
       break;
     case "firecrown":
-      fireEffect(divSpell.dataset.spell);
+      spells.fireEffect(divSpell.dataset.spell);
       break;
     case "firesource":
-      fireEffect(divSpell.dataset.spell);
+      spells.fireEffect(divSpell.dataset.spell);
       break;
     case "firesphere":
-      fireEffect(divSpell.dataset.spell);
+      spells.fireEffect(divSpell.dataset.spell);
       break;
     case "firestamp":
-      fireSpell(divSpell.dataset.spell);
+      spells.fireSpell(divSpell.dataset.spell);
       break;
     case "firekey":
-      firekey(enemyEffects);
+      spells.firekey(enemyEffects);
       break;
     case "fireflow":
-      fireSpell(divSpell.dataset.spell);
+      spells.fireSpell(divSpell.dataset.spell);
       break;
     case "firepower":
-      fireEffect(divSpell.dataset.spell);
+      spells.fireEffect(divSpell.dataset.spell);
       break;
     case "waterspear":
-      waterSpell(divSpell.dataset.spell);
+      spells.waterSpell(divSpell.dataset.spell);
       break;
     case "watershild":
-      waterEffect(divSpell.dataset.spell);
+      spells.waterEffect(divSpell.dataset.spell);
       break;
     case "watercrown":
-      waterEffect(divSpell.dataset.spell);
+      spells.waterEffect(divSpell.dataset.spell);
       break;
     case "watersource":
-      watersource(userEffects);
+      spells.watersource(userEffects);
       break;
     case "watersphere":
-      document.addEventListener("mouseover", watersphereMuve);
-      document.addEventListener("click", waterspherePreparing);
+      document.addEventListener("mouseover", spells.watersphereMuve);
+      document.addEventListener("click", spells.waterspherePreparing);
       break;
     case "waterstamp":
-      waterEffect(divSpell.dataset.spell);
+      spells.waterEffect(divSpell.dataset.spell);
       break;
     case "waterkey":
-      waterkey(userEffects);
+      spells.waterkey(userEffects);
       break;
     case "waterflow":
-      waterSpell(divSpell.dataset.spell);
+      spells.waterSpell(divSpell.dataset.spell);
       break;
     case "waterpower":
-      waterEffect(divSpell.dataset.spell);
+      spells.waterEffect(divSpell.dataset.spell);
       break;
     case "earthspear":
-      earthSpell(divSpell.dataset.spell);
+      spells.earthSpell(divSpell.dataset.spell);
       break;
     case "earthshild":
-      document.addEventListener("mouseover", earthshildMuve);
-      document.addEventListener("click", earthshildPreparing);
+      document.addEventListener("mouseover", spells.earthshildMuve);
+      document.addEventListener("click", spells.earthshildPreparing);
     case "earthcrown":
-      earthEffect(divSpell.dataset.spell);
+      spells.earthEffect(divSpell.dataset.spell);
       break;
     case "earthsource":
-      earthEffect(divSpell.dataset.spell);
+      spells.earthEffect(divSpell.dataset.spell);
       break;
     case "earthsphere":
-      earthEffect(divSpell.dataset.spell);
+      spells.earthEffect(divSpell.dataset.spell);
       break;
     case "earthstamp":
-      earthEffect(divSpell.dataset.spell);
+      spells.earthEffect(divSpell.dataset.spell);
       break;
     case "earthkey":
-      earthkey(userEffects);
+      spells.earthkey(userEffects);
       break;
     case "earthflow":
-      earthSpell(divSpell.dataset.spell);
+      spells.earthSpell(divSpell.dataset.spell);
       break;
     case "earthpower":
-      earthEffect(divSpell.dataset.spell);
+      spells.earthEffect(divSpell.dataset.spell);
       break;
     case "airspear":
-      airSpell(divSpell.dataset.spell);
+      spells.airSpell(divSpell.dataset.spell);
       break;
     case "airshild":
-      airEffect(divSpell.dataset.spell);
+      spells.airEffect(divSpell.dataset.spell);
       break;
     case "aircrown":
-      airEffect(divSpell.dataset.spell);
+      spells.airEffect(divSpell.dataset.spell);
       break;
     case "airsource":
-      airEffect(divSpell.dataset.spell);
+      spells.airEffect(divSpell.dataset.spell);
       break;
     case "airsphere":
-      airEffect(divSpell.dataset.spell);
+      spells.airEffect(divSpell.dataset.spell);
       break;
     case "airstamp":
-      airEffect(divSpell.dataset.spell);
+      spells.airEffect(divSpell.dataset.spell);
       break;
     case "airkey":
-      airkey(enemyEffects);
+      spells.airkey(enemyEffects);
       break;
     case "airflow":
-      airSpell(divSpell.dataset.spell);
+      spells.airSpell(divSpell.dataset.spell);
       break;
     case "airpower":
-      airEffect(divSpell.dataset.spell);
+      spells.airEffect(divSpell.dataset.spell);
       break;
     case "lifespear":
-      lifespear(userEffects);
+      spells.lifespear(userEffects);
       break;
     case "lifeshild":
-      lifeEffect(divSpell.dataset.spell);
+      spells.lifeEffect(divSpell.dataset.spell);
       break;
     case "lifecrown":
-      lifeSpell(divSpell.dataset.spell);
+      spells.lifeSpell(divSpell.dataset.spell);
       break;
     case "lifesource":
-      lifeSpell(divSpell.dataset.spell);
+      spells.lifeSpell(divSpell.dataset.spell);
       break;
     case "lifesphere":
-      lifeEffect(divSpell.dataset.spell);
+      spells.lifeEffect(divSpell.dataset.spell);
       break;
     case "lifestamp":
-      lifeEffect(divSpell.dataset.spell);
+      spells.lifeEffect(divSpell.dataset.spell);
       break;
     case "lifekey":
-      lifekey(userEffects);
+      spells.lifekey(userEffects);
       break;
     case "lifeflow":
-      lifeEffect(divSpell.dataset.spell);
+      spells.lifeEffect(divSpell.dataset.spell);
       break;
     case "lifepower":
-      lifeEffect(divSpell.dataset.spell);
+      spells.lifeEffect(divSpell.dataset.spell);
       break;
     case "deathspear":
-      deathspear(enemyEffects);
+      spells.deathspear(enemyEffects);
       break;
     case "deathshild":
-      deathEffect(divSpell.dataset.spell);
+      spells.deathEffect(divSpell.dataset.spell);
       break;
     case "deathcrown":
-      deathSpell(divSpell.dataset.spell);
+      spells.deathSpell(divSpell.dataset.spell);
       break;
     case "deathsource":
-      deathSpell(divSpell.dataset.spell);
+      spells.deathSpell(divSpell.dataset.spell);
       break;
     case "deathsphere":
-      deathEffect(divSpell.dataset.spell);
+      spells.deathEffect(divSpell.dataset.spell);
       break;
     case "deathstamp":
-      deathEffect(divSpell.dataset.spell);
+      spells.deathEffect(divSpell.dataset.spell);
       break;
     case "deathkey":
-      deathEffect(divSpell.dataset.spell);
+      spells.deathEffect(divSpell.dataset.spell);
       break;
     case "deathflow":
-      deathEffect(divSpell.dataset.spell);
+      spells.deathEffect(divSpell.dataset.spell);
       break;
     case "deathpower":
-      deathpower(enemyEffects);
+      spells.deathpower(enemyEffects);
       break;
   }
 }
+
+export { chooseEffect, createSpell };

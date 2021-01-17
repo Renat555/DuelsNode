@@ -1,4 +1,4 @@
-"use strict";
+import { hideEffects } from "./fillInterface.js";
 
 function showEffects() {
   let divEffects = document.getElementsByClassName("effects")[0];
@@ -8,9 +8,5 @@ function showEffects() {
   divClose.addEventListener("click", hideEffects);
 }
 
-function addShowEffectsOnButton() {
-  let buttonShowEffects = document.getElementsByName("buttonShowEffects")[0];
-  buttonShowEffects.addEventListener("click", showEffects);
-}
-
-addShowEffectsOnButton();
+let buttonShowEffects = document.getElementsByName("buttonShowEffects")[0];
+buttonShowEffects.addEventListener("click", showEffects);
