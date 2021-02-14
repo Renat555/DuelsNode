@@ -17,7 +17,6 @@ if (isDev) {
 } else {
   urlMongo = "mongodb://Renat:muzuf@localhost:27017/duelsdb";
 }
-console.log(urlMongo);
 
 const mongoClient = new MongoClient(urlMongo, {
   useUnifiedTopology: true,
