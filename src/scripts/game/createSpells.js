@@ -1,5 +1,6 @@
-import { spellbook } from "./dictionaries.js";
-import * as spells from "./spells.js";
+import { spellbook } from "./dictionaries";
+import * as spells from "./spells";
+import { trajectoryCalculationOrMuveUser } from "./muving/trajectoryCalculationOrMuveUser";
 import {
   clearEffects,
   removeBattlefieldObjects,
@@ -48,6 +49,9 @@ function createSpell() {
 
   let userMuve = document.getElementById("userMuve");
   if (userMuve.hidden == true) return;
+
+  let divBattleField = document.getElementsByClassName("battlefield")[0];
+  divBattleField.addEventListener("click", trajectoryCalculationOrMuveUser);
 
   let divEnemyEffect = document.getElementById("enemyEffects");
   let enemyEffects = divEnemyEffect.querySelectorAll("[data-duration]");

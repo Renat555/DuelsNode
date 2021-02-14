@@ -2,7 +2,7 @@ import { spellbook } from "./dictionaries.js";
 import { chooseEffect } from "./createSpells.js";
 import * as sounds from "./sounds.js";
 import { removeBattlefieldObjects } from "./clearUserSpell.js";
-import { muveUser } from "./muveUser.js";
+import { trajectoryCalculationOrMuveUser } from "./muving/trajectoryCalculationOrMuveUser.js";
 
 export function firekey(enemyEffects) {
   for (let i = 0; i < enemyEffects.length; i++) {
@@ -147,7 +147,7 @@ export function earthshildMuve(event) {
   if (target.dataset.spell) return;
 
   let divBattleField = document.getElementsByClassName("battlefield")[0];
-  divBattleField.removeEventListener("click", muveUser);
+  divBattleField.removeEventListener("click", trajectoryCalculationOrMuveUser);
 
   target.classList.add("earthshild");
   target.style.opacity = 0.7;
@@ -211,7 +211,7 @@ export function earthshildPreparing(event) {
   buttonActivationSpell.addEventListener("click", sounds.soundEarth);
 
   let divBattleField = document.getElementsByClassName("battlefield")[0];
-  divBattleField.addEventListener("click", muveUser);
+  divBattleField.addEventListener("click", trajectoryCalculationOrMuveUser);
 }
 
 export function earthshildApproval() {
@@ -247,7 +247,7 @@ export function watersphereMuve(event) {
   if (target.dataset.spell) return;
 
   let divBattleField = document.getElementsByClassName("battlefield")[0];
-  divBattleField.removeEventListener("click", muveUser);
+  divBattleField.removeEventListener("click", trajectoryCalculationOrMuveUser);
 
   target.classList.add("watersphere");
   target.style.opacity = 0.7;
@@ -322,7 +322,7 @@ export function waterspherePreparing(event) {
   buttonActivationSpell.addEventListener("click", sounds.soundWater);
 
   let divBattleField = document.getElementsByClassName("battlefield")[0];
-  divBattleField.addEventListener("click", muveUser);
+  divBattleField.addEventListener("click", trajectoryCalculationOrMuveUser);
 }
 
 export function watersphereApproval() {

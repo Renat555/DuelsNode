@@ -1,7 +1,11 @@
-import { dictionaryElements, dictionaryForms } from "./dictionaries.js";
-import { showHints } from "./showHints.js";
-import * as sounds from "./sounds.js";
-import { createSpell } from "./createSpells.js";
+import { dictionaryElements, dictionaryForms } from "./dictionaries";
+import { showHints } from "./showHints";
+import * as sounds from "./sounds";
+import { createSpell } from "./createSpells";
+import { trajectoryCalculationOrMuveUser } from "./muving/trajectoryCalculationOrMuveUser";
+import { endMuve } from "./endMuve";
+import { showEffects } from "./showEffects";
+import { sendSpell } from "./activationSpell";
 
 function chooseForm(event) {
   let target = event.target;
@@ -106,38 +110,22 @@ function firstFillPoints(users) {
 
 function fillBattlfield(userMuve) {
   let divUser = document.createElement("div");
-  divUser.style.cssText = `
-  position: absolute;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  `;
+  divUser.classList.add("hero");
+  divUser.dataset.hero = "user";
 
   let divEnemy = document.createElement("div");
-  divEnemy.style.cssText = `
-  position: absolute;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  `;
+  divEnemy.classList.add("hero");
+  divEnemy.dataset.hero = "enemy";
 
   if (userMuve === 1) {
-    divUser.style.backgroundImage =
-      "url(./../../../public/img/game/heroes/a1.png)";
-    divUser.dataset.hero = "user";
+    divUser.classList.add("AHeroBack1");
     divUser.dataset.picture = "a";
-    divEnemy.style.backgroundImage =
-      "url(./../../../public/img/game/heroes/c3.png)";
-    divEnemy.dataset.hero = "enemy";
+    divEnemy.classList.add("CHeroFront1");
     divEnemy.dataset.picture = "c";
   } else {
-    divUser.style.backgroundImage =
-      "url(./../../../public/img/game/heroes/c1.png)";
-    divUser.dataset.hero = "user";
+    divUser.classList.add("CHeroBack1");
     divUser.dataset.picture = "c";
-    divEnemy.style.backgroundImage =
-      "url(./../../../public/img/game/heroes/a3.png)";
-    divEnemy.dataset.hero = "enemy";
+    divEnemy.classList.add("AHeroFront1");
     divEnemy.dataset.picture = "a";
   }
 
@@ -193,6 +181,27 @@ function hideEffects() {
   document.removeEventListener("click", hideEffects);
 }
 
+function addEvents() {
+  document.addEventListener("click", chooseForm);
+  document.addEventListener("click", chooseElement);
+
+  let buttonMuve = document.getElementById("buttonMuve");
+  buttonMuve.addEventListener("click", sounds.buttonClick);
+  buttonMuve.addEventListener("click", endMuve);
+
+  let buttonShowEffects = document.getElementsByName("buttonShowEffects")[0];
+  buttonShowEffects.addEventListener("click", showEffects);
+  buttonShowEffects.addEventListener("click", sounds.buttonClick);
+
+  let divBattleField = document.getElementsByClassName("battlefield")[0];
+  divBattleField.addEventListener("click", trajectoryCalculationOrMuveUser);
+
+  let buttonActivationSpell = document.getElementsByName(
+    "buttonActiveSpell"
+  )[0];
+  buttonActivationSpell.addEventListener("click", sendSpell);
+}
+
 function hideWaitingScreen() {
   let divWaitingScreen = document.getElementsByClassName("backdrop")[0];
   divWaitingScreen.hidden = true;
@@ -208,15 +217,7 @@ function fillInterface(users) {
   fillBattlfield(users["user"]["muve"]);
   hideMuveText(users["user"]["muve"], users["enemy"]["muve"]);
   showHints();
-
-  document.addEventListener("click", chooseForm);
-  document.addEventListener("click", chooseElement);
-
-  let buttonMuve = document.getElementById("buttonMuve");
-  buttonMuve.addEventListener("click", sounds.buttonClick);
-
-  let buttonShowEffects = document.getElementsByName("buttonShowEffects")[0];
-  buttonShowEffects.addEventListener("click", sounds.buttonClick);
+  addEvents();
 
   hideWaitingScreen();
 }

@@ -1,7 +1,7 @@
 import { isClearPath } from "./isClearPath.js";
 import { ws } from "./socketClient.js";
 
-function sendSpell() {
+export function sendSpell() {
   let userMuve = document.getElementById("userMuve");
   if (userMuve.hidden) return;
 
@@ -26,6 +26,3 @@ function sendSpell() {
     ws.send(localStorage.getItem("spellInformation"));
   }
 }
-
-let buttonActivationSpell = document.getElementsByName("buttonActiveSpell")[0];
-buttonActivationSpell.addEventListener("click", sendSpell);

@@ -1,18 +1,27 @@
 const WebSocket = require("ws");
 const MongoClient = require("mongodb").MongoClient;
 
-const createGame = require("./modules/createGame");
-const processingSpell = require("./modules/gameEngine/processingSpell/processingSpell");
-const processingEffect = require("./modules/gameEngine/processingEffect/processingEffect");
-const processingDespell = require("./modules/gameEngine/processingDespell/processingDespell");
-const muveHero = require("./modules/gameEngine/processingMuve/muveHero");
-const endMuve = require("./modules/gameEngine/endMuve/endMuve");
-const processingBattlefieldSpell = require("./modules/gameEngine/processingBattlefieldSpell/processingBattlefieldSpell");
+const createGame = require("./src/engine/createGame");
+const processingSpell = require("./src/engine/gameEngine/processingSpell/processingSpell");
+const processingEffect = require("./src/engine/gameEngine/processingEffect/processingEffect");
+const processingDespell = require("./src/engine/gameEngine/processingDespell/processingDespell");
+const muveHero = require("./src/engine/gameEngine/processingMuve/muveHero");
+const endMuve = require("./src/engine/gameEngine/endMuve/endMuve");
+const processingBattlefieldSpell = require("./src/engine/gameEngine/processingBattlefieldSpell/processingBattlefieldSpell");
 
-const mongoClient = new MongoClient("mongodb://duelsnode:27017/duelsdb", {
+const isDev = process.env.NODE_ENV === "development";
+let urlMongo;
+
+if (isDev) {
+  urlMongo = "mongodb://duelsnode:27017/duelsdb";
+} else {
+  urlMongo = "mongodb://Renat:muzuf@localhost:27017/duelsdb";
+}
+console.log(urlMongo);
+
+const mongoClient = new MongoClient(urlMongo, {
   useUnifiedTopology: true,
 });
-
 const wss = new WebSocket.Server({ port: 3000, clientTracking: true });
 
 mongoClient.connect(function (err, client) {
@@ -39,7 +48,7 @@ mongoClient.connect(function (err, client) {
           processingBattlefieldSpell(request, collection, ws, wss);
           break;
         case "muveHero":
-          muveHero(request, collection, ws, wss);
+          muveHero(request["muve"], collection, ws, wss);
           break;
         case "endMuve":
           endMuve(collection, ws, wss);

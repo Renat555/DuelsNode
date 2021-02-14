@@ -1,0 +1,56 @@
+.hero {
+  position: absolute;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.AHeroBack1 {
+  background-image: url("../../img/game/heroes/a1.png");
+}
+.AHeroBack2 {
+  background-image: url("../../img/game/heroes/a2.png");
+}
+.AHeroFront1 {
+  background-image: url("../../img/game/heroes/a3.png");
+}
+.AHeroFront2 {
+  background-image: url("../../img/game/heroes/a4.png");
+}
+.AHeroLeft1 {
+  background-image: url("../../img/game/heroes/a5.png");
+}
+.AHeroLeft2 {
+  background-image: url("../../img/game/heroes/a6.png");
+}
+.AHeroRight1 {
+  background-image: url("../../img/game/heroes/a7.png");
+}
+.AHeroRight2 {
+  background-image: url("../../img/game/heroes/a8.png");
+}
+
+.CHeroBack1 {
+  background-image: url("../../img/game/heroes/c1.png");
+}
+.CHeroBack2 {
+  background-image: url("../../img/game/heroes/c2.png");
+}
+.CHeroFront1 {
+  background-image: url("../../img/game/heroes/c3.png");
+}
+.CHeroFront2 {
+  background-image: url("../../img/game/heroes/c4.png");
+}
+.CHeroLeft1 {
+  background-image: url("../../img/game/heroes/c5.png");
+}
+.CHeroLeft2 {
+  background-image: url("../../img/game/heroes/c6.png");
+}
+.CHeroRight1 {
+  background-image: url("../../img/game/heroes/c7.png");
+}
+.CHeroRight2 {
+  background-image: url("../../img/game/heroes/c8.png");
+}

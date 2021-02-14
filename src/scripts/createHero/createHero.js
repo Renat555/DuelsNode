@@ -1,4 +1,5 @@
-"use strict";
+import "../../css/createHero/createHero";
+import "../../css/createHero/otherScreen";
 
 let gameInformation = {
   header: "createGame",
@@ -8,16 +9,8 @@ let gameInformation = {
     actionPoints: 5,
     energyPoints: 5,
     position: {
-      user: {
-        row: "0",
-        col: "3",
-        pathType: "",
-      },
-      enemy: {
-        row: "6",
-        col: "3",
-        pathType: "",
-      },
+      user: [],
+      enemy: [],
     },
     battlefield: [],
     maxHealth: "",
@@ -130,5 +123,5 @@ buttonStartGame.onclick = async () => {
 
   localStorage.setItem("gameInformation", JSON.stringify(gameInformation));
 
-  window.location.href = "../game";
+  window.location.href = "../game.html";
 };
