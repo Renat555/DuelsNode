@@ -17,6 +17,7 @@ function savePlayers(user, enemy, mongoCollection, ws) {
       { id: ws["id"] },
       {
         $set: {
+          enemyType: user["enemyType"],
           actionPoints: user["actionPoints"],
           energyPoints: user["energyPoints"],
           maxHealth: user["maxHealth"],
@@ -37,6 +38,7 @@ function savePlayers(user, enemy, mongoCollection, ws) {
       { id: ws["idEnemy"] },
       {
         $set: {
+          enemyType: enemy["enemyType"],
           actionPoints: enemy["actionPoints"],
           energyPoints: enemy["energyPoints"],
           maxHealth: enemy["maxHealth"],

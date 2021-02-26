@@ -5,6 +5,7 @@ let gameInformation = {
   header: "createGame",
   user: {
     name: "undefined",
+    enemyType: "",
     idGame: "",
     actionPoints: 5,
     energyPoints: 5,
@@ -13,8 +14,8 @@ let gameInformation = {
       enemy: [],
     },
     battlefield: [],
-    maxHealth: "",
-    health: "",
+    maxHealth: "300",
+    health: "300",
     muve: "",
     elements: [],
     forms: [],
@@ -104,9 +105,11 @@ for (let div of selectedDivs) {
   div.addEventListener("click", choose);
 }
 
-let buttonStartGame = document.getElementsByName("startGame")[0];
+let buttonGameWithComputer = document.getElementsByName("gameWithComputer")[0];
 
-buttonStartGame.onclick = async () => {
+let buttonGameWithHuman = document.getElementsByName("gameWithHuman")[0];
+
+function startGameWithComputer() {
   gameInformation["user"].name = document.getElementsByName(
     "userName"
   )[0].value;
@@ -121,7 +124,34 @@ buttonStartGame.onclick = async () => {
     return;
   }
 
+  gameInformation["user"]["enemyType"] = "computer";
+
   localStorage.setItem("gameInformation", JSON.stringify(gameInformation));
 
   window.location.href = "../game.html";
-};
+}
+
+function startGameWithHuman() {
+  gameInformation["user"].name = document.getElementsByName(
+    "userName"
+  )[0].value;
+
+  if (gameInformation["user"]["elements"].length < 3) {
+    alert("Выберите три стихии.");
+    return;
+  }
+
+  if (gameInformation["user"]["forms"].length < 5) {
+    alert("Выберите пять форм.");
+    return;
+  }
+
+  gameInformation["user"]["enemyType"] = "human";
+
+  localStorage.setItem("gameInformation", JSON.stringify(gameInformation));
+
+  window.location.href = "../game.html";
+}
+
+buttonGameWithComputer.addEventListener("click", startGameWithComputer);
+buttonGameWithHuman.addEventListener("click", startGameWithHuman);

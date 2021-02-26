@@ -20,6 +20,7 @@ function createPlayers(mongoCollection, ws) {
         let userBuffs = createEffectsFromSpellNames(doc["buffs"]);
         let userDebuffs = createEffectsFromSpellNames(doc["debuffs"]);
         let user = new Player(
+          doc["enemyType"],
           doc["actionPoints"],
           doc["energyPoints"],
           doc["health"],
@@ -37,6 +38,7 @@ function createPlayers(mongoCollection, ws) {
           let enemyBuffs = createEffectsFromSpellNames(doc["buffs"]);
           let enemyDebuffs = createEffectsFromSpellNames(doc["debuffs"]);
           let enemy = new Player(
+            doc["enemyType"],
             doc["actionPoints"],
             doc["energyPoints"],
             doc["health"],

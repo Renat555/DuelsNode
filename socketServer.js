@@ -1,7 +1,9 @@
 const WebSocket = require("ws");
 const MongoClient = require("mongodb").MongoClient;
 
-const createGame = require("./src/engine/createGame");
+const createGameWithHuman = require("./src/engine/createGame/createGameWithHuman");
+const createGameWithComputer = require("./src/engine/createGame/createGameWithComputer");
+const computerMuve = require("./src/engine/computerMuve");
 const processingSpell = require("./src/engine/gameEngine/processingSpell/processingSpell");
 const processingEffect = require("./src/engine/gameEngine/processingEffect/processingEffect");
 const processingDespell = require("./src/engine/gameEngine/processingDespell/processingDespell");
@@ -30,12 +32,19 @@ mongoClient.connect(function (err, client) {
   wss.on("connection", function connection(ws) {
     ws.on("message", function (message) {
       let request = JSON.parse(message);
+
+      if (request["header"] == "createGame") {
+        if (request["user"]["enemyType"] == "human") {
+          createGameWithHuman(request["user"], collection, ws, wss);
+        } else if (request["user"]["enemyType"] == "computer") {
+          createGameWithComputer(request["user"], collection, ws);
+          computerMuve(collection, ws, wss);
+        }
+      }
+
       switch (request["header"]) {
-        case "createGame":
-          createGame(request["user"], collection, ws, wss);
-          break;
         case "spell":
-          processingSpell(request, collection, ws, wss);
+          processingSpell(request["spell"], collection, ws, wss);
           break;
         case "despell":
           processingDespell(request, collection, ws, wss);
@@ -51,6 +60,7 @@ mongoClient.connect(function (err, client) {
           break;
         case "endMuve":
           endMuve(collection, ws, wss);
+          computerMuve(collection, ws, wss);
           break;
       }
     });

@@ -3,9 +3,9 @@ import { spellbook } from "./dictionaries.js";
 function showHints() {
   let divSpells = document.querySelectorAll("[data-spell]");
 
-  for (let i = 0; i < divSpells.length; i++) {
-    divSpells[i].addEventListener("mouseenter", showHint);
-  }
+  divSpells.forEach((item) => {
+    item.addEventListener("mouseenter", showHint);
+  });
 }
 
 function showHint(event) {

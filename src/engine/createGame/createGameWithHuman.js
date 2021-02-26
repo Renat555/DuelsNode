@@ -1,22 +1,5 @@
-function randomString() {
-  let string = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789";
-  let result = "";
-
-  for (let i = 0; i < 10; i++) {
-    result += string[Math.floor(Math.random() * Math.floor(62))];
-  }
-
-  return result;
-}
-
-function savePlayer(player, mongoCollection, ws) {
-  return new Promise((resolve, reject) => {
-    ws["id"] = player["id"];
-    mongoCollection.insertOne(player, function (err, doc) {
-      resolve();
-    });
-  });
-}
+const generatingRandomString = require("./generatingRandomString");
+const savePlayer = require("./savePlayer");
 
 function sendGameInformation(user, mongoCollection, ws, wss) {
   let response = { header: "createGame" };
@@ -49,24 +32,17 @@ function sendGameInformation(user, mongoCollection, ws, wss) {
 
 function setMuve(player, mongoCollection) {
   return new Promise((resolve, reject) => {
-    let userHealth, enemyHealth, userMuve, enemyMuve;
+    let userMuve, enemyMuve;
     if (Math.random() < 0.5) {
-      userHealth = 250;
-      enemyHealth = 200;
       userMuve = 0;
       enemyMuve = 1;
     } else {
-      userHealth = 200;
-      enemyHealth = 250;
       userMuve = 1;
       enemyMuve = 0;
     }
 
     mongoCollection
-      .findOneAndUpdate(
-        { id: player["id"] },
-        { $set: { health: userHealth, maxHealth: userHealth, muve: userMuve } }
-      )
+      .findOneAndUpdate({ id: player["id"] }, { $set: { muve: userMuve } })
       .then((res) => {
         mongoCollection.updateOne(
           {
@@ -77,8 +53,6 @@ function setMuve(player, mongoCollection) {
           },
           {
             $set: {
-              health: enemyHealth,
-              maxHealth: enemyHealth,
               muve: enemyMuve,
             },
           },
@@ -94,7 +68,7 @@ function searchEnemy(user, mongoCollection, ws, wss) {
   mongoCollection
     .findOneAndUpdate(
       { $and: [{ id: { $not: { $eq: user["id"] } } }, { idGame: "" }] },
-      { $set: { idGame: randomString() } },
+      { $set: { idGame: generatingRandomString() } },
       { returnOriginal: false }
     )
     .then((res) => {
@@ -115,10 +89,10 @@ function searchEnemy(user, mongoCollection, ws, wss) {
     });
 }
 
-function createGame(player, mongoCollection, ws, wss) {
-  savePlayer(player, mongoCollection, ws).then((result) => {
+function createGameWithHuman(player, mongoCollection, ws, wss) {
+  savePlayer(player, mongoCollection, ws).then(() => {
     searchEnemy(player, mongoCollection, ws, wss);
   });
 }
 
-module.exports = createGame;
+module.exports = createGameWithHuman;

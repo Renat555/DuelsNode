@@ -1,5 +1,6 @@
 module.exports.Player = class Player {
   constructor(
+    enemyType,
     actionPoints,
     energyPoints,
     health,
@@ -10,6 +11,7 @@ module.exports.Player = class Player {
     buffs,
     debuffs
   ) {
+    this.enemyType = enemyType;
     this.actionPoints = actionPoints;
     this.energyPoints = energyPoints;
     this.health = health;

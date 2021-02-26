@@ -1,7 +1,7 @@
 export function lightningPath(coord) {
-  for (let i = 0; i < coord.length; i++) {
+  coord.forEach((item) => {
     let square = document.querySelector(
-      `[data-row="${coord[i][0]}"][data-col="${coord[i][1]}"]`
+      `[data-row="${item[0]}"][data-col="${item[1]}"]`
     );
     let coordSquare = square.getBoundingClientRect();
 
@@ -14,7 +14,7 @@ export function lightningPath(coord) {
     div.style.left = coordSquare.width / 4 + "px";
 
     square.append(div);
-  }
+  });
 }
 
 export function clearLightningPath() {
