@@ -6,7 +6,6 @@ const sendGameInformation = require("../sendGameInformation");
 const savePlayers = require("../savePlayers");
 
 function endMuve(collection, ws, wss) {
-  console.log("endMuve");
   createPlayers(collection, ws).then((result) => {
     let { user, enemy } = result;
     activationBattlefieldEffects(user, enemy);

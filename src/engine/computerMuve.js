@@ -4,7 +4,6 @@ const processingSpell = require("./gameEngine/processingSpell/processingSpell");
 function computerMuve(collection, ws, wss) {
   setTimeout(() => {
     collection.findOne({ id: ws["idEnemy"] }, (err, doc) => {
-      console.log(ws["muve"]);
       if (ws["muve"] == 1) return;
 
       let count = 0;

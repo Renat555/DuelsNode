@@ -68,9 +68,15 @@ mongoClient.connect(function (err, client) {
     ws.on("close", function close(event, message) {
       if (message == "gameOver") {
         collection.deleteOne({ id: ws["id"] });
+        if (ws["enemyType"] == "computer") {
+          collection.deleteOne({ id: ws["idEnemy"] });
+        }
       }
 
       collection.deleteOne({ id: ws["id"] }, function (err, doc) {
+        if (ws["enemyType"] == "computer") {
+          collection.deleteOne({ id: ws["idEnemy"] });
+        }
         wss.clients.forEach(function each(client) {
           if (client.readyState == 1 && client["id"] == ws["idEnemy"]) {
             client.send(JSON.stringify({ header: "enemyIsLeft" }));
