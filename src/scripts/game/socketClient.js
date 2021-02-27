@@ -11,7 +11,7 @@ import { changeBattlefield } from "./changeBattlefield";
 import { clearUserSpell } from "./clearUserSpell";
 import { muveEnemy } from "./muving/muveEnemy";
 
-const ws = new WebSocket("ws://duelsnode:3000");
+const ws = new WebSocket("ws://a00.kz:3000");
 
 ws.onopen = () => {
   let gameInformation = localStorage.getItem("gameInformation");
@@ -33,17 +33,17 @@ ws.onmessage = (message) => {
       break;
     case "processingSpell":
     case "processingBattlefieldSpell":
-      changeInterface(message);
+      changeInterface(message, ws);
       changeBattlefield(message);
       break;
     case "changeMuve":
       changeBattlefield(message);
-      changeInterface(message);
+      changeInterface(message, ws);
       clearUserSpell();
       break;
     case "processingMuve":
       muveEnemy(message["user"]["position"]["enemy"]);
-      changeInterface(message);
+      changeInterface(message, ws);
       break;
     case "enemyIsLeft":
       alert("Противник вышел. Вы победили!");

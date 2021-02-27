@@ -1,8 +1,8 @@
 {
   "scripts": {
     "socket": "cross-env NODE_ENV=development node socketServer.js",
+    "pm2": "cross-env NODE_ENV=development pm2 start socketServer.js",
     "test": "mocha tests/gameEngine.js",
-    "webpack": "webpack",
     "build": "cross-env NODE_ENV=production webpack --mode production",
     "dev": "cross-env NODE_ENV=development webpack --mode development",
     "start": "webpack-cli serve NODE_ENV=development --mode development"

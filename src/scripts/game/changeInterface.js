@@ -167,20 +167,23 @@ function hideMuveText(muveUser) {
   }
 }
 
-function isGameOver(userHealth, enemyHealth, enemyName) {
+function isGameOver(userHealth, enemyHealth, enemyName, ws) {
   if (userHealth <= 0 && enemyHealth > 0) {
     ws.close(1000, "gameOver");
     alert("Вы проиграли! Победил " + enemyName + "!");
+    window.location.href = "../createHero.html";
   } else if (enemyHealth <= 0 && userHealth > 0) {
     ws.close(1000, "gameOver");
+    window.location.href = "../createHero.html";
     alert("Вы победили! " + enemyName + " проиграл!");
   } else if (userHealth <= 0 && enemyHealth <= 0) {
     ws.close(1000, "gameOver");
     alert("Ничья!");
+    window.location.href = "../createHero.html";
   }
 }
 
-export function changeInterface(users) {
+export function changeInterface(users, ws) {
   fillHealth(users);
   fillEffects(
     users["user"]["buffs"],
@@ -196,6 +199,7 @@ export function changeInterface(users) {
   isGameOver(
     users["user"]["health"],
     users["enemy"]["health"],
-    users["enemy"]["name"]
+    users["enemy"]["name"],
+    ws
   );
 }

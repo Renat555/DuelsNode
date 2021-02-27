@@ -1,21 +1,21 @@
 const WebSocket = require("ws");
 const MongoClient = require("mongodb").MongoClient;
 
-const createGameWithHuman = require("./src/engine/createGame/createGameWithHuman");
-const createGameWithComputer = require("./src/engine/createGame/createGameWithComputer");
-const computerMuve = require("./src/engine/computerMuve");
-const processingSpell = require("./src/engine/gameEngine/processingSpell/processingSpell");
-const processingEffect = require("./src/engine/gameEngine/processingEffect/processingEffect");
-const processingDespell = require("./src/engine/gameEngine/processingDespell/processingDespell");
-const muveHero = require("./src/engine/gameEngine/processingMuve/muveHero");
-const endMuve = require("./src/engine/gameEngine/endMuve/endMuve");
-const processingBattlefieldSpell = require("./src/engine/gameEngine/processingBattlefieldSpell/processingBattlefieldSpell");
+const createGameWithHuman = require("./engine/createGame/createGameWithHuman");
+const createGameWithComputer = require("./engine/createGame/createGameWithComputer");
+const computerMuve = require("./engine/computerMuve");
+const processingSpell = require("./engine/gameEngine/processingSpell/processingSpell");
+const processingEffect = require("./engine/gameEngine/processingEffect/processingEffect");
+const processingDespell = require("./engine/gameEngine/processingDespell/processingDespell");
+const muveHero = require("./engine/gameEngine/processingMuve/muveHero");
+const endMuve = require("./engine/gameEngine/endMuve/endMuve");
+const processingBattlefieldSpell = require("./engine/gameEngine/processingBattlefieldSpell/processingBattlefieldSpell");
 
 const isDev = process.env.NODE_ENV === "development";
 let urlMongo;
 
 if (isDev) {
-  urlMongo = "mongodb://duelsnode:27017/duelsdb";
+  urlMongo = "mongodb://a00.kz:27017/duelsdb";
 } else {
   urlMongo = "mongodb://Renat:muzuf@localhost:27017/duelsdb";
 }
@@ -38,7 +38,9 @@ mongoClient.connect(function (err, client) {
           createGameWithHuman(request["user"], collection, ws, wss);
         } else if (request["user"]["enemyType"] == "computer") {
           createGameWithComputer(request["user"], collection, ws);
-          computerMuve(collection, ws, wss);
+          setTimeout(() => {
+            computerMuve(collection, ws, wss);
+          }, 1000);
         }
       }
 
@@ -60,7 +62,9 @@ mongoClient.connect(function (err, client) {
           break;
         case "endMuve":
           endMuve(collection, ws, wss);
-          computerMuve(collection, ws, wss);
+          setTimeout(() => {
+            computerMuve(collection, ws, wss);
+          }, 1000);
           break;
       }
     });
